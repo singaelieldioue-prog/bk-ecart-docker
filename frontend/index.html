@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BK Écart Matières</title>
+    <script>
+      // Fallback mono-poste : si le front n'est PAS branché sur l'API (voir README back-end §5),
+      // window.storage redirige vers localStorage pour que l'appli fonctionne quand même.
+      // Une fois l'intégration API en place, ce shim reste simplement inactif.
+      if (!window.storage) {
+        window.storage = {
+          async get(k){ const v = localStorage.getItem(k); return v === null ? null : { key:k, value:v }; },
+          async set(k,v){ localStorage.setItem(k,v); return { key:k, value:v }; },
+          async delete(k){ localStorage.removeItem(k); return { key:k, deleted:true }; },
+          async list(p=""){ const ks=[]; for (let i=0;i<localStorage.length;i++){ const k=localStorage.key(i); if (k&&k.startsWith(p)) ks.push(k);} return { keys:ks }; },
+        };
+      }
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

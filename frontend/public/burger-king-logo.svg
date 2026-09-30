@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 447 447" role="img" aria-label="Burger King">
+  <rect width="447" height="447" fill="#f5eee4"/>
+  <path d="M72 150C73 91 132 56 223 56s150 35 152 94c0 6-5 10-11 10H83c-6 0-11-4-11-10Z" fill="#ff8733"/>
+  <path d="M72 337c1 58 60 94 151 94s150-36 152-94c0-6-5-10-11-10H83c-6 0-11 4-11 10Z" fill="#ff8733"/>
+  <text x="223" y="222" text-anchor="middle" font-family="Arial Black,Arial,sans-serif" font-size="60" font-weight="900" letter-spacing="-3" fill="#d7190b">BURGER</text>
+  <text x="223" y="302" text-anchor="middle" font-family="Arial Black,Arial,sans-serif" font-size="82" font-weight="900" letter-spacing="-6" fill="#d7190b">KING</text>
+  <circle cx="371" cy="389" r="5" fill="#d7190b"/>
+</svg>

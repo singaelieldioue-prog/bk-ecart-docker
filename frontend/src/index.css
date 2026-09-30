@@ -1,0 +1,97 @@
+/* frontend/src/index.css */
+html,
+body,
+#root {
+  min-height: 100%;
+  width: 100%;
+}
+
+body {
+  background-color: #f3f4f6;
+  margin: 0;
+  overflow-x: hidden;
+}
+
+.app-header-title {
+  min-width: 0;
+}
+
+.app-header-title > div:first-child {
+  overflow-wrap: anywhere;
+}
+
+.app-nav {
+  overflow-x: auto;
+  scrollbar-width: thin;
+  white-space: nowrap;
+}
+
+.app-nav button {
+  flex: 0 0 auto;
+}
+
+@media (max-width: 760px) {
+  .app-header {
+    align-items: flex-start !important;
+    gap: 10px;
+    padding: 11px 12px !important;
+  }
+
+  .app-header-title > div:first-child {
+    font-size: 14px !important;
+    line-height: 1.2;
+  }
+
+  .app-header-title > div:last-child {
+    font-size: 10px !important;
+  }
+
+  .app-header > div:last-child {
+    flex-shrink: 0;
+  }
+
+  .app-header > div:last-child > div {
+    padding: 4px 7px !important;
+    font-size: 10px !important;
+  }
+
+  .app-header > div:last-child button {
+    padding: 5px 7px !important;
+    font-size: 10px !important;
+  }
+
+  .app-content {
+    padding: 0 9px !important;
+  }
+}
+
+@media (max-width: 760px) {
+  .login-shell {
+    flex-direction: column;
+  }
+
+  .login-brand {
+    min-height: auto !important;
+    padding: 28px 24px 34px !important;
+  }
+
+  .login-company {
+    max-width: 250px;
+    font-size: 11px !important;
+    line-height: 1.35;
+  }
+
+  .login-brand-copy {
+    padding: 52px 0 18px !important;
+  }
+
+  .login-brand-copy > div:nth-child(2) {
+    font-size: 38px !important;
+  }
+
+  .login-panel {
+    min-height: auto !important;
+    padding: 44px 24px 34px !important;
+  }
+}
+
