@@ -5,6 +5,12 @@ export const LTO_KEY = "bk_sia_lto_v1";
 export const BASE_ART_KEY = "bk_sia_base_article_map_v1";
 export const CORR_MAP_KEY = "bk_sia_correspondance_map_v1";
 export const LOCAL_ART_KEY = "bk_sia_local_articles_v1";
+export const PMIX_COMP_KEY = "bk_sia_pmix_complement_v1";
+
+// Lignes du PMIX qui ne consomment pas de matière : plateforme de livraison (GLOVO),
+// jouet offert, modificateur « sans sauce ». Une fiche technique n'a pas lieu d'exister
+// pour elles — ce ne sont donc pas des anomalies « PLU sans fiche ».
+export const PMIX_HORS_MATIERE = { "50000": "GLOVO", "8017": "ENFT JOUET", "5505": "NO Sauce" };
 
 export const ROLES = {
   cdg: { label: "Contrôleur de gestion", short: "CDG", color: "#2563EB", bg: "#EFF6FF" },

@@ -33,9 +33,27 @@ function feuillesDuClasseur(wbXml, relsXml) {
   for (const m of wbXml.matchAll(/<sheet\b[^>]*\/>/g)) {
     const tag = m[0];
     const path = cibleParRid[attr(tag, "r:id") || ""];
-    if (path) feuilles.push({ path, hidden: /state="(hidden|veryHidden)"/.test(tag) });
+    if (path) feuilles.push({ path, name: attr(tag, "name") || "", hidden: /state="(hidden|veryHidden)"/.test(tag) });
   }
   return feuilles;
+}
+
+// Volets figés (xSplit/ySplit en demi-colonnes/lignes : xSplit=3 ⇒ A→C restent visibles,
+// le défilement commence en D). ySplit = nombre de lignes d'en-tête de la feuille.
+const PANNEAUX_FIGES = {
+  "Inventaire Initial": { xSplit: 3, ySplit: 6 },   // A→C : Catégorie, Frns, ARTICLE — données ligne 7
+  "Inventaire Final": { xSplit: 3, ySplit: 6 },
+  Transferts: { xSplit: 3, ySplit: 4 },             // A→C : Date, BK, Désignation — données ligne 5
+  Pertes: { xSplit: 9, ySplit: 4 },                 // A→I : libellés et prix — 31 jours à partir de J
+};
+
+function figerVolets(xmlFeuille, nom) {
+  const cfg = PANNEAUX_FIGES[nom];
+  if (!cfg || /<pane\b/.test(xmlFeuille)) return xmlFeuille;
+  const coin = `${XLSX.utils.encode_col(cfg.xSplit)}${cfg.ySplit + 1}`;
+  const volet = `<pane xSplit="${cfg.xSplit}" ySplit="${cfg.ySplit}" topLeftCell="${coin}" activePane="bottomRight" state="frozen"/>`
+    + `<selection pane="bottomRight" activeCell="${coin}" sqref="${coin}"/>`;
+  return xmlFeuille.replace(/<sheetView\b([^>]*?)\s*\/>/, (m, attrs) => `<sheetView${attrs}>${volet}</sheetView>`);
 }
 
 // Le drawing est lié depuis chaque feuille visible ET chaque relation doit référencer le même
@@ -71,7 +89,9 @@ export async function injecterLogoXlsx(buffer) {
   let overrides = "";
   let n = 0;
   for (const f of feuilles) {
-    const xmlFeuille = await zip.file(f.path).async("string");
+    let xmlFeuille = await zip.file(f.path).async("string");
+    const avecVolet = figerVolets(xmlFeuille, f.name);
+    if (avecVolet !== xmlFeuille) { zip.file(f.path, avecVolet); xmlFeuille = avecVolet; }
     if (/<drawing\b/.test(xmlFeuille)) continue;   // déjà un dessin : on n'écrase pas
     n++;
     const drawing = `xl/drawings/drawing${n}.xml`;

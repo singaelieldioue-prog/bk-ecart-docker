@@ -17,6 +17,8 @@ import {
   saveCorrespondanceMap,
   loadLocalArticles,
   saveLocalArticles,
+  loadPmixComplement,
+  savePmixComplement,
 } from "./utils/storage.js";
 
 // Backup
@@ -34,6 +36,7 @@ import {
   diagnosticPreAnalyse,
   buildArtListFromReferentiel,
   parseBaseArticleLocal,
+  parseBaseComplementairePmix,
 } from "./utils/parsers.js";
 
 // Calculators
@@ -138,6 +141,12 @@ function AppInner() {
   const [localArticlesMemo, setLocalArticlesMemo] = useState(null);
   const localArticlesRef = useRef(null);
 
+  // Base complémentaire PMIX : PLU → { nom, cout }, coût des produits finis hors Ratio
+  const [pmixCompMemo, setPmixCompMemo] = useState(null);
+  const [showPmixComp, setShowPmixComp] = useState(false);
+  const [fPmixComp, setFPmixComp] = useState(null);
+  const pmixCompRef = useRef({});
+
   const reloadReports = (page = 1) => {
     const isFirstPage = page === 1;
     if (isFirstPage) setStorageLoading(true);
@@ -212,6 +221,12 @@ function AppInner() {
       if (m) {
         setLocalArticlesMemo(m);
         localArticlesRef.current = m;
+      }
+    });
+    loadPmixComplement().then((m) => {
+      if (m) {
+        setPmixCompMemo(m);
+        pmixCompRef.current = m;
       }
     });
   }, [role]);
@@ -475,7 +490,8 @@ function AppInner() {
           allStocks,
           allPmix.map((p) => [p]),
           ratios,
-          baseArticle
+          baseArticle,
+          pmixCompRef.current || {}
         );
         stockDataForReport = {
           ...allStocks[0],
@@ -521,7 +537,7 @@ function AppInner() {
         pmixListForReport = pItems.length > 0
           ? [{ restaurant: stockDataForReport.site || "BK", periode: "", items: pItems }]
           : [];
-        calc = calculer(stockDataForReport, pmixListForReport, ratios, baseArticle);
+        calc = calculer(stockDataForReport, pmixListForReport, ratios, baseArticle, pmixCompRef.current);
       }
 
       let dateLabel = periode;
@@ -763,6 +779,7 @@ function AppInner() {
                           <button
                             onClick={() => {
                               setShowLto((p) => !p);
+                              setShowPmixComp(false);
                               setShowUpload(false);
                               setShowMajRatios(false);
                               setShowRestore(false);
@@ -784,6 +801,7 @@ function AppInner() {
                           <button
                             onClick={() => {
                               setShowBaseArtMgr((p) => !p);
+                              setShowPmixComp(false);
                               setShowUpload(false);
                               setShowRestore(false);
                               setShowLto(false);
@@ -805,6 +823,7 @@ function AppInner() {
                           <button
                             onClick={() => {
                               setShowLocalArt((p) => !p);
+                              setShowPmixComp(false);
                               setShowUpload(false);
                               setShowRestore(false);
                               setShowLto(false);
@@ -826,7 +845,31 @@ function AppInner() {
                           </button>
                           <button
                             onClick={() => {
+                              setShowPmixComp((p) => !p);
+                              setShowLocalArt(false);
+                              setShowUpload(false);
+                              setShowRestore(false);
+                              setShowLto(false);
+                              setShowBaseArtMgr(false);
+                              setShowMajRatios(false);
+                            }}
+                            style={{
+                              background: pmixCompMemo ? "#4F46E5" : "#6B7280",
+                              color: "#fff",
+                              border: "none",
+                              borderRadius: 8,
+                              padding: "8px 14px",
+                              cursor: "pointer",
+                              fontSize: 12,
+                              fontWeight: 600,
+                            }}
+                          >
+                            🧾 Coûts PMIX{pmixCompMemo ? ` (${Object.keys(pmixCompMemo).length})` : ""}
+                          </button>
+                          <button
+                            onClick={() => {
                               setShowMajRatios((p) => !p);
+                              setShowPmixComp(false);
                               setShowUpload(false);
                               setShowRestore(false);
                               setShowLto(false);
@@ -848,6 +891,7 @@ function AppInner() {
                           <button
                             onClick={() => {
                               setShowUpload((p) => !p);
+                              setShowPmixComp(false);
                               setShowMajRatios(false);
                               setShowRestore(false);
                               setShowLto(false);
@@ -1247,6 +1291,90 @@ function AppInner() {
                           }}
                         >
                           {loading ? "⏳ Chargement..." : "✅ Enregistrer la base locale"}
+                        </button>
+                      </div>
+                    )}
+
+                    {showPmixComp && role === "cdg" && (
+                      <div
+                        style={{
+                          background: "#EEF2FF",
+                          border: "1px solid #C7D2FE",
+                          borderRadius: 12,
+                          padding: 16,
+                          marginBottom: 14,
+                        }}
+                      >
+                        <div style={{ fontWeight: 700, fontSize: 13, color: "#4338CA", marginBottom: 3 }}>
+                          🧾 Base complémentaire PMIX (coûts hors Ratio)
+                        </div>
+                        <div style={{ fontSize: 11, color: "#3730A3", marginBottom: 10 }}>
+                          Feuille « Ecarts » : Item PLU et coût unitaire des produits finis que le Ratio ne
+                          couvre pas. Le coût alimente la consommation théorique ; les quantités restent celles
+                          du PMIX du classeur. À réimporter chaque trimestre.
+                        </div>
+                        {pmixCompMemo && (
+                          <div
+                            style={{
+                              background: "#E0E7FF",
+                              border: "1px solid #C7D2FE",
+                              borderRadius: 7,
+                              padding: "7px 10px",
+                              marginBottom: 10,
+                              fontSize: 11,
+                              color: "#4338CA",
+                            }}
+                          >
+                            ✅ Complément chargé : {Object.keys(pmixCompMemo).length} PLU avec coût
+                          </div>
+                        )}
+                        <DropZone
+                          label="Fichier Base complémentaire PMIX (.xlsx)"
+                          icon="🧾"
+                          onFile={(f) => setFPmixComp(f)}
+                          fileName={fPmixComp?.name}
+                          required
+                        />
+                        <button
+                          onClick={async () => {
+                            if (!fPmixComp) return;
+                            setLoading(true);
+                            setError(null);
+                            try {
+                              const wb = await readWb(fPmixComp);
+                              const map = parseBaseComplementairePmix(wb);
+                              const n = Object.keys(map).length;
+                              if (!n) {
+                                setError("Aucun PLU avec coût trouvé. Structure attendue : Item PLU | Item Name | Qty Sold | Unit Cost Price RATIO | Unit Cost Price PMIX.");
+                                return;
+                              }
+                              pmixCompRef.current = map;
+                              setPmixCompMemo(map);
+                              const saved = await savePmixComplement(map);
+                              alert(`✅ Base complémentaire PMIX chargée : ${n} PLU avec coût.${saved ? "" : " (mémorisation impossible)"}`);
+                              setFPmixComp(null);
+                              setShowPmixComp(false);
+                            } catch (e) {
+                              setError("Erreur chargement base complémentaire PMIX : " + e.message);
+                            } finally {
+                              setLoading(false);
+                            }
+                          }}
+                          disabled={loading || !fPmixComp}
+                          style={{
+                            width: "100%",
+                            marginTop: 10,
+                            padding: 11,
+                            borderRadius: 8,
+                            border: "none",
+                            background: fPmixComp ? "#4F46E5" : "#E5E7EB",
+                            color: fPmixComp ? "#fff" : "#9CA3AF",
+                            cursor: fPmixComp ? "pointer" : "not-allowed",
+                            fontSize: 13,
+                            fontWeight: 700,
+                          }}
+                        >
+                          {loading ? "⏳ Chargement..." : "✅ Enregistrer les coûts PMIX"}
                         </button>
                       </div>
                     )}

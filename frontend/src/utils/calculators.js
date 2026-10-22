@@ -1,4 +1,5 @@
 import { norm } from './formatters.js';
+import { PMIX_HORS_MATIERE } from '../constants.js';
 
 // Renvoie map[NORM(désignation ratio)] = { code, statut, qteCdt, pmpCarton, puPiece }.
 // localArticles : optionnel — base d'articles locaux complémentaires au Ratio
@@ -34,7 +35,9 @@ export function resoudrePrix(nomStock, baseArticle, ratios, localArticles){
 // ═══════════════════════════════════════════════════════════════════════════════
 // ─── PARSEUR SUIVI STOCK ──────────────────────────────────────────────────────
 // ═══════════════════════════════════════════════════════════════════════════════
-export function calculer(stockData, pmixList, ratios, baseArticle={}){
+// pmixComplement : PLU → { nom, cout }, issu de la base complémentaire PMIX (mémorisée).
+// Sert de coût unitaire pour les PLU sans fiche technique Ratio ; jamais d'ingrédient.
+export function calculer(stockData, pmixList, ratios, baseArticle={}, pmixComplement={}){
   const {invIni,invFin,sorties,pertes}=stockData;
 
   // ── Flux stock (RG-03 v3.0) ───────────────────────────────────────────────
@@ -51,15 +54,20 @@ export function calculer(stockData, pmixList, ratios, baseArticle={}){
 
   // ── Consommation théorique (PMIX × fiches techniques) ─────────────────────
   let consoTheoTotal=0, couverts=0, ficheMatchees=0;
+  let complementMatchees=0, consoTheoComplement=0;
   const consoParIng={};  // ing_norm → {nom,qteTotal,valeurTotal,pmp}
-  const pmixTheo=[];     // [{plu,nom,qty,coutTheo,coutUnit,match}]
+  const pmixTheo=[];     // [{plu,nom,qty,coutTheo,coutUnit,match,source,horsMatiere}]
 
-  if(ratios&&pmixList.length>0){
+  if((ratios||Object.keys(pmixComplement).length>0)&&pmixList.length>0){
     pmixList.forEach(pmix=>{
       pmix.items.forEach(item=>{
         couverts+=item.qty;
-        const fiche=ratios.byPlu[item.plu]||ratios.byNom[norm(item.nom)];
-        const ct=fiche?fiche.coutTheo*item.qty:0;
+        // La fiche Ratio reste autoritaire ; la base complémentaire PMIX ne fournit qu'un
+        // coût unitaire (pas de recette), donc rien n'entre dans consoParIng pour elle.
+        const fiche=ratios?(ratios.byPlu[item.plu]||ratios.byNom[norm(item.nom)]):null;
+        const comp=fiche?null:pmixComplement[String(item.plu).trim()];
+        const coutUnit=fiche?fiche.coutTheo:(comp?comp.cout:null);
+        const ct=coutUnit!=null?coutUnit*item.qty:0;
         consoTheoTotal+=ct;
         if(fiche){ficheMatchees++;
           fiche.coutParIng.forEach(({ing,qty,pmp,valeur})=>{
@@ -68,15 +76,22 @@ export function calculer(stockData, pmixList, ratios, baseArticle={}){
             if(!consoParIng[k]) consoParIng[k]={nom:ing,qteTotal:0,valeurTotal:0,pmp};
             consoParIng[k].qteTotal+=qT; consoParIng[k].valeurTotal+=vT;
           });
+        } else if(comp){
+          complementMatchees++; consoTheoComplement+=ct;
         }
         pmixTheo.push({plu:item.plu,nom:item.nom,qty:item.qty,price:item.price||0,amount:item.amount||((item.price||0)*item.qty),
-          coutTheo:ct,coutUnit:fiche?fiche.coutTheo:null,match:!!fiche,categorie:fiche?.categorie||""});
+          coutTheo:ct,coutUnit,match:!!(fiche||comp),
+          horsMatiere:!(fiche||comp)&&!!PMIX_HORS_MATIERE[String(item.plu).trim()],
+          source:fiche?"ratio":(comp?"complement":null),categorie:fiche?.categorie||""});
       });
     });
   }
 
   // ── PLU non matchés (anomalies) ───────────────────────────────────────────
-  const pluNonMatchés = pmixTheo.filter(p=>!p.match);
+  // Les lignes hors matière (PMIX_HORS_MATIERE) en sont exclues : aucune fiche n'a lieu
+  // d'exister pour elles, ce serait une anomalie permanente.
+  const pluNonMatchés = pmixTheo.filter(p=>!p.match&&!p.horsMatiere);
+  const pluHorsMatiere = pmixTheo.filter(p=>p.horsMatiere);
 
   // ── Écart matières (RG-06) ────────────────────────────────────────────────
   // Écart = Conso Réelle − Conso Théorique
@@ -182,10 +197,12 @@ export function calculer(stockData, pmixList, ratios, baseArticle={}){
     ca, totalValIni, totalEntrees, variationStock, totalValFin, totalPertes,
     consoReelle, totalOfferts, douaneTotal:stockData.douaneTotal||0,
     consoTheoTotal, couverts, ficheMatchees,
+    complementMatchees, consoTheoComplement,
     ecartMatiere, ecartMatiereP,
     coutMatiereVendue, destructionControlee, pertesNonControlees,
     staffMealTotal, offertsProduitsTotal,
     pluNonMatchés,
+    pluHorsMatiere,
     consoParIng: Object.values(consoParIng).sort((a,b)=>b.valeurTotal-a.valeurTotal),
     pmixTheo: pmixTheo.sort((a,b)=>b.qty-a.qty),
     // Tous les articles sans exception (R-03)
@@ -195,20 +212,22 @@ export function calculer(stockData, pmixList, ratios, baseArticle={}){
   };
 }
 
-export function calculerMultiRestaurants(stocksData, pmixLists, ratios, baseArticle={}){
+export function calculerMultiRestaurants(stocksData, pmixLists, ratios, baseArticle={}, pmixComplement={}){
   let totalValIni=0, totalValFin=0, totalEntrees=0, totalPertes=0;
   let totalOfferts=0, douaneTotal=0, ca=0, couverts=0, ficheMatchees=0;
+  let complementMatchees=0, consoTheoComplement=0;
   const consoParIngTotal={};
   const pmixTheoTotal=[];
   const parRestaurant=[];
   const allPluNonMatchés=[];
+  const allPluHorsMatiere=[];
 
   stocksData.forEach((stockData, idx)=>{
     // pmixLists[idx] est un tableau d'items => on en fait un pmixList standard
     const pmixList = Array.isArray(pmixLists[idx])
       ? (pmixLists[idx][0]?.items ? pmixLists[idx] : [{restaurant:stockData.site||`BK ${idx+1}`,periode:"",items:pmixLists[idx]}])
       : [];
-    const calc=calculer(stockData, pmixList, ratios, baseArticle);
+    const calc=calculer(stockData, pmixList, ratios, baseArticle, pmixComplement);
     totalValIni   += calc.totalValIni   ||0;
     totalValFin   += calc.totalValFin   ||0;
     totalEntrees  += calc.totalEntrees  ||0;
@@ -218,6 +237,8 @@ export function calculerMultiRestaurants(stocksData, pmixLists, ratios, baseArti
     ca            += calc.ca            ||0;
     couverts      += calc.couverts      ||0;
     ficheMatchees += calc.ficheMatchees ||0;
+    complementMatchees += calc.complementMatchees ||0;
+    consoTheoComplement += calc.consoTheoComplement ||0;
     (calc.consoParIng||[]).forEach(v=>{
       const k=norm(v.nom);
       if(!consoParIngTotal[k]) consoParIngTotal[k]={nom:v.nom,qteTotal:0,valeurTotal:0,pmp:v.pmp};
@@ -226,6 +247,7 @@ export function calculerMultiRestaurants(stocksData, pmixLists, ratios, baseArti
     });
     pmixTheoTotal.push(...(calc.pmixTheo||[]));
     allPluNonMatchés.push(...(calc.pluNonMatchés||[]));
+    allPluHorsMatiere.push(...(calc.pluHorsMatiere||[]));
     parRestaurant.push({
       site:stockData.site||`BK ${idx+1}`,
       consoReelle    :calc.consoReelle,
@@ -240,6 +262,7 @@ export function calculerMultiRestaurants(stocksData, pmixLists, ratios, baseArti
       couverts       :calc.couverts,
       articlesEcart  :calc.articlesEcart||[],
       pluNonMatchés  :calc.pluNonMatchés||[],
+      pluHorsMatiere :calc.pluHorsMatiere||[],
     });
   });
 
@@ -250,6 +273,7 @@ export function calculerMultiRestaurants(stocksData, pmixLists, ratios, baseArti
   const ecartMatiereP  = consoTheoTotal>0 ? ecartMatiere/consoTheoTotal : null;
   // Dédupliquer les PLU non matchés
   const pluNonMatchés=allPluNonMatchés.filter((v,i,a)=>a.findIndex(x=>x.plu===v.plu)===i);
+  const pluHorsMatiere=allPluHorsMatiere.filter((v,i,a)=>a.findIndex(x=>x.plu===v.plu)===i);
 
   const articlesEcartMap = new Map();
   parRestaurant.forEach((restaurant) => {
@@ -284,10 +308,12 @@ export function calculerMultiRestaurants(stocksData, pmixLists, ratios, baseArti
     totalValIni, totalValFin, variationStock, totalEntrees, totalPertes,
     consoReelle, totalOfferts, douaneTotal,
     consoTheoTotal, ca, couverts, ficheMatchees,
+    complementMatchees, consoTheoComplement,
     ecartMatiere, ecartMatiereP,
     consoParIng:Object.values(consoParIngTotal).sort((a,b)=>b.valeurTotal-a.valeurTotal),
     pmixTheo:pmixTheoTotal,
     pluNonMatchés,
+    pluHorsMatiere,
     articlesEcart:Array.from(articlesEcartMap.values()).filter(
       (a) => a.iniPieces || a.entreesPieces || a.finPieces || a.ventesPieces || a.pertesPieces
     ),

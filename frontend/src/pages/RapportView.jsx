@@ -138,7 +138,7 @@ export function RapportView({rapport,role,rapports,onAction,onBack}){
         <div>
           <div style={{display:"flex",gap:8,flexWrap:"wrap",marginBottom:14}}>
             <KCard label="CA réalisé (PMIX)" value={fmt(calc.ca)+" FCFA"}/>
-            <KCard label="Couverts vendus" value={fmt(calc.couverts)} sub={`${data.ficheMatchees||0} PLU matchés / ${(calc.pmixTheo||[]).length} total`}/>
+            <KCard label="Couverts vendus" value={fmt(calc.couverts)} sub={`${data.ficheMatchees||0} PLU matchés${(calc.complementMatchees||0)>0?` + ${calc.complementMatchees} coût complémentaire`:""} / ${(calc.pmixTheo||[]).length} total`}/>
             <KCard label="Conso. théorique" value={fmt(calc.consoTheoTotal)+" FCFA"} sub="PMIX × Fiches techniques"/>
             <KCard label="Conso. réelle" value={fmt(calc.consoReelle)+" FCFA"} sub="Variation stock + Transferts (RG-03 v3.0)"/>
             <KCard label="Écart matières" value={fmt(calc.ecartMatiere)+" FCFA"} sub={pct(calc.ecartMatiereP)} s={seM}/>
@@ -331,7 +331,7 @@ export function RapportView({rapport,role,rapports,onAction,onBack}){
                     <th style={TH}>PLU</th>
                     <th style={TH}>Nom produit</th>
                     <th style={{...TH,textAlign:"right"}}>Qté vendue</th>
-                    <th style={{...TH,textAlign:"right"}}>CA FCFA</th>
+                    <th style={{...TH,textAlign:"right"}}>Coût théorique (F)</th>
                     <th style={TH}>Action à faire</th>
                   </tr></thead>
                   <tbody>
@@ -340,12 +340,31 @@ export function RapportView({rapport,role,rapports,onAction,onBack}){
                         <td style={{...TD,fontWeight:700,color:"#D97706"}}>{p.plu}</td>
                         <td style={{...TD,fontWeight:500}}>{p.nom}</td>
                         <td style={{...TD,textAlign:"right"}}>{fmt(p.qty,0)}</td>
-                        <td style={{...TD,textAlign:"right"}}>{fmt(p.amount,0)}</td>
+                        <td style={{...TD,textAlign:"right"}}>{p.amount>0?fmt(p.amount,0):"—"}</td>
                         <td style={{...TD,fontSize:10,color:"#9CA3AF"}}>Créer fiche technique dans Ratios</td>
                       </tr>
                     ))}
                   </tbody>
                 </table>
+              </div>
+            </div>
+          )}
+
+          {/* Lignes hors matière : aucune fiche n'a lieu d'exister */}
+          {(calc.pluHorsMatiere||[]).length>0&&(
+            <div style={{marginBottom:16}}>
+              <div style={{fontSize:11,fontWeight:700,color:"#9CA3AF",textTransform:"uppercase",marginBottom:6}}>
+                Lignes hors matière — {calc.pluHorsMatiere.length} PLU · {calc.pluHorsMatiere.reduce((s,p)=>s+(p.qty||0),0)} unités
+              </div>
+              <div style={{background:"#F3F4F6",border:"1px solid #E5E7EB",borderRadius:8,padding:"8px 12px",fontSize:11,color:"#374151"}}>
+                Ces lignes du PMIX ne consomment pas de matière (plateforme de livraison, jouet offert, modificateur « sans sauce ») : elles sont écartées du calcul théorique et ne sont pas comptées comme anomalies.
+                <div style={{marginTop:6,display:"flex",flexWrap:"wrap",gap:6}}>
+                  {calc.pluHorsMatiere.map(p=>(
+                    <span key={p.plu} style={{background:"#fff",border:"1px solid #E5E7EB",borderRadius:6,padding:"3px 8px",fontSize:10}}>
+                      <strong>{p.plu}</strong> {p.nom} · {fmt(p.qty,0)} u
+                    </span>
+                  ))}
+                </div>
               </div>
             </div>
           )}
@@ -408,13 +427,14 @@ export function RapportView({rapport,role,rapports,onAction,onBack}){
           <div style={{background:"#fff",border:"1px solid #EDE9FE",borderRadius:10,overflow:"hidden"}}>
             <table style={{width:"100%",borderCollapse:"collapse"}}>
               <thead><tr style={{background:"#F5F3FF"}}>
-                {["Article","Date","Qté","Prix carton","CDT","Prix pièce","Valeur FCFA"].map(h=>(
+                {["Article","Catégorie","Date","Qté","Prix carton","CDT","Prix pièce","Valeur FCFA"].map(h=>(
                   <th key={h} style={{...TH,background:"#F5F3FF",color:"#7C3AED",textAlign:["Qté","Prix carton","CDT","Prix pièce","Valeur FCFA"].includes(h)?"right":"left"}}>{h}</th>
                 ))}
               </tr></thead>
               <tbody>
                 {(data.stockData?.douane||[]).map((d,i)=>(
                   <tr key={i}><td style={{...TD,fontWeight:600}}>{d.article}</td>
+                    <td style={TD}>{d.categorie||"—"}</td>
                     <td style={TD}>{d.date?new Date(d.date).toLocaleDateString("fr-FR"):"—"}</td>
                     <td style={{...TD,textAlign:"right"}}>{fmt(d.qte)}</td><td style={{...TD,textAlign:"right"}}>{fmt(d.pxCarton)}</td>
                     <td style={{...TD,textAlign:"right"}}>{fmt(d.cdt)}</td><td style={{...TD,textAlign:"right"}}>{fmt(d.pxPiece)}</td>
@@ -422,7 +442,7 @@ export function RapportView({rapport,role,rapports,onAction,onBack}){
                 ))}
               </tbody>
               <tfoot><tr style={{background:"#F5F3FF"}}>
-                <td colSpan={6} style={{...TD,fontWeight:700,color:"#7C3AED"}}>TOTAL</td>
+                <td colSpan={7} style={{...TD,fontWeight:700,color:"#7C3AED"}}>TOTAL</td>
                 <td style={{...TD,textAlign:"right",fontWeight:700,color:"#7C3AED"}}>{fmt(data.stockData?.douaneTotal)}</td>
               </tr></tfoot>
             </table>

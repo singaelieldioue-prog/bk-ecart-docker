@@ -6,6 +6,7 @@ import {
   BASE_ART_KEY,
   CORR_MAP_KEY,
   LOCAL_ART_KEY,
+  PMIX_COMP_KEY,
 } from "../constants.js";
 
 
@@ -122,6 +123,29 @@ export async function loadLocalArticles() {
       const memo = JSON.parse(r.value);
       if (memo && Object.keys(memo).length) return memo;
     }
+  } catch (e) {}
+  return null;
+}
+
+// Base complémentaire PMIX : un parse vide (mauvais fichier importé) n'écrase jamais le
+// complément mémorisé — savePmixComplement renvoie false et l'appelant affiche l'erreur.
+export async function savePmixComplement(map) {
+  try {
+    if (!map || !Object.keys(map).length) {
+      const existing = await loadPmixComplement();
+      if (existing && Object.keys(existing).length) return false;
+    }
+    await api.kvSet(PMIX_COMP_KEY, JSON.stringify(map || {}));
+    return true;
+  } catch (e) {
+    return false;
+  }
+}
+
+export async function loadPmixComplement() {
+  try {
+    const r = await api.kvGet(PMIX_COMP_KEY);
+    if (r?.value) return JSON.parse(r.value);
   } catch (e) {}
   return null;
 }

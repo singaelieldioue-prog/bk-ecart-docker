@@ -6,7 +6,7 @@ import { buildModelesWb, genererModelesSuivi } from "../utils/excelExporter.js";
 import { injecterLogoXlsx, telechargerXlsx } from "../utils/xlsxLogo.js";
 import { sortArticles } from "../utils/articleSorter.js";
 import { orderArticlesByReference } from "../utils/inventaireReference.js";
-import { loadRatiosParsed } from "../utils/storage.js";
+import { loadRatiosParsed, loadPmixComplement } from "../utils/storage.js";
 import { enrichirAvecBaseLocale } from "../utils/parsers.js";
 
 const normalizeInventoryValue = (value) =>
@@ -145,6 +145,7 @@ export function BaseArticlesTab({ role, produits, localArticles }) {
       }
       const orderedArts = enrichirAvecBaseLocale(await orderArticlesByInventoryExample(arts), localArticles);
       const prods = produits?.length ? produits : (await loadRatiosParsed())?.allProducts || [];
+      const pmixComplement = (await loadPmixComplement()) || {};
       const d = dateInv ? new Date(dateInv + "T00:00:00") : "";
       const clean = (s) => s.replace(/[^a-zA-Z0-9]/g, "_");
       if (selResto === "all") {
@@ -156,7 +157,7 @@ export function BaseArticlesTab({ role, produits, localArticles }) {
         const zip = new JSZip();
         const codes = rs.map((x) => x.code);
         for (const r of rs) {
-          const wb = buildModelesWb(orderedArts, prods, r.code, period.trim(), d, codes);
+          const wb = buildModelesWb(orderedArts, prods, r.code, period.trim(), d, codes, pmixComplement);
           const buf = await injecterLogoXlsx(XLSX.write(wb, { bookType: "xlsx", type: "array" }));
           zip.file(
             `Suivi_${clean(r.code)}_${clean(period.trim())}.xlsx`,
@@ -176,7 +177,7 @@ export function BaseArticlesTab({ role, produits, localArticles }) {
           alert("Restaurant introuvable.");
           return;
         }
-        await genererModelesSuivi(orderedArts, prods, r.code, period.trim(), d, restos.filter((x) => x.actif).map((x) => x.code)); // fichier unique
+        await genererModelesSuivi(orderedArts, prods, r.code, period.trim(), d, restos.filter((x) => x.actif).map((x) => x.code), pmixComplement); // fichier unique
       }
     } catch (e) {
       alert("Génération impossible : " + e.message);
@@ -235,7 +236,7 @@ export function BaseArticlesTab({ role, produits, localArticles }) {
       }
       const orderedArts = enrichirAvecBaseLocale(await orderArticlesByInventoryExample(arts), localArticles);
       const prods = produits?.length ? produits : (await loadRatiosParsed())?.allProducts || [];
-      await genererModelesSuivi(orderedArts, prods, "");
+      await genererModelesSuivi(orderedArts, prods, "", "", "", [], (await loadPmixComplement()) || {});
     } catch (e) {
       alert("Génération impossible : " + e.message);
     }

@@ -1,0 +1,35 @@
+# BK Écart Matières — déploiement serveur interne
+# Lancer : docker compose up -d --build
+# Variables d'environnement : fichier .env à la racine (voir .env.production.example)
+services:
+  backend:
+    build: ./backend
+    image: bk-ecart-backend
+    container_name: bk-ecart-backend
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      DB_PATH: /data/data.db
+    volumes:
+      - ./bk-data:/data
+    networks: [bknet]
+    # Pas de ports publiés : seul nginx (frontend) parle à l'API en interne
+
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        VITE_API_URL: /api
+    image: bk-ecart-frontend
+    container_name: bk-ecart-frontend
+    restart: unless-stopped
+    ports:
+      - "4001:80"
+    depends_on:
+      backend:
+        condition: service_healthy
+    networks: [bknet]
+
+networks:
+  bknet:
+    driver: bridge

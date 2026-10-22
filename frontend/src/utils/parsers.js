@@ -211,13 +211,31 @@ export function parseCorrespondance(wb){
   const ws=wb.Sheets["WA Landed Cost"]||wb.Sheets[wb.SheetNames.find(n=>/landed cost|correspond/i.test(n))];
   if(!ws) return { map, byCode };
   const rows=XLSX.utils.sheet_to_json(ws,{header:1,defval:null});
+  const PRIX_MAX_PLAUSIBLE=50000000;
+  let inLocal=false;
   for(let i=0;i<rows.length;i++){
     const r=rows[i];
+    if(r[0]==="LOCAL ITEMS") inLocal=true;
     const desig=r[2]; if(!desig||typeof desig!=="string"||!desig.trim()) continue;
     if(norm(desig)==="DESIGNATION") continue;
-    const code=r[3], statut=r[4]; let qteCdt=r[6], pmpCarton=r[7], puPieceDirect=null;
-    // section LOCAL ITEMS de ce fichier : col6/col7 vides, prix PIÈCE donné directement en col5
-    if(!(typeof pmpCarton==="number"&&pmpCarton>0) && typeof r[5]==="number" && r[5]>0){ puPieceDirect=r[5]; }
+    let code="", statut="", qteCdt=null, pmpCarton=null, puPieceDirect=null;
+    // Même détection que parseRatios : le STATUT (texte ACTIF/INACTIF) révèle la disposition.
+    // IMPORTED : prix CARTON en col7 (nouveau) ou col5 (ancien). LOCAL ITEMS : seul le prix
+    // PIÈCE est connu — la col5 des lignes importées contient le POIDS kg, jamais un prix.
+    const st4 = typeof r[4]==="string" ? r[4].trim().toUpperCase() : "";
+    const formatAvecCode = (st4==="ACTIF" || st4==="INACTIF");
+    if(!inLocal && formatAvecCode){                         // disposition « Correspondance » (importés)
+      code = r[3]!=null ? String(r[3]).trim() : ""; statut=r[4]; qteCdt=r[6]; pmpCarton=r[7];
+    } else if(!inLocal){                                    // disposition « Ratio » (importés, sans code)
+      qteCdt=r[4]; pmpCarton=r[5];
+    } else if(formatAvecCode){                              // LOCAL ITEMS récent : code(3) statut(4) prix pièce(5)
+      if(typeof r[3]==="string") code=r[3].trim(); statut=r[4];
+      puPieceDirect=(typeof r[5]==="number"&&r[5]>0)?r[5]:null;
+    } else {                                                // LOCAL ITEMS ancien : prix pièce(3) directement
+      puPieceDirect=(typeof r[3]==="number"&&r[3]>0)?r[3]:null;
+    }
+    if(typeof pmpCarton==="number"&&pmpCarton>PRIX_MAX_PLAUSIBLE) pmpCarton=null;
+    if(puPieceDirect!=null && puPieceDirect>PRIX_MAX_PLAUSIBLE) puPieceDirect=null;
     const priced=(typeof pmpCarton==="number"&&pmpCarton>0)||puPieceDirect!=null;
     const entry={
       designation:desig.trim(), code:(code!=null && code!==""?String(code).trim():""), statut:statut||"",
@@ -238,10 +256,13 @@ export function parseCorrespondance(wb){
 // ═══════════════════════════════════════════════════════════════════════════════
 // ─── PARSEUR BASE ARTICLE LOCAL ──────────────────────────────────────────────
 // Fichier complémentaire au Ratio : articles locaux (boissons, IFB, etc.)
-// avec prix unitaire défini mais absents du WA Landed Cost du Ratio.
+// avec prix d'achat défini mais absents du WA Landed Cost du Ratio.
 // Structure attendue : Catégorie(0), Nom Article(1), Code Bolloré(2),
 //                      Unité(3), Conditionnement(4), Prix unitaire(5)
-// Retourne map : NORM(nom) → { nom, code, unite, cdt, puPiece, categorie }
+// La colonne 5 est le prix de l'unité d'ACHAT (col3/col4 : carton, pack, inner), pas le
+// prix pièce : PRESSEA 200ML = 3 051 F le PACK de 24 (≈127 F la bouteille). Le lire comme
+// prix pièce multipliait une seconde fois par le conditionnement (3 051 → 73 224 le carton).
+// Retourne map : NORM(nom) → { nom, code, unite, cdt, puPiece, pmpCarton, categorie }
 // ═══════════════════════════════════════════════════════════════════════════════
 export function parseBaseArticleLocal(wb) {
   const map = {};
@@ -262,10 +283,56 @@ export function parseBaseArticleLocal(wb) {
       code: r[2] != null ? String(r[2]).trim() : "",
       unite: r[3] || "",
       cdt,
-      puPiece: prix,
-      pmpCarton: prix * cdt,
+      pmpCarton: prix,
+      puPiece: cdt > 1 ? prix / cdt : prix,
       categorie: r[0] || "",
     };
+  }
+  return map;
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// Base complémentaire PMIX (feuille « Ecarts ») — PLU | Item Name | Qty Sold |
+// Unit Cost Price RATIO | Unit Cost Price PMIX. Apporte le coût unitaire des produits
+// finis que le Ratio ne couvre pas. Les quantités du fichier ne sont jamais lues : la
+// source des quantités reste le PMIX du classeur de suivi.
+// Retourne map : PLU → { nom, cout }
+// ═══════════════════════════════════════════════════════════════════════════════
+export function parseBaseComplementairePmix(wb) {
+  const map = {};
+  if (!wb) return map;
+  const ws = wb.Sheets["Ecarts"]
+    || wb.Sheets[wb.SheetNames.find(n => /écart|compl/i.test(n))]
+    || wb.Sheets[wb.SheetNames[0]];
+  if (!ws) return map;
+  const rows = XLSX.utils.sheet_to_json(ws, { header: 1, defval: null });
+  const txt = (c) => (typeof c === "string" ? c.replace(/\s+/g, " ").trim() : "");
+  let h = -1, cPlu = -1, cNom = -1, cRatio = -1, cPmix = -1;
+  for (let i = 0; i < Math.min(10, rows.length); i++) {
+    const r = rows[i] || [];
+    const plu = r.findIndex(c => /plu|code\s*article/i.test(txt(c)));
+    const nom = r.findIndex(c => /name|nom|d[ée]signation/i.test(txt(c)));
+    const tarif = (re) => r.findIndex(c => re.test(txt(c)) && /cost|co.?t|prix/i.test(txt(c)));
+    const unePrix = r.findIndex((c, j) => j !== plu && j !== nom && /cost|co.?t|prix/i.test(txt(c)));
+    const ratio = tarif(/ratio/i);
+    const pmix = tarif(/pmix/i);
+    if (plu >= 0 && (ratio >= 0 || pmix >= 0 || unePrix >= 0)) {
+      h = i; cPlu = plu; cNom = nom;
+      cRatio = ratio >= 0 ? ratio : unePrix;
+      cPmix = pmix;
+      break;
+    }
+  }
+  if (h < 0) return map;
+  for (let i = h + 1; i < rows.length; i++) {
+    const r = rows[i] || [];
+    const plu = normalizePlu(r[cPlu]);
+    if (!plu) continue;
+    const b = cPmix >= 0 && typeof r[cPmix] === "number" ? r[cPmix] : 0;
+    const a = cRatio >= 0 && typeof r[cRatio] === "number" ? r[cRatio] : 0;
+    const cout = b > 0 ? b : (a > 0 ? a : 0);
+    if (!cout) continue;
+    map[plu] = { nom: txt(r[cNom]), cout };
   }
   return map;
 }
@@ -340,19 +407,27 @@ export function buildArtListFromReferentiel(baseArtMap, corrMapRaw, wa, waByCode
 }
 
 // Enrichit un tableau d'articles (format BDD snake_case) avec les prix et conditionnements
-// de la base locale. La base locale est la source d'autorité pour les articles qu'elle
-// contient (absents du Ratio) : ses valeurs remplacent prix et conditionnement en base.
+// de la base locale. La base locale est source d'autorité pour les articles qu'elle contient,
+// SAUF quand elle contredit grossièrement un prix Ratio ACTIF (écart > ×20) : un tel écart
+// signale une incohérence d'unité dans l'un des deux fichiers, et le prix Ratio garde la main.
+// Le conditionnement local reste autoritaire (décision 29/09 : le colisage local gagne).
 export function enrichirAvecBaseLocale(articles, localArticles){
   if(!localArticles || !articles?.length) return articles;
   const byCode={};
   Object.values(localArticles).forEach(a=>{ if(a.code) byCode[norm(a.code)]=a; });
+  const FACTEUR_MAX=20;
+  const coherent=(x,y)=>{ if(!(x>0)||!(y>0)) return true; const f=x/y; return f>=1/FACTEUR_MAX && f<=FACTEUR_MAX; };
   return articles.map(a=>{
     const loc = localArticles[norm(a.nom)] || (a.code ? byCode[norm(a.code)] : null);
     if(!loc) return a;
+    const ratioActif = norm(a.statut)!=="INACTIF" && (a.pu_carton>0 || a.pu_piece>0);
+    const cmpCarton = (loc.pmpCarton>0 && a.pu_carton>0) ? coherent(loc.pmpCarton,a.pu_carton) : true;
+    const cmpPiece  = (loc.puPiece>0 && a.pu_piece>0) ? coherent(loc.puPiece,a.pu_piece) : true;
+    const prixOk = !ratioActif || (cmpCarton && cmpPiece);
     return {
       ...a,
-      pu_piece: loc.puPiece>0 ? loc.puPiece : a.pu_piece,
-      pu_carton: loc.pmpCarton>0 ? loc.pmpCarton : a.pu_carton,
+      pu_piece: (prixOk && loc.puPiece>0) ? loc.puPiece : a.pu_piece,
+      pu_carton: (prixOk && loc.pmpCarton>0) ? loc.pmpCarton : a.pu_carton,
       conditionnement: loc.cdt>0 ? loc.cdt : a.conditionnement,
     };
   });
@@ -378,9 +453,38 @@ const offsetInventaire=(rows)=>hnorm(rows[5]?.[3]).startsWith("nb articles")?1:0
 const offsetPertes=(rows)=>hnorm(rows[3]?.[1])==="nom article"?1:0;
 const offsetDouane=(rows)=>hnorm(rows[1]?.[0])==="article"?1:0;
 const offsetOffert=(rows)=>hnorm(rows[1]?.[0])==="bk"?1:0;
+// P.Douane « vide » (modèle courant) : tableau non pré-rempli, en-têtes
+//   Date | Article | Catégorie | Code / Désignation | Cond. | Qté | Px carton | Px pièce | Valeur.
+// Renvoie l'indice de la ligne d'en-têtes, ou -1 pour l'ancien format pré-rempli (Article en A).
+const douaneNewHeaderRow=(rows)=>{
+  for(let i=1;i<=4&&i<rows.length;i++){
+    const r=rows[i]; if(!r) continue;
+    if(hnorm(r[0])==="date"&&hnorm(r[2]).startsWith("cat")) return i;
+  }
+  return -1;
+};
 
 export function parseSuivisStock(wb, baseArticle, ratios, localArticles){
-  // Inventaire helper : rows→ articles avec prix résolus
+  // Index des articles par Code Bolloré : c'est la clé saisie en colonne E de la feuille Transferts
+// et celle que son VLOOKUP utilise. Sans lui, une ligne collée par le magasin (la désignation de
+// C reste le texte résiduel du modèle pendant que E porte un autre article) était rattachée et
+// valorisée sur le mauvais article.
+function indexerParCode(baseArticle, ratios, localArticles){
+  const idx={};
+  const set=(code,o)=>{ const k=norm(code); if(k&&!idx[k]) idx[k]=o; };
+  Object.values(localArticles||{}).forEach(a=>set(a.code,
+    {nom:a.nom||"",puPiece:a.puPiece,pmpCarton:a.pmpCarton,qteCdt:a.cdt||1,source:"Base locale (code)"}));
+  Object.entries(ratios&&ratios.waByCode||{}).forEach(([k,wa])=>{ if(!idx[k]) idx[k]=
+    {nom:wa.designation||"",puPiece:wa.puPiece,pmpCarton:wa.pmpCarton,qteCdt:wa.qteCdt||1,source:"Ratio (code)"}; });
+  Object.entries(baseArticle||{}).forEach(([nom,a])=>{
+    if(!a.codeBollore||idx[norm(a.codeBollore)]) return;
+    const p=resoudrePrix(nom,baseArticle,ratios,localArticles);
+    set(a.codeBollore,{nom:a.designation||nom,puPiece:p.puPiece,pmpCarton:p.pmpCarton,qteCdt:p.qteCdt||a.cdt||1,source:p.source});
+  });
+  return idx;
+}
+
+// Inventaire helper : rows→ articles avec prix résolus
   function parseInventaire(ws){
     if(!ws) return {items:{}, site:"", dateInv:null};
     const rows=XLSX.utils.sheet_to_json(ws,{header:1,defval:null});
@@ -398,25 +502,32 @@ export function parseSuivisStock(wb, baseArticle, ratios, localArticles){
       // Nouveau format (o=1) : catégorie en A, fournisseur en B, article en C.
       const nom=typeof g(r,3)==="string"&&g(r,3).trim()?g(r,3):g(r,2);
       if(!nom||typeof nom!=="string"||!nom.trim()) continue;
+      // La ligne de total du classeur écrit « TOTAL STOCK » en colonne B : ce n'est pas un article.
+      if(/^total\b/i.test(nom.trim())) continue;
       const cartons=typeof g(r,6)==="number"?g(r,6):0;
       const inner  =typeof g(r,7)==="number"?g(r,7):0;
       const unites =typeof g(r,8)==="number"?g(r,8):0;
-      const innerCdt=typeof g(r,5)==="number"&&g(r,5)>0?g(r,5):1;
+      const innerCdt=typeof g(r,5)==="number"?g(r,5):0;
       const nombreFichier=typeof g(r,9)==="number"?g(r,9):0;
       const puFichier=typeof g(r,11)==="number"?g(r,11):0;
       const valFichier=typeof g(r,12)==="number"?g(r,12):0;
       // Résoudre prix depuis ratios
       const prix=resoudrePrix(nom, baseArticle, ratios, localArticles);
-      const puCarton=prix.pmpCarton>0?prix.pmpCarton:puFichier;
       const cdtFichier=typeof g(r,4)==="number"&&g(r,4)>0?g(r,4):0;
       const qteCdt=cdtFichier||prix.qteCdt||1;
-      const puPiece=prix.puPiece>0?prix.puPiece:(qteCdt>0?puCarton/qteCdt:0);
+      // Prix de l'unité d'achat (le carton) : référentiel, à défaut le prix saisi en K, à défaut
+      // le prix pièce du référentiel × colisage. Le classeur valorise L = Nombre × Prix carton ;
+      // valoriser ici « pièces × prix pièce » mélangeait deux référentiels différents (un prix
+      // pièce de carton multiplié par le colisage lu dans la feuille : MOZZARELLA STICKS BIS ×204,
+      // CRISPY CHICKEN PATTY ×136) et les totaux de l'appli ne correspondaient plus au fichier.
+      const puCarton=prix.pmpCarton>0?prix.pmpCarton:(puFichier>0?puFichier:(prix.puPiece>0?prix.puPiece*qteCdt:0));
+      const puPiece=puCarton>0?puCarton/qteCdt:0;
       // Les fichiers générés peuvent ne pas conserver la valeur calculée de J.
       // On la reconstruit à partir des quantités pour éviter un stock nul après import.
       const nombreCalcule=cartons+(inner*innerCdt/qteCdt)+(unites/qteCdt);
       const nombre=nombreFichier>0?nombreFichier:nombreCalcule;
       const qtePieces = nombre>0 ? nombre*qteCdt : 0;
-      const valeur=qtePieces*puPiece;
+      const valeur=nombre>0?nombre*puCarton:0;
       items[norm(nom)]={
         nom:nom.trim(), categorie:g(r,1)||"", colisage:g(r,4)||"",
         nbCartons:nombre>0?nombre:cartons, inner, unites, qtePieces,
@@ -437,29 +548,47 @@ export function parseSuivisStock(wb, baseArticle, ratios, localArticles){
   const wsSorties=wb.Sheets["Transferts"]||wb.Sheets["Sorties"];
   if(wsSorties){
     const rows=XLSX.utils.sheet_to_json(wsSorties,{header:1,defval:null});
+    const idxParCode=indexerParCode(baseArticle,ratios,localArticles);
     for(let i=4;i<rows.length;i++){
       const r=rows[i];
       const dv=parseDate(r[0]);
       // colonnes du fichier réel : 0 Date,1 BK,2 Désignation,3 Catégorie,4 Code,5 Unité,
-      // 6 Conditionnement,7 Quantité,8 Prix unitaire,9 Valeur sortie,10 CTRL
+      // 6 Conditionnement,7 Quantité,8 Prix carton,9 Valeur sortie,10 CTRL
       // La date est facultative : une ligne est comptée dès qu'elle a une désignation et
       // une quantité (ou une valeur) > 0 — sinon c'est une ligne vide du modèle.
       const nom=r[2]&&typeof r[2]==="string"?r[2].trim():"";
+      const cle=r[4]!=null&&r[4]!==""?String(r[4]).trim():"";    // E : code Bolloré, ou désignation
       const qte=typeof r[7]==="number"?r[7]:0;                 // en unités (cartons/kg)
-      const valFichier=typeof r[9]==="number"?r[9]:0;
+      // Les feuilles comportent des lignes de récapitulatif dont la cellule « Valeur sortie »
+      // est un agrégat (SUMIF/SOUS.TOTAL sur tout le bloc) : la lire comme le montant d'une
+      // ligne double comptait la période (11 909 827 F relevés sur une ligne à quantité 1).
+      // La ligne reste comptée, mais valorisée sur le prix du référentiel.
+      const cellJ=wsSorties[XLSX.utils.encode_cell({r:i,c:9})];
+      const estAgrégat=!!cellJ?.f && /SUMIF|SOUS\.TOTAL|SUBTOTAL|AGREGAT|CONSOLIDAT/i.test(cellJ.f);
+      const valFichier=!estAgrégat&&typeof r[9]==="number"?r[9]:0;
       if(!nom||(qte<=0&&valFichier<=0)) continue;
       // Seuls les transferts AGL → BK DU SITE sont des entrées : une ligne dont le
       // destinataire est un autre BK est exclue (tolérant si l'un des deux n'est pas lisible).
       const bkNum=matchBkNumber(String(r[1]??""));
       if(siteBkNum&&bkNum&&bkNum!==siteBkNum){transfertsExclus++;continue;}
-      const prix=resoudrePrix(nom,baseArticle,ratios,localArticles);
+      // Résolution par la clé E (celle du VLOOKUP), avec repli sur la désignation C : un code
+      // qui ne désigne aucun article connu ne doit pas faire perdre la ligne.
+      const parCode=idxParCode[norm(cle)];
+      const parNom=cle?resoudrePrix(cle,baseArticle,ratios,localArticles):null;
+      const prixRésolu=parCode||(parNom&&(parNom.pmpCarton>0||parNom.puPiece>0)?parNom:null);
+      const prix=prixRésolu||resoudrePrix(nom,baseArticle,ratios,localArticles);
+      const designation=(cle&&prix.nom&&norm(prix.nom)!==norm(nom))?prix.nom:nom;   // E fait foi
       const cond=(typeof r[6]==="number"&&r[6]>0)?r[6]:(prix.qteCdt||1);
-      const puUnite=(typeof r[8]==="number"&&r[8]>0)?r[8]:(prix.puPiece*cond); // prix par unité (carton)
-      const valeur=valFichier>0?valFichier:qte*puUnite;        // = Quantité × Prix unitaire
+      // Prix de l'unité saisie en H (le carton) : colonne I du classeur, à défaut le prix
+      // carton du référentiel. Le prix pièce ne doit jamais être multiplié par le « Cond. » lu
+      // dans la feuille : les deux grandeurs viennent de référentiels différents (PAILLE SODAS :
+      // prix d'achat 10 F l'unité × 3 500 = 35 000 F, mais 35 000 F est déjà le prix carton).
+      const puUnite=(typeof r[8]==="number"&&r[8]>0)?r[8]:(prix.pmpCarton>0?prix.pmpCarton:(prix.puPiece>0?prix.puPiece*(prix.qteCdt||1):0));
+      const valeur=valFichier>0?valFichier:qte*puUnite;        // = Quantité × Prix carton
       const qtePieces=qte*cond;                                 // conversion en pièces
       sorties.push({
-        date:dv?dv.toISOString():null, bk:String(r[1]??"").trim(), designation:nom,
-        categorie:r[3]||"", codeBollore:r[4]||"", unite:r[5]||"",
+        date:dv?dv.toISOString():null, bk:String(r[1]??"").trim(), designation,
+        categorie:r[3]||"", codeBollore:cle||r[4]||"", unite:r[5]||"",
         qte, qtePieces, qteCdt:cond, puUnite, puPiece:prix.puPiece, valeur,
         valFichier, prixSource:prix.source
       });
@@ -489,17 +618,17 @@ export function parseSuivisStock(wb, baseArticle, ratios, localArticles){
       }
       if(qtePieces===0) continue;
       const prix=resoudrePrix(nom,baseArticle,ratios,localArticles);
-      // Valorisation à la PIÈCE : qtePieces × puPiece.
-      // Repli sur le prix pièce du fichier : cas des produits finis, absents du
-      // référentiel articles mais pré-valorisés au coût théorique dans le modèle généré.
+      // Valorisation à la PIÈCE : qtePieces × puPiece. Le prix pièce de la feuille fait foi —
+      // le rapport doit annoncer la même valeur que le TOTAL du classeur ; le référentiel ne
+      // sert que si la cellule est vide (formule non recalculée) ou absente du modèle.
       const puFichier=typeof g(r,5)==="number"&&g(r,5)>0?g(r,5):0;
-      const puPiece=prix.puPiece>0?prix.puPiece:puFichier;
+      const puPiece=puFichier>0?puFichier:prix.puPiece;
       const valeur=qtePieces*puPiece;
       pertes.push({
         categorie:g(r,1)||"", nom:nom.trim(),
         qteCdt:prix.qteCdt||1, puPiece,
         qtePieces, valeur,
-        prixSource:prix.puPiece>0?prix.source:(puFichier>0?"fichier (coût théo)":prix.source)
+        prixSource:puFichier>0?"fichier (prix pièce)":prix.source
       });
     }
   }
@@ -510,21 +639,44 @@ export function parseSuivisStock(wb, baseArticle, ratios, localArticles){
   const wsDouane=wb.Sheets["P.Douane"];
   if(wsDouane){
     const rows=XLSX.utils.sheet_to_json(wsDouane,{header:1,defval:null});
-    const o=offsetDouane(rows);
-    const g=(r,j)=>r[j-o];
-    for(let i=2;i<rows.length;i++){
-      const r=rows[i];
-      const art=g(r,1);
-      if(art==="TOTAL"){douaneTotal=typeof g(r,7)==="number"?g(r,7):0; break;}
-      if(art&&typeof art==="string"&&art.trim()){
-        // Les modèles pré-remplissent la colonne Article : ne retenir une ligne que
-        // si elle contient une réelle saisie (date, quantité ou valeur non nulle).
-        const dt=parseDate(g(r,2));
-        const qte=typeof g(r,3)==="number"?g(r,3):0;
-        const val=typeof g(r,7)==="number"?g(r,7):0;
-        if(!dt&&qte<=0&&val<=0) continue;
-        douane.push({article:art.trim(),date:dt?dt.toISOString():null,
-          qte,pxCarton:g(r,4)||0,cdt:g(r,5)||0,pxPiece:g(r,6)||0,valeur:g(r,7)||0});
+    const headNew=douaneNewHeaderRow(rows);
+    if(headNew>=0){
+      // Modèle « vide » : A Date · B Article · C Catégorie · D Code / Désignation (clé saisie)
+      // E Cond. · F Qté · G Px carton · H Px pièce · I Valeur. Une ligne est retenue si elle
+      // porte une clé ET une saisie réelle (quantité ou valeur non nulle).
+      const num=(v)=>typeof v==="number"?v:(typeof v==="string"&&v.trim()?Number(v.replace(/\s/g,"").replace(",", "."))||0:0);
+      for(let i=headNew+1;i<rows.length;i++){
+        const r=rows[i]; if(!r) continue;
+        const cle=r[3];
+        const cleTxt=typeof cle==="string"?cle.trim():(cle==null?"":String(cle).trim());
+        if((typeof r[0]==="string"?r[0].trim():"")==="TOTAL"){ douaneTotal=num(r[8]); break; }
+        if(!cleTxt) continue;
+        const qte=num(r[5]), val=num(r[8]);
+        if(qte<=0&&val<=0) continue;
+        const nom=typeof r[1]==="string"?r[1].trim():"";
+        const dt=parseDate(r[0]);
+        douane.push({article:(nom||cleTxt),code:cleTxt,
+          categorie:typeof r[2]==="string"?r[2].trim():"",
+          date:dt?dt.toISOString():null,
+          qte,pxCarton:num(r[6]),cdt:num(r[4]),pxPiece:num(r[7]),valeur:val});
+      }
+    } else {
+      const o=offsetDouane(rows);
+      const g=(r,j)=>r[j-o];
+      for(let i=2;i<rows.length;i++){
+        const r=rows[i];
+        const art=g(r,1);
+        if(art==="TOTAL"){douaneTotal=typeof g(r,7)==="number"?g(r,7):0; break;}
+        if(art&&typeof art==="string"&&art.trim()){
+          // Les anciens modèles pré-remplissaient la colonne Article : ne retenir une ligne que
+          // si elle contient une réelle saisie (date, quantité ou valeur non nulle).
+          const dt=parseDate(g(r,2));
+          const qte=typeof g(r,3)==="number"?g(r,3):0;
+          const val=typeof g(r,7)==="number"?g(r,7):0;
+          if(!dt&&qte<=0&&val<=0) continue;
+          douane.push({article:art.trim(),date:dt?dt.toISOString():null,
+            qte,pxCarton:g(r,4)||0,cdt:g(r,5)||0,pxPiece:g(r,6)||0,valeur:g(r,7)||0});
+        }
       }
     }
   }
@@ -631,6 +783,7 @@ export function diagnosticPreAnalyse(wb, baseArticle, ratios, localArticles){
   if(!refVide){
     const sansPrix=new Map();
     const prixFichierNul=new Map();
+    const wsDouaneDiag=wb.Sheets["P.Douane"];
     const checkSheet=(sn, colNom, minRow, quantityColumns, priceColumn=null, o=0)=>{
       const ws=wb.Sheets[sn]; if(!ws) return;
       const rows=XLSX.utils.sheet_to_json(ws,{header:1,defval:null});
@@ -673,7 +826,9 @@ export function diagnosticPreAnalyse(wb, baseArticle, ratios, localArticles){
     checkSheet("Inventaire final ",3,6,[6,7,8,9],11,offsetOf("Inventaire final ",offsetInventaire));
     checkSheet("Transferts",2,4,[7],8); checkSheet("Sorties",2,4,[7],8);
     checkSheet("Pertes",2,3,[7],5,offsetOf("Pertes",offsetPertes));
-    checkSheet("P.Douane",1,2,[3],6,offsetOf("P.Douane",offsetDouane));
+    const dHead = wsDouaneDiag ? douaneNewHeaderRow(XLSX.utils.sheet_to_json(wsDouaneDiag,{header:1,defval:null})) : -1;
+    if(dHead>=0) checkSheet("P.Douane",1,dHead+1,[5],6,0);      // modèle vide : Article en B, Qté en F, Px carton en G
+    else checkSheet("P.Douane",1,2,[3],6,offsetOf("P.Douane",offsetDouane));
     if(prixFichierNul.size>0){
       const details=[...prixFichierNul.entries()].slice(0,8).map(([nom,locations])=>`${nom} (${locations.join(", ")})`);
       alertes.push({

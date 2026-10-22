@@ -3,6 +3,7 @@ import { fmtDate, statEcart, matchBkNumber } from './formatters.js';
 import { ROLES, WORKFLOW } from '../constants.js';
 import { sortArticles } from './articleSorter.js';
 import { sortArticlesByCustomOrder, CUSTOM_ARTICLES_ORDER } from './customArticleOrder.js';
+import { MISSING_PMIX } from './missingPmix.js';
 import { telechargerXlsx } from './xlsxLogo.js';
 
 // Le logo BK/Servair (137×102 px natif, affiché à 75 % de large → 103×102 px) est injecté en
@@ -135,7 +136,7 @@ export async function exportExcel(rapport){
       [C("Consommation théorique"),Cn(calc.consoTheoTotal),C("",ST.cell)],
       [C("Consommation réelle"),Cn(calc.consoReelle),C("",ST.cell)],
       [{v:"Écart matières",s:eK},Cn(calc.ecartMatiere,Zm,eV),Cp(calc.ecartMatiereP,eV)],
-      [C("Couverts vendus"),Cn(calc.couverts,Zm),C(`${data.ficheMatchees||0} PLU matchés / ${(calc.pmixTheo||[]).length} total`,ST.cellMut)],
+      [C("Couverts vendus"),Cn(calc.couverts,Zm),C(`${data.ficheMatchees||0} PLU matchés${(calc.complementMatchees||0)>0?` + ${calc.complementMatchees} coût complémentaire`:""} / ${(calc.pmixTheo||[]).length} total`,ST.cellMut)],
     ];
     m[0][COL_TITRE]={v:titre,s:ST.title};
     XLSX.utils.book_append_sheet(wb,xmkSheet(m,{cols,merges:[mrg(0,COL_TITRE,2)],rows:[{hpt:HPT_LIGNE_TITRE}]}),"Synthèse");
@@ -192,14 +193,15 @@ export async function exportExcel(rapport){
 
   // ── Feuille PMIX valorisé ─────────────────────────────────────────────────
   {
-    const H=["PLU","Produit","Catégorie","Qté vendue","Prix unitaire","CA FCFA","Coût théo unit.","Coût théo total","Fiche"];
-    const cols=[{wch:WCH_ZONE_LOGO},{wch:34},{wch:20},{wch:11},{wch:14},{wch:14},{wch:15},{wch:15},{wch:8}];
+    const H=["PLU","Produit","Catégorie","Qté vendue","Prix unitaire","CA FCFA","Coût théo unit.","Coût théo total","Fiche / source"];
+    const cols=[{wch:WCH_ZONE_LOGO},{wch:34},{wch:20},{wch:11},{wch:14},{wch:14},{wch:15},{wch:15},{wch:16}];
     const m=[[], H.map((h,i)=>({v:h,s:(i===1||i===2)?ST.head:ST.headR}))];
     (calc.pmixTheo||[]).forEach((p,i)=>{const ev=i%2===1;
+      const lib=p.source==="complement"?"Coût complémentaire":(p.match?"Ratio":"Non");
       m.push([
         Cn(p.plu,Zm,zeb(ST.cellR,ev)),C(p.nom,zeb(ST.cell,ev)),C(p.categorie||"",zeb(ST.cellMut,ev)),
         Cn(p.qty,Zm,zeb(ST.cellR,ev)),Cn(p.price,Zm2,zeb(ST.cellR,ev)),Cn(p.amount,Zm,zeb(ST.cellR,ev)),Cn(p.coutUnit,Zm2,zeb(ST.cellR,ev)),Cn(p.coutTheo,Zm,zeb(ST.cellR,ev)),
-        C(p.match?"Oui":"Non",{...zeb(ST.cellR,ev),font:xfont(p.match?XC.green:XC.red,true,10)}),
+        C(lib,{...zeb(ST.cellR,ev),font:xfont(p.source==="complement"?XC.amber:(p.match?XC.green:XC.red),true,10)}),
       ]);});
     m[0][COL_TITRE]={v:"PMIX VALORISÉ",s:ST.title};
     XLSX.utils.book_append_sheet(wb,xmkSheet(m,{cols,merges:[mrg(0,COL_TITRE,8)],rows:[{hpt:HPT_LIGNE_TITRE},{hpt:22}]}),"PMIX valorisé");
@@ -212,6 +214,7 @@ export async function exportExcel(rapport){
     const m=[[], H.map((h,i)=>({v:h,s:i===3?ST.headR:ST.head}))];
     const an=[
       ...(calc.pluNonMatchés||[]).map(p=>["PLU sans fiche technique",p.plu,p.nom,p.qty,"Consommation théo non calculée"]),
+      ...(calc.pluHorsMatiere||[]).map(p=>["Ligne hors matière",p.plu,p.nom,p.qty,"Aucune matière consommée — écartée du calcul, pas de fiche à créer"]),
       ...(calc.articlesEcart||[]).filter(a=>!a.puPiece||a.puPiece===0).map(a=>["Article PU = 0","—",a.nom,"—","Prix non résolu — vérifier référentiels"]),
     ];
     if(an.length===0) an.push(["—","—","Aucune anomalie détectée","—","Tous les PLU matchés · tous les prix résolus"]);
@@ -229,18 +232,18 @@ export async function exportExcel(rapport){
 
   // ── Feuille Douane (thème violet) ─────────────────────────────────────────
   {
-    const H=["Article","Date","Qté","Prix carton","CDT","Prix pièce","Valeur FCFA"];
-    const cols=[{wch:WCH_ZONE_LOGO},{wch:14},{wch:9},{wch:14},{wch:8},{wch:14},{wch:16}];
-    const m=[[], H.map((h,i)=>({v:h,s:i<2?ST.headP:ST.headPR}))];
+    const H=["Article","Catégorie","Date","Qté","Prix carton","CDT","Prix pièce","Valeur FCFA"];
+    const cols=[{wch:WCH_ZONE_LOGO},{wch:14},{wch:20},{wch:9},{wch:14},{wch:8},{wch:14},{wch:16}];
+    const m=[[], H.map((h,i)=>({v:h,s:i<3?ST.headP:ST.headPR}))];
     (data.stockData?.douane||[]).forEach((d,i)=>{const ev=i%2===1;
       m.push([
-        C(d.article,zeb(ST.cell,ev)),C(d.date?new Date(d.date).toLocaleDateString("fr-FR"):"—",zeb(ST.cellMut,ev)),
+        C(d.article,zeb(ST.cell,ev)),C(d.categorie||"—",zeb(ST.cellMut,ev)),C(d.date?new Date(d.date).toLocaleDateString("fr-FR"):"—",zeb(ST.cellMut,ev)),
         Cn(d.qte,Zm,zeb(ST.cellR,ev)),Cn(d.pxCarton,Zm,zeb(ST.cellR,ev)),Cn(d.cdt,Zm,zeb(ST.cellR,ev)),Cn(d.pxPiece,Zm2,zeb(ST.cellR,ev)),
         Cn(d.valeur,Zm,{...zeb(ST.cellR,ev),font:xfont(XC.purple,false,10)}),
       ]);});
-    m.push([C("TOTAL",ST.totalKp),C("",ST.totalKp),C("",ST.totalVp),C("",ST.totalVp),C("",ST.totalVp),C("",ST.totalVp),Cn(data.stockData?.douaneTotal,Zm,ST.totalVp)]);
+    m.push([C("TOTAL",ST.totalKp),C("",ST.totalKp),C("",ST.totalKp),C("",ST.totalVp),C("",ST.totalVp),C("",ST.totalVp),C("",ST.totalVp),Cn(data.stockData?.douaneTotal,Zm,ST.totalVp)]);
     m[0][COL_TITRE]={v:"PRÉLÈVEMENTS DOUANE",s:ST.titleP};
-    XLSX.utils.book_append_sheet(wb,xmkSheet(m,{cols,merges:[mrg(0,COL_TITRE,6)],rows:[{hpt:HPT_LIGNE_TITRE},{hpt:22}]}),"Douane");
+    XLSX.utils.book_append_sheet(wb,xmkSheet(m,{cols,merges:[mrg(0,COL_TITRE,7)],rows:[{hpt:HPT_LIGNE_TITRE},{hpt:22}]}),"Douane");
   }
 
   // ── Feuille Historique ────────────────────────────────────────────────────
@@ -257,9 +260,26 @@ export async function exportExcel(rapport){
   await telechargerXlsx(wb,`${titre.replace(/[^a-zA-Z0-9_-]/g,"_")}.xlsx`);
 }
 
-export function buildModelesWb(articles, produits, site="", period="", dateInv="", destinataires=[]){
+export function buildModelesWb(articles, produits, site="", period="", dateInv="", destinataires=[], pmixComplement={}){
   const wb=XLSX.utils.book_new();
-  const pmixProducts=(produits||[]).filter((p)=>p&&p.nom);
+  const pmixFromRatio = (produits||[]).filter((p)=>p&&p.nom);
+  // Fusionner avec la liste de secours : les produits du ratio ont la priorité,
+  // les PLU absents du ratio sont complétés par la base complémentaire PMIX (noms officiels)
+  // puis par MISSING_PMIX, pour éviter "PLU ABSENT DU RATIO".
+  // Le coût du complément n'est PAS un prix de vente : la colonne « Prix » du référentiel
+  // reste réservée au PV TTC du Ratio.
+  const ratioPluSet = new Set(pmixFromRatio.map(p => String(p.plu ?? '').trim()));
+  const compPluSet = new Set(Object.keys(pmixComplement || {}));
+  const pmixProducts = [
+    ...pmixFromRatio,
+    ...Object.entries(pmixComplement || {})
+      .filter(([plu]) => !ratioPluSet.has(plu))
+      .map(([plu, c]) => ({ plu, nom: String(c?.nom || plu).trim(), coutTheo: 0, pvTtc: null })),
+    ...MISSING_PMIX.filter(p => {
+      const k = String(p.plu ?? '').trim();
+      return !ratioPluSet.has(k) && !compPluSet.has(k);
+    }),
+  ];
   const pmixPriceSheet="Référentiel PMIX";
   const artRefSheet="Référentiel Articles";
   const H =(t)=>({v:t,s:ST.head});
@@ -321,7 +341,7 @@ export function buildModelesWb(articles, produits, site="", period="", dateInv="
     put(rows[4],5,headerCell("INVENTAIRE")); put(rows[4],6,headerCell("")); put(rows[4],7,headerCell(""));
     put(rows[4],8,headerCell("STOCK FINAL")); put(rows[4],9,headerCell("")); put(rows[4],10,headerCell("")); put(rows[4],11,headerCell(""));
     put(rows[4],13,headerCell("REPORT OMEGA")); put(rows[4],14,headerCell(""));
-    rows[5]=[headerCell(""),headerCell(""),headerCell(""),headerCell("Nb articles / carton"),headerCell("Nb articles / inner"),headerCell("Carton"),headerCell("Inner"),headerCell("Unités"),headerCell("Nombre"),headerCell("Unité"),headerCell("Prix Unitaire"),headerCell("Valeur stock"),undefined,headerCell("Code Article"),headerCell("Quantité (unité)")];
+    rows[5]=[headerCell(""),headerCell(""),headerCell(""),headerCell("Nb articles / carton"),headerCell("Nb articles / inner"),headerCell("Carton"),headerCell("Inner"),headerCell("Unités"),headerCell("Nombre"),headerCell("Unité"),headerCell("Prix carton"),headerCell("Valeur stock"),undefined,headerCell("Code Article"),headerCell("Quantité (unité)")];
     
     // Fonction pour normaliser les noms d'articles
     const normalizeString = (str) => 
@@ -347,8 +367,10 @@ export function buildModelesWb(articles, produits, site="", period="", dateInv="
       }
     });
     
-    // Trier les articles en respectant l'ordre personnalisé
-    const sortedArticles = articles;
+    // Trier et filtrer les articles en respectant strictement la liste et l'ordre personnalisé
+    const sortedArticles = articles
+      .filter((a) => customOrderMap.has(normalizeString(a.nom)))
+      .sort((a, b) => customOrderMap.get(normalizeString(a.nom)) - customOrderMap.get(normalizeString(b.nom)));
     
     let actualRowIndex = 6; // Index réel dans le fichier (après les en-têtes)
     
@@ -416,22 +438,37 @@ export function buildModelesWb(articles, produits, site="", period="", dateInv="
   // Transferts AGL → BK — format du fichier réel (Mouvements de sorties de stock).
   // Colonnes FIXES (compatibilité parsers.js) :
   //   0=Date(saisie)  1=BK(saisie)  2=Désignation  3=Catégorie  4=Code
-  //   5=Unité  6=Conditionnement  7=Quantité(saisie)  8=Prix unitaire  9=Valeur  10=CTRL
+  //   5=Unité  6=Conditionnement  7=Quantité(saisie)  8=Prix carton  9=Valeur  10=CTRL
+  // La dernière ligne du Référentiel Articles est partagée avec P.Douane (même clé de VLOOKUP).
+  let artRefLast=2;
   {
-    // Référentiel articles dédupliqué par clé de recherche : Code Bolloré si présent,
-    // sinon Désignation (les articles sans code restent recherchables par leur nom exact).
+    // Référentiel articles : chaque article est indexé sur son Code Bolloré (à défaut sa
+    // désignation), puis une seconde ligne indexe la désignation pour les articles codés.
     const refKey=(a)=>{
       const code=a&&a.code!=null?String(a.code).trim():"";
       return code || (a&&a.nom?String(a.nom).trim():"");
     };
+    const normCle=(s)=>String(s||"").trim().toUpperCase().replace(/\s+/g," ");
     const seenKeys=new Set();
-    const refArticles=(articles||[]).filter((a)=>{
-      const key=refKey(a);
-      if(!key||seenKeys.has(key)) return false;
-      seenKeys.add(key); return true;
+    const refArticles=[];
+    (articles||[]).forEach((a)=>{
+      const key=refKey(a), nk=normCle(key);
+      if(!nk||seenKeys.has(nk)) return;
+      seenKeys.add(nk); refArticles.push({a,cle:key});
     });
-    const artRefLast=Math.max(2,refArticles.length+1);
-    const NB_LIGNES_TRANSFERTS=500;
+    // Deuxième clé d'accès : la désignation exacte (promesse de la note d'aide). Ces lignes
+    // sont ajoutées APRÈS celles indexées sur le code, car VLOOKUP renvoie la première
+    // correspondance ; en cas de désignations identiques c'est donc l'article le mieux classé
+    // (ordre inventaire) qui répond.
+    const refParNom=[];
+    (articles||[]).forEach((a)=>{
+      const nom=a&&a.nom?String(a.nom).trim():"", nk=normCle(nom);
+      if(!nk||seenKeys.has(nk)) return;
+      seenKeys.add(nk); refParNom.push({a,cle:nom});
+    });
+    const refLignes=[...refArticles,...refParNom];
+    artRefLast=Math.max(2,refLignes.length+1);
+    const NB_LIGNES_TRANSFERTS=20000;
     const codeKey=(R)=>`TRIM(E${R}&"")`;
     const vref=(R,col)=>`IF($E${R}="","",IFERROR(VLOOKUP(${codeKey(R)},'${artRefSheet}'!$A$2:$F$${artRefLast},${col},FALSE),""))`;
 
@@ -465,7 +502,7 @@ export function buildModelesWb(articles, produits, site="", period="", dateInv="
     put(head,5,headRefT("Unité"));
     put(head,6,headRefT("Cond."));
     put(head,7,headSaisieT("Quantité"));
-    put(head,8,headRefT("Prix unitaire"));
+    put(head,8,headRefT("Prix carton"));
     put(head,9,headCalcT("Valeur sortie"));
     put(head,10,headCalcT("CTRL"));
     rows[3]=head;
@@ -482,7 +519,7 @@ export function buildModelesWb(articles, produits, site="", period="", dateInv="
       put(r,5,{t:"s",f:vref(R,4),s:refS(ST.cellMut)});            // Unité (auto)
       put(r,6,{t:"n",f:vref(R,5),z:"#,##0.##",s:refS(ST.cellR)}); // Cond. (auto)
       put(r,7,{v:"",t:"s",z:"#,##0",s:saisS({...ST.cellR,font:xfont("2E7D32",false,11)})});  // Quantité à saisir
-      put(r,8,{t:"n",f:vref(R,6),z:"#,##0.##",s:refS(ST.cellR)}); // Prix unitaire (auto)
+      put(r,8,{t:"n",f:vref(R,6),z:"#,##0.##",s:refS(ST.cellR)}); // Prix carton (auto)
       put(r,9,{t:"n",f:`IF(OR($E${R}="",$H${R}=""),"",$H${R}*$I${R})`,z:"#,##0",s:calcS({font:xfont("E65100",true,10),alignment:xal("right")})});  // Valeur
       put(r,10,{v:"",s:calcS(ST.cellMut)});  // CTRL — vide, saisie manuelle (plus de remplissage auto)
       rows.push(r);
@@ -520,22 +557,50 @@ export function buildModelesWb(articles, produits, site="", period="", dateInv="
         });
       });
     }
+    // Récap de contrôle — en tête de feuille, à droite de la zone de saisie (colonnes N/O) :
+    // il reste lisible sans dérouler les 2 000 lignes et ne gêne pas la zone A..K relue par
+    // le parseur. La ligne « code sans prix trouvé » signale les saisies que le classeur
+    // ne peut pas valoriser (elles sortaient du total du fichier sans jamais être vues).
+    const RC=13, RV=14;
+    const rLab=(rIdx,txt,s=ST.cell)=>{ const row=rows[rIdx]||(rows[rIdx]=[]); put(row,RC,{v:txt,s}); };
+    const rVal=(rIdx,f,s=ST.cellR)=>{ const row=rows[rIdx]||(rows[rIdx]=[]); put(row,RV,{t:"n",f,z:"#,##0",s}); };
+    put(rows[0],RC,{v:`RÉCAP TRANSFERTS — ${site||"BK ____"}`,s:ST.section});
+    put(rows[0],RV,{v:"VALEUR (FCFA)",s:ST.sectionR});
+    rLab(1,"Lignes saisies (code en E)");        rVal(1,`SUMPRODUCT(--($E$5:$E$${lastT}<>""))`);
+    rLab(2,"dont code sans prix trouvé");        rVal(2,`SUMPRODUCT(--($E$5:$E$${lastT}<>""),--($I$5:$I$${lastT}=""))`);
+    rLab(3,"TOTAL TRANSFERTS",ST.totalK);        rVal(3,`SUM($J$5:$J$${lastT})`,ST.totalV);
+    rLab(5,"CATÉGORIE",ST.head);                 put(rows[5],RV,{v:"VALEUR (FCFA)",s:ST.headR});
+    catsRecap.forEach((cat,i)=>{
+      rLab(6+i,cat,zeb(ST.cell,i%2===1));
+      rVal(6+i,`SUMIF(${rngCat},${lit(cat)},${rngVal})`,zeb(ST.cellR,i%2===1));
+    });
+    if(destsRecap.length){
+      const h=6+catsRecap.length+1;
+      rLab(h,"BK DESTINATAIRE",ST.head); put(rows[h],RV,{v:"VALEUR (FCFA)",s:ST.headR});
+      destsRecap.forEach((dest,i)=>{
+        const num=matchBkNumber(dest);
+        const variantes=[...new Set(num?[dest,num,"BK"+num,"BK "+num]:[dest])];
+        rLab(h+1+i,`→ ${dest}`,zeb(ST.cell,i%2===1));
+        rVal(h+1+i,variantes.map((t)=>`SUMIF(${rngBk},${lit(t)},${rngVal})`).join("+"),zeb(ST.cellR,i%2===1));
+      });
+    }
     XLSX.utils.book_append_sheet(wb,xmkSheet(rows,{
-      cols:[{wch:WCH_ZONE_LOGO},{wch:14},{wch:36},{wch:20},{wch:16},{wch:8},{wch:12},{wch:12},{wch:14},{wch:16},{wch:22}],
+      cols:[{wch:WCH_ZONE_LOGO},{wch:14},{wch:36},{wch:20},{wch:16},{wch:8},{wch:12},{wch:12},{wch:14},{wch:16},{wch:22},{wch:3},{wch:3},{wch:30},{wch:16}],
       merges:[
         {s:{r:0,c:COL_TITRE},e:{r:0,c:10}},   // Titre (décalé : logo en A1)
         {s:{r:1,c:0},e:{r:1,c:1}},        // Bandeau Saisie (gauche)
         {s:{r:1,c:2},e:{r:1,c:3}},        // Bandeau Auto
         {s:{r:1,c:5},e:{r:1,c:6}},        // Bandeau Auto (Unité/Cond.)
         {s:{r:2,c:0},e:{r:2,c:10}},       // Note d'aide
+        {s:{r:0,c:RC},e:{r:0,c:RV}},      // Titre du récap (N1:O1)
       ],
       rows:[{hpt:HPT_LIGNE_TITRE},{hpt:16},{hpt:30},{hpt:32}]
     }),"Transferts");
     // Référentiel articles (masqué) — clé = Code Bolloré, à défaut Désignation
     XLSX.utils.book_append_sheet(wb,xmkSheet([
-      [C("Code / Désignation (clé)",ST.headR),C("Désignation",ST.head),C("Catégorie",ST.head),C("Unité",ST.head),C("Cond.",ST.headR),C("Prix unitaire (FCFA)",ST.headR)],
-      ...refArticles.map((a)=>[
-        C(refKey(a),ST.cellR),
+      [C("Code / Désignation (clé)",ST.headR),C("Désignation",ST.head),C("Catégorie",ST.head),C("Unité",ST.head),C("Cond.",ST.headR),C("Prix carton (FCFA)",ST.headR)],
+      ...refLignes.map(({a,cle})=>[
+        C(cle,ST.cellR),
         C(a.nom||"",ST.cell),
         C(a.categorie||"",ST.cell),
         C(a.unite||"",ST.cell),
@@ -565,7 +630,7 @@ export function buildModelesWb(articles, produits, site="", period="", dateInv="
     put(rows[1],40,{v:"Total du mois",s:{font:xfont("E65100",true,10),fill:xfill("FFE0B2"),alignment:xal("center"),border:xborder()}});
     // Ligne 2 : note d'aide + ligne « ratio perte / CA »
     rows[2]=[];
-    put(rows[2],0,{v:"📌 Saisir les quantités perdues jour par jour (colonnes vertes J→AN) et le CA HT du jour en ligne 1 (colonne I). Quantité perte = somme des jours ; Valeur = Prix pièce × Quantité ; Prix pièce = Prix carton ÷ Cond.",
+    put(rows[2],0,{v:"📌 Saisir les quantités perdues jour par jour (colonnes vertes J→AN) et le CA HT du jour en ligne 1 (colonne I). Quantité perte = somme des jours ; Valeur = Prix pièce × Quantité ; Prix pièce = Prix carton ÷ Cond. Les lignes sans Cond./Prix sont des articles transmis absents de la base : les renseigner.",
       s:{font:xfont("374151",false,10,true),fill:xfill("FFFDE7"),alignment:xal("left"),border:xborder()}});
     put(rows[2],8,{v:"Ratio perte / CA HT",s:{font:xfont("E65100",true,10),fill:xfill("FFE0B2"),alignment:xal("left"),border:xborder()}});
     // Ligne 3 (index 3) : en-têtes
@@ -587,20 +652,40 @@ export function buildModelesWb(articles, produits, site="", period="", dateInv="
     const PREFFILL=xfill("E3F2FD"), PSAISIEFILL=xfill("E8F5E9"), PCALCFILL=xfill("FFF3E0");
     const catFillP=(cat)=>({fill:categoryFill(cat),border:xborder()});
     const isPackaging=(cat)=>/packaging/i.test(String(cat||""));
-    const filteredPertes = (articles || []).filter((a) => a && !isExcludedCategory(a.categorie) && !isPackaging(a.categorie));
+    
+    const PERTES_WHITELIST = ["BIERE BEAUFORT 33cl", "BIERE BOCK 33cl", "BIERE BOCK 50cl", "BOUTEILLE COCA COLA 50cL", "BOUTEILLE COCA COLA 1.5L", "BOUTEILLE COCA COLA ZERO 50cL", "BOUTEILLE COCA COLA ZERO 30cL", "BOUTEILLE FANTA 50cL", "BOUTEILLE FANTA 1.5L", "BOUTEILLE FANTA COCKTAIL 30cL", "BOUTEILLE FANTA ANANAS 30cL", "BOUTEILLE FANTA FRUITS ROUGES 30cL", "BOUTEILLE FANTA POMME 30cL", "BOUTEILLE SCHWEPPES AGRUMES 30cL", "BOUTEILLE SPRITE 50cL", "BOUTEILLE SPRITE 1.5L", "BOUTEILLE PEPSI ZERO 30CL", "MIRINDA ORANGE PET 30CL", "BOUTEILLE 7UP 30CL", "BOUTEILLE PEPSI ZERO 1,5L", "CAN PEPSI 250ML", "CANETTE PEPSI ZERO 25 CL", "BOUTEILLE PEPSI 1.5L", "BOUTEILLE PEPSI \xA030CL", "BOUTEILLE MIRINDA FRUIT ROUGE 30 CL", "CAFE EN GRAINS 250 g", "PRESSEA - Ananas 200ML", "PRESSEA - Orange 200ML", "PRESSEA - Pomme 200ML", "PRESSEA - Cocktail 200ML", "PRESSEA - Goyave 200ML", "BOUTEILLE COCA COLA 30cL", "EAU KIRENE 50 CL 12", "EAU KIRENE 50 CL 16", "BOUTEILLE FANTA 30cL", "MILO", "BOUTEILLE SPRITE 30cL", "BOUTEILLE ORANGINA 50cL", "ORANGINA 33CL", "CONCOMBRE", "DOSETTE FRITE SAUCE AMERIGO - 10GR", "SAUCE MAYONNAISE AMERIGO", "OIGNONS NON EPLUCHES", "SALADE ICEBERG - Boule (BS)", "SALADE ICEBERG - Boule (YG)", "SALADE ICEBERG - Boule (SDB)", "SALADE ICEBERG - Boule (SDB-06)", "SALADE ICEBERG - Boule ( HOREB)", "TOMATES PFI", "FROMAGE TRANCHE", "FROMAGE TRANCHE CONWAY", "FROMAGE MEDHI NEW", "KIT KAT MIX", "CONE GLACE - Conway", "CONE GLACE - Frosty Boy", "CONE GLACE - MEHDI", "CONE GLACE 100", "CORNICHONS", "CORNICHONS MEHDI", "CRISPY ONIONS", "DIP BBQ", "DIP CURRY", "DIP CHIPOTLE RANCH", "DIP HOT SALSA", "DIP FRITE SAUCE - 25GR", "DOSETTE FRITE SAUCE PORTION - 10GR", "DOSETTE FRITE SAUCE AMERIGO - 10GR", "DOSETTE KETCHUP PORTION - 10GR", "DOSETTE KETCHUP SIPRO - 11ml", "HUILE AYA 25 L", "HUILE AYA 5 L", "JALAPENOS", "JALAPENOS - ZEYTURSAN", "JALAPENOS - MEHDI", "JALAPENOS - MEHDI local", "Mix Poudre", "OIGNONS FRITS KHUNE (PROSUMA)", "OREO MIX", "OREO MIX CREME", "TOBLERONE", "SAUCE BBQ WESTERN", "SAUCE BBQ SIPRO", "SAUCE BIG KING", "SAUCE CARAMEL", "SAUCE CARAMEL SD", "SAUCE CHILI CHEESE", "SAUCE CHOCOLAT NOIR MONIN", "SAUCE CHOCOLAT", "SIROP CHOCOLAT SGG", "SAUCE FRAISE", "SAUCE KETCHUP", "SAUCE KETCHUP DOLLYS", "KETCHUP - Local", "SAUCE KETCHUP SIPRO 1Kg", "SAUCE KETCHUP PUIDOR - MEHDI", "TOMATE KETCHUP - MEHDI", "SAUCE MAYONNAISE", "MAYONNAISE - Local", "SAUCE MAYO MEHDI", "MAYONNAISE PIMENTEE", "VINAIGRETTE NATURE (500 ml)", "SAUCE MOUTARDE", "MOUTARDE JAUNE BISKISHOP", "SAUCE SALADE CESAR", "SAUCE SALADE CESAR 100", "SEL - Local", "MAIS DOUX", "MAIS DOUX 600 g", "Chicken crunchy filler", "CHICKEN WINGS", "CHICKEN WINGS - CAIRO", "CHICKEN WHOPPER GRILLED", "VALUE PATTY CHICKEN  CRISPY", "CHICKEN STRIPS", "NUGGETS - CAIRO", "CHILI CHEESE BITES", "CHILI CHEESE BITES NEW", "CHILI CHEESE BITES CONWAY", "CRISPY CHICKEN PATTY", "CRISPY CHICKEN CAIRO", "FRITES", "H1 4' Bun", "BUN 5'' NOUGATINE 48", "4' Bun - Modern Bakeries", "H1 4' Bun Local", "BUN 7'' NOUGATINE", "BUN 4'' NOUGATINE", "BUN 5'' Nougatine", "H2 5' Bun", "5' Bun - Modern Bakeries", "H2 5' Bun Local", "H3 7' Bun", "7' Bun - Modern Bakeries", "H3 7' Bun Local", "H4 Corn dusted 4,5' Bun", "4,5' Bun Corn Dusted - Modern Bakeries", "4' Bun - Delico", "5' Bun - Delico", "7' Bun - Delico", "4,5' Bun - Delico", "HAMBURGER PATTY - Americana", "Hamburger Patty Toledo", "LONG CHICKEN PATTY", "LONG CHICKEN PATTY - CAIRO", "MUFFIN CHOCOLAT", "MUFFIN CHOCOLAT - NOUGATINE", "MUFFIN VANILLE - NOUGATINE", "NUGGETS (ALFEIN)", "ONION RINGS", "ONION RINGS - Mc Cain", "ŒUFS FRITS - ANGULAS AGUINAGA", "TENDERCRISP PATTY", "WHOPPER PATTY  - Americana", "Whopper Patty Toledo", "FISH PATTY", "MOZZARELLA STICKS", "M EXPRESSO", "L EXPRESSO", "WHOPPER", "WHOPPER CHEESE", "DOUBLE WHOPPER", "WHOPPER JUNIOR", "BBQ TENDERCRISP", "BIG KING", "BIG KING XXL", "DELUXE", "LONG CHICKEN", "LONG CHILI CHEESE CHICKEN", "EXTRA LONG CHILI CHEESE", "CHILI CHEESE BURGER", "HAMBURGER", "HAMBURGER JUNIOR", "CHEESEBURGER", "CHEESEBURGER JUNIOR", "DOUBLE CHEESE BURGER", "TENDERCRISP", "TENDERGRILL", "CRISPY CHICKEN", "CHICKEN BURGER PETIT PRIX", "VALUE CHICKEN JR", "KING FISH", "SALADE FRAICHEUR", "SALADE POULET CROUSTILLANT", "SALADE POULET GRILLE", "LTO #4: MOZZARELLA STICKS x4", "LTO #5: MOZZARELLA STICKS x6", "LTO #6: MOZZARELLA STICKS x9", "TENDER CRISP"];
+    const normalize = (s) => String(s || "").trim().toLowerCase().replace(/[^a-z0-9]/g, '');
+    const whitelistNorm = PERTES_WHITELIST.map(normalize);
+    const isWhitelisted = (nom) => whitelistNorm.includes(normalize(nom));
+
+    const filteredPertes = (articles || []).filter((a) => a && !isExcludedCategory(a.categorie) && !isPackaging(a.categorie) && isWhitelisted(a.nom));
+    const nomsBase=new Set(filteredPertes.map((a)=>normalize(a.nom)));
+    // Une ligne par article transmis : un nom peut figurer à la fois dans la base articles et dans
+    // la liste PMIX (Jalapenos), ou venir du Ratio ET de la liste de secours (WHOPPER). On garde
+    // le volet matière en priorité, puis la première occurrence du produit fini (coût du Ratio).
+    const nomsPmixVus=new Set();
+    const filteredPmix = pmixProducts.filter((p) => {
+      if(!isWhitelisted(p.nom)) return false;
+      const k=normalize(p.nom);
+      if(nomsBase.has(k)||nomsPmixVus.has(k)) return false;
+      nomsPmixVus.add(k); return true;
+    });
+
     const SAISIE_DAILY=xfill("E8F5E9"), SAISIE_DAILY_LT=xfill("C8E6C9");
     let perteRow=0;   // données dès row index 4 (Excel ligne 5)
-    const pushPerteRow=({categorie,nom,cond,puCarton,unite})=>{
+    const pushPerteRow=({categorie,nom,cond,puCarton,unite,sansBase=false})=>{
       const r=[]; const ev=perteRow%2===1; const R=5+perteRow;
       const refP=(s)=>({...s,fill:ev?PREFFILL:xfill("EBF5FB"),border:xborder()});
       const calcP=(f,z)=>({t:"n",f,z,s:{font:xfont("E65100",true,10),fill:ev?PCALCFILL:xfill("FFE0B2"),alignment:xal("right"),border:xborder()}});
       const condVal=(Number(cond)>0)?Number(cond):1;   // règle documentée : repli conditionnement à 1 si absent
       put(r,0,C(categorie||"",catFillP(categorie)));
       put(r,1,C(nom,{...catFillP(categorie),font:xfont("1F2937",true,10)}));
-      put(r,2,Cn(condVal,"#,##0.##",refP(ST.cellR)));
-      put(r,3,Cn(puCarton,"#,##0",refP(ST.cellR)));
-      put(r,4,calcP(`IF(C${R}>0,D${R}/C${R},D${R})`,"#,##0.00"));   // Prix pièce = Prix carton ÷ Cond
-      put(r,5,C(unite||"pièce",refP(ST.cellMut)));
+      put(r,2,sansBase?C("",refP(ST.cellR)):Cn(condVal,"#,##0.##",refP(ST.cellR)));
+      put(r,3,sansBase?C("",refP(ST.cellR)):Cn(puCarton,"#,##0",refP(ST.cellR)));
+      // Ligne « sans base » : Cond. et Prix restent vides, le prix pièce doit malgré tout rester
+      // numérique (les indicateurs jour SOMMEPROD la colonne E).
+      put(r,4,calcP(sansBase?`IF(AND(ISNUMBER(C${R}),C${R}>0),D${R}/C${R},0)`:`IF(C${R}>0,D${R}/C${R},D${R})`,"#,##0.00"));   // Prix pièce = Prix carton ÷ Cond
+      put(r,5,sansBase?C("",refP(ST.cellMut)):C(unite||"pièce",refP(ST.cellMut)));
       put(r,6,calcP(`SUM(J${R}:AN${R})`,"#,##0"));                  // Quantité perte = somme des 31 jours
       put(r,7,calcP(`E${R}*G${R}`,"#,##0"));                        // Valeur = Prix pièce × Qté
       for(let j=0;j<31;j++) put(r,9+j,{v:0,t:"n",z:"#,##0",s:{font:xfont("2E7D32",false,11),fill:ev?SAISIE_DAILY:SAISIE_DAILY_LT,alignment:xal("right"),border:xborder()}});
@@ -617,15 +702,34 @@ export function buildModelesWb(articles, produits, site="", period="", dateInv="
       const cond=(Number(a.conditionnement)>0)?Number(a.conditionnement):1;
       pushPerteRow({categorie:a.categorie,nom:a.nom,cond,puCarton:a.pu_carton,unite:perteUnite(a,cond)});
     });
+    // La liste transmise par les équipes fait foi : un article transmis sans équivalent dans la
+    // base (ni en produit fini) est quand même publié, Cond./Prix vides, pour que la saisie des
+    // quantités perdues reste possible sur tous les articles transmis. Le CDG renseigne les prix.
+    const nomsPublies=new Set([...filteredPertes.map((a)=>normalize(a.nom)),...filteredPmix.map((p)=>normalize(p.nom))]);
+    const manquants=[]; const vus=new Set();
+    PERTES_WHITELIST.forEach((nom)=>{
+      const k=normalize(nom);
+      if(!k||nomsPublies.has(k)||vus.has(k)) return;
+      if((articles||[]).some((a)=>a&&normalize(a.nom)===k)) return;   // connu de la base mais catégorie exclue (nettoyage/packaging) : hors périmètre
+      vus.add(k); manquants.push(nom);
+    });
+    if(manquants.length){
+      const sepM=[];
+      put(sepM,0,{v:"ARTICLES TRANSMIS NON TROUVÉS DANS LA BASE — renseigner Cond. et Prix",s:{font:xfont(XC.white,true,10),fill:xfill(XC.head),alignment:xal("left"),border:xborder()}});
+      [1,2,3,4,5,6,7].forEach((c)=>put(sepM,c,{v:"",s:{fill:xfill(XC.head),border:xborder()}}));
+      rows.push(sepM);
+      perteRow++;
+      manquants.forEach((nom)=>pushPerteRow({nom,sansBase:true}));
+    }
     // Produits finis (recettes du Ratio) : valorisés au coût théorique, à la pièce
-    if(pmixProducts.length){
+    if(filteredPmix.length){
       const sep=[];
       put(sep,0,{v:"PRODUITS FINIS — valorisation au coût théorique",s:{font:xfont(XC.white,true,10),fill:xfill(XC.purple),alignment:xal("left"),border:xborder()}});
       [1,2,3,5,6,7].forEach((c)=>put(sep,c,{v:"",s:{fill:xfill(XC.purple),border:xborder()}}));  // jamais de texte en colonne E (prix pièce) : SOMMEPROD la parcourt
       rows.push(sep);
       perteRow++;   // le bandeau occupe une ligne Excel
     }
-    pmixProducts.forEach((p)=>pushPerteRow({categorie:p.categorie||"Produits finis",nom:p.nom,cond:1,puCarton:p.coutTheo,unite:"pièce"}));
+    filteredPmix.forEach((p)=>pushPerteRow({categorie:p.categorie||"Produits finis",nom:p.nom,cond:1,puCarton:p.coutTheo,unite:"pièce"}));
     const lastP=4+perteRow;  // ligne Excel de la dernière ligne de données (bandeau inclus, ignoré par SUM)
     // Bloc d'indicateurs journaliers en tête (lignes 1-3, colonnes J→AN) — comme le fichier d'origine
     const dayCol=(j)=>XLSX.utils.encode_col(9+j);
@@ -652,21 +756,70 @@ export function buildModelesWb(articles, produits, site="", period="", dateInv="
     }),"Pertes");
   }
 
-  // P.Douane — Valeur calculée automatiquement (= Qté × Px pièce) + TOTAL. Données dès la ligne 3.
+  // P.Douane — feuille volontairement vide (lignes de saisie libres), même géométrie que
+  // Transferts. La clé saisie en D accepte le Code article OU la Désignation exacte : le
+  // Référentiel Articles (feuille masquée) fournit Article, Catégorie, Cond. et Prix carton,
+  // le Prix pièce est calculé (Px carton ÷ Cond.) et la Valeur = Qté × Px pièce.
+  // Colonnes (index 0-based) : A(0)=Date  B(1)=Article  C(2)=Catégorie  D(3)=Code / Désignation
+  //   E(4)=Cond.  F(5)=Qté  G(6)=Px carton  H(7)=Px pièce  I(8)=Valeur — données dès la ligne 5.
   {
-    const rows=[]; rows[0]=[];
-    put(rows[0],COL_TITRE,{v:`Prélèvements Douane — ${site||"BK ____"}`,s:ST.titleP});
-    const head=[]; put(head,0,H("Article")); put(head,1,H("Date")); put(head,2,HR("Qté")); put(head,3,HR("Px carton"));
-    put(head,4,HR("CDT")); put(head,5,HR("Px pièce")); put(head,6,HR("Valeur"));
-    rows[1]=head;
-    sortArticles(articles).forEach((a,i)=>{ const r=[]; const ev=i%2===1; const R=2+i+1;
-      put(r,0,C(a.nom,zeb(ST.cell,ev))); put(r,3,Cn(a.pu_carton,"#,##0",zeb(ST.cellR,ev)));
-      put(r,4,Cn(a.conditionnement,"#,##0.##",zeb(ST.cellR,ev))); put(r,5,Cn(a.pu_piece,"#,##0.00",zeb(ST.cellR,ev)));
-      put(r,6,{t:"n",f:`C${R}*F${R}`,s:zeb(ST.cellR,ev),z:"#,##0"});    // Valeur = Qté × Prix pièce
-      rows.push(r);                                            // 1 Date, 2 Qté à saisir
-    });
-    const tot=[]; put(tot,0,{v:"TOTAL",s:ST.totalKp}); put(tot,6,{t:"n",f:`SUM(G3:G${2+articles.length})`,s:ST.totalKp,z:"#,##0"}); rows.push(tot);
-    XLSX.utils.book_append_sheet(wb,xmkSheet(rows,{cols:[{wch:WCH_ZONE_LOGO},{wch:12},{wch:9},{wch:12},{wch:8},{wch:12},{wch:14}],merges:[{s:{r:0,c:COL_TITRE},e:{r:0,c:6}}],rows:[{hpt:HPT_LIGNE_TITRE}]}),"P.Douane");
+    const NB_LIGNES_DOUANE=200;
+    const dKey=(R)=>`TRIM(D${R}&"")`;
+    const dvref=(R,col)=>`IF($D${R}="","",IFERROR(VLOOKUP(${dKey(R)},'${artRefSheet}'!$A$2:$F$${artRefLast},${col},FALSE),""))`;
+    const rows=[];
+    rows[0]=[];
+    put(rows[0],COL_TITRE,{v:`Prélèvements Douane — ${site||"BK ____"}${period?" · "+period:""}`,s:ST.titleP});
+    rows[1]=[];
+    const bandD=(txt,rgb,fill)=>({v:txt,s:{font:xfont(rgb,true,10),fill:xfill(fill),alignment:xal("center"),border:xborder()}});
+    put(rows[1],0,bandD("✏️ SAISIE","2E7D32","C8E6C9"));
+    put(rows[1],1,bandD("= AUTO","1565C0","BBDEFB"));
+    put(rows[1],3,bandD("✏️ CODE / DÉSIGNATION","2E7D32","C8E6C9"));
+    put(rows[1],4,bandD("= AUTO","1565C0","BBDEFB"));
+    put(rows[1],5,bandD("✏️ QTÉ","2E7D32","C8E6C9"));
+    put(rows[1],6,bandD("= AUTO","1565C0","BBDEFB"));
+    put(rows[1],7,bandD("= CALCUL","E65100","FFE0B2"));
+    rows[2]=[];
+    put(rows[2],0,{v:"📌 Saisir uniquement : Date (A), Code article (D — ou la Désignation exacte si l'article n'a pas de code) et Quantité (F). L'Article, la Catégorie, le Conditionnement, les prix et la Valeur se remplissent automatiquement. Une ligne par prélèvement.",
+      s:{font:xfont("374151",false,10,true),fill:xfill("FFFDE7"),alignment:xal("left"),border:xborder()}});
+    const head=[];
+    put(head,0,headSaisie("Date"));
+    put(head,1,headRef("Article"));
+    put(head,2,headRef("Catégorie"));
+    put(head,3,headSaisie("Code / Désignation"));
+    put(head,4,headRef("Cond."));
+    put(head,5,headSaisie("Quantité"));
+    put(head,6,headRef("Prix carton"));
+    put(head,7,headCalc("Prix pièce"));
+    put(head,8,headCalc("Valeur (FCFA)"));
+    rows[3]=head;
+    const DREFFILL=xfill("E3F2FD"),DSAISIEFILL=xfill("E8F5E9"),DCALCFILL=xfill("FFF3E0");
+    for(let i=0;i<NB_LIGNES_DOUANE;i++){ const r=[]; const ev=i%2===1; const R=5+i;
+      const refS=(s)=>({...s,fill:ev?DREFFILL:xfill("EBF5FB"),border:xborder()});
+      const saisS=(s)=>({...s,fill:ev?DSAISIEFILL:xfill("C8E6C9"),border:xborder({left:{style:"medium",color:{rgb:"2E7D32"}},right:{style:"medium",color:{rgb:"2E7D32"}}})});
+      const calcS=(s)=>({...s,fill:ev?DCALCFILL:xfill("FFE0B2"),border:xborder()});
+      put(r,0,{v:"",s:saisS(ST.cell)});   // Date à saisir
+      put(r,1,{t:"s",f:dvref(R,2),s:refS(ST.cellMut)});              // Article (auto)
+      put(r,2,{t:"s",f:dvref(R,3),s:refS(ST.cellMut)});              // Catégorie (auto)
+      put(r,3,{v:"",s:saisS(ST.cell)});                              // Code / Désignation (clé)
+      put(r,4,{t:"n",f:dvref(R,5),z:"#,##0.##",s:refS(ST.cellR)});   // Cond. (auto)
+      put(r,5,{v:"",t:"s",z:"#,##0",s:saisS({...ST.cellR,font:xfont("2E7D32",false,11)})});  // Quantité à saisir
+      put(r,6,{t:"n",f:dvref(R,6),z:"#,##0.##",s:refS(ST.cellR)});   // Px carton (auto)
+      put(r,7,{t:"n",f:`IF($G${R}="","",IF($E${R}>0,$G${R}/$E${R},$G${R}))`,z:"#,##0.00",s:calcS({font:xfont("E65100",false,10),alignment:xal("right")})});  // Px pièce = Px carton ÷ Cond.
+      put(r,8,{t:"n",f:`IF(OR($F${R}="",$H${R}=""),"",$F${R}*$H${R})`,z:"#,##0",s:calcS({font:xfont("E65100",true,10),alignment:xal("right")})});             // Valeur = Qté × Px pièce
+      rows.push(r);
+    }
+    const lastD=4+NB_LIGNES_DOUANE;
+    const tot=[]; put(tot,0,{v:"TOTAL",s:ST.totalKp}); put(tot,8,{t:"n",f:`SUM($I$5:$I$${lastD})`,s:ST.totalVp,z:"#,##0"}); rows.push(tot);
+    XLSX.utils.book_append_sheet(wb,xmkSheet(rows,{
+      cols:[{wch:WCH_ZONE_LOGO},{wch:36},{wch:20},{wch:16},{wch:10},{wch:12},{wch:14},{wch:14},{wch:16}],
+      merges:[
+        {s:{r:0,c:COL_TITRE},e:{r:0,c:8}},
+        {s:{r:1,c:1},e:{r:1,c:2}},   // Bandeau auto (Article / Catégorie)
+        {s:{r:1,c:7},e:{r:1,c:8}},   // Bandeau calcul (Px pièce / Valeur)
+        {s:{r:2,c:0},e:{r:2,c:8}},   // Note d'aide
+      ],
+      rows:[{hpt:HPT_LIGNE_TITRE},{hpt:16},{hpt:30},{hpt:32}]
+    }),"P.Douane");
   }
 
   // Offert — données dès la ligne 2 (non lié aux articles)
@@ -688,7 +841,7 @@ export function buildModelesWb(articles, produits, site="", period="", dateInv="
 
     const refLast = Math.max(2, pmixProducts.length + 1);
     const pluKey = (R) => `TRIM(A${R}&"")`;   // PLU saisi (nombre ou texte) normalisé en clé texte
-    const rowCount = Math.max(1, pmixProducts.length);
+    const rowCount = Math.max(1000, pmixProducts.length);
     for (let i = 0; i < rowCount; i++) {
       const r = [];
       const ev = i % 2 === 1;
@@ -720,6 +873,22 @@ export function buildModelesWb(articles, produits, site="", period="", dateInv="
     put(tot, 4, { t: "n", f: `SUM(E3:E${2 + rowCount})`, s: ST.totalV, z: "#,##0" });
     rows.push(tot);
 
+    // Récap de contrôle — à droite du tableau (colonnes H/I), comme Transferts : visible sans
+    // dérouler les lignes de saisie et hors de la zone A..F relue par extractPmixFromWorkbook.
+    const RC = 7, RV = 8;
+    const lastPmix = 2 + rowCount;
+    const rLab = (rIdx, txt, s = ST.cell) => { const row = rows[rIdx] || (rows[rIdx] = []); put(row, RC, { v: txt, s }); };
+    const rVal = (rIdx, f, s = ST.cellR) => { const row = rows[rIdx] || (rows[rIdx] = []); put(row, RV, { t: "n", f, z: "#,##0", s }); };
+    put(rows[0], RC, { v: `RÉCAP PMIX — ${site || "BK ____"}`, s: ST.section });
+    rLab(1, "INDICATEUR", ST.head); put(rows[1], RV, { v: "VALEUR", s: ST.headR });
+    rLab(2, "Lignes saisies (PLU en A)");        rVal(2, `SUMPRODUCT(--($A$3:$A$${lastPmix}<>""))`);
+    rLab(3, "dont PLU absent du ratio");         rVal(3, `SUMPRODUCT(--($A$3:$A$${lastPmix}<>""),--($F$3:$F$${lastPmix}="PLU ABSENT DU RATIO"))`);
+    rLab(4, "TOTAL COUVERTS");                   rVal(4, `SUM($C$3:$C$${lastPmix})`);
+    rLab(5, "TOTAL CA (FCFA)", ST.totalK);       rVal(5, `SUM($E$3:$E$${lastPmix})`, ST.totalV);
+    { const row = rows[6] || (rows[6] = []);
+      put(row, RC, { v: "CA moyen / couvert", s: ST.cell });
+      put(row, RV, { t: "n", f: `IF($I$5=0,"",$I$6/$I$5)`, z: "#,##0", s: ST.cellR }); }
+
     XLSX.utils.book_append_sheet(wb, xmkSheet([
       [C("PLU", ST.headR), C("Produit", ST.head), C("Prix de vente (FCFA)", ST.headR)],
       // Price = PRIX DE VENTE du ratio (feuille « Ratios », PV TTC SANDWICH ONLY) ;
@@ -730,8 +899,8 @@ export function buildModelesWb(articles, produits, site="", period="", dateInv="
     XLSX.utils.book_append_sheet(
       wb,
       xmkSheet(rows, {
-        cols: [{ wch: WCH_ZONE_LOGO }, { wch: 38 }, { wch: 14 }, { wch: 14 }, { wch: 16 }, { wch: 28 }],
-        merges: [{ s: { r: 0, c: COL_TITRE }, e: { r: 0, c: 5 } }],
+        cols: [{ wch: WCH_ZONE_LOGO }, { wch: 38 }, { wch: 14 }, { wch: 14 }, { wch: 16 }, { wch: 28 }, { wch: 3 }, { wch: 30 }, { wch: 16 }],
+        merges: [{ s: { r: 0, c: COL_TITRE }, e: { r: 0, c: 5 } }, { s: { r: 0, c: RC }, e: { r: 0, c: RV } }],
         rows: [{ hpt: HPT_LIGNE_TITRE }],
       }),
       "PMIX"
@@ -746,8 +915,8 @@ export function buildModelesWb(articles, produits, site="", period="", dateInv="
 }
 
 // Téléchargement d'un modèle unique (bouton "modèle vierge")
-export async function genererModelesSuivi(articles, produits, site="", period="", dateInv="", destinataires=[]){
-  const wb=buildModelesWb(articles, produits, site, period, dateInv, destinataires);
+export async function genererModelesSuivi(articles, produits, site="", period="", dateInv="", destinataires=[], pmixComplement={}){
+  const wb=buildModelesWb(articles, produits, site, period, dateInv, destinataires, pmixComplement);
   const suffix=[site,period].filter(Boolean).map(s=>s.replace(/[^a-zA-Z0-9]/g,"_")).join("_");
   await telechargerXlsx(wb,`Modeles_Suivi_Stock${suffix?"_"+suffix:""}.xlsx`);
 }
