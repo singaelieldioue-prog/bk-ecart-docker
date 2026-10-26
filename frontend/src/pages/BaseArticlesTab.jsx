@@ -157,7 +157,7 @@ export function BaseArticlesTab({ role, produits, localArticles }) {
         const zip = new JSZip();
         const codes = rs.map((x) => x.code);
         for (const r of rs) {
-          const wb = buildModelesWb(orderedArts, prods, r.code, period.trim(), d, codes, pmixComplement);
+          const wb = buildModelesWb(orderedArts, prods, r.code, period.trim(), d, codes, pmixComplement, arts);
           const buf = await injecterLogoXlsx(XLSX.write(wb, { bookType: "xlsx", type: "array" }));
           zip.file(
             `Suivi_${clean(r.code)}_${clean(period.trim())}.xlsx`,
@@ -177,7 +177,7 @@ export function BaseArticlesTab({ role, produits, localArticles }) {
           alert("Restaurant introuvable.");
           return;
         }
-        await genererModelesSuivi(orderedArts, prods, r.code, period.trim(), d, restos.filter((x) => x.actif).map((x) => x.code), pmixComplement); // fichier unique
+        await genererModelesSuivi(orderedArts, prods, r.code, period.trim(), d, restos.filter((x) => x.actif).map((x) => x.code), pmixComplement, arts); // fichier unique
       }
     } catch (e) {
       alert("Génération impossible : " + e.message);
@@ -194,6 +194,7 @@ export function BaseArticlesTab({ role, produits, localArticles }) {
         "Désignation",
         "Code",
         "Catégorie",
+        "Unité",
         "Conditionnement",
         "Prix carton (FCFA)",
         "Prix pièce (FCFA)",
@@ -209,6 +210,7 @@ export function BaseArticlesTab({ role, produits, localArticles }) {
           a.nom,
           a.code || "",
           a.categorie || "",
+          a.unite || "",
           a.conditionnement || 0,
           a.pu_carton || 0,
           a.pu_piece || 0,
@@ -218,7 +220,7 @@ export function BaseArticlesTab({ role, produits, localArticles }) {
       });
       const ws = XLSX.utils.aoa_to_sheet(m);
       ws["!rows"] = [{ hpt: 80 }];
-      ws["!merges"] = [{ s: { r: 0, c: 3 }, e: { r: 0, c: 7 } }];
+      ws["!merges"] = [{ s: { r: 0, c: 3 }, e: { r: 0, c: 8 } }];
       const wb = XLSX.utils.book_new();
       XLSX.utils.book_append_sheet(wb, ws, "Base articles");
       await telechargerXlsx(wb, "base_articles.xlsx");
@@ -236,7 +238,7 @@ export function BaseArticlesTab({ role, produits, localArticles }) {
       }
       const orderedArts = enrichirAvecBaseLocale(await orderArticlesByInventoryExample(arts), localArticles);
       const prods = produits?.length ? produits : (await loadRatiosParsed())?.allProducts || [];
-      await genererModelesSuivi(orderedArts, prods, "", "", "", [], (await loadPmixComplement()) || {});
+      await genererModelesSuivi(orderedArts, prods, "", "", "", [], (await loadPmixComplement()) || {}, arts);
     } catch (e) {
       alert("Génération impossible : " + e.message);
     }
@@ -485,7 +487,7 @@ export function BaseArticlesTab({ role, produits, localArticles }) {
         <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 13 }}>
           <thead>
             <tr style={{ background: "#F9FAFB" }}>
-              {["Désignation", "Code", "Catégorie", "Cond.", "Prix carton", "Prix pièce", "Statut"].map(
+              {["Désignation", "Code", "Catégorie", "Unité", "Cond.", "Prix carton", "Prix pièce", "Statut"].map(
                 (h, i) => (
                   <th
                     key={i}
@@ -494,7 +496,7 @@ export function BaseArticlesTab({ role, produits, localArticles }) {
                       fontWeight: 700,
                       color: "#374151",
                       borderBottom: "1px solid #F3F4F6",
-                      textAlign: i > 2 ? "right" : "left",
+                      textAlign: i > 3 ? "right" : "left",
                     }}
                   >
                     {h}
@@ -509,6 +511,7 @@ export function BaseArticlesTab({ role, produits, localArticles }) {
                 <td style={{ padding: "7px 10px" }}>{a.nom}</td>
                 <td style={{ padding: "7px 10px", color: "#6B7280" }}>{a.code || "—"}</td>
                 <td style={{ padding: "7px 10px", color: "#6B7280" }}>{a.categorie || "—"}</td>
+                <td style={{ padding: "7px 10px", color: "#6B7280" }}>{a.unite || "—"}</td>
                 <td style={{ padding: "7px 10px", textAlign: "right" }}>{a.conditionnement ?? "—"}</td>
                 <td style={{ padding: "7px 10px", textAlign: "right" }}>
                   {a.pu_carton != null ? Math.round(a.pu_carton).toLocaleString("fr-FR") : "—"}

@@ -36,6 +36,71 @@ const canonicalArticleName = (value) => {
 
 const canonicalRef = (value) => normalizeArticleKey(value || '').replace(/\s+/g, ' ').trim();
 
+// Ligne sans désignation réelle ET sans prix : ni valorisable, ni contrôlable dans un
+// inventaire. Import du 01/09 (colonnes lues avec un décalage) — capture CDG « ELEMENT A
+// SUPRIMER » du 25/10. Elle reste inactive à l'insertion comme à la mise à jour, et revient
+// d'elle-même dès que le fichier source lui donne un nom ou un prix.
+// `cur` (ligne déjà en base) est inspecté lui aussi : une synchronisation qui n'apporte pas
+// de désignation ne doit pas effacer une ligne qui en a une.
+export const isLigneSansValeur = (it, cur = null) => {
+  if (!it && !cur) return false;
+  const code = normalizeArticleKey(it?.code || it?.ref || cur?.code || cur?.ref);
+  const nom = normalizeArticleKey(it?.nom) || normalizeArticleKey(cur?.nom);
+  const sansNom = !nom || nom === code;
+  const aUnPrix = [it?.puCarton, it?.pu_piece, it?.pu_carton, cur?.pu_carton, cur?.pu_piece, it?.puPiece]
+    .some((v) => Number(v) > 0);
+  return sansNom && !aUnPrix;
+};
+
+// L'actif attendu d'une ligne entrante : la règle du Ratio, sauf ligne sans valeur.
+const actifAttendu = (it, cur = null) => {
+  if (isLigneSansValeur(it, cur)) return 0;
+  return (it && it.actif !== undefined && it.actif !== null) ? (Number(it.actif) === 0 ? 0 : 1) : 1;
+};
+
+// Unités de mesure admises dans la base, orthographe et casse stabilisées. Le fichier source
+// écrit « carton », « CARTON », « piece », « Pi?ce », « PACK »… : le CDG doit lire un seul
+// mot par unité, sinon la colonne Unité du classeur exporté devient inutilisable.
+const UNITES = {
+  CARTON: "Carton", CARTONS: "Carton",
+  PIECE: "Pièce", PCS: "Pièce", UNITE: "Pièce", U: "Pièce",
+  PACK: "Pack",
+  INNER: "Inner",
+  BOITE: "Boîte", BTE: "Boîte",
+  BIDON: "Bidon", SEAU: "Seau", BOBINE: "Bobine", PALET: "Palet", PLAQUE: "Plaque",
+  GRAMME: "Gramme", G: "Gramme",
+  KG: "Kg", KILOGRAMME: "Kg",
+  LITRE: "Litre", L: "Litre",
+  SACHET: "Sachet", BOUTEILLE: "Bouteille", FLACON: "Flacon", LOT: "Lot", KIT: "Kit",
+  ROULEAU: "Rouleau",
+};
+
+// « 1 inner de 4 », « 1 lot de 2 » : le colisage est porté par l'unité. On ne garde que
+// l'unité — le nombre est déjà porté par la colonne Conditionnement.
+export const canonUnite = (value) => {
+  const raw = String(value ?? "").trim();
+  if (!raw) return "";
+  const mot = normalizeArticleKey(raw.replace(/^\s*1\s+/, "").replace(/\s+de\s+\d+\s*$/i, ""));
+  return UNITES[mot] || raw;
+};
+
+// Unité reconnue seule : « 10500 stickers par inner » est une consigne de saisie, pas une
+// unité. Un fichier de référence ne peut donc imposer une unité que sous cette forme.
+export const uniteConnue = (value) => {
+  const raw = String(value ?? "").trim();
+  return raw && UNITES[normalizeArticleKey(raw.replace(/^\s*1\s+/, "").replace(/\s+de\s+\d+\s*$/i, ""))] ? canonUnite(raw) : "";
+};
+
+// Unité écrite en base : celle de la source, sinon celle que le colisage implique. Un article
+// livré à l'unité se compte en Pièce ; conditionné (colisage > 1), il se compte en Carton.
+const uniteAttendue = (it, cur = null) => {
+  const deSource = uniteConnue(it?.unite);
+  if (deSource) return deSource;
+  if (String(cur?.unite ?? "").trim()) return null;      // la base a déjà une unité : COALESCE la garde
+  const cond = Number(it?.conditionnement ?? cur?.conditionnement);
+  return cond > 1 ? "Carton" : "Pièce";
+};
+
 const compactCodeKey = (value) => canonicalRef(value).replace(/\s+/g, '');
 
 const articleIdentityKey = (article) => {
@@ -109,8 +174,8 @@ export function computeDiff(db, incoming) {
     if (!it || !it.ref) continue;
     const ref = canonicalRef(it.ref);
     if (!ref) continue;
-    const want = (it.actif === 0) ? 0 : 1;
     const cur = curByRef.get(ref);
+    const want = actifAttendu(it, cur);
     if (!cur) { added.push({ ref, nom: it.nom || ref }); continue; }
     const changes = [];
     if (!near(cur.pu_piece, num(it.puPiece)))     changes.push('prix pièce');
@@ -144,12 +209,12 @@ export function computeDiff(db, incoming) {
 export function applySync(db, incoming, source) {
   const cleanIncoming = dedupeArticles(incoming);
   const diff = computeDiff(db, cleanIncoming);
-  const expectedActive = (it) => (it && it.actif !== undefined && it.actif !== null ? Number(it.actif) === 0 ? 0 : 1 : 1);
 
   const updateFromRatio = db.prepare(`
     UPDATE articles 
     SET conditionnement=COALESCE(@conditionnement, conditionnement),
-      pu_carton=COALESCE(@pu_carton, pu_carton),
+      unite=COALESCE(@unite, unite),
+        pu_carton=COALESCE(@pu_carton, pu_carton),
         pu_piece=COALESCE(@pu_piece, pu_piece),
         statut=COALESCE(@statut, statut),
         categorie=COALESCE(@categorie, categorie),
@@ -164,13 +229,13 @@ export function applySync(db, incoming, source) {
       if (!it || !it.ref) continue;
       const ref = canonicalRef(it.ref);
       if (!ref) continue;
-      const actif = expectedActive(it);
-
-      const existing = db.prepare('SELECT ref FROM articles WHERE ref=?').get(ref);
+      const existing = db.prepare('SELECT ref, nom, code, unite, conditionnement, pu_carton, pu_piece FROM articles WHERE ref=?').get(ref);
+      const actif = actifAttendu(it, existing);
 
       if (existing) {
         updateFromRatio.run({
           conditionnement: num(it.conditionnement),
+          unite: uniteAttendue(it, existing),
           pu_carton: num(it.puCarton) || null,
           pu_piece: num(it.puPiece) || null,
           statut: it.statut ? String(it.statut).trim() : null,
@@ -187,7 +252,7 @@ export function applySync(db, incoming, source) {
           ref,
           nom: String(it.nom || ref).trim(),
           code: it.code ? String(it.code).trim() : ref,
-          unite: it.unite ? String(it.unite).trim() : null,
+          unite: uniteAttendue(it, null),
           categorie: it.categorie ? String(it.categorie).trim() : null,
           conditionnement: num(it.conditionnement),
           pu_carton: num(it.puCarton),
@@ -379,7 +444,7 @@ export function upsertOne(db, it, source) {
       corresp=excluded.corresp, statut=excluded.statut, actif=excluded.actif, ordre_affichage=excluded.ordre_affichage, source=excluded.source,
       updated_at=datetime('now')
   `).run({
-    ref, nom: it.nom || '', code: it.code || null, unite: it.unite || null, categorie: it.categorie || null,
+    ref, nom: it.nom || '', code: it.code || null, unite: uniteAttendue(it, null), categorie: it.categorie || null,
     conditionnement: num(it.conditionnement), pu_carton: num(it.puCarton), pu_piece: num(it.puPiece),
     corresp: it.corresp || '', statut: it.statut || '', actif: (it.actif === 0 ? 0 : 1), ordre_affichage: num(it.ordre_affichage) || 0, source: source || 'manuel',
   });

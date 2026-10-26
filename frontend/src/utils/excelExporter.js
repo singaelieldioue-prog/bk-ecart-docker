@@ -4,6 +4,8 @@ import { ROLES, WORKFLOW } from '../constants.js';
 import { sortArticles } from './articleSorter.js';
 import { sortArticlesByCustomOrder, CUSTOM_ARTICLES_ORDER } from './customArticleOrder.js';
 import { MISSING_PMIX } from './missingPmix.js';
+import { PERTES_REFERENTIEL_CDG } from './pertesReferentielCdg.js';
+import { INVENTAIRE_REFERENTIEL_CDG } from './inventaireReferentielCdg.js';
 import { telechargerXlsx } from './xlsxLogo.js';
 
 // Le logo BK/Servair (137×102 px natif, affiché à 75 % de large → 103×102 px) est injecté en
@@ -260,21 +262,39 @@ export async function exportExcel(rapport){
   await telechargerXlsx(wb,`${titre.replace(/[^a-zA-Z0-9_-]/g,"_")}.xlsx`);
 }
 
-export function buildModelesWb(articles, produits, site="", period="", dateInv="", destinataires=[], pmixComplement={}){
+// E « Nb articles / inner » est vide sur 203 lignes du modèle sur 318 : la colonne I
+// (F + IF(D>0;G*E/D;0) + IF(D>0;H/D;0)) annule alors le « Inner » saisi en G.
+// Quand le colisage D existe (> 1), l'inner retenu est le carton : E = D. Un E déjà
+// renseigné n'est jamais écrasé et D n'est jamais modifié.
+// Garde-fou : le plus grand colisage légitime du fichier CDG est 1000 (sacs et dosettes
+// par millier). Au-delà, D est une valeur aberrante (SACHET FRITES PETIT 4000 : 11 inners
+// deviendraient 44 000 pièces) — la dérivation est bloquée et le signal est tracé.
+export const SEUIL_COLISAGE_ABSURDE = 1000;
+export function deriveInnerDepuisColisage(article){
+  const inner = Number(article?.qteInner);
+  if(Number.isFinite(inner) && inner > 0) return { qteInner: article.qteInner, source: null };
+  const cdt = Number(article?.conditionnement);
+  if(!Number.isFinite(cdt) || cdt <= 1) return { qteInner: article?.qteInner, source: "non_derive" };
+  if(cdt > SEUIL_COLISAGE_ABSURDE) return { qteInner: article?.qteInner, source: "derive_E_bloque_D_absurde" };
+  return { qteInner: cdt, source: "derive_E" };
+}
+
+export function buildModelesWb(articles, produits, site="", period="", dateInv="", destinataires=[], pmixComplement={}, baseComplete=[]){
   const wb=XLSX.utils.book_new();
   const pmixFromRatio = (produits||[]).filter((p)=>p&&p.nom);
   // Fusionner avec la liste de secours : les produits du ratio ont la priorité,
   // les PLU absents du ratio sont complétés par la base complémentaire PMIX (noms officiels)
   // puis par MISSING_PMIX, pour éviter "PLU ABSENT DU RATIO".
-  // Le coût du complément n'est PAS un prix de vente : la colonne « Prix » du référentiel
-  // reste réservée au PV TTC du Ratio.
+  // Le référentiel donne un COÛT UNITAIRE (validé par le CDG : Whopper = 1 187 F = Ratios!D5,
+  // et non le PV TTC 5 500 F = Ratios!C5). Le coût de la base complémentaire PMIX y entre donc
+  // directement — c'est la seule valorisation des PLU sans fiche Ratio (713, 715, 400265…).
   const ratioPluSet = new Set(pmixFromRatio.map(p => String(p.plu ?? '').trim()));
   const compPluSet = new Set(Object.keys(pmixComplement || {}));
   const pmixProducts = [
     ...pmixFromRatio,
     ...Object.entries(pmixComplement || {})
       .filter(([plu]) => !ratioPluSet.has(plu))
-      .map(([plu, c]) => ({ plu, nom: String(c?.nom || plu).trim(), coutTheo: 0, pvTtc: null })),
+      .map(([plu, c]) => ({ plu, nom: String(c?.nom || plu).trim(), coutTheo: Number(c?.cout) > 0 ? Number(c.cout) : 0, pvTtc: null })),
     ...MISSING_PMIX.filter(p => {
       const k = String(p.plu ?? '').trim();
       return !ratioPluSet.has(k) && !compPluSet.has(k);
@@ -285,6 +305,41 @@ export function buildModelesWb(articles, produits, site="", period="", dateInv="
   const H =(t)=>({v:t,s:ST.head});
   const HR=(t)=>({v:t,s:ST.headR});
   const put=(arr,idx,cell)=>{ arr[idx]=cell; };
+
+  // Prix de repli par CODE ARTICLE : le modèle d'inventaire et la base désignent parfois le même
+  // article différemment (« BOUTEILLE COCA COLA 1.5L » côté CDG, « BTL-COCA 1.5L » ou
+  // « BTL COCA 1 5L » côté base) mais partagent le code. Index normalisé (ponctuation et espaces
+  // repliés) des seuls articles cotés : il sert quand la ligne générée n'a pas de prix, jamais à
+  // écraser un prix existant.
+  const cleCode=(s)=>String(s||"").trim().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-z0-9]/gi,"").toUpperCase();
+  const prixParCode=new Map();
+  (articles||[]).forEach((a)=>{
+    const k=a&&cleCode(a.code);
+    if(k&&Number(a.pu_carton)>0&&!prixParCode.has(k)) prixParCode.set(k,Number(a.pu_carton));
+  });
+  const prixDuCode=(a)=>(a&&cleCode(a.code)?prixParCode.get(cleCode(a.code))||0:0);
+
+  // Référentiel « Inventaire initial » du CDG (module src/utils/inventaireReferentielCdg.js, relevé
+  // du 26/10/2026) : clé normalisée -> ligne du CDG. Partagé par les Inventaires et par le
+  // Référentiel Articles, que lisent Transferts (colonne I) et P.Douane (colonne G).
+  const cleRefInv = (s) => String(s || "").trim().toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]/g, "");
+  const REF_INV = new Map();
+  INVENTAIRE_REFERENTIEL_CDG.forEach((t) => { const k = cleRefInv(t.nom); if (!REF_INV.has(k)) REF_INV.set(k, t); });
+  // Prix CARTON du CDG quand sa feuille Inventaire laisse la ligne à 0 : sa table des pertes cote
+  // le même article à la même désignation (BOUTEILLE COCA COLA 1.5L, Cond. 6 : 3 686 F le pack),
+  // là où la base ne connaît qu'un prix pièce (127,47 F, colisage 1). Le carton prime : ramené au
+  // prix pièce de son colisage, puis recomposé sur le Cond. de la ligne publiée.
+  const PERTES_CARTON = new Map();
+  PERTES_REFERENTIEL_CDG.forEach((t) => {
+    const k = cleRefInv(t.nom);
+    if (Number(t.pu) > 0 && !PERTES_CARTON.has(k)) PERTES_CARTON.set(k, t);
+  });
+  const prixCartonCdg = (nom, cond) => {
+    const t = PERTES_CARTON.get(cleRefInv(nom));
+    if (!t) return 0;
+    const condT = Number(t.cond) > 0 ? Number(t.cond) : 1;
+    return (Number(t.pu) / condT) * (Number(cond) > 0 ? Number(cond) : 1);
+  };
 
   // Inventaire (Initial & Final) — les données démarrent en colonne A (sous le logo),
   // dès la ligne 7. Colonnes (nouveau format, index 0-based) :
@@ -343,13 +398,17 @@ export function buildModelesWb(articles, produits, site="", period="", dateInv="
     put(rows[4],13,headerCell("REPORT OMEGA")); put(rows[4],14,headerCell(""));
     rows[5]=[headerCell(""),headerCell(""),headerCell(""),headerCell("Nb articles / carton"),headerCell("Nb articles / inner"),headerCell("Carton"),headerCell("Inner"),headerCell("Unités"),headerCell("Nombre"),headerCell("Unité"),headerCell("Prix carton"),headerCell("Valeur stock"),undefined,headerCell("Code Article"),headerCell("Quantité (unité)")];
     
-    // Fonction pour normaliser les noms d'articles
+    // Fonction pour normaliser les noms d'articles. La ponctuation est repliée : le base
+    // article écrit « BOUTEILLE PEPSI 1.5L », « Hamburger Patty Toledo » ou « BUN 4'' NOUGATINE »
+    // là où la liste de référence écrit « 1,5L », « PATTY - Toledo » ou « 4’’ » — sans ce repli,
+    // ces articles du CDG disparaissaient silencieusement des inventaires générés.
     const normalizeString = (str) => 
       String(str || "")
         .trim()
         .toUpperCase()
         .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, "");
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/[^A-Z0-9]/g, "");
     
     // Créer une map des articles de la liste personnalisée
     const customOrderMap = new Map();
@@ -372,6 +431,14 @@ export function buildModelesWb(articles, produits, site="", period="", dateInv="
       .filter((a) => customOrderMap.has(normalizeString(a.nom)))
       .sort((a, b) => customOrderMap.get(normalizeString(a.nom)) - customOrderMap.get(normalizeString(b.nom)));
     
+    // La feuille publie le référentiel « Inventaire initial » du classeur du CDG (module
+    // src/utils/inventaireReferentielCdg.js, relevé du 26/10/2026) : COLISAGE, « Nb articles /
+    // inner », unité affichée et prix de valorisation de chaque article sont ceux de sa feuille,
+    // ligne à ligne — le modèle d'inventaire transmis ne sert plus qu'aux articles que le CDG ne
+    // liste pas, et la dérivation inner depuis le colisage (E-DERIVE) ne s'applique qu'à ceux-là.
+    // REF_INV et prixCartonCdg vivent dans la zone d'aides partagée : le Référentiel Articles les
+    // réutilise pour que Transferts et P.Douane publient le même prix carton.
+
     let actualRowIndex = 6; // Index réel dans le fichier (après les en-têtes)
     
     sortedArticles.forEach((a, sortedIndex) => {
@@ -384,18 +451,34 @@ export function buildModelesWb(articles, produits, site="", period="", dateInv="
       const ref = (s) => withoutBorder(s);
       const saisie = (s) => withoutBorder(s);
       const calcule = (s) => withoutBorder(s);
+      const refCdg = REF_INV.get(cleRefInv(a.nom));
+      const inner = refCdg ? { qteInner: refCdg.inner, source: null } : deriveInnerDepuisColisage(a);
+      if (inner.source) a.conditionnement_source = inner.source;
+      if (inner.source === "derive_E_bloque_D_absurde" && name === "Inventaire Initial") {
+        console.warn(`D=${a.conditionnement} > ${SEUIL_COLISAGE_ABSURDE} pour ${a.code || a.nom} — dérivation E bloquée, à corriger dans le fichier CDG`);
+      }
       
       put(r, 0, C(a.categorie || "", ref(ST.cellMut))); 
       put(r, 1, C(a.fournisseur || "SIA", ref(ST.cellMut)));
       put(r, 2, C(a.nom || "", { ...ref(ST.cell), font: xfont("1F2937", true, 10) })); 
-      put(r, 3, Cn(a.conditionnement, "#,##0.##", ref(ST.cellR)));
-      put(r, 4, Cn(a.qteInner, "#,##0.##", ref(ST.cellR)));
+      // Cellule vide chez le CDG = pas de valeur publiée (24 lignes sans colisage : produits pesés).
+      if (!refCdg || refCdg.cond !== undefined) put(r, 3, Cn(refCdg ? refCdg.cond : a.conditionnement, "#,##0.##", ref(ST.cellR)));
+      if (!refCdg || refCdg.inner !== undefined) put(r, 4, Cn(refCdg ? refCdg.inner : inner.qteInner, "#,##0.##", ref(ST.cellR)));
       put(r, 5, saisie(saisieCellN(ev))); 
       put(r, 6, saisie(saisieCellN(ev))); 
       put(r, 7, saisie(saisieCellN(ev)));
       put(r, 8, calcule(calcCellF(`F${R}+IF(D${R}>0,G${R}*E${R}/D${R},0)+IF(D${R}>0,H${R}/D${R},0)`, ev)));
-      put(r, 9, C(a.unite || "", ref(ST.cellMut))); 
-      put(r, 10, Cn(a.pu_carton, "#,##0.##", ref(ST.cellR)));
+      put(r, 9, C(refCdg ? (refCdg.unite || "") : (a.unite || ""), ref(ST.cellMut))); 
+      // Le prix du CDG fait foi quand il est renseigné ; son 0 est un trou (article qu'il ne cote
+      // pas dans son Inventaire initial). Le prix CARTON prime alors sur le prix pièce de la base :
+      // celui de sa table des pertes (BOUTEILLE COCA COLA 1.5L : 3 686 F le pack de 6, pas 127,47 F
+      // la pièce), puis celui de la ligne, puis celui du même code article.
+      const puRef = refCdg ? Number(refCdg.pu) : 0;
+      const puCartonCdg = refCdg ? prixCartonCdg(refCdg.nom, refCdg.cond) : 0;
+      const puInv = puRef > 0 ? puRef
+        : (puCartonCdg > 0 ? puCartonCdg
+        : (Number(a.pu_carton) > 0 ? Number(a.pu_carton) : prixDuCode(a)));
+      put(r, 10, Cn(puInv, "#,##0.##", ref(ST.cellR)));
       put(r, 11, calcule(calcCellV(`I${R}*K${R}`, ev))); 
       put(r, 13, C(a.code || "", ref(ST.cellMut)));
       put(r, 14, { t: "n", f: `F${R}*D${R}+G${R}*E${R}+H${R}`, z: "#,##0.##", s: ref(ST.cellR) }); 
@@ -412,25 +495,49 @@ export function buildModelesWb(articles, produits, site="", period="", dateInv="
     const sumFormula = `SUM(L7:L${lastDataRow})`;
     
     put(tot, 11, { t: "n", f: sumFormula, s: { ...ST.totalV, border: headerBorder }, z: "#,##0" }); rows.push(tot);
-    const summaryStart=rows.length+1;
-    const summaryCategories = getCategorySummaryList(articles);
+
+    // Récapitulatif par catégorie sous le tableau, reproduit cellule pour cellule du bloc du
+    // fichier du CDG (exemple inventaire.xlsx, feuille inventaire, lignes 330-336) : libellé en
+    // C (colonne ARTICLE, la seule assez large pour les 6 noms sur une ligne et centrés), montant
+    // en D, sous-total « Nourriture » fusionné en E sur les 3 lignes, TOTAL sur jaune. Bordures :
+    // medium sur tout le tour du bloc et autour de la fusion, thin entre les lignes, comme le
+    // modèle. Le contrôle (TOTAL STOCK − TOTAL récap) reste en E de la ligne TOTAL, sans fond ni
+    // bordure chez le CDG ; il n'affiche rien tant qu'il est nul, et la dérive apparaît dès qu'une
+    // catégorie sort des 6 libellés — c'est lui qui remplace la ligne « AUTRES » retirée.
+    const RECAP_LIBELLES = ["Boissons","Nourriture - Surgelé","Nourriture - Frais","Nourriture - Sec","Packaging","Produits de Nettoyage"];
+    const RECAP_FONDS = { "Boissons":"F7CAAC", "Nourriture - Surgelé":"BED7EE", "Nourriture - Frais":"BED7EE", "Nourriture - Sec":"BED7EE", "Packaging":"FFD1D1", "Produits de Nettoyage":"E2EFD9", "TOTAL":"FFFF00" };
+    const RECAP_Z = '_(* #,##0_);_(* (#,##0);_(* "-"??_);_(@_)';      // un montant nul s'affiche « - »
+    const RECAP_Z_NUL = '_(* #,##0_);_(* (#,##0);_(* ""_);_(@_)';     // idem, mais 0 n'affiche rien
+    const MD = { style:"medium", color:{rgb:"000000"} }, TH = { style:"thin", color:{rgb:"000000"} }, NS = { style:"none", color:{rgb:"000000"} };
+    const totalRow = lastDataRow + 1;                                 // ligne Excel du TOTAL STOCK
+    const bordLigne = (i) => ({ top: i===0?MD:TH, bottom: i===6?MD:TH });
+    const recapLab = (lib, i, rgb = "1F2937") => ({ font: xfont(rgb, true, 12), fill: xfill(RECAP_FONDS[lib]), alignment: xal("center"), border: { left:MD, right:TH, ...bordLigne(i) } });
+    const recapVal = (lib, i, rgb = "1F2937") => ({ font: xfont(rgb, true, 12), fill: xfill(RECAP_FONDS[lib]), alignment: xal("right"), border: { left:TH, right:MD, ...bordLigne(i) } });
+    const recapBox = (i) => ({ font: xfont("1F2937", true, 12), fill: xfill("BED7EE"), alignment: xal("right"), border: { left:MD, right:MD, top: i===1?MD:NS, bottom: i===3?MD:NS } });
     rows.push([]);
-    summaryCategories.forEach((category,index)=>{
-      const summaryRow=[];
-      const fill=categoryFill(category);
-      const summaryStyle={font:xfont("1F2937",true,10),fill,border:headerBorder,alignment:xal("left")};
-      const valueStyle={font:xfont("1F2937",false,10),fill,border:headerBorder,alignment:xal("right")};
-      const rowIndex = rows.length + 1;
-      put(summaryRow,0,{v:category,s:summaryStyle});
-      put(summaryRow,1,{t:"n",f:`SUMIF($A$7:$A$${lastDataRow},"${category}",$L$7:$L$${lastDataRow})`,z:"#,##0",s:valueStyle});
-      rows.push(summaryRow);
+    const debut = rows.length + 1;                                    // ligne Excel du premier libellé
+    const idxRecap = (i) => debut - 1 + i;
+    RECAP_LIBELLES.forEach((lib, i) => {
+      const r = [];
+      put(r, 2, { v: lib, s: recapLab(lib, i) });
+      put(r, 3, { t: "n", f: `SUMIF($A$7:$A$${lastDataRow},C${debut + i},$L$7:$L$${lastDataRow})`, z: RECAP_Z, s: recapVal(lib, i) });
+      rows.push(r);
     });
-    const summaryTotal=[];
-    put(summaryTotal,0,{v:"TOTAL",s:{...ST.totalK,fill:xfill("FFF200"),border:headerBorder}});
-    put(summaryTotal,1,{t:"n",f:`SUM(B${rows.length - summaryCategories.length + 1}:B${rows.length})`,z:"#,##0",s:{...ST.totalV,fill:xfill("FFF200"),border:headerBorder}});
-    rows.push(summaryTotal);
-    const merges=[{s:{r:0,c:K},e:{r:0,c:14}},{s:{r:1,c:0},e:{r:1,c:4}},{s:{r:1,c:5},e:{r:1,c:7}},{s:{r:1,c:8},e:{r:1,c:11}},{s:{r:3,c:0},e:{r:3,c:14}},{s:{r:4,c:0},e:{r:5,c:0}},{s:{r:4,c:1},e:{r:5,c:1}},{s:{r:4,c:2},e:{r:5,c:2}},{s:{r:4,c:3},e:{r:4,c:4}},{s:{r:4,c:5},e:{r:4,c:7}},{s:{r:4,c:8},e:{r:4,c:11}},{s:{r:4,c:13},e:{r:4,c:14}}];
-    return xmkSheet(rows,{cols,merges,rows:[{hpt:HPT_LIGNE_TITRE},{hpt:18},{hpt:20},{hpt:16},{hpt:28},{hpt:28}]});
+    // Le cadre d'une fusion ne se dessine que sur les cellules écrites : le sérialiseur saute une
+    // cellule sans valeur, d'où le 0 masqué (RECAP_Z_NUL) sur les deux lignes basses.
+    put(rows[idxRecap(1)], 4, { t: "n", f: `SUM(D${debut + 1}:D${debut + 3})`, z: RECAP_Z, s: recapBox(1) });
+    [2, 3].forEach((i) => put(rows[idxRecap(i)], 4, { t: "n", v: 0, z: RECAP_Z_NUL, s: recapBox(i) }));
+    const rTot = [];
+    put(rTot, 2, { v: "TOTAL", s: recapLab("TOTAL", 6) });
+    put(rTot, 3, { t: "n", f: `SUM(D${debut}:D${debut + 5})`, z: RECAP_Z, s: recapVal("TOTAL", 6, "FF0000") });
+    put(rTot, 4, { t: "n", v: 0, f: `L${totalRow}-D${debut + 6}`, z: RECAP_Z_NUL, s: { font: xfont("1F2937", true, 12) } });
+    rows.push(rTot);
+    // 12 pt gras sur une seule ligne : hauteur fixe du bloc, comme les 15,75-16,5 pt du modèle.
+    const specs = [{hpt:HPT_LIGNE_TITRE},{hpt:18},{hpt:20},{hpt:16},{hpt:28},{hpt:28}];
+    while (specs.length < debut - 1) specs.push({});
+    for (let i = 0; i < 7; i++) specs[debut - 1 + i] = { hpt: 16.5 };
+    const merges=[{s:{r:0,c:K},e:{r:0,c:14}},{s:{r:1,c:0},e:{r:1,c:4}},{s:{r:1,c:5},e:{r:1,c:7}},{s:{r:1,c:8},e:{r:1,c:11}},{s:{r:3,c:0},e:{r:3,c:14}},{s:{r:4,c:0},e:{r:5,c:0}},{s:{r:4,c:1},e:{r:5,c:1}},{s:{r:4,c:2},e:{r:5,c:2}},{s:{r:4,c:3},e:{r:4,c:4}},{s:{r:4,c:5},e:{r:4,c:7}},{s:{r:4,c:8},e:{r:4,c:11}},{s:{r:4,c:13},e:{r:4,c:14}},{s:{r:debut,c:4},e:{r:debut+2,c:4}}];
+    return xmkSheet(rows,{cols,merges,rows:specs});
   };
   XLSX.utils.book_append_sheet(wb,invSheet("Inventaire Initial"),"Inventaire Initial");
   XLSX.utils.book_append_sheet(wb,invSheet("Inventaire Final"),"Inventaire Final");
@@ -450,24 +557,51 @@ export function buildModelesWb(articles, produits, site="", period="", dateInv="
     };
     const normCle=(s)=>String(s||"").trim().toUpperCase().replace(/\s+/g," ");
     const seenKeys=new Set();
-    const refArticles=[];
-    (articles||[]).forEach((a)=>{
-      const key=refKey(a), nk=normCle(key);
-      if(!nk||seenKeys.has(nk)) return;
-      seenKeys.add(nk); refArticles.push({a,cle:key});
-    });
-    // Deuxième clé d'accès : la désignation exacte (promesse de la note d'aide). Ces lignes
-    // sont ajoutées APRÈS celles indexées sur le code, car VLOOKUP renvoie la première
+    const refLignes=[];
+    // Une liste est indexée en deux passes : les clés codes d'abord, les désignations ensuite.
+    // Ces lignes sont ajoutées APRÈS celles indexées sur le code, car VLOOKUP renvoie la première
     // correspondance ; en cas de désignations identiques c'est donc l'article le mieux classé
     // (ordre inventaire) qui répond.
-    const refParNom=[];
-    (articles||[]).forEach((a)=>{
-      const nom=a&&a.nom?String(a.nom).trim():"", nk=normCle(nom);
-      if(!nk||seenKeys.has(nk)) return;
-      seenKeys.add(nk); refParNom.push({a,cle:nom});
-    });
-    const refLignes=[...refArticles,...refParNom];
+    const indexerRef=(liste)=>{
+      const codes=[], noms=[];
+      (liste||[]).forEach((a)=>{
+        const key=refKey(a), nk=normCle(key);
+        if(!nk||seenKeys.has(nk)) return;
+        seenKeys.add(nk); codes.push({a,cle:key});
+      });
+      (liste||[]).forEach((a)=>{
+        const nom=a&&a.nom?String(a.nom).trim():"", nk=normCle(nom);
+        if(!nk||seenKeys.has(nk)) return;
+        seenKeys.add(nk); noms.push({a,cle:nom});
+      });
+      refLignes.push(...codes,...noms);
+    };
+    // Le modèle d'inventaire d'abord (il garde son ordre et sa priorité), puis la base active
+    // entière : ses lignes hors modèle (packaging, entretien, fournitures) n'ont pas de ligne
+    // d'inventaire mais circulent en transferts et en douane — sans elles, le VLOOKUP de ces deux
+    // feuilles ne rendait rien sur leur code.
+    indexerRef(articles);
+    indexerRef(baseComplete);
     artRefLast=Math.max(2,refLignes.length+1);
+    // Conditionnement publié par le référentiel = celui du classeur du CDG, et non celui de la
+    // base locale : Transferts et P.Douane doivent afficher le même colisage que les feuilles
+    // Inventaire et Pertes. Sur 3 lignes le classeur du CDG se contredit — son « Inventaire
+    // initial » est resté à E=10/120/240 alors que sa base « Articles » (l.378/586/393) et son
+    // journal « Sorties » (H) portent 100/10/4 ; c'est la base Articles qui fait foi, c'est elle
+    // qui vit dans les transferts. Hors table du CDG, la base garde la main.
+    const cleCond=(s)=>String(s||"").trim().toUpperCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^A-Z0-9]/g,"");
+    const COND_CDG=new Map();
+    INVENTAIRE_REFERENTIEL_CDG.forEach((t)=>{
+      const k=cleCond(t.nom);
+      if(!COND_CDG.has(k)&&t.cond!==undefined) COND_CDG.set(k,t.cond);
+    });
+    const COND_MAITRE=new Map([["GANTSSACHETPACKDE100",100],["CHICKENCRUNCHYFILLER",10],["KAY5SANITIZER",4]]);
+    const condRef=(a)=>{
+      const k=cleCond(a&&a.nom);
+      if(COND_MAITRE.has(k)) return COND_MAITRE.get(k);
+      if(COND_CDG.has(k)) return COND_CDG.get(k);
+      return a?a.conditionnement:undefined;
+    };
     const NB_LIGNES_TRANSFERTS=20000;
     const codeKey=(R)=>`TRIM(E${R}&"")`;
     const vref=(R,col)=>`IF($E${R}="","",IFERROR(VLOOKUP(${codeKey(R)},'${artRefSheet}'!$A$2:$F$${artRefLast},${col},FALSE),""))`;
@@ -599,24 +733,36 @@ export function buildModelesWb(articles, produits, site="", period="", dateInv="
     // Référentiel articles (masqué) — clé = Code Bolloré, à défaut Désignation
     XLSX.utils.book_append_sheet(wb,xmkSheet([
       [C("Code / Désignation (clé)",ST.headR),C("Désignation",ST.head),C("Catégorie",ST.head),C("Unité",ST.head),C("Cond.",ST.headR),C("Prix carton (FCFA)",ST.headR)],
-      ...refLignes.map(({a,cle})=>[
-        C(cle,ST.cellR),
-        C(a.nom||"",ST.cell),
-        C(a.categorie||"",ST.cell),
-        C(a.unite||"",ST.cell),
-        Cn(a.conditionnement,"#,##0.##",ST.cellR),
-        Cn(a.pu_carton,"#,##0.##",ST.cellR),
-      ]),
+      ...refLignes.map(({a,cle})=>{
+        // Même règle qu'aux Inventaires : un 0 de l'Inventaire du CDG n'est pas un prix, c'est le
+        // prix CARTON de sa table des pertes qui prime (COCA/FANTA/SPRITE 1,5L : 3 686 F le pack,
+        // pas 127,47 F ni 525 F la pièce). Les lignes que le CDG cote gardent son prix de ligne,
+        // puis la base : Transferts et P.Douane ne sont pas re-tarifés au-delà de ces trous.
+        const refInv = REF_INV.get(cleRefInv(a.nom));
+        const puBase = Number(a.pu_carton) > 0 ? Number(a.pu_carton) : prixDuCode(a);
+        const puCarton = refInv && !(Number(refInv.pu) > 0) ? prixCartonCdg(refInv.nom, condRef(a)) : 0;
+        return [
+          C(cle,ST.cellR),
+          C(a.nom||"",ST.cell),
+          C(a.categorie||"",ST.cell),
+          C(a.unite||"",ST.cell),
+          Cn(condRef(a),"#,##0.##",ST.cellR),
+          Cn(puCarton > 0 ? puCarton : puBase,"#,##0.##",ST.cellR),
+        ];
+      }),
     ],{cols:[{wch:16},{wch:40},{wch:20},{wch:10},{wch:10},{wch:18}]}),artRefSheet);
   }
 
-  // Pertes — reproduit la structure du fichier d'origine « Perte_Q1 2026 » (table Pertes4) :
+  // Pertes — reproduit la table « Perte_Q1 2026 » du classeur de référence du CDG (module
+  // src/utils/pertesReferentielCdg.js) :
   //   0=Catégorie 1=Nom Article 2=Cond. 3=Prix carton 4=Prix pièce (=prix carton÷cond, formule)
-  //   5=Unité de perte (libellé colisage) 6=Quantité perte (=SOMME des jours) 7=Valeur (=px pièce×qté)
-  //   8=libellés du bloc d'indicateurs, 9..39 = quantités perdues par jour 1→31 (J..AN, saisie), 40=total mois.
+  //   5=Unité de perte (pièce / g / kg / litre, comme la référence) 6=Quantité perte (=SOMME des jours)
+  //   7=Valeur (=px pièce×qté) 8=libellés du bloc d'indicateurs, 9..39 = quantités perdues par jour
+  //   1→31 (J..AN, saisie), 40=total mois.
   // En tête (lignes 1-3, sur les colonnes jour) : CA HT du jour (saisie), valeur des pertes du jour
   //   (SOMMEPROD jours × prix pièce) et ratio perte/CA — comme dans le fichier de référence.
-  // Sont exclus de cette feuille : Produits de Nettoyage et PACKAGING.
+  // Les colonnes A..I sont décalées d une colonne par rapport au classeur du CDG (B..J) : le classeur
+  // généré démarre ses tableaux en A, sous le logo, convention retenue pour toutes les feuilles.
   {
     const rows=[];
     rows[0]=[];
@@ -630,7 +776,7 @@ export function buildModelesWb(articles, produits, site="", period="", dateInv="
     put(rows[1],40,{v:"Total du mois",s:{font:xfont("E65100",true,10),fill:xfill("FFE0B2"),alignment:xal("center"),border:xborder()}});
     // Ligne 2 : note d'aide + ligne « ratio perte / CA »
     rows[2]=[];
-    put(rows[2],0,{v:"📌 Saisir les quantités perdues jour par jour (colonnes vertes J→AN) et le CA HT du jour en ligne 1 (colonne I). Quantité perte = somme des jours ; Valeur = Prix pièce × Quantité ; Prix pièce = Prix carton ÷ Cond. Les lignes sans Cond./Prix sont des articles transmis absents de la base : les renseigner.",
+    put(rows[2],0,{v:"📌 Saisir les quantités perdues jour par jour (colonnes vertes J→AN) et le CA HT du jour en ligne 1 (colonne I). Quantité perte = somme des jours ; Valeur = Prix pièce × Quantité ; Prix pièce = Prix carton ÷ Cond. Liste, Cond. et prix repris du classeur de suivi du CDG ; les lignes sans Prix carton sont des articles que ce classeur ne cote pas : les renseigner.",
       s:{font:xfont("374151",false,10,true),fill:xfill("FFFDE7"),alignment:xal("left"),border:xborder()}});
     put(rows[2],8,{v:"Ratio perte / CA HT",s:{font:xfont("E65100",true,10),fill:xfill("FFE0B2"),alignment:xal("left"),border:xborder()}});
     // Ligne 3 (index 3) : en-têtes
@@ -651,96 +797,174 @@ export function buildModelesWb(articles, produits, site="", period="", dateInv="
     rows[3]=head;
     const PREFFILL=xfill("E3F2FD"), PSAISIEFILL=xfill("E8F5E9"), PCALCFILL=xfill("FFF3E0");
     const catFillP=(cat)=>({fill:categoryFill(cat),border:xborder()});
-    const isPackaging=(cat)=>/packaging/i.test(String(cat||""));
-    
-    const PERTES_WHITELIST = ["BIERE BEAUFORT 33cl", "BIERE BOCK 33cl", "BIERE BOCK 50cl", "BOUTEILLE COCA COLA 50cL", "BOUTEILLE COCA COLA 1.5L", "BOUTEILLE COCA COLA ZERO 50cL", "BOUTEILLE COCA COLA ZERO 30cL", "BOUTEILLE FANTA 50cL", "BOUTEILLE FANTA 1.5L", "BOUTEILLE FANTA COCKTAIL 30cL", "BOUTEILLE FANTA ANANAS 30cL", "BOUTEILLE FANTA FRUITS ROUGES 30cL", "BOUTEILLE FANTA POMME 30cL", "BOUTEILLE SCHWEPPES AGRUMES 30cL", "BOUTEILLE SPRITE 50cL", "BOUTEILLE SPRITE 1.5L", "BOUTEILLE PEPSI ZERO 30CL", "MIRINDA ORANGE PET 30CL", "BOUTEILLE 7UP 30CL", "BOUTEILLE PEPSI ZERO 1,5L", "CAN PEPSI 250ML", "CANETTE PEPSI ZERO 25 CL", "BOUTEILLE PEPSI 1.5L", "BOUTEILLE PEPSI \xA030CL", "BOUTEILLE MIRINDA FRUIT ROUGE 30 CL", "CAFE EN GRAINS 250 g", "PRESSEA - Ananas 200ML", "PRESSEA - Orange 200ML", "PRESSEA - Pomme 200ML", "PRESSEA - Cocktail 200ML", "PRESSEA - Goyave 200ML", "BOUTEILLE COCA COLA 30cL", "EAU KIRENE 50 CL 12", "EAU KIRENE 50 CL 16", "BOUTEILLE FANTA 30cL", "MILO", "BOUTEILLE SPRITE 30cL", "BOUTEILLE ORANGINA 50cL", "ORANGINA 33CL", "CONCOMBRE", "DOSETTE FRITE SAUCE AMERIGO - 10GR", "SAUCE MAYONNAISE AMERIGO", "OIGNONS NON EPLUCHES", "SALADE ICEBERG - Boule (BS)", "SALADE ICEBERG - Boule (YG)", "SALADE ICEBERG - Boule (SDB)", "SALADE ICEBERG - Boule (SDB-06)", "SALADE ICEBERG - Boule ( HOREB)", "TOMATES PFI", "FROMAGE TRANCHE", "FROMAGE TRANCHE CONWAY", "FROMAGE MEDHI NEW", "KIT KAT MIX", "CONE GLACE - Conway", "CONE GLACE - Frosty Boy", "CONE GLACE - MEHDI", "CONE GLACE 100", "CORNICHONS", "CORNICHONS MEHDI", "CRISPY ONIONS", "DIP BBQ", "DIP CURRY", "DIP CHIPOTLE RANCH", "DIP HOT SALSA", "DIP FRITE SAUCE - 25GR", "DOSETTE FRITE SAUCE PORTION - 10GR", "DOSETTE FRITE SAUCE AMERIGO - 10GR", "DOSETTE KETCHUP PORTION - 10GR", "DOSETTE KETCHUP SIPRO - 11ml", "HUILE AYA 25 L", "HUILE AYA 5 L", "JALAPENOS", "JALAPENOS - ZEYTURSAN", "JALAPENOS - MEHDI", "JALAPENOS - MEHDI local", "Mix Poudre", "OIGNONS FRITS KHUNE (PROSUMA)", "OREO MIX", "OREO MIX CREME", "TOBLERONE", "SAUCE BBQ WESTERN", "SAUCE BBQ SIPRO", "SAUCE BIG KING", "SAUCE CARAMEL", "SAUCE CARAMEL SD", "SAUCE CHILI CHEESE", "SAUCE CHOCOLAT NOIR MONIN", "SAUCE CHOCOLAT", "SIROP CHOCOLAT SGG", "SAUCE FRAISE", "SAUCE KETCHUP", "SAUCE KETCHUP DOLLYS", "KETCHUP - Local", "SAUCE KETCHUP SIPRO 1Kg", "SAUCE KETCHUP PUIDOR - MEHDI", "TOMATE KETCHUP - MEHDI", "SAUCE MAYONNAISE", "MAYONNAISE - Local", "SAUCE MAYO MEHDI", "MAYONNAISE PIMENTEE", "VINAIGRETTE NATURE (500 ml)", "SAUCE MOUTARDE", "MOUTARDE JAUNE BISKISHOP", "SAUCE SALADE CESAR", "SAUCE SALADE CESAR 100", "SEL - Local", "MAIS DOUX", "MAIS DOUX 600 g", "Chicken crunchy filler", "CHICKEN WINGS", "CHICKEN WINGS - CAIRO", "CHICKEN WHOPPER GRILLED", "VALUE PATTY CHICKEN  CRISPY", "CHICKEN STRIPS", "NUGGETS - CAIRO", "CHILI CHEESE BITES", "CHILI CHEESE BITES NEW", "CHILI CHEESE BITES CONWAY", "CRISPY CHICKEN PATTY", "CRISPY CHICKEN CAIRO", "FRITES", "H1 4' Bun", "BUN 5'' NOUGATINE 48", "4' Bun - Modern Bakeries", "H1 4' Bun Local", "BUN 7'' NOUGATINE", "BUN 4'' NOUGATINE", "BUN 5'' Nougatine", "H2 5' Bun", "5' Bun - Modern Bakeries", "H2 5' Bun Local", "H3 7' Bun", "7' Bun - Modern Bakeries", "H3 7' Bun Local", "H4 Corn dusted 4,5' Bun", "4,5' Bun Corn Dusted - Modern Bakeries", "4' Bun - Delico", "5' Bun - Delico", "7' Bun - Delico", "4,5' Bun - Delico", "HAMBURGER PATTY - Americana", "Hamburger Patty Toledo", "LONG CHICKEN PATTY", "LONG CHICKEN PATTY - CAIRO", "MUFFIN CHOCOLAT", "MUFFIN CHOCOLAT - NOUGATINE", "MUFFIN VANILLE - NOUGATINE", "NUGGETS (ALFEIN)", "ONION RINGS", "ONION RINGS - Mc Cain", "ŒUFS FRITS - ANGULAS AGUINAGA", "TENDERCRISP PATTY", "WHOPPER PATTY  - Americana", "Whopper Patty Toledo", "FISH PATTY", "MOZZARELLA STICKS", "M EXPRESSO", "L EXPRESSO", "WHOPPER", "WHOPPER CHEESE", "DOUBLE WHOPPER", "WHOPPER JUNIOR", "BBQ TENDERCRISP", "BIG KING", "BIG KING XXL", "DELUXE", "LONG CHICKEN", "LONG CHILI CHEESE CHICKEN", "EXTRA LONG CHILI CHEESE", "CHILI CHEESE BURGER", "HAMBURGER", "HAMBURGER JUNIOR", "CHEESEBURGER", "CHEESEBURGER JUNIOR", "DOUBLE CHEESE BURGER", "TENDERCRISP", "TENDERGRILL", "CRISPY CHICKEN", "CHICKEN BURGER PETIT PRIX", "VALUE CHICKEN JR", "KING FISH", "SALADE FRAICHEUR", "SALADE POULET CROUSTILLANT", "SALADE POULET GRILLE", "LTO #4: MOZZARELLA STICKS x4", "LTO #5: MOZZARELLA STICKS x6", "LTO #6: MOZZARELLA STICKS x9", "TENDER CRISP"];
-    const normalize = (s) => String(s || "").trim().toLowerCase().replace(/[^a-z0-9]/g, '');
-    const whitelistNorm = PERTES_WHITELIST.map(normalize);
-    const isWhitelisted = (nom) => whitelistNorm.includes(normalize(nom));
 
-    const filteredPertes = (articles || []).filter((a) => a && !isExcludedCategory(a.categorie) && !isPackaging(a.categorie) && isWhitelisted(a.nom));
-    const nomsBase=new Set(filteredPertes.map((a)=>normalize(a.nom)));
-    // Une ligne par article transmis : un nom peut figurer à la fois dans la base articles et dans
-    // la liste PMIX (Jalapenos), ou venir du Ratio ET de la liste de secours (WHOPPER). On garde
-    // le volet matière en priorité, puis la première occurrence du produit fini (coût du Ratio).
-    const nomsPmixVus=new Set();
-    const filteredPmix = pmixProducts.filter((p) => {
-      if(!isWhitelisted(p.nom)) return false;
-      const k=normalize(p.nom);
-      if(nomsBase.has(k)||nomsPmixVus.has(k)) return false;
-      nomsPmixVus.add(k); return true;
-    });
+    // La feuille est pilotée par la table du CDG (src/utils/pertesReferentielCdg.js, extraite de
+    // « Perte_Q1 2026 » du classeur de référence) : les 191 articles suivis en pertes, leur catégorie,
+    // leur ordre, leur Cond. et leur Unité de perte sont ceux du classeur du CDG, et ne dépendent plus
+    // du modèle d'inventaire ni de la liste transmise (demande du 26/10 : « je produis tout pareil …
+    // conditionnement pareil et tout »). Les prix du CDG sont donc publiés tels quels ; ne restent à
+    // résoudre que les 5 lignes où sa référence affiche 0 (XLOOKUP sans résultat).
+    const normalize = (s) => String(s || "").trim().toLowerCase().replace(/[^a-z0-9]/g, '');
+    const nomsPublies=new Set(PERTES_REFERENTIEL_CDG.map((t)=>normalize(t.nom)));
 
     const SAISIE_DAILY=xfill("E8F5E9"), SAISIE_DAILY_LT=xfill("C8E6C9");
     let perteRow=0;   // données dès row index 4 (Excel ligne 5)
-    const pushPerteRow=({categorie,nom,cond,puCarton,unite,sansBase=false})=>{
+    const ecrirePerteRow=({categorie,nom,cond,puCarton,unite,sansPrix=false})=>{
       const r=[]; const ev=perteRow%2===1; const R=5+perteRow;
       const refP=(s)=>({...s,fill:ev?PREFFILL:xfill("EBF5FB"),border:xborder()});
       const calcP=(f,z)=>({t:"n",f,z,s:{font:xfont("E65100",true,10),fill:ev?PCALCFILL:xfill("FFE0B2"),alignment:xal("right"),border:xborder()}});
-      const condVal=(Number(cond)>0)?Number(cond):1;   // règle documentée : repli conditionnement à 1 si absent
       put(r,0,C(categorie||"",catFillP(categorie)));
       put(r,1,C(nom,{...catFillP(categorie),font:xfont("1F2937",true,10)}));
-      put(r,2,sansBase?C("",refP(ST.cellR)):Cn(condVal,"#,##0.##",refP(ST.cellR)));
-      put(r,3,sansBase?C("",refP(ST.cellR)):Cn(puCarton,"#,##0",refP(ST.cellR)));
-      // Ligne « sans base » : Cond. et Prix restent vides, le prix pièce doit malgré tout rester
-      // numérique (les indicateurs jour SOMMEPROD la colonne E).
-      put(r,4,calcP(sansBase?`IF(AND(ISNUMBER(C${R}),C${R}>0),D${R}/C${R},0)`:`IF(C${R}>0,D${R}/C${R},D${R})`,"#,##0.00"));   // Prix pièce = Prix carton ÷ Cond
-      put(r,5,sansBase?C("",refP(ST.cellMut)):C(unite||"pièce",refP(ST.cellMut)));
+      put(r,2,Cn(Number(cond),"#,##0.##",refP(ST.cellR)));
+      // Le Cond. vient toujours de la table du CDG ; seule la colonne Prix peut rester vide, sur les
+      // lignes où sa référence n a pas de prix et où aucune de nos sources n en donne. Le prix pièce
+      // doit malgré tout rester numérique (les indicateurs jour SOMMEPROD la colonne E).
+      put(r,3,sansPrix?C("",refP(ST.cellR)):Cn(puCarton,"#,##0.00",refP(ST.cellR)));
+      put(r,4,calcP(sansPrix?`IF(AND(ISNUMBER(C${R}),C${R}>0),D${R}/C${R},0)`:`IF(C${R}>0,D${R}/C${R},D${R})`,"#,##0.00"));   // Prix pièce = Prix carton ÷ Cond
+      put(r,5,C(unite,refP(ST.cellMut)));
       put(r,6,calcP(`SUM(J${R}:AN${R})`,"#,##0"));                  // Quantité perte = somme des 31 jours
       put(r,7,calcP(`E${R}*G${R}`,"#,##0"));                        // Valeur = Prix pièce × Qté
       for(let j=0;j<31;j++) put(r,9+j,{v:0,t:"n",z:"#,##0",s:{font:xfont("2E7D32",false,11),fill:ev?SAISIE_DAILY:SAISIE_DAILY_LT,alignment:xal("right"),border:xborder()}});
       rows.push(r);
       perteRow++;
     };
-    // Libellé de l'unité de perte : « Carton de N » quand le colisage est en pièces, sinon l'unité de base
-    const perteUnite=(a,cond)=>{
-      const u=String(a.unite||"").trim();
-      if(u && !/^pi[èe]ces?$/i.test(u)) return u;
-      return cond>1?`Carton de ${cond}`:"pièce";
+    // Résolution des seules lignes que la référence du CDG laisse à 0, sur trois sources :
+    //   1) la base complète, par désignation exacte ;
+    //   2) le référentiel PMIX (Ratio puis base complémentaire), par désignation exacte ou par
+    //      troncature d'un seul mot (« SALADE POULET G » → « SALADE POULET GRILLE »), le coût du
+    //      Ratio restant prioritaire quand les deux sources connaissent le même PLU (règle du 13/10) ;
+    //   3) à défaut, la base complète par désignation approchante, quand un seul article est admissible.
+    // Le prix résolu est un prix de l'unité de perte (celui de la source rapporté à son propre
+    // conditionnement) ; il est recomposé sur le Cond. de la table pour que Prix carton ÷ Cond. donne
+    // le prix pièce du CDG. Aucun prix n'est inventé : sans source, la colonne Prix reste vide.
+    const codesPublies=new Map();   // code Bolloré → désignation déjà publiée sous ce code
+    const pluPublies=new Set();
+    const baseParNom=new Map();
+    (baseComplete||[]).forEach((a)=>{ if(a&&a.nom){ const k=normalize(a.nom); if(!baseParNom.has(k)) baseParNom.set(k,a); } });
+    const motsPmix=(s)=>String(s||"").trim().toLowerCase().replace(/[^a-z0-9]+/g," ").trim().split(" ").filter(Boolean);
+    const prefixeStrict=(a,b)=>a!==b&&(a.startsWith(b)||b.startsWith(a));
+    const candidatsPmix=(nom)=>{
+      const cible=motsPmix(nom); const vusC=new Set(); const out=[];
+      const collecter=(source,liste)=>{
+        for(const item of liste){
+          if(!item||!item.nom) continue;
+          const c2=motsPmix(item.nom);
+          if(c2.length!==cible.length) continue;
+          const diffs=c2.map((w,i)=>(w===cible[i]?-1:i)).filter((i)=>i>=0);
+          if(diffs.length>1) continue;
+          if(diffs.length===1&&!prefixeStrict(c2[diffs[0]],cible[diffs[0]])) continue;
+          const sig=`${source}|${normalize(item.nom)}|${normalize(item.plu)}`;
+          if(vusC.has(sig)) continue;
+          vusC.add(sig); out.push({source,item});
+        }
+      };
+      collecter("ratio",produits||[]);
+      collecter("complement",Object.entries(pmixComplement||{}).map(([plu,c])=>({plu,nom:c&&c.nom,cout:Number(c&&c.cout)})));
+      return out;
     };
-    filteredPertes.forEach((a)=>{
-      const cond=(Number(a.conditionnement)>0)?Number(a.conditionnement):1;
-      pushPerteRow({categorie:a.categorie,nom:a.nom,cond,puCarton:a.pu_carton,unite:perteUnite(a,cond)});
+    // Un code partagé n'est un doublon que si les DEUX désignations sont des articles de la base :
+    // le modèle d'inventaire prête son code à des désignations qui ne sont pas des articles. « BOUTEILLE
+    // PEPSI 1,5L » (code BTL-PEPSI 1,5L) n'existe pas dans la base, qui connaît sous ce code « BOUTEILLE
+    // PEPSI ZERO 1,5L » (Cond. 6, 3 150 F carton, 525 F pièce) — refuser cette ligne était une erreur.
+    const depuisBase=(b,nomTransmis)=>{
+      const cond=Number(b.conditionnement), puCarton=Number(b.pu_carton);
+      if(!(cond>0)||!(puCarton>0)) return null;
+      const code=normalize(b.code);
+      if(code){ const publie=codesPublies.get(code); if(publie&&baseParNom.has(publie)) return null; }
+      if(code&&!codesPublies.has(code)) codesPublies.set(code,normalize(nomTransmis));
+      // Le prix d une unité de perte : la base le donne en pu_piece, à défaut en prix carton ÷ son
+      // propre conditionnement. Il sera multiplié par le Cond. de la table du CDG, qui fait foi.
+      const piece=Number(b.pu_piece)>0?Number(b.pu_piece):(cond>0?puCarton/cond:0);
+      if(!(piece>0)) return null;
+      return {piece};
+    };
+    const distanceEdition=(a,b)=>{
+      if(Math.abs(a.length-b.length)>3) return 4;
+      let prec=Array.from({length:b.length+1},(_,j)=>j);
+      for(let i=1;i<=a.length;i++){
+        const cur=[i];
+        for(let j=1;j<=b.length;j++)
+          cur[j]=Math.min(prec[j]+1, cur[j-1]+1, prec[j-1]+(a[i-1]===b[j-1]?0:1));
+        prec=cur;
+      }
+      return prec[b.length];
+    };
+    const nombres=(s)=>(String(s).match(/\d+/g)||[]).map(Number);
+    // La base écrit parfois le nom avec une faute de frappe ou un suffixe : « EAU KIRENE 50 CL 16 »
+    // pour « EAU KIREN 50cl », « FROMAGE MEDHI NEW » pour « FROMAGE MEDHDI NEW », « MOZZARELLA
+    // STICKS » pour « MOZZARELLA STICKS BIS ». Un appariement n'est admis que s il est seul :
+    // distance d édition ≤ 3 sur les noms normalisés, ET chaque nombre du nom transmis retrouvé dans
+    // le nom du candidat ou dans son conditionnement — c est ce qui écarte « EAU KIREN 50cl 12 » du 16.
+    const candidatsBase=(nom)=>{
+      const cible=normalize(nom), nums=nombres(nom);
+      return (baseComplete||[]).filter((b)=>{
+        if(!b||!b.nom) return false;
+        const k=normalize(b.nom);
+        if(nomsPublies.has(k)) return false;
+        const cond=Number(b.conditionnement);
+        if(!(cond>0)||!(Number(b.pu_carton)>0)) return false;
+        if(distanceEdition(cible,k)>3) return false;
+        const siens=new Set([...nombres(b.nom),cond]);
+        return nums.every((n)=>siens.has(n));
+      });
+    };
+    const resoudreTransmis=(nom)=>{
+      const b=baseParNom.get(normalize(nom));
+      if(b) return depuisBase(b,nom);
+      const cands=candidatsPmix(nom);
+      if(cands.length===1){
+        const {source,item}=cands[0];
+        const plu=normalize(item.plu);
+        if(plu&&pluPublies.has(plu)) return null;
+        const ratio=source==="ratio"?item:(produits||[]).find((p)=>p&&normalize(p.plu)===plu);
+        const cout=Number(ratio?ratio.coutTheo:item.cout);
+        if(!(cout>0)) return null;
+        if(plu) pluPublies.add(plu);
+        return {piece:cout};   // le coût du Ratio est déjà un coût à la pièce
+      }
+      const approchants=candidatsBase(nom);
+      return approchants.length===1 ? depuisBase(approchants[0],nom) : null;
+    };
+    // Ordre, catégories, désignations, Cond. et Unité de perte : la table du CDG, ligne par ligne.
+    // Les rares lignes que sa table des pertes laisse à 0 sont cotées par son Inventaire initial
+    // (H2/H3/H4 Buns, même désignation et même colisage) : ce prix carton est ramené au prix pièce
+    // de son propre colisage, puis recomposé sur le Cond. de Pertes — même convention que ci-dessus.
+    const INV_CDG_PAR_NOM = new Map();
+    INVENTAIRE_REFERENTIEL_CDG.forEach((t) => {
+      const k = normalize(t.nom);
+      if (!INV_CDG_PAR_NOM.has(k)) INV_CDG_PAR_NOM.set(k, t);
     });
-    // La liste transmise par les équipes fait foi : un article transmis sans équivalent dans la
-    // base (ni en produit fini) est quand même publié, Cond./Prix vides, pour que la saisie des
-    // quantités perdues reste possible sur tous les articles transmis. Le CDG renseigne les prix.
-    const nomsPublies=new Set([...filteredPertes.map((a)=>normalize(a.nom)),...filteredPmix.map((p)=>normalize(p.nom))]);
-    const manquants=[]; const vus=new Set();
-    PERTES_WHITELIST.forEach((nom)=>{
-      const k=normalize(nom);
-      if(!k||nomsPublies.has(k)||vus.has(k)) return;
-      if((articles||[]).some((a)=>a&&normalize(a.nom)===k)) return;   // connu de la base mais catégorie exclue (nettoyage/packaging) : hors périmètre
-      vus.add(k); manquants.push(nom);
+    PERTES_REFERENTIEL_CDG.forEach((t)=>{
+      const cond=Number(t.cond)>0?Number(t.cond):1;
+      let puCarton=Number(t.pu)>0?Number(t.pu):null;
+      if(puCarton===null){
+        const inv=INV_CDG_PAR_NOM.get(normalize(t.nom));
+        if(inv&&Number(inv.pu)>0){
+          const condInv=Number(inv.cond)>0?Number(inv.cond):1;
+          puCarton=(Number(inv.pu)/condInv)*cond;
+        }
+      }
+      if(puCarton===null){
+        const res=resoudreTransmis(t.nom);
+        if(res) puCarton=res.piece*cond;   // le Cond. du CDG fait foi, le prix vient de nos sources
+      }
+      ecrirePerteRow({categorie:t.cat,nom:t.nom,cond,puCarton,unite:t.unite,sansPrix:!(puCarton>0)});
     });
-    if(manquants.length){
-      const sepM=[];
-      put(sepM,0,{v:"ARTICLES TRANSMIS NON TROUVÉS DANS LA BASE — renseigner Cond. et Prix",s:{font:xfont(XC.white,true,10),fill:xfill(XC.head),alignment:xal("left"),border:xborder()}});
-      [1,2,3,4,5,6,7].forEach((c)=>put(sepM,c,{v:"",s:{fill:xfill(XC.head),border:xborder()}}));
-      rows.push(sepM);
-      perteRow++;
-      manquants.forEach((nom)=>pushPerteRow({nom,sansBase:true}));
-    }
-    // Produits finis (recettes du Ratio) : valorisés au coût théorique, à la pièce
-    if(filteredPmix.length){
-      const sep=[];
-      put(sep,0,{v:"PRODUITS FINIS — valorisation au coût théorique",s:{font:xfont(XC.white,true,10),fill:xfill(XC.purple),alignment:xal("left"),border:xborder()}});
-      [1,2,3,5,6,7].forEach((c)=>put(sep,c,{v:"",s:{fill:xfill(XC.purple),border:xborder()}}));  // jamais de texte en colonne E (prix pièce) : SOMMEPROD la parcourt
-      rows.push(sep);
-      perteRow++;   // le bandeau occupe une ligne Excel
-    }
-    filteredPmix.forEach((p)=>pushPerteRow({categorie:p.categorie||"Produits finis",nom:p.nom,cond:1,puCarton:p.coutTheo,unite:"pièce"}));
-    const lastP=4+perteRow;  // ligne Excel de la dernière ligne de données (bandeau inclus, ignoré par SUM)
+    const lastP=4+perteRow;  // ligne Excel de la dernière ligne de données
     // Bloc d'indicateurs journaliers en tête (lignes 1-3, colonnes J→AN) — comme le fichier d'origine
     const dayCol=(j)=>XLSX.utils.encode_col(9+j);
     put(rows[0],8,{v:"CA HT du jour (saisie)",s:{font:xfont("2E7D32",true,10),fill:xfill("C8E6C9"),alignment:xal("left"),border:xborder()}});
+    // Une cellule SheetJS sans valeur ni formule n'est pas publiée dans le XML : le CA HT du jour
+    // est pré-rempli 0, comme les 31 colonnes de quantités perdues, pour que la saisie existe.
     for(let j=0;j<31;j++){
       const L=dayCol(j);
-      put(rows[0],9+j,{t:"n",z:"#,##0",s:{font:xfont("2E7D32",false,11),fill:SAISIE_DAILY,alignment:xal("right"),border:xborder()}});   // CA HT vide (saisie)
+      put(rows[0],9+j,{v:0,t:"n",z:"#,##0",s:{font:xfont("2E7D32",false,11),fill:SAISIE_DAILY,alignment:xal("right"),border:xborder()}});   // CA HT (saisie)
       put(rows[1],9+j,{t:"n",f:`SUMPRODUCT(${L}$5:${L}$${lastP},$E$5:$E$${lastP})`,z:"#,##0",s:{font:xfont("E65100",false,10),fill:PCALCFILL,alignment:xal("right"),border:xborder()}});
       put(rows[2],9+j,{t:"n",f:`IF(${L}1=0,"",${L}2/${L}1)`,z:Zpct,s:{font:xfont("E65100",false,10),fill:PCALCFILL,alignment:xal("right"),border:xborder()}});
     }
+    put(rows[0],40,{t:"n",f:"SUM(J1:AN1)",z:"#,##0",s:{...ST.totalVp,border:xborder()}});
     put(rows[1],40,{t:"n",f:"SUBTOTAL(9,$J$2:$AN$2)",z:"#,##0",s:{...ST.totalVp,border:xborder()}});
+    put(rows[2],40,{t:"n",f:'IF(AO1=0,"",AO2/AO1)',z:Zpct,s:{font:xfont("E65100",true,10),fill:PCALCFILL,alignment:xal("right"),border:xborder()}});
     const tot=[]; put(tot,5,{v:"TOTAL PERTES",s:ST.totalKp}); put(tot,7,{t:"n",f:`SUM(H5:H${lastP})`,s:ST.totalKp,z:"#,##0"}); rows.push(tot);
     XLSX.utils.book_append_sheet(wb,xmkSheet(rows,{
       cols:[{wch:WCH_ZONE_LOGO},{wch:36},{wch:10},{wch:14},{wch:14},{wch:16},{wch:14},{wch:16},{wch:24},
@@ -822,12 +1046,22 @@ export function buildModelesWb(articles, produits, site="", period="", dateInv="
     }),"P.Douane");
   }
 
-  // Offert — données dès la ligne 2 (non lié aux articles)
+  // Offert — table de saisie dès la ligne 2 (non liée aux articles), TOTAL en dernière ligne,
+  // comme la feuille Offert de la référence du CDG (B1:I13 : en-têtes ligne 2, une ligne par BK
+  // dès la ligne 3, TOTAL ensuite). Le classeur généré ne couvre qu'un site : une ligne de saisie,
+  // dont la colonne Total est calculée, puis la ligne TOTAL.
   {
     const rows=[]; rows[0]=[];
-    put(rows[0],COL_TITRE,{v:"Offerts / Repas",s:ST.title});
+    put(rows[0],COL_TITRE,{v:`Offerts / Repas — ${site||"BK ____"}${period?" · "+period:""}`,s:ST.title});
     const head=[]; ["BK","Staff Meal","Manager Meal","GT","Offer","HO","Discount CJ","Total"].forEach((h,i)=>{ put(head,i,i===0?H(h):HR(h)); });
-    rows[1]=head; rows[2]=[]; put(rows[2],0,C(site||"BK ____",ST.cell));
+    rows[1]=head; rows[2]=[];
+    put(rows[2],0,C(site||"BK ____",ST.cell));
+    const OFILL=xfill("E8F5E9");
+    for(let c=1;c<=6;c++) put(rows[2],c,{v:0,t:"n",z:"#,##0",s:{font:xfont("2E7D32",false,11),fill:OFILL,alignment:xal("right"),border:xborder({left:{style:"medium",color:{rgb:"2E7D32"}},right:{style:"medium",color:{rgb:"2E7D32"}}})}});
+    put(rows[2],7,{t:"n",f:"SUM(B3:G3)",z:"#,##0",s:{font:xfont("E65100",true,10),fill:xfill("FFF3E0"),alignment:xal("right"),border:xborder()}});
+    const totO=[]; put(totO,0,{v:"TOTAL",s:ST.totalK});
+    for(let c=1;c<=7;c++){ const L=String.fromCharCode(65+c); put(totO,c,{t:"n",f:`SUM(${L}3:${L}3)`,z:"#,##0",s:ST.totalV}); }
+    rows.push(totO);
     XLSX.utils.book_append_sheet(wb,xmkSheet(rows,{cols:[{wch:WCH_ZONE_LOGO},{wch:12},{wch:13},{wch:8},{wch:8},{wch:8},{wch:12},{wch:10}],merges:[{s:{r:0,c:COL_TITRE},e:{r:0,c:7}}],rows:[{hpt:HPT_LIGNE_TITRE}]}),"Offert");
   }
 
@@ -859,7 +1093,9 @@ export function buildModelesWb(articles, produits, site="", period="", dateInv="
         z: "#,##0",
         s: zeb(ST.cellR, ev),
       }); // Prix affiché depuis le PLU saisi
-      put(r, 4, { t: "n", f: `IF(OR(A${R}="",C${R}=""),"",C${R}*D${R})`, s: zeb(ST.cellR, ev), z: "#,##0" }); // Montant = Qty × Price
+      // Montant = Qty × Coût. Les DEUX opérandes doivent être numériques : une quantité saisie
+      // en texte (« 1 200 ») rend C*D = #VALUE!, que le SUM() du récap propage en #VALUE!.
+      put(r, 4, { t: "n", f: `IF(OR(A${R}="",C${R}=""),"",IF(AND(ISNUMBER(C${R}),ISNUMBER(D${R})),C${R}*D${R},""))`, s: zeb(ST.cellR, ev), z: "#,##0" });
       put(r, 5, {
         t: "s",
         f: `IF(A${R}="","",IF(COUNTIF('${pmixPriceSheet}'!$A$2:$A$${refLast},${pluKey(R)})=0,"PLU ABSENT DU RATIO","OK"))`,
@@ -884,16 +1120,22 @@ export function buildModelesWb(articles, produits, site="", period="", dateInv="
     rLab(2, "Lignes saisies (PLU en A)");        rVal(2, `SUMPRODUCT(--($A$3:$A$${lastPmix}<>""))`);
     rLab(3, "dont PLU absent du ratio");         rVal(3, `SUMPRODUCT(--($A$3:$A$${lastPmix}<>""),--($F$3:$F$${lastPmix}="PLU ABSENT DU RATIO"))`);
     rLab(4, "TOTAL COUVERTS");                   rVal(4, `SUM($C$3:$C$${lastPmix})`);
-    rLab(5, "TOTAL CA (FCFA)", ST.totalK);       rVal(5, `SUM($E$3:$E$${lastPmix})`, ST.totalV);
+    rLab(5, "TOTAL COÛT MATIÈRE (FCFA)", ST.totalK); rVal(5, `SUM($E$3:$E$${lastPmix})`, ST.totalV);
     { const row = rows[6] || (rows[6] = []);
-      put(row, RC, { v: "CA moyen / couvert", s: ST.cell });
-      put(row, RV, { t: "n", f: `IF($I$5=0,"",$I$6/$I$5)`, z: "#,##0", s: ST.cellR }); }
+      put(row, RC, { v: "Coût moyen / article vendu", s: ST.cell });
+      put(row, RV, { t: "n", f: `IFERROR(IF($I$5=0,"",$I$6/$I$5),"contrôle requis")`, z: "#,##0", s: ST.cellR }); }
+    // Les quantités saisies en texte sont ignorées par SUM($C$..) : le total serait faux sans
+    // signe. Cet indicateur les compte pour que le CDG voie d'où vient un écart au lieu d'un 0.
+    { const row = rows[7] || (rows[7] = []);
+      put(row, RC, { v: "dont quantités non chiffrables", s: ST.cell });
+      put(row, RV, { t: "n", f: `SUMPRODUCT(--($A$3:$A$${lastPmix}<>""),--(ISNUMBER($C$3:$C$${lastPmix})=FALSE))`, z: "#,##0", s: ST.cellR }); }
 
     XLSX.utils.book_append_sheet(wb, xmkSheet([
-      [C("PLU", ST.headR), C("Produit", ST.head), C("Prix de vente (FCFA)", ST.headR)],
-      // Price = PRIX DE VENTE du ratio (feuille « Ratios », PV TTC SANDWICH ONLY) ;
-      // repli sur le coût théorique si le produit n'y figure pas.
-      ...pmixProducts.map((p) => [C(p.plu == null ? "" : String(p.plu), ST.cellR), C(p.nom), Cn(Number(p.pvTtc) > 0 ? Number(p.pvTtc) : (Number(p.coutTheo) || 0), "#,##0", ST.cellR)]),
+      [C("PLU", ST.headR), C("Produit", ST.head), C("Coût unitaire (FCFA)", ST.headR)],
+      // Coût unitaire de la fiche Ratio (feuille « Ratios », colonne COÛT du bloc SANDWICH ONLY,
+      // ex. Whopper 1 187 F en D5) ; le PV TTC (C5 = 5 500 F) n'est pas une valorisation matière.
+      // Repli sur le PV TTC seulement pour les très rares PLU sans coût connu (ex. 705).
+      ...pmixProducts.map((p) => [C(p.plu == null ? "" : String(p.plu), ST.cellR), C(p.nom), Cn(Number(p.coutTheo) > 0 ? Number(p.coutTheo) : (Number(p.pvTtc) || 0), "#,##0", ST.cellR)]),
     ], { cols: [{ wch: 14 }, { wch: 42 }, { wch: 18 }] }), pmixPriceSheet);
 
     XLSX.utils.book_append_sheet(
@@ -915,8 +1157,8 @@ export function buildModelesWb(articles, produits, site="", period="", dateInv="
 }
 
 // Téléchargement d'un modèle unique (bouton "modèle vierge")
-export async function genererModelesSuivi(articles, produits, site="", period="", dateInv="", destinataires=[], pmixComplement={}){
-  const wb=buildModelesWb(articles, produits, site, period, dateInv, destinataires, pmixComplement);
+export async function genererModelesSuivi(articles, produits, site="", period="", dateInv="", destinataires=[], pmixComplement={}, baseComplete=[]){
+  const wb=buildModelesWb(articles, produits, site, period, dateInv, destinataires, pmixComplement, baseComplete);
   const suffix=[site,period].filter(Boolean).map(s=>s.replace(/[^a-zA-Z0-9]/g,"_")).join("_");
   await telechargerXlsx(wb,`Modeles_Suivi_Stock${suffix?"_"+suffix:""}.xlsx`);
 }

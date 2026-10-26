@@ -308,7 +308,7 @@ function AppInner() {
       }
       const corrMap = (await loadCorrespondanceMap()) || {};
       const wa = r.waLandedCost || {};
-      const { artList, nbCode, nbPrix, nbInactif, nbViaCode } = buildArtListFromReferentiel(
+      const { artList, nbCode, nbPrix, nbInactif, nbViaCode, nbCondDerives, condDerives } = buildArtListFromReferentiel(
         baseArtMap,
         corrMap,
         wa,
@@ -329,6 +329,7 @@ function AppInner() {
             (nbViaCode ? ` (dont ${nbViaCode} via le Code Bolloré)` : "") +
             `\n` +
             (nbInactif ? `• ${nbInactif} marqués INACTIF dans le fichier (colonne actif inchangée)\n` : "") +
+            (nbCondDerives ? `• ${nbCondDerives} conditionnements dérivés des deux prix Ratio (colisage absent du fichier : ${condDerives.slice(0, 5).join(", ")}${condDerives.length > 5 ? ", …" : ""})\n` : "") +
             "Les articles absents du Ratio restent en base.\n\nAppliquer ces changements ?";
           if (confirm(msg)) {
             const res = await api.articlesSync(artList, meta.label, false);

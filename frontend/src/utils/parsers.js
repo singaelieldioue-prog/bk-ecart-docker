@@ -68,7 +68,11 @@ export function parseRatios(wb) {
         const puPiece = puPieceDirect!=null ? puPieceDirect
           : ((typeof qteCdt==="number"&&qteCdt>0) ? pmpCarton/qteCdt : 0);
         const entry={designation:desig.trim(),corresp:corresp||"",statut:statut||"",
-          qteCdt:qteCdt||null, pmpCarton:pmpCarton||null, puPiece};
+          qteCdt:qteCdt||null, pmpCarton:pmpCarton||null, puPiece,
+          // Les lignes locales dont la désignation se termine par « (kg) » sont tarifées au
+          // KILOGRAMME (ICEBERG SALAD (kg) = 6 019,99 F/kg) : le prix n'est pas le prix de la
+          // pièce et ne se multiplie pas tel quel par le colisage.
+          parKg:/\(\s*kg\s*\)/i.test(desig)};
         // Index par code : à construire ICI, ligne par ligne — deux lignes peuvent partager la
         // même désignation (ex. « BEEF PATTY WHOPPER HALAL » chez 2 fournisseurs, codes différents) ;
         // indexer après coup depuis waLandedCost perdrait les entrées masquées par le doublon.
@@ -179,6 +183,34 @@ export function parseRatios(wb) {
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
+// ─── CONDITIONNEMENT TEXTUEL ───────────────────────────────────────────────────
+// 109 lignes du base article sur 523 décrivent le colisage en texte (« 10 boules ≈ 6,5kg »,
+// « 16*400 gr », « Sac de 5kg », « 5 Inner de 100 »). Réduites à 1, elles perdaient le prix
+// pièce et, pour les lignes tarifées au kg, le prix carton. Renvoie { n, kg } :
+//   n  = unités contenues dans le carton (10 boules, 16 barres, 5*1000 → 5 000 wraps)
+//   kg = masse nette du carton en kg, uniquement quand le texte l'exprime (jamais les litres)
+export function parseConditionnement(raw){
+  if(typeof raw==="number" && isFinite(raw) && raw>0) return { n:raw, kg:null };
+  const t=String(raw==null?"":raw).toLowerCase().replace(/×/g,"*").replace(/,/g,".").replace(/\s+/g," ").trim();
+  if(!t) return { n:null, kg:null };
+  let n=null, kg=null;
+  const mInner=t.match(/(\d+)\s*(?:inners?|packs?|paquets?|lots?)\s*(?:de|\*|d')\s*(\d+)/);
+  const mMult=t.match(/(\d+(?:\.\d+)?)\s*\*\s*(\d+(?:\.\d+)?)(?:\s*(kg|gr|g|cl|ml|l))?/);
+  const mMasse=t.match(/(\d+(?:\.\d+)?)\s*(kg|gr|g)\b/);
+  const mPiece=t.match(/(\d+)(?![.\d])\s*(?:boules?|pi[èe]ces?|pcs|unites?|sachets?|parts?)/);
+  const mContenant=t.match(/(?:pack|paquet|boite|bidon|seau)\s*(?:de|d')\s*(\d+)(?![.\d])(?!\s*(?:kg|gr|g|cl|ml|l)\b)/);
+  if(mInner) n=Number(mInner[1])*Number(mInner[2]);
+  else if(mMult){
+    const a=Number(mMult[1]), b=Number(mMult[2]), u=mMult[3];
+    if(u==="kg"||u==="gr"||u==="g"){ n=a; kg=a*(u==="kg"?b:b/1000); }
+    else n=u?a:b*a;                     // volume : on compte les contenants ; sans unité : total de pièces
+  }
+  if(kg==null && mMasse){ const v=Number(mMasse[1]); kg=mMasse[2]==="kg"?v:v/1000; }
+  if(n==null){ if(mPiece) n=Number(mPiece[1]); else if(mContenant) n=Number(mContenant[1]); }
+  return { n, kg };
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
 // ─── PARSEUR BASE ARTICLE ─────────────────────────────────────────────────────
 // Retourne map : NOM_STOCK_NORM → { categorie, famille, designation, corresponRatio, fournisseur, codeBollore, unite, cdt }
 // ═══════════════════════════════════════════════════════════════════════════════
@@ -193,11 +225,21 @@ export function parseBaseArticle(wb){
     const r=rows[i];
     const desig=r[2];
     if(!desig||typeof desig!=="string"||!desig.trim()) continue;
-    const cdt=typeof r[7]==="number"?r[7]:1;
+    const cdtBrut=r[7];
+    const uniteLu=String(r[6]||"").trim().toLowerCase();
+    let cdtLu;
+    if(typeof cdtBrut==="number" && cdtBrut>0){
+      // Colisage numérique + unité de masse = POIDS du carton, pas un nombre de pièces
+      // (SALADE TREVISE : conditionnement 1000, unité « Gramme » → carton de 1 kg).
+      const kg = uniteLu.indexOf("kg")===0 ? cdtBrut
+        : (uniteLu.indexOf("gramme")===0 || uniteLu==="g" ? cdtBrut/1000 : null);
+      cdtLu = { n:cdtBrut, kg };
+    } else cdtLu = parseConditionnement(cdtBrut);
     map[norm(desig)]={
       categorie:r[0]||"", famille:r[1]||"", designation:desig.trim(),
       corresponRatio:(r[3]&&r[3]!==0&&r[3]!=="0")?String(r[3]).trim():"",
-      fournisseur:r[4]||"", codeBollore:r[5]||"", unite:r[6]||"", cdt,
+      fournisseur:r[4]||"", codeBollore:r[5]||"", unite:r[6]||"",
+      cdt: cdtLu.n || 1, cdtKg: cdtLu.kg,
       ordre_affichage: i
     };
   }
@@ -242,7 +284,8 @@ export function parseCorrespondance(wb){
       qteCdt:(typeof qteCdt==="number"&&qteCdt>0)?qteCdt:null,
       pmpCarton:(typeof pmpCarton==="number"&&pmpCarton>0)?pmpCarton:null,
       puPiece: puPieceDirect!=null ? puPieceDirect
-        : ((priced&&typeof qteCdt==="number"&&qteCdt>0)?pmpCarton/qteCdt:0)
+        : ((priced&&typeof qteCdt==="number"&&qteCdt>0)?pmpCarton/qteCdt:0),
+      parKg:/\(\s*kg\s*\)/i.test(desig)
     };
     if(priced){
       map[norm(desig)]=entry;
@@ -354,7 +397,8 @@ export function buildArtListFromReferentiel(baseArtMap, corrMapRaw, wa, waByCode
   }); return idx; })();
   const resolveByCode=(code)=>{ if(!code) return null; const k=norm(code); return byCodeWa[k] || byCodeCorr[k] || null; };
 
-  let nbCode=0, nbPrix=0, nbInactif=0, nbViaCode=0;
+  let nbCode=0, nbPrix=0, nbInactif=0, nbViaCode=0, nbCondDerives=0;
+  const condDerives=[];
   const artList = Object.values(baseArtMap).map(ba=>{
     let price = resolveByName(norm(ba.corresponRatio)) || resolveByName(norm(ba.designation));
     let viaCode=false;
@@ -377,11 +421,29 @@ export function buildArtListFromReferentiel(baseArtMap, corrMapRaw, wa, waByCode
     const statut = (byName[norm(ba.corresponRatio)]||byName[norm(ba.designation)]||(viaCode?price:{})).statut || "";
     const inactif = norm(statut)==="INACTIF";
     // Le Ratio récent peut corriger le conditionnement ; le base article reste le repli.
-    const cond = price.qteCdt || ba.cdt || 1;
+    let cond = price.qteCdt || ba.cdt || 1;
+    // A7-ter : quand le Ratio donne les deux prix mais un colisage non parsable (textuel/kg),
+    // cond restait à 1 et pu_carton ≠ pu_piece×1 était importé en incohérence systématique.
+    // On dérive le colisage = round(prix carton / prix pièce) au lieu de laisser 1.
+    if(!price.parKg && cond <= 1 && price.pmpCarton > 0 && price.puPiece > 0){
+      const derived = Math.round(price.pmpCarton / price.puPiece);
+      if(derived > 1){ cond = derived; nbCondDerives++; condDerives.push(ba.designation || norm(ba.designation)); }
+    }
     // Dérive le prix manquant (carton ↔ pièce) via le conditionnement quand un seul est connu
     // (cas des articles locaux, où seul le prix pièce est donné directement).
-    let puCarton = price.pmpCarton>0 ? price.pmpCarton : (price.puPiece>0 ? price.puPiece*cond : null);
-    let puPiece   = price.puPiece>0   ? price.puPiece   : (price.pmpCarton>0 && cond>0 ? price.pmpCarton/cond : null);
+    let puCarton, puPiece;
+    if(price.parKg){
+      // Ligne locale tarifée AU KILOGRAMME : le prix carton = prix kg × masse du carton
+      // (« 10 boules ≈ 6,5kg » → ICEBERG SALAD 6 019,99 F/kg donne 39 130 F le carton et
+      // 3 913 F la boule). Sans masse dans le conditionnement, rien n'est dérivé : un prix
+      // carton au kilogramme serait aussi faux que de le confondre avec le prix de la pièce.
+      const kg = Number(ba.cdtKg)>0 ? Number(ba.cdtKg) : null;
+      puCarton = kg==null ? null : price.puPiece*kg;
+      puPiece  = puCarton==null ? null : (cond>1 ? puCarton/cond : puCarton);
+    } else {
+      puCarton = price.pmpCarton>0 ? price.pmpCarton : (price.puPiece>0 ? price.puPiece*cond : null);
+      puPiece  = price.puPiece>0   ? price.puPiece   : (price.pmpCarton>0 && cond>0 ? price.pmpCarton/cond : null);
+    }
     // Garde-fou : une dérivation prix-pièce × conditionnement peut devenir implausible quand
     // l'unité du prix Ratio (souvent "au kg") ne correspond pas à l'unité du conditionnement du
     // base article (souvent en pièces ou en grammes) — ex. SALADE TREVISE (1000 g) rattachée à
@@ -403,7 +465,7 @@ export function buildArtListFromReferentiel(baseArtMap, corrMapRaw, wa, waByCode
       ordre_affichage: ba.ordre_affichage || 0
     };
   });
-  return { artList, nbCode, nbPrix, nbInactif, nbViaCode };
+  return { artList, nbCode, nbPrix, nbInactif, nbViaCode, nbCondDerives, condDerives };
 }
 
 // Enrichit un tableau d'articles (format BDD snake_case) avec les prix et conditionnements
@@ -424,11 +486,18 @@ export function enrichirAvecBaseLocale(articles, localArticles){
     const cmpCarton = (loc.pmpCarton>0 && a.pu_carton>0) ? coherent(loc.pmpCarton,a.pu_carton) : true;
     const cmpPiece  = (loc.puPiece>0 && a.pu_piece>0) ? coherent(loc.puPiece,a.pu_piece) : true;
     const prixOk = !ratioActif || (cmpCarton && cmpPiece);
+    // Un colisage local à 1 signifie « non renseigné » dans ce fichier : le base article garde
+    // alors le sien (ex. salades : 10 boules ≈ 6,5 kg). Le prix local est un prix de CARTON,
+    // donc le prix pièce s'en dérive via ce colisage et non pas en le lui surcollant.
+    const condLocal = loc.cdt>1 ? loc.cdt : 0;
+    const cond = condLocal || a.conditionnement || 1;
+    const pieceLoc = !prixOk || !(loc.pmpCarton>0) ? null
+      : (condLocal>0 || cond<=1 ? loc.puPiece : loc.pmpCarton/cond);
     return {
       ...a,
-      pu_piece: (prixOk && loc.puPiece>0) ? loc.puPiece : a.pu_piece,
+      pu_piece: pieceLoc!=null && pieceLoc>0 ? pieceLoc : a.pu_piece,
       pu_carton: (prixOk && loc.pmpCarton>0) ? loc.pmpCarton : a.pu_carton,
-      conditionnement: loc.cdt>0 ? loc.cdt : a.conditionnement,
+      conditionnement: condLocal || a.conditionnement || null,
     };
   });
 }
@@ -502,8 +571,11 @@ function indexerParCode(baseArticle, ratios, localArticles){
       // Nouveau format (o=1) : catégorie en A, fournisseur en B, article en C.
       const nom=typeof g(r,3)==="string"&&g(r,3).trim()?g(r,3):g(r,2);
       if(!nom||typeof nom!=="string"||!nom.trim()) continue;
-      // La ligne de total du classeur écrit « TOTAL STOCK » en colonne B : ce n'est pas un article.
-      if(/^total\b/i.test(nom.trim())) continue;
+      // La ligne de total du classeur écrit « TOTAL STOCK » en colonne B : ce n'est pas un article,
+      // et surtout elle clôt le tableau — tout ce qui suit est le récapitulatif par catégorie
+      // (libellés « Boissons », « Nourriture - Sec »… écrits dans la colonne de désignation), qui
+      // sinon peuplerait l'import de faux articles.
+      if(/^total\b/i.test(nom.trim())) break;
       const cartons=typeof g(r,6)==="number"?g(r,6):0;
       const inner  =typeof g(r,7)==="number"?g(r,7):0;
       const unites =typeof g(r,8)==="number"?g(r,8):0;
