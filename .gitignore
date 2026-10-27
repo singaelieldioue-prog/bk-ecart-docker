@@ -6,6 +6,7 @@ backend/data.db
 backend/data.backup*.db
 backend/data.db.bak-*
 backend/data.pre-restore*.db
+backend/reports_backup_*.db
 sample_data/
 .DS_Store
 Thumbs.db
