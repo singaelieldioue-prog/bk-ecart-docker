@@ -218,6 +218,12 @@ export async function exportExcel(rapport){
       ...(calc.pluNonMatchés||[]).map(p=>["PLU sans fiche technique",p.plu,p.nom,p.qty,"Consommation théo non calculée"]),
       ...(calc.pluHorsMatiere||[]).map(p=>["Ligne hors matière",p.plu,p.nom,p.qty,"Aucune matière consommée — écartée du calcul, pas de fiche à créer"]),
       ...(calc.articlesEcart||[]).filter(a=>!a.puPiece||a.puPiece===0).map(a=>["Article PU = 0","—",a.nom,"—","Prix non résolu — vérifier référentiels"]),
+      // C-09 / C-13 : PLU vendus dont le coût résolu est nul ou absent.
+      ...(calc.pluCoutNul||[]).map(p=>["Coût nul",p.plu,p.nom,p.qty,
+        `${p.qty} pièces · ${((Number(p.partVentes)||0)*100).toFixed(1).replace(".",",")} % des ventes · coût unitaire ${p.coutUnit==null?"absent":p.coutUnit} F`]),
+      ...(calc.pmixDoublons||[]).map(d=>["PLU en doublon",d.plu,d.nom||"—",d.qty,`${d.lignes} lignes vendues pour ce PLU`]),
+      ...(calc.ratioCoutNulCount>0?[["Référentiel : PLU à coût nul","—","Référentiel PMIX",calc.ratioCoutNulCount,
+        `${calc.ratioCoutNulVendus||0} vendu(s) — distinct des PLU à 0 du PMIX`]]:[]),
     ];
     if(an.length===0) an.push(["—","—","Aucune anomalie détectée","—","Tous les PLU matchés · tous les prix résolus"]);
     an.forEach((r,i)=>{const ev=i%2===1;
@@ -228,6 +234,13 @@ export async function exportExcel(rapport){
         typeof r[3]==="number"?Cn(r[3],Zm,zeb(ST.cellR,ev)):C(r[3],zeb(ST.cellR,ev)),
         C(r[4],zeb(ST.cellMut,ev)),
       ]);});
+    // Synthèse chiffrée de l'impact des PLU à coût nul sur le coût moyen par couvert.
+    if((calc.pluCoutNul||[]).length){
+      m.push([]);
+      m.push([C("SYNTHÈSE COÛT NUL",ST.section)]);
+      m.push([C("Coût moyen / couvert avec les PLU à coût nul"),C(""),Cn(calc.coutMoyenAvec,"#,##0.00")]);
+      m.push([C("Coût moyen / couvert sans les PLU à coût nul"),C(""),Cn(calc.coutMoyenSans,"#,##0.00")]);
+    }
     m[0][COL_TITRE]={v:"ANOMALIES",s:ST.title};
     XLSX.utils.book_append_sheet(wb,xmkSheet(m,{cols,merges:[mrg(0,COL_TITRE,4)],rows:[{hpt:HPT_LIGNE_TITRE},{hpt:22}]}),"Anomalies");
   }
@@ -1098,9 +1111,11 @@ export function buildModelesWb(articles, produits, site="", period="", dateInv="
       put(r, 4, { t: "n", f: `IF(OR(A${R}="",C${R}=""),"",IF(AND(ISNUMBER(C${R}),ISNUMBER(D${R})),C${R}*D${R},""))`, s: zeb(ST.cellR, ev), z: "#,##0" });
       put(r, 5, {
         t: "s",
-        f: `IF(A${R}="","",IF(COUNTIF('${pmixPriceSheet}'!$A$2:$A$${refLast},${pluKey(R)})=0,"PLU ABSENT DU RATIO","OK"))`,
+        // Un PLU coté 0 dans la fiche (ou absent) ne peut jamais passer « OK » : la ligne est
+        // vendue mais ne pèse pas dans la consommation théorique (C-09).
+        f: `IF(A${R}="","",IF(COUNTIF('${pmixPriceSheet}'!$A$2:$A$${refLast},${pluKey(R)})=0,"PLU ABSENT DU RATIO",IF(N(VLOOKUP(${pluKey(R)},'${pmixPriceSheet}'!$A$2:$D$${refLast},4,FALSE))<=0,"COÛT NUL","OK")))`,
         s: zeb(ST.cell, ev),
-      }); // Signale les PLU absents du ratio courant
+      }); // Signale les PLU absents du ratio courant ou vendus sans coût
       rows.push(r);
     }
     const tot = [];
@@ -1119,6 +1134,7 @@ export function buildModelesWb(articles, produits, site="", period="", dateInv="
     rLab(1, "INDICATEUR", ST.head); put(rows[1], RV, { v: "VALEUR", s: ST.headR });
     rLab(2, "Lignes saisies (PLU en A)");        rVal(2, `SUMPRODUCT(--($A$3:$A$${lastPmix}<>""))`);
     rLab(3, "dont PLU absent du ratio");         rVal(3, `SUMPRODUCT(--($A$3:$A$${lastPmix}<>""),--($F$3:$F$${lastPmix}="PLU ABSENT DU RATIO"))`);
+    rLab(8, "dont PLU à coût nul");              rVal(8, `SUMPRODUCT(--($A$3:$A$${lastPmix}<>""),--($F$3:$F$${lastPmix}="COÛT NUL"))`);
     rLab(4, "TOTAL COUVERTS");                   rVal(4, `SUM($C$3:$C$${lastPmix})`);
     rLab(5, "TOTAL COÛT MATIÈRE (FCFA)", ST.totalK); rVal(5, `SUM($E$3:$E$${lastPmix})`, ST.totalV);
     { const row = rows[6] || (rows[6] = []);
@@ -1131,12 +1147,21 @@ export function buildModelesWb(articles, produits, site="", period="", dateInv="
       put(row, RV, { t: "n", f: `SUMPRODUCT(--($A$3:$A$${lastPmix}<>""),--(ISNUMBER($C$3:$C$${lastPmix})=FALSE))`, z: "#,##0", s: ST.cellR }); }
 
     XLSX.utils.book_append_sheet(wb, xmkSheet([
-      [C("PLU", ST.headR), C("Produit", ST.head), C("Coût unitaire (FCFA)", ST.headR)],
+      // Ligne d'en-tête obligatoire : les VLOOKUP du PMIX cherchent à partir de la ligne 2.
+      // Sans elle, le premier produit tombait hors plage et était déclaré absent du ratio.
+      [C("PLU", ST.headR), C("Produit", ST.head), C("Coût unitaire (FCFA)", ST.headR), C("Coût fiche (0 = inconnu)", ST.headR)],
       // Coût unitaire de la fiche Ratio (feuille « Ratios », colonne COÛT du bloc SANDWICH ONLY,
       // ex. Whopper 1 187 F en D5) ; le PV TTC (C5 = 5 500 F) n'est pas une valorisation matière.
       // Repli sur le PV TTC seulement pour les très rares PLU sans coût connu (ex. 705).
-      ...pmixProducts.map((p) => [C(p.plu == null ? "" : String(p.plu), ST.cellR), C(p.nom), Cn(Number(p.coutTheo) > 0 ? Number(p.coutTheo) : (Number(p.pvTtc) || 0), "#,##0", ST.cellR)]),
-    ], { cols: [{ wch: 14 }, { wch: 42 }, { wch: 18 }] }), pmixPriceSheet);
+      // La colonne D conserve le coût brut de la fiche (0 si inconnu) : elle pilote le statut
+      // « COÛT NUL » sans être masquée par le repli PV TTC de la colonne C.
+      ...pmixProducts.map((p) => [
+        C(p.plu == null ? "" : String(p.plu), ST.cellR),
+        C(p.nom),
+        Cn(Number(p.coutTheo) > 0 ? Number(p.coutTheo) : (Number(p.pvTtc) || 0), "#,##0", ST.cellR),
+        Cn(Number(p.coutTheo) || 0, "#,##0", ST.cellR),
+      ]),
+    ], { cols: [{ wch: 14 }, { wch: 42 }, { wch: 18 }, { wch: 18 }] }), pmixPriceSheet);
 
     XLSX.utils.book_append_sheet(
       wb,

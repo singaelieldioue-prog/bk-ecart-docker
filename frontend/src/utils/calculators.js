@@ -32,6 +32,25 @@ export function resoudrePrix(nomStock, baseArticle, ratios, localArticles){
   return {puPiece:null,pmpCarton:null,qteCdt:1,source:"inconnu"};
 }
 
+// Statut d'un PLU vendu. Un coût nul ou absent est bloquant : il ne peut jamais passer « OK »,
+// sinon un PLU vendu sans valorisation disparaît silencieusement de la consommation théorique.
+export function statutPluPmix({ trouve = true, coutUnit = null } = {}){
+  if(!trouve) return "PLU ABSENT DU RATIO";
+  if(coutUnit == null || !Number.isFinite(Number(coutUnit)) || Number(coutUnit) <= 0) return "COÛT NUL";
+  return "OK";
+}
+
+function agregerParPlu(list, totalVentes){
+  const parPlu=new Map();
+  (list||[]).forEach(p=>{
+    const k=String(p.plu);
+    const s=parPlu.get(k)||{...p,qty:0};
+    s.qty+=Number(p.qty)||0;
+    parPlu.set(k,s);
+  });
+  return [...parPlu.values()].map(p=>({...p,partVentes:totalVentes>0?p.qty/totalVentes:0}));
+}
+
 // ═══════════════════════════════════════════════════════════════════════════════
 // ─── PARSEUR SUIVI STOCK ──────────────────────────────────────────────────────
 // ═══════════════════════════════════════════════════════════════════════════════
@@ -80,7 +99,7 @@ export function calculer(stockData, pmixList, ratios, baseArticle={}, pmixComple
           complementMatchees++; consoTheoComplement+=ct;
         }
         pmixTheo.push({plu:item.plu,nom:item.nom,qty:item.qty,price:item.price||0,amount:item.amount||((item.price||0)*item.qty),
-          coutTheo:ct,coutUnit,match:!!(fiche||comp),
+          coutTheo:ct,coutUnit,match:!!(fiche||comp),statut:statutPluPmix({trouve:!!(fiche||comp),coutUnit}),
           horsMatiere:!(fiche||comp)&&!!PMIX_HORS_MATIERE[String(item.plu).trim()],
           source:fiche?"ratio":(comp?"complement":null),categorie:fiche?.categorie||""});
       });
@@ -92,6 +111,33 @@ export function calculer(stockData, pmixList, ratios, baseArticle={}, pmixComple
   // d'exister pour elles, ce serait une anomalie permanente.
   const pluNonMatchés = pmixTheo.filter(p=>!p.match&&!p.horsMatiere);
   const pluHorsMatiere = pmixTheo.filter(p=>p.horsMatiere);
+
+  // ── PLU à coût nul (C-09 / C-13) ──────────────────────────────────────────
+  // Coût résolu nul ou absent : la ligne est vendue mais ne contribue pas à la conso théorique.
+  // On l'agrège par PLU (un PLU peut apparaître sur plusieurs lignes du PMIX) et on mesure sa
+  // part des ventes, pour chiffrer l'impact sur le coût moyen par couvert.
+  const pluCoutNul = agregerParPlu(pmixTheo.filter(p=>p.statut==="COÛT NUL"), couverts);
+  const qtyCoutNul = pluCoutNul.reduce((s,p)=>s+p.qty,0);
+  const coutMoyenAvec = couverts>0 ? consoTheoTotal/couverts : 0;
+  const coutMoyenSans = (couverts-qtyCoutNul)>0 ? consoTheoTotal/(couverts-qtyCoutNul) : 0;
+
+  // Doublons de PLU dans les ventes : deux lignes pour un même PLU faussent la lecture par PLU.
+  const pmixDoublons = (()=>{
+    const m=new Map();
+    pmixTheo.forEach(p=>{
+      const k=String(p.plu);
+      const s=m.get(k)||{plu:p.plu,nom:p.nom,lignes:0,qty:0};
+      s.lignes++; s.qty+=Number(p.qty)||0;
+      m.set(k,s);
+    });
+    return [...m.values()].filter(d=>d.lignes>1);
+  })();
+
+  // Référentiel : PLU à coût nul (distincts des PLU à 0 du PMIX). Sans le référentiel, non calculé.
+  const ratioPluCoutNul = ratios?.byPlu ? Object.values(ratios.byPlu).filter(f=>!(Number(f.coutTheo)>0)) : [];
+  const ratioCoutNulCount = ratios?.byPlu ? ratioPluCoutNul.length : 0;
+  const ratioCoutNulVendus = ratioPluCoutNul.filter(f=>pmixTheo.some(p=>String(p.plu)===String(f.plu))).length;
+
 
   // ── Écart matières (RG-06) ────────────────────────────────────────────────
   // Écart = Conso Réelle − Conso Théorique
@@ -203,6 +249,13 @@ export function calculer(stockData, pmixList, ratios, baseArticle={}, pmixComple
     staffMealTotal, offertsProduitsTotal,
     pluNonMatchés,
     pluHorsMatiere,
+    pluCoutNul,
+    pmixDoublons,
+    qtyCoutNul,
+    coutMoyenAvec,
+    coutMoyenSans,
+    ratioCoutNulCount,
+    ratioCoutNulVendus,
     consoParIng: Object.values(consoParIng).sort((a,b)=>b.valeurTotal-a.valeurTotal),
     pmixTheo: pmixTheo.sort((a,b)=>b.qty-a.qty),
     // Tous les articles sans exception (R-03)
@@ -221,6 +274,7 @@ export function calculerMultiRestaurants(stocksData, pmixLists, ratios, baseArti
   const parRestaurant=[];
   const allPluNonMatchés=[];
   const allPluHorsMatiere=[];
+  const allPluCoutNul=[];
 
   stocksData.forEach((stockData, idx)=>{
     // pmixLists[idx] est un tableau d'items => on en fait un pmixList standard
@@ -248,6 +302,7 @@ export function calculerMultiRestaurants(stocksData, pmixLists, ratios, baseArti
     pmixTheoTotal.push(...(calc.pmixTheo||[]));
     allPluNonMatchés.push(...(calc.pluNonMatchés||[]));
     allPluHorsMatiere.push(...(calc.pluHorsMatiere||[]));
+    allPluCoutNul.push(...(calc.pluCoutNul||[]));
     parRestaurant.push({
       site:stockData.site||`BK ${idx+1}`,
       consoReelle    :calc.consoReelle,
@@ -274,6 +329,25 @@ export function calculerMultiRestaurants(stocksData, pmixLists, ratios, baseArti
   // Dédupliquer les PLU non matchés
   const pluNonMatchés=allPluNonMatchés.filter((v,i,a)=>a.findIndex(x=>x.plu===v.plu)===i);
   const pluHorsMatiere=allPluHorsMatiere.filter((v,i,a)=>a.findIndex(x=>x.plu===v.plu)===i);
+
+  // C-09 / C-13 : PLU à coût nul agrégés sur l'ensemble des sites.
+  const pluCoutNul=agregerParPlu(allPluCoutNul, couverts);
+  const qtyCoutNul=pluCoutNul.reduce((s,p)=>s+p.qty,0);
+  const coutMoyenAvec=couverts>0 ? consoTheoTotal/couverts : 0;
+  const coutMoyenSans=(couverts-qtyCoutNul)>0 ? consoTheoTotal/(couverts-qtyCoutNul) : 0;
+  const pmixDoublons=(()=>{
+    const m=new Map();
+    pmixTheoTotal.forEach(p=>{
+      const k=String(p.plu);
+      const s=m.get(k)||{plu:p.plu,nom:p.nom,lignes:0,qty:0};
+      s.lignes++; s.qty+=Number(p.qty)||0;
+      m.set(k,s);
+    });
+    return [...m.values()].filter(d=>d.lignes>1);
+  })();
+  const ratioPluCoutNul=ratios?.byPlu ? Object.values(ratios.byPlu).filter(f=>!(Number(f.coutTheo)>0)) : [];
+  const ratioCoutNulCount=ratios?.byPlu ? ratioPluCoutNul.length : 0;
+  const ratioCoutNulVendus=ratioPluCoutNul.filter(f=>pmixTheoTotal.some(p=>String(p.plu)===String(f.plu))).length;
 
   const articlesEcartMap = new Map();
   parRestaurant.forEach((restaurant) => {
@@ -314,6 +388,13 @@ export function calculerMultiRestaurants(stocksData, pmixLists, ratios, baseArti
     pmixTheo:pmixTheoTotal,
     pluNonMatchés,
     pluHorsMatiere,
+    pluCoutNul,
+    pmixDoublons,
+    qtyCoutNul,
+    coutMoyenAvec,
+    coutMoyenSans,
+    ratioCoutNulCount,
+    ratioCoutNulVendus,
     articlesEcart:Array.from(articlesEcartMap.values()).filter(
       (a) => a.iniPieces || a.entreesPieces || a.finPieces || a.ventesPieces || a.pertesPieces
     ),
