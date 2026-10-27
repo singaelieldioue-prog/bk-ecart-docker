@@ -1032,11 +1032,15 @@ export function extractPmixFromWorkbook(wb, siteName){
     r.forEach((c, idx) => {
       if(typeof c === 'string'){
         const cs = c.trim().toLowerCase();
+        // Les libellés du récapitulatif (INDICATEUR, TOTAL, COÛT MOYEN…) ne sont pas des
+        // en-têtes de colonnes : « INDICATEUR » contient « ca » et était pris pour la colonne
+        // du montant, ce qui ramenait tous les montants PMIX à 0 à la relecture.
+        if(/^(indicateur|total|co[uû]t moyen)\b/.test(cs)) return;
         if(/plu|code/i.test(cs)) p = idx;
         if(/name|nom|desig|article/i.test(cs)) n = idx;
         if(/qty|qte|quantite|vendu/i.test(cs)) q = idx;
         if(/price|prix|pu/i.test(cs)) pr = idx;
-        if(/amount|montant|ca/i.test(cs)) a = idx;
+        if(/^amount|^montant|^ca\b/i.test(cs)) a = idx;
       }
     });
     if(p >= 0 && q >= 0){
