@@ -11,12 +11,25 @@ import Database from 'better-sqlite3';
 const ICI = path.dirname(fileURLToPath(import.meta.url));
 const BACKEND = path.resolve(ICI, '..');
 const RACINE = path.resolve(BACKEND, '..');
-const ENTREE = path.join(RACINE, 'tmp_verif', '_lecture_prix.json');
-const CHEMIN_DB = path.join(BACKEND, 'data.db');
-const SAUVEGARDE = path.join(BACKEND, 'data.backup-prix-20261027.db');
-const JOURNAL = path.join(RACINE, 'rapports', 'application_prix_2026-10-27.json');
 const CLE_LOCAL = 'bk_sia_local_articles_v1';
 const SOURCE = 'Articles sans prix CDG 27/10/2026';
+
+// Rejeu hors de l'arborescence de dev (production) : --db=<sqlite> --entree=<json> --journal=<json>.
+// Sans --entree, on lit tmp_verif/_lecture_prix.json ; à défaut le journal committé, dont les
+// lignes « apres » suffisent à rejouer. Sans --db/DB_PATH, on écrit backend/data.db comme avant.
+const argVal = (nom) => process.argv.find((a) => a.startsWith(`--${nom}=`))?.slice(nom.length + 3);
+const JOUR = new Date().toISOString().slice(0, 10).replace(/-/g, '');
+const ENTREE_TMP = path.join(RACINE, 'tmp_verif', '_lecture_prix.json');
+const JOURNAL_REF = path.join(RACINE, 'rapports', 'application_prix_2026-10-27.json');
+const HORS_DEV = Boolean(argVal('db') || process.env.DB_PATH);
+const ENTREE = path.resolve(argVal('entree') || (fs.existsSync(ENTREE_TMP) ? ENTREE_TMP : JOURNAL_REF));
+const CHEMIN_DB = path.resolve(argVal('db') || process.env.DB_PATH || path.join(BACKEND, 'data.db'));
+const SAUVEGARDE = path.resolve(argVal('sauvegarde') || (HORS_DEV
+  ? `${CHEMIN_DB}.bak-prix-${JOUR}.db`
+  : path.join(BACKEND, 'data.backup-prix-20261027.db')));
+const JOURNAL = path.resolve(argVal('journal') || (HORS_DEV
+  ? path.join(path.dirname(CHEMIN_DB), `rejeu_prix_${JOUR}.json`)
+  : JOURNAL_REF));
 
 const norm = (s) => String(s ?? '').trim().normalize('NFD')
   .replace(/[\u0300-\u036f]/g, '').replace(/[\u2019'’]/g, '')
@@ -24,7 +37,25 @@ const norm = (s) => String(s ?? '').trim().normalize('NFD')
 const arrondi = (v, d = 4) => { const p = 10 ** d; return Math.round(v * p) / p; };
 const num = (v) => (Number.isFinite(Number(v)) && Number(v) !== 0 ? Number(v) : null);
 
-const lignes = JSON.parse(fs.readFileSync(ENTREE, 'utf8'));
+if (!fs.existsSync(CHEMIN_DB)) {
+  console.error('Base introuvable :', CHEMIN_DB);
+  process.exit(1);
+}
+const brut = JSON.parse(fs.readFileSync(ENTREE, 'utf8'));
+const lignes = Array.isArray(brut)
+  ? brut
+  : brut.lignes.map((l, i) => ({
+      ligne: l.ligne_fichier ?? i + 1,
+      code: l.code,
+      nom: l.nom,
+      cond: l.apres?.conditionnement ?? null,
+      pu_carton_cell: l.apres?.pu_carton ?? null,
+      pu_piece_cell: l.apres?.pu_piece ?? null,
+      source: l.origine_fichier ?? null,
+      colisage_maj: l.colisage_fichier ?? null,
+    }));
+console.log('Base   :', CHEMIN_DB);
+console.log('Entrée :', ENTREE, `(${lignes.length} lignes)`);
 const db = new Database(CHEMIN_DB);
 
 if (!fs.existsSync(SAUVEGARDE)) await db.backup(SAUVEGARDE);
@@ -36,8 +67,16 @@ const kv = {
   base: kvLire('bk_sia_base_article_map_v1') || {},
   ratios: kvLire('bk_sia_ratios_parsed_v1') || {},
 };
-const { resoudrePrix } = await import(pathToFileURL(path.join(RACINE, 'frontend/src/utils/calculators.js')).href);
+// calculators.js vit dans le dépôt complet ; l'image backend ne le contient pas. Son absence
+// n'empêche pas l'écriture, elle prive seulement le journal de la résolution avant/après.
+let resoudrePrix = null;
+try {
+  ({ resoudrePrix } = await import(pathToFileURL(path.join(RACINE, 'frontend/src/utils/calculators.js')).href));
+} catch {
+  console.log('calculators.js absent — résolution avant/après non calculée');
+}
 const resoudre = (nom) => {
+  if (!resoudrePrix) return null;
   const p = resoudrePrix(nom, kv.base, kv.ratios, kv.local);
   return { source: p.source, puPiece: p.puPiece ?? null, pmpCarton: p.pmpCarton ?? null, qteCdt: p.qteCdt ?? null };
 };
@@ -105,6 +144,7 @@ tx();
 // ── Contrôle après écriture ─────────────────────────────────────────────────────────
 const kvApres = kvLire(CLE_LOCAL);
 const apresResoudre = (nom) => {
+  if (!resoudrePrix) return null;
   const p = resoudrePrix(nom, kv.base, kv.ratios, kvApres);
   return { source: p.source, puPiece: p.puPiece ?? null, pmpCarton: p.pmpCarton ?? null, qteCdt: p.qteCdt ?? null };
 };
@@ -142,7 +182,7 @@ for (const j of controle) {
     String(j.avant.conditionnement ?? 'null') + '→' + String(j.apres.conditionnement),
     `${av} → ${ap}`.padStart(28),
     (j.apres.pu_piece == null ? 'null' : j.apres.pu_piece.toFixed(2)).padStart(12),
-    `${j.resolution_avant.source} → ${j.resolution_apres.source}`
+    `${j.resolution_avant?.source ?? 'n/d'} → ${j.resolution_apres?.source ?? 'n/d'}`
   );
 }
 console.log('');
