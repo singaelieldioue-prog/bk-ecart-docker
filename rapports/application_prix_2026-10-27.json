@@ -1,0 +1,1329 @@
+{
+  "date": "2026-10-27T22:57:53.938Z",
+  "fichier_source": "tmp_verif\\Articles_sans_prix_2026-10-27.xlsx",
+  "sauvegarde": "C:\\Users\\arnaud.nzue\\Downloads\\files (12)\\bk-ecart-docker28082026\\backend\\data.backup-prix-20261027.db",
+  "base": "C:\\Users\\arnaud.nzue\\Downloads\\files (12)\\bk-ecart-docker28082026\\backend\\data.db",
+  "carte_kv": "bk_sia_local_articles_v1",
+  "lignes_appliquees": 28,
+  "articles_actifs_sans_prix_carton": 29,
+  "entrees_kv": [
+    {
+      "cle": "DIP FRITE SAUCE 25GR",
+      "avant": null,
+      "apres": {
+        "nom": "DIP FRITE SAUCE - 25GR",
+        "code": "3534-1037",
+        "unite": "Carton",
+        "cdt": 100,
+        "puPiece": 90.3677282873868,
+        "pmpCarton": 9036.77282873868,
+        "categorie": "Nourriture"
+      }
+    },
+    {
+      "cle": "H1 4 BUN LOCAL",
+      "avant": null,
+      "apres": {
+        "nom": "H1 4' Bun Local",
+        "code": "LOCFR01",
+        "unite": "Inner",
+        "cdt": 12,
+        "puPiece": 150,
+        "pmpCarton": 1800,
+        "categorie": "Nourriture"
+      }
+    },
+    {
+      "cle": "H1 4 BUN LOCAL 01",
+      "avant": null,
+      "apres": {
+        "nom": "H1 4' Bun Local 01",
+        "code": "LOCFR04",
+        "unite": "Inner",
+        "cdt": 6,
+        "puPiece": 309.322033896667,
+        "pmpCarton": 1855.93220338,
+        "categorie": "Nourriture"
+      }
+    },
+    {
+      "cle": "H2 5 BUN LOCAL",
+      "avant": null,
+      "apres": {
+        "nom": "H2 5' Bun Local",
+        "code": "LOCFR02",
+        "unite": "Inner",
+        "cdt": 6,
+        "puPiece": 215,
+        "pmpCarton": 1290,
+        "categorie": "Nourriture"
+      }
+    },
+    {
+      "cle": "H3 7 BUN LOCAL",
+      "avant": null,
+      "apres": {
+        "nom": "H3 7' Bun Local",
+        "code": "LOCFR03",
+        "unite": "Inner",
+        "cdt": 10,
+        "puPiece": 275,
+        "pmpCarton": 2750,
+        "categorie": "Nourriture"
+      }
+    },
+    {
+      "cle": "MUFFIN CHOCOLAT 24 PIECES ",
+      "avant": null,
+      "apres": {
+        "nom": "MUFFIN - CHOCOLAT (24 pièces)",
+        "code": "BKFR29B",
+        "unite": "Carton",
+        "cdt": 24,
+        "puPiece": 617.911494,
+        "pmpCarton": 14829.875856,
+        "categorie": "Nourriture"
+      }
+    },
+    {
+      "cle": "MUFFIN CHOCOLAT",
+      "avant": null,
+      "apres": {
+        "nom": "MUFFIN CHOCOLAT",
+        "code": "BKFR29",
+        "unite": "Carton",
+        "cdt": 60,
+        "puPiece": 578.992789762847,
+        "pmpCarton": 34739.5673857708,
+        "categorie": "Nourriture"
+      }
+    },
+    {
+      "cle": "MUFFIN CHOCOLAT NOUGATINE",
+      "avant": null,
+      "apres": {
+        "nom": "MUFFIN CHOCOLAT - NOUGATINE",
+        "code": "BKFR29-NOUG",
+        "unite": "Carton",
+        "cdt": 75,
+        "puPiece": 466.101694915255,
+        "pmpCarton": 34957.6271186441,
+        "categorie": "Nourriture"
+      }
+    },
+    {
+      "cle": "REBEL WHOPPER PATTY",
+      "avant": null,
+      "apres": {
+        "nom": "REBEL WHOPPER PATTY",
+        "code": "RWP30002",
+        "unite": "Carton",
+        "cdt": 100,
+        "puPiece": 576.586203,
+        "pmpCarton": 57658.6203,
+        "categorie": "Nourriture"
+      }
+    },
+    {
+      "cle": "VINAIGRETTE NATURE 500 ML ",
+      "avant": null,
+      "apres": {
+        "nom": "VINAIGRETTE NATURE (500 ml)",
+        "code": "VNAT500",
+        "unite": "Carton",
+        "cdt": 12,
+        "puPiece": 1148.30508474577,
+        "pmpCarton": 13779.6610169492,
+        "categorie": "Nourriture"
+      }
+    },
+    {
+      "cle": "SUCRE BUCHETTE",
+      "avant": null,
+      "apres": {
+        "nom": "SUCRE BUCHETTE",
+        "code": "BKSUC250",
+        "unite": "Inner",
+        "cdt": 250,
+        "puPiece": 9.8,
+        "pmpCarton": 2450,
+        "categorie": "Nourriture - Sec"
+      }
+    },
+    {
+      "cle": "SUCRE BUCHETTE 100",
+      "avant": null,
+      "apres": {
+        "nom": "SUCRE BUCHETTE 100",
+        "code": "BKSUC100",
+        "unite": "Boîte",
+        "cdt": 100,
+        "puPiece": 9.8,
+        "pmpCarton": 980,
+        "categorie": "Nourriture - Sec"
+      }
+    },
+    {
+      "cle": "SUCRE BUCHETTE 200",
+      "avant": null,
+      "apres": {
+        "nom": "SUCRE BUCHETTE 200",
+        "code": "BKSUC200",
+        "unite": "Inner",
+        "cdt": 200,
+        "puPiece": 9.8,
+        "pmpCarton": 1960,
+        "categorie": "Nourriture - Sec"
+      }
+    },
+    {
+      "cle": "BOUCHON BLEU SAUCE CHILI",
+      "avant": null,
+      "apres": {
+        "nom": "BOUCHON BLEU - SAUCE CHILI",
+        "code": "BKCI-PMC124",
+        "unite": "Pièce",
+        "cdt": 1,
+        "puPiece": 1688,
+        "pmpCarton": 1688,
+        "categorie": "PMC"
+      }
+    },
+    {
+      "cle": "BOITE A GATEAU",
+      "avant": null,
+      "apres": {
+        "nom": "BOITE A GATEAU",
+        "code": "MFBAR001",
+        "unite": "Inner",
+        "cdt": 50,
+        "puPiece": 59.322,
+        "pmpCarton": 2966.1,
+        "categorie": "Packaging"
+      }
+    },
+    {
+      "cle": "COUVERCLE SNACK BUCKET NEW",
+      "avant": null,
+      "apres": {
+        "nom": "COUVERCLE SNACK BUCKET NEW",
+        "code": "LID-SNBU002",
+        "unite": "Carton",
+        "cdt": 240,
+        "puPiece": 49.3832368953838,
+        "pmpCarton": 11851.9768548921,
+        "categorie": "Packaging"
+      }
+    },
+    {
+      "cle": "KIT COUVERT BOIS",
+      "avant": null,
+      "apres": {
+        "nom": "KIT COUVERT - BOIS",
+        "code": "WOODCS250",
+        "unite": "Carton",
+        "cdt": 250,
+        "puPiece": 105.084745762712,
+        "pmpCarton": 26271.1864,
+        "categorie": "Packaging"
+      }
+    },
+    {
+      "cle": "LIVRET DE JEUX",
+      "avant": null,
+      "apres": {
+        "nom": "LIVRET DE JEUX",
+        "code": "LDJ001",
+        "unite": "Carton",
+        "cdt": 600,
+        "puPiece": 216.666666666667,
+        "pmpCarton": 130000,
+        "categorie": "Packaging"
+      }
+    },
+    {
+      "cle": "PAILLE SODAS MEHDI",
+      "avant": null,
+      "apres": {
+        "nom": "PAILLE SODAS MEHDI",
+        "code": "MEHDI760611",
+        "unite": "Carton",
+        "cdt": 2800,
+        "puPiece": 16.0909271562917,
+        "pmpCarton": 45054.596,
+        "categorie": "Packaging"
+      }
+    },
+    {
+      "cle": "SNACK BUCKET",
+      "avant": null,
+      "apres": {
+        "nom": "SNACK BUCKET",
+        "code": "SNBU001",
+        "unite": "Carton",
+        "cdt": 400,
+        "puPiece": 176.452433,
+        "pmpCarton": 70580.9732,
+        "categorie": "Packaging"
+      }
+    },
+    {
+      "cle": "SNACK BUCKET NEW",
+      "avant": null,
+      "apres": {
+        "nom": "SNACK BUCKET NEW",
+        "code": "SNBU002",
+        "unite": "Carton",
+        "cdt": 240,
+        "puPiece": 234.176649,
+        "pmpCarton": 56202.39576,
+        "categorie": "Packaging"
+      }
+    },
+    {
+      "cle": "TASSE CAFE 20CL CONWAY",
+      "avant": null,
+      "apres": {
+        "nom": "TASSE CAFE 20CL CONWAY",
+        "code": "BK-TC 20CL B",
+        "unite": "Carton",
+        "cdt": 1050,
+        "puPiece": 41.325291,
+        "pmpCarton": 43391.55555,
+        "categorie": "Packaging"
+      }
+    },
+    {
+      "cle": "WRAP DBL CHEESE SMALL SPEC",
+      "avant": null,
+      "apres": {
+        "nom": "WRAP DBL CHEESE/SMALL SPEC",
+        "code": "2761",
+        "unite": "Carton",
+        "cdt": 5000,
+        "puPiece": 10.495312,
+        "pmpCarton": 52476.56,
+        "categorie": "Packaging"
+      }
+    },
+    {
+      "cle": "WRAP HAMB CHEESEBURGER 5000",
+      "avant": null,
+      "apres": {
+        "nom": "WRAP HAMB/CHEESEBURGER-5000",
+        "code": "WHCB5000",
+        "unite": "Carton",
+        "cdt": 5000,
+        "puPiece": 8.527441,
+        "pmpCarton": 42637.205,
+        "categorie": "Packaging"
+      }
+    },
+    {
+      "cle": "WRAP LONG CHICKEN",
+      "avant": null,
+      "apres": {
+        "nom": "WRAP LONG CHICKEN",
+        "code": "960500",
+        "unite": "Carton",
+        "cdt": 3000,
+        "puPiece": 17.720973073441,
+        "pmpCarton": 53162.9192,
+        "categorie": "Packaging"
+      }
+    },
+    {
+      "cle": "WRAP STEAKHOUSE",
+      "avant": null,
+      "apres": {
+        "nom": "WRAP STEAKHOUSE",
+        "code": "2758",
+        "unite": "Carton",
+        "cdt": 2000,
+        "puPiece": 16.398925,
+        "pmpCarton": 32797.85,
+        "categorie": "Packaging"
+      }
+    },
+    {
+      "cle": "WRAP TENDERCRISP",
+      "avant": null,
+      "apres": {
+        "nom": "WRAP TENDERCRISP",
+        "code": "960484",
+        "unite": "Carton",
+        "cdt": 2000,
+        "puPiece": 16.398925,
+        "pmpCarton": 32797.85,
+        "categorie": "Packaging"
+      }
+    },
+    {
+      "cle": "WRAP WHOPPER JR",
+      "avant": null,
+      "apres": {
+        "nom": "WRAP WHOPPER JR",
+        "code": "2811",
+        "unite": "Carton",
+        "cdt": 5000,
+        "puPiece": 9.183398,
+        "pmpCarton": 45916.99,
+        "categorie": "Packaging"
+      }
+    }
+  ],
+  "lignes": [
+    {
+      "ligne_fichier": 4,
+      "code": "3534-1037",
+      "ref": "DIP FRITE SAUCE 25GR",
+      "nom": "DIP FRITE SAUCE - 25GR",
+      "categorie": "Nourriture",
+      "avant": {
+        "conditionnement": 100,
+        "pu_carton": null,
+        "pu_piece": null,
+        "source": "RATIOS BURGER KING ABJ Q3 2026.xlsx"
+      },
+      "apres": {
+        "conditionnement": 100,
+        "pu_carton": 9036.77282873868,
+        "pu_piece": 90.3677282873868,
+        "source": "Articles sans prix CDG 27/10/2026"
+      },
+      "prix_carton_derive": false,
+      "origine_fichier": "INVENTAIRE_INITIAL_JUIN_2026 (BK8, prix unitaire par Carton)",
+      "colisage_fichier": null,
+      "resolution_avant": {
+        "source": "inconnu",
+        "puPiece": null,
+        "pmpCarton": null,
+        "qteCdt": 1
+      },
+      "resolution_apres": {
+        "source": "Base locale",
+        "puPiece": 90.3677282873868,
+        "pmpCarton": 9036.77282873868,
+        "qteCdt": 100
+      }
+    },
+    {
+      "ligne_fichier": 6,
+      "code": "LOCFR01",
+      "ref": "H1 4 BUN LOCAL",
+      "nom": "H1 4' Bun Local",
+      "categorie": "Nourriture",
+      "avant": {
+        "conditionnement": 12,
+        "pu_carton": null,
+        "pu_piece": null,
+        "source": "RATIOS BURGER KING ABJ Q3 2026.xlsx"
+      },
+      "apres": {
+        "conditionnement": 12,
+        "pu_carton": 1800,
+        "pu_piece": 150,
+        "source": "Articles sans prix CDG 27/10/2026"
+      },
+      "prix_carton_derive": false,
+      "origine_fichier": "INVENTAIRE_INITIAL_JUIN_2026 (BK8, prix unitaire par Inner)",
+      "colisage_fichier": null,
+      "resolution_avant": {
+        "source": "inconnu",
+        "puPiece": null,
+        "pmpCarton": null,
+        "qteCdt": 1
+      },
+      "resolution_apres": {
+        "source": "Base locale",
+        "puPiece": 150,
+        "pmpCarton": 1800,
+        "qteCdt": 12
+      }
+    },
+    {
+      "ligne_fichier": 7,
+      "code": "LOCFR04",
+      "ref": "H1 4 BUN LOCAL 01",
+      "nom": "H1 4' Bun Local 01",
+      "categorie": "Nourriture",
+      "avant": {
+        "conditionnement": 6,
+        "pu_carton": null,
+        "pu_piece": null,
+        "source": "RATIOS BURGER KING ABJ Q3 2026.xlsx"
+      },
+      "apres": {
+        "conditionnement": 6,
+        "pu_carton": 1855.93220338,
+        "pu_piece": 309.322033896667,
+        "source": "Articles sans prix CDG 27/10/2026"
+      },
+      "prix_carton_derive": false,
+      "origine_fichier": "INVENTAIRE_INITIAL_JUIN_2026 (BK8, prix unitaire par Inner)",
+      "colisage_fichier": null,
+      "resolution_avant": {
+        "source": "inconnu",
+        "puPiece": null,
+        "pmpCarton": null,
+        "qteCdt": 1
+      },
+      "resolution_apres": {
+        "source": "Base locale",
+        "puPiece": 309.322033896667,
+        "pmpCarton": 1855.93220338,
+        "qteCdt": 6
+      }
+    },
+    {
+      "ligne_fichier": 8,
+      "code": "LOCFR02",
+      "ref": "H2 5 BUN LOCAL",
+      "nom": "H2 5' Bun Local",
+      "categorie": "Nourriture",
+      "avant": {
+        "conditionnement": 6,
+        "pu_carton": null,
+        "pu_piece": null,
+        "source": "RATIOS BURGER KING ABJ Q3 2026.xlsx"
+      },
+      "apres": {
+        "conditionnement": 6,
+        "pu_carton": 1290,
+        "pu_piece": 215,
+        "source": "Articles sans prix CDG 27/10/2026"
+      },
+      "prix_carton_derive": false,
+      "origine_fichier": "INVENTAIRE_INITIAL_JUIN_2026 (BK8, prix unitaire par Inner)",
+      "colisage_fichier": null,
+      "resolution_avant": {
+        "source": "inconnu",
+        "puPiece": null,
+        "pmpCarton": null,
+        "qteCdt": 1
+      },
+      "resolution_apres": {
+        "source": "Base locale",
+        "puPiece": 215,
+        "pmpCarton": 1290,
+        "qteCdt": 6
+      }
+    },
+    {
+      "ligne_fichier": 9,
+      "code": "LOCFR03",
+      "ref": "H3 7 BUN LOCAL",
+      "nom": "H3 7' Bun Local",
+      "categorie": "Nourriture",
+      "avant": {
+        "conditionnement": 10,
+        "pu_carton": null,
+        "pu_piece": null,
+        "source": "RATIOS BURGER KING ABJ Q3 2026.xlsx"
+      },
+      "apres": {
+        "conditionnement": 10,
+        "pu_carton": 2750,
+        "pu_piece": 275,
+        "source": "Articles sans prix CDG 27/10/2026"
+      },
+      "prix_carton_derive": false,
+      "origine_fichier": "INVENTAIRE_INITIAL_JUIN_2026 (BK8, prix unitaire par Inner)",
+      "colisage_fichier": null,
+      "resolution_avant": {
+        "source": "inconnu",
+        "puPiece": null,
+        "pmpCarton": null,
+        "qteCdt": 1
+      },
+      "resolution_apres": {
+        "source": "Base locale",
+        "puPiece": 275,
+        "pmpCarton": 2750,
+        "qteCdt": 10
+      }
+    },
+    {
+      "ligne_fichier": 11,
+      "code": "BKFR29B",
+      "ref": "MUFFIN CHOCOLAT 24 PIECES",
+      "nom": "MUFFIN - CHOCOLAT (24 pièces)",
+      "categorie": "Nourriture",
+      "avant": {
+        "conditionnement": 24,
+        "pu_carton": null,
+        "pu_piece": null,
+        "source": "RATIOS BURGER KING ABJ Q3 2026.xlsx"
+      },
+      "apres": {
+        "conditionnement": 24,
+        "pu_carton": 14829.875856,
+        "pu_piece": 617.911494,
+        "source": "Articles sans prix CDG 27/10/2026"
+      },
+      "prix_carton_derive": false,
+      "origine_fichier": "RATIOS__Q2_2026 (WA Landed Cost, ligne « Chocolate filled muffins ») : coût 0.942 € × taux 655.957 FCFA/€ = prix pièce ; prix carton = prix pièce × colisage ; statut INACTIF dans le fichier RATIOS, ~7 % au-dessus du prix de BKFR29 (inventaire juin)",
+      "colisage_fichier": null,
+      "resolution_avant": {
+        "source": "inconnu",
+        "puPiece": null,
+        "pmpCarton": null,
+        "qteCdt": 1
+      },
+      "resolution_apres": {
+        "source": "Base locale",
+        "puPiece": 617.911494,
+        "pmpCarton": 14829.875856,
+        "qteCdt": 24
+      }
+    },
+    {
+      "ligne_fichier": 13,
+      "code": "BKFR29",
+      "ref": "MUFFIN CHOCOLAT",
+      "nom": "MUFFIN CHOCOLAT",
+      "categorie": "Nourriture",
+      "avant": {
+        "conditionnement": 60,
+        "pu_carton": null,
+        "pu_piece": null,
+        "source": "RATIOS BURGER KING ABJ Q3 2026.xlsx"
+      },
+      "apres": {
+        "conditionnement": 60,
+        "pu_carton": 34739.5673857708,
+        "pu_piece": 578.992789762847,
+        "source": "Articles sans prix CDG 27/10/2026"
+      },
+      "prix_carton_derive": false,
+      "origine_fichier": "INVENTAIRE_INITIAL_JUIN_2026 (BK8, prix unitaire par Carton) ; remplace le prix de la base (30,108.98)",
+      "colisage_fichier": null,
+      "resolution_avant": {
+        "source": "inconnu",
+        "puPiece": null,
+        "pmpCarton": null,
+        "qteCdt": 1
+      },
+      "resolution_apres": {
+        "source": "Base locale",
+        "puPiece": 578.992789762847,
+        "pmpCarton": 34739.5673857708,
+        "qteCdt": 60
+      }
+    },
+    {
+      "ligne_fichier": 14,
+      "code": "BKFR29-NOUG",
+      "ref": "MUFFIN CHOCOLAT NOUGATINE",
+      "nom": "MUFFIN CHOCOLAT - NOUGATINE",
+      "categorie": "Nourriture",
+      "avant": {
+        "conditionnement": 75,
+        "pu_carton": null,
+        "pu_piece": null,
+        "source": "RATIOS BURGER KING ABJ Q3 2026.xlsx"
+      },
+      "apres": {
+        "conditionnement": 75,
+        "pu_carton": 34957.6271186441,
+        "pu_piece": 466.101694915255,
+        "source": "Articles sans prix CDG 27/10/2026"
+      },
+      "prix_carton_derive": false,
+      "origine_fichier": "INVENTAIRE_INITIAL_JUIN_2026 (BK8, prix unitaire par Carton)",
+      "colisage_fichier": null,
+      "resolution_avant": {
+        "source": "inconnu",
+        "puPiece": null,
+        "pmpCarton": null,
+        "qteCdt": 1
+      },
+      "resolution_apres": {
+        "source": "Base locale",
+        "puPiece": 466.101694915255,
+        "pmpCarton": 34957.6271186441,
+        "qteCdt": 75
+      }
+    },
+    {
+      "ligne_fichier": 15,
+      "code": "RWP30002",
+      "ref": "REBEL WHOPPER PATTY",
+      "nom": "REBEL WHOPPER PATTY",
+      "categorie": "Nourriture",
+      "avant": {
+        "conditionnement": 100,
+        "pu_carton": null,
+        "pu_piece": null,
+        "source": "RATIOS BURGER KING ABJ Q3 2026.xlsx"
+      },
+      "apres": {
+        "conditionnement": 100,
+        "pu_carton": 57658.6203,
+        "pu_piece": 576.586203,
+        "source": "Articles sans prix CDG 27/10/2026"
+      },
+      "prix_carton_derive": false,
+      "origine_fichier": "RATIOS__Q2_2026 (WA Landed Cost, ligne « REBEL WHOPPER PATTY ») : coût 0.879 € × taux 655.957 FCFA/€ = prix pièce ; prix carton = prix pièce × colisage",
+      "colisage_fichier": null,
+      "resolution_avant": {
+        "source": "PMP ingrédients",
+        "puPiece": 576.586203,
+        "pmpCarton": null,
+        "qteCdt": 1
+      },
+      "resolution_apres": {
+        "source": "Base locale",
+        "puPiece": 576.586203,
+        "pmpCarton": 57658.6203,
+        "qteCdt": 100
+      }
+    },
+    {
+      "ligne_fichier": 24,
+      "code": "VNAT500",
+      "ref": "VINAIGRETTE NATURE 500 ML",
+      "nom": "VINAIGRETTE NATURE (500 ml)",
+      "categorie": "Nourriture",
+      "avant": {
+        "conditionnement": 12,
+        "pu_carton": null,
+        "pu_piece": null,
+        "source": "RATIOS BURGER KING ABJ Q3 2026.xlsx"
+      },
+      "apres": {
+        "conditionnement": 12,
+        "pu_carton": 13779.6610169492,
+        "pu_piece": 1148.30508474577,
+        "source": "Articles sans prix CDG 27/10/2026"
+      },
+      "prix_carton_derive": false,
+      "origine_fichier": "INVENTAIRE_INITIAL_JUIN_2026 (BK8, prix unitaire par Carton (12*500ml))",
+      "colisage_fichier": null,
+      "resolution_avant": {
+        "source": "inconnu",
+        "puPiece": null,
+        "pmpCarton": null,
+        "qteCdt": 1
+      },
+      "resolution_apres": {
+        "source": "Base locale",
+        "puPiece": 1148.30508474577,
+        "pmpCarton": 13779.6610169492,
+        "qteCdt": 12
+      }
+    },
+    {
+      "ligne_fichier": 25,
+      "code": "BKSUC250",
+      "ref": "BKSUC250",
+      "nom": "SUCRE BUCHETTE",
+      "categorie": "Nourriture - Sec",
+      "avant": {
+        "conditionnement": 1,
+        "pu_carton": null,
+        "pu_piece": 9.8,
+        "source": "RATIOS BURGER KING ABJ Q3 2026.xlsx"
+      },
+      "apres": {
+        "conditionnement": 250,
+        "pu_carton": 2450,
+        "pu_piece": 9.8,
+        "source": "Articles sans prix CDG 27/10/2026"
+      },
+      "prix_carton_derive": true,
+      "origine_fichier": null,
+      "colisage_fichier": "1 → 250 (Inner de 250 bûchettes) — source : BASE_ARTICLE_SIA, Conditionnement2",
+      "resolution_avant": {
+        "source": "inconnu",
+        "puPiece": null,
+        "pmpCarton": null,
+        "qteCdt": 1
+      },
+      "resolution_apres": {
+        "source": "Base locale",
+        "puPiece": 9.8,
+        "pmpCarton": 2450,
+        "qteCdt": 250
+      }
+    },
+    {
+      "ligne_fichier": 26,
+      "code": "BKSUC100",
+      "ref": "BKSUC100",
+      "nom": "SUCRE BUCHETTE 100",
+      "categorie": "Nourriture - Sec",
+      "avant": {
+        "conditionnement": 1,
+        "pu_carton": null,
+        "pu_piece": 9.8,
+        "source": "RATIOS BURGER KING ABJ Q3 2026.xlsx"
+      },
+      "apres": {
+        "conditionnement": 100,
+        "pu_carton": 980,
+        "pu_piece": 9.8,
+        "source": "Articles sans prix CDG 27/10/2026"
+      },
+      "prix_carton_derive": true,
+      "origine_fichier": null,
+      "colisage_fichier": "1 → 100 (Boîte de 100) — source : BASE_ARTICLE_SIA, Conditionnement2",
+      "resolution_avant": {
+        "source": "inconnu",
+        "puPiece": null,
+        "pmpCarton": null,
+        "qteCdt": 1
+      },
+      "resolution_apres": {
+        "source": "Base locale",
+        "puPiece": 9.8,
+        "pmpCarton": 980,
+        "qteCdt": 100
+      }
+    },
+    {
+      "ligne_fichier": 27,
+      "code": "BKSUC200",
+      "ref": "BKSUC200",
+      "nom": "SUCRE BUCHETTE 200",
+      "categorie": "Nourriture - Sec",
+      "avant": {
+        "conditionnement": 1,
+        "pu_carton": null,
+        "pu_piece": 9.8,
+        "source": "RATIOS BURGER KING ABJ Q3 2026.xlsx"
+      },
+      "apres": {
+        "conditionnement": 200,
+        "pu_carton": 1960,
+        "pu_piece": 9.8,
+        "source": "Articles sans prix CDG 27/10/2026"
+      },
+      "prix_carton_derive": true,
+      "origine_fichier": null,
+      "colisage_fichier": "1 → 200 (Inner de 200) — source : BASE_ARTICLE_SIA, Conditionnement2",
+      "resolution_avant": {
+        "source": "inconnu",
+        "puPiece": null,
+        "pmpCarton": null,
+        "qteCdt": 1
+      },
+      "resolution_apres": {
+        "source": "Base locale",
+        "puPiece": 9.8,
+        "pmpCarton": 1960,
+        "qteCdt": 200
+      }
+    },
+    {
+      "ligne_fichier": 29,
+      "code": "BKCI-PMC124",
+      "ref": "BOUCHON BLEU SAUCE CHILI",
+      "nom": "BOUCHON BLEU - SAUCE CHILI",
+      "categorie": "PMC",
+      "avant": {
+        "conditionnement": 1,
+        "pu_carton": null,
+        "pu_piece": null,
+        "source": "RATIOS BURGER KING ABJ Q3 2026.xlsx"
+      },
+      "apres": {
+        "conditionnement": 1,
+        "pu_carton": 1688,
+        "pu_piece": 1688,
+        "source": "Articles sans prix CDG 27/10/2026"
+      },
+      "prix_carton_derive": false,
+      "origine_fichier": "Base_article_local_240926 (ligne « BOUCHON BLEU - SAUCE CHILI NEW », code BKCI-PMC142, prix unitaire Q2-2026) — correspondance par le nom, code différent : à confirmer",
+      "colisage_fichier": null,
+      "resolution_avant": {
+        "source": "inconnu",
+        "puPiece": null,
+        "pmpCarton": null,
+        "qteCdt": 1
+      },
+      "resolution_apres": {
+        "source": "Base locale",
+        "puPiece": 1688,
+        "pmpCarton": 1688,
+        "qteCdt": 1
+      }
+    },
+    {
+      "ligne_fichier": 42,
+      "code": "MFBAR001",
+      "ref": "BOITE A GATEAU",
+      "nom": "BOITE A GATEAU",
+      "categorie": "Packaging",
+      "avant": {
+        "conditionnement": 50,
+        "pu_carton": null,
+        "pu_piece": null,
+        "source": "RATIOS BURGER KING ABJ Q3 2026.xlsx"
+      },
+      "apres": {
+        "conditionnement": 50,
+        "pu_carton": 2966.1,
+        "pu_piece": 59.322,
+        "source": "Articles sans prix CDG 27/10/2026"
+      },
+      "prix_carton_derive": false,
+      "origine_fichier": "INVENTAIRE_INITIAL_JUIN_2026 (BK9, prix unitaire par Inner de 50)",
+      "colisage_fichier": null,
+      "resolution_avant": {
+        "source": "inconnu",
+        "puPiece": null,
+        "pmpCarton": null,
+        "qteCdt": 1
+      },
+      "resolution_apres": {
+        "source": "Base locale",
+        "puPiece": 59.322,
+        "pmpCarton": 2966.1,
+        "qteCdt": 50
+      }
+    },
+    {
+      "ligne_fichier": 43,
+      "code": "LID-SNBU002",
+      "ref": "COUVERCLE SNACK BUCKET NEW",
+      "nom": "COUVERCLE SNACK BUCKET NEW",
+      "categorie": "Packaging",
+      "avant": {
+        "conditionnement": 240,
+        "pu_carton": null,
+        "pu_piece": null,
+        "source": "RATIOS BURGER KING ABJ Q3 2026.xlsx"
+      },
+      "apres": {
+        "conditionnement": 240,
+        "pu_carton": 11851.9768548921,
+        "pu_piece": 49.3832368953838,
+        "source": "Articles sans prix CDG 27/10/2026"
+      },
+      "prix_carton_derive": false,
+      "origine_fichier": "INVENTAIRE_INITIAL_JUIN_2026 (BK8, prix unitaire par Carton)",
+      "colisage_fichier": null,
+      "resolution_avant": {
+        "source": "inconnu",
+        "puPiece": null,
+        "pmpCarton": null,
+        "qteCdt": 1
+      },
+      "resolution_apres": {
+        "source": "Base locale",
+        "puPiece": 49.3832368953838,
+        "pmpCarton": 11851.9768548921,
+        "qteCdt": 240
+      }
+    },
+    {
+      "ligne_fichier": 45,
+      "code": "WOODCS250",
+      "ref": "WOODCS250",
+      "nom": "KIT COUVERT - BOIS",
+      "categorie": "Packaging",
+      "avant": {
+        "conditionnement": 1,
+        "pu_carton": null,
+        "pu_piece": 105.08474576271188,
+        "source": "RATIOS BURGER KING ABJ Q3 2026.xlsx"
+      },
+      "apres": {
+        "conditionnement": 250,
+        "pu_carton": 26271.1864,
+        "pu_piece": 105.084745762712,
+        "source": "Articles sans prix CDG 27/10/2026"
+      },
+      "prix_carton_derive": true,
+      "origine_fichier": null,
+      "colisage_fichier": "1 → 250 (250 kits par carton) — source : BASE_ARTICLE_SIA, Conditionnement2 ; confirmé par l'inventaire de juin",
+      "resolution_avant": {
+        "source": "inconnu",
+        "puPiece": null,
+        "pmpCarton": null,
+        "qteCdt": 1
+      },
+      "resolution_apres": {
+        "source": "Base locale",
+        "puPiece": 105.084745762712,
+        "pmpCarton": 26271.1864,
+        "qteCdt": 250
+      }
+    },
+    {
+      "ligne_fichier": 46,
+      "code": "LDJ001",
+      "ref": "LIVRET DE JEUX",
+      "nom": "LIVRET DE JEUX",
+      "categorie": "Packaging",
+      "avant": {
+        "conditionnement": 600,
+        "pu_carton": null,
+        "pu_piece": null,
+        "source": "RATIOS BURGER KING ABJ Q3 2026.xlsx"
+      },
+      "apres": {
+        "conditionnement": 600,
+        "pu_carton": 130000,
+        "pu_piece": 216.666666666667,
+        "source": "Articles sans prix CDG 27/10/2026"
+      },
+      "prix_carton_derive": false,
+      "origine_fichier": "INVENTAIRE_INITIAL_JUIN_2026 (BK8, prix unitaire par Carton)",
+      "colisage_fichier": null,
+      "resolution_avant": {
+        "source": "inconnu",
+        "puPiece": null,
+        "pmpCarton": null,
+        "qteCdt": 1
+      },
+      "resolution_apres": {
+        "source": "Base locale",
+        "puPiece": 216.666666666667,
+        "pmpCarton": 130000,
+        "qteCdt": 600
+      }
+    },
+    {
+      "ligne_fichier": 47,
+      "code": "MEHDI760611",
+      "ref": "MEHDI760611",
+      "nom": "PAILLE SODAS MEHDI",
+      "categorie": "Packaging",
+      "avant": {
+        "conditionnement": 1,
+        "pu_carton": null,
+        "pu_piece": 16.09092715629169,
+        "source": "RATIOS BURGER KING ABJ Q3 2026.xlsx"
+      },
+      "apres": {
+        "conditionnement": 2800,
+        "pu_carton": 45054.596,
+        "pu_piece": 16.0909271562917,
+        "source": "Articles sans prix CDG 27/10/2026"
+      },
+      "prix_carton_derive": true,
+      "origine_fichier": null,
+      "colisage_fichier": "1 → 2800 (20 inners × 140) — source : BASE_ARTICLE_SIA, Conditionnement2",
+      "resolution_avant": {
+        "source": "inconnu",
+        "puPiece": null,
+        "pmpCarton": null,
+        "qteCdt": 1
+      },
+      "resolution_apres": {
+        "source": "Base locale",
+        "puPiece": 16.0909271562917,
+        "pmpCarton": 45054.596,
+        "qteCdt": 2800
+      }
+    },
+    {
+      "ligne_fichier": 49,
+      "code": "SNBU001",
+      "ref": "SNACK BUCKET",
+      "nom": "SNACK BUCKET",
+      "categorie": "Packaging",
+      "avant": {
+        "conditionnement": 400,
+        "pu_carton": null,
+        "pu_piece": null,
+        "source": "RATIOS BURGER KING ABJ Q3 2026.xlsx"
+      },
+      "apres": {
+        "conditionnement": 400,
+        "pu_carton": 70580.9732,
+        "pu_piece": 176.452433,
+        "source": "Articles sans prix CDG 27/10/2026"
+      },
+      "prix_carton_derive": false,
+      "origine_fichier": "INVENTAIRE_INITIAL_JUIN_2026 (BK8, prix unitaire par Carton)",
+      "colisage_fichier": null,
+      "resolution_avant": {
+        "source": "inconnu",
+        "puPiece": null,
+        "pmpCarton": null,
+        "qteCdt": 1
+      },
+      "resolution_apres": {
+        "source": "Base locale",
+        "puPiece": 176.452433,
+        "pmpCarton": 70580.9732,
+        "qteCdt": 400
+      }
+    },
+    {
+      "ligne_fichier": 50,
+      "code": "SNBU002",
+      "ref": "SNACK BUCKET NEW",
+      "nom": "SNACK BUCKET NEW",
+      "categorie": "Packaging",
+      "avant": {
+        "conditionnement": 240,
+        "pu_carton": null,
+        "pu_piece": null,
+        "source": "RATIOS BURGER KING ABJ Q3 2026.xlsx"
+      },
+      "apres": {
+        "conditionnement": 240,
+        "pu_carton": 56202.39576,
+        "pu_piece": 234.176649,
+        "source": "Articles sans prix CDG 27/10/2026"
+      },
+      "prix_carton_derive": false,
+      "origine_fichier": "INVENTAIRE_INITIAL_JUIN_2026 (BK8, prix unitaire par Carton)",
+      "colisage_fichier": null,
+      "resolution_avant": {
+        "source": "inconnu",
+        "puPiece": null,
+        "pmpCarton": null,
+        "qteCdt": 1
+      },
+      "resolution_apres": {
+        "source": "Base locale",
+        "puPiece": 234.176649,
+        "pmpCarton": 56202.39576,
+        "qteCdt": 240
+      }
+    },
+    {
+      "ligne_fichier": 52,
+      "code": "BK-TC 20CL B",
+      "ref": "TASSE CAFE 20CL CONWAY",
+      "nom": "TASSE CAFE 20CL CONWAY",
+      "categorie": "Packaging",
+      "avant": {
+        "conditionnement": 1050,
+        "pu_carton": null,
+        "pu_piece": null,
+        "source": "RATIOS BURGER KING ABJ Q3 2026.xlsx"
+      },
+      "apres": {
+        "conditionnement": 1050,
+        "pu_carton": 43391.55555,
+        "pu_piece": 41.325291,
+        "source": "Articles sans prix CDG 27/10/2026"
+      },
+      "prix_carton_derive": false,
+      "origine_fichier": "INVENTAIRE_INITIAL_JUIN_2026 (BK8, prix unitaire par Carton)",
+      "colisage_fichier": null,
+      "resolution_avant": {
+        "source": "inconnu",
+        "puPiece": null,
+        "pmpCarton": null,
+        "qteCdt": 1
+      },
+      "resolution_apres": {
+        "source": "Base locale",
+        "puPiece": 41.325291,
+        "pmpCarton": 43391.55555,
+        "qteCdt": 1050
+      }
+    },
+    {
+      "ligne_fichier": 53,
+      "code": "2761",
+      "ref": "WRAP DBL CHEESE SMALL SPEC",
+      "nom": "WRAP DBL CHEESE/SMALL SPEC",
+      "categorie": "Packaging",
+      "avant": {
+        "conditionnement": 5000,
+        "pu_carton": null,
+        "pu_piece": null,
+        "source": "RATIOS BURGER KING ABJ Q3 2026.xlsx"
+      },
+      "apres": {
+        "conditionnement": 5000,
+        "pu_carton": 52476.56,
+        "pu_piece": 10.495312,
+        "source": "Articles sans prix CDG 27/10/2026"
+      },
+      "prix_carton_derive": false,
+      "origine_fichier": "INVENTAIRE_INITIAL_JUIN_2026 (BK8, prix unitaire par Carton) ; remplace le prix de la base (14,458.51)",
+      "colisage_fichier": null,
+      "resolution_avant": {
+        "source": "inconnu",
+        "puPiece": null,
+        "pmpCarton": null,
+        "qteCdt": 1
+      },
+      "resolution_apres": {
+        "source": "Base locale",
+        "puPiece": 10.495312,
+        "pmpCarton": 52476.56,
+        "qteCdt": 5000
+      }
+    },
+    {
+      "ligne_fichier": 54,
+      "code": "WHCB5000",
+      "ref": "WHCB5000",
+      "nom": "WRAP HAMB/CHEESEBURGER-5000",
+      "categorie": "Packaging",
+      "avant": {
+        "conditionnement": 1,
+        "pu_carton": null,
+        "pu_piece": 8.527441,
+        "source": "RATIOS BURGER KING ABJ Q3 2026.xlsx"
+      },
+      "apres": {
+        "conditionnement": 5000,
+        "pu_carton": 42637.205,
+        "pu_piece": 8.527441,
+        "source": "Articles sans prix CDG 27/10/2026"
+      },
+      "prix_carton_derive": true,
+      "origine_fichier": null,
+      "colisage_fichier": "1 → 5000 (5 × 1000) — source : BASE_ARTICLE_SIA, Conditionnement2 ; confirmé par l'inventaire de juin",
+      "resolution_avant": {
+        "source": "inconnu",
+        "puPiece": null,
+        "pmpCarton": null,
+        "qteCdt": 1
+      },
+      "resolution_apres": {
+        "source": "Base locale",
+        "puPiece": 8.527441,
+        "pmpCarton": 42637.205,
+        "qteCdt": 5000
+      }
+    },
+    {
+      "ligne_fichier": 55,
+      "code": "960500",
+      "ref": "960500",
+      "nom": "WRAP LONG CHICKEN",
+      "categorie": "Packaging",
+      "avant": {
+        "conditionnement": null,
+        "pu_carton": null,
+        "pu_piece": 17.72097307344102,
+        "source": "RATIOS  Q2 2026.xlsx (PMP WA, via correspondance FR->EN)"
+      },
+      "apres": {
+        "conditionnement": 3000,
+        "pu_carton": 53162.9192,
+        "pu_piece": 17.720973073441,
+        "source": "Articles sans prix CDG 27/10/2026"
+      },
+      "prix_carton_derive": true,
+      "origine_fichier": null,
+      "colisage_fichier": "vide → 3000 (3 × 1000) — source : BASE_ARTICLE_SIA, Conditionnement2 ; confirmé par l'inventaire de juin",
+      "resolution_avant": {
+        "source": "inconnu",
+        "puPiece": null,
+        "pmpCarton": null,
+        "qteCdt": 1
+      },
+      "resolution_apres": {
+        "source": "Base locale",
+        "puPiece": 17.720973073441,
+        "pmpCarton": 53162.9192,
+        "qteCdt": 3000
+      }
+    },
+    {
+      "ligne_fichier": 56,
+      "code": "2758",
+      "ref": "WRAP STEAKHOUSE",
+      "nom": "WRAP STEAKHOUSE",
+      "categorie": "Packaging",
+      "avant": {
+        "conditionnement": 2000,
+        "pu_carton": null,
+        "pu_piece": null,
+        "source": "RATIOS BURGER KING ABJ Q3 2026.xlsx"
+      },
+      "apres": {
+        "conditionnement": 2000,
+        "pu_carton": 32797.85,
+        "pu_piece": 16.398925,
+        "source": "Articles sans prix CDG 27/10/2026"
+      },
+      "prix_carton_derive": false,
+      "origine_fichier": "INVENTAIRE_INITIAL_JUIN_2026 (BK8, prix unitaire par Carton) ; remplace le prix de la base (22,086.11)",
+      "colisage_fichier": null,
+      "resolution_avant": {
+        "source": "PMP ingrédients",
+        "puPiece": 16.398925000000002,
+        "pmpCarton": null,
+        "qteCdt": 1
+      },
+      "resolution_apres": {
+        "source": "Base locale",
+        "puPiece": 16.398925,
+        "pmpCarton": 32797.85,
+        "qteCdt": 2000
+      }
+    },
+    {
+      "ligne_fichier": 57,
+      "code": "960484",
+      "ref": "WRAP TENDERCRISP",
+      "nom": "WRAP TENDERCRISP",
+      "categorie": "Packaging",
+      "avant": {
+        "conditionnement": 2000,
+        "pu_carton": null,
+        "pu_piece": null,
+        "source": "RATIOS BURGER KING ABJ Q3 2026.xlsx"
+      },
+      "apres": {
+        "conditionnement": 2000,
+        "pu_carton": 32797.85,
+        "pu_piece": 16.398925,
+        "source": "Articles sans prix CDG 27/10/2026"
+      },
+      "prix_carton_derive": false,
+      "origine_fichier": "INVENTAIRE_INITIAL_JUIN_2026 (BK8, prix unitaire par Carton)",
+      "colisage_fichier": null,
+      "resolution_avant": {
+        "source": "inconnu",
+        "puPiece": null,
+        "pmpCarton": null,
+        "qteCdt": 1
+      },
+      "resolution_apres": {
+        "source": "Base locale",
+        "puPiece": 16.398925,
+        "pmpCarton": 32797.85,
+        "qteCdt": 2000
+      }
+    },
+    {
+      "ligne_fichier": 58,
+      "code": "2811",
+      "ref": "WRAP WHOPPER JR",
+      "nom": "WRAP WHOPPER JR",
+      "categorie": "Packaging",
+      "avant": {
+        "conditionnement": 5000,
+        "pu_carton": null,
+        "pu_piece": null,
+        "source": "RATIOS BURGER KING ABJ Q3 2026.xlsx"
+      },
+      "apres": {
+        "conditionnement": 5000,
+        "pu_carton": 45916.99,
+        "pu_piece": 9.183398,
+        "source": "Articles sans prix CDG 27/10/2026"
+      },
+      "prix_carton_derive": false,
+      "origine_fichier": "INVENTAIRE_INITIAL_JUIN_2026 (BK8, prix unitaire par Carton)",
+      "colisage_fichier": null,
+      "resolution_avant": {
+        "source": "inconnu",
+        "puPiece": null,
+        "pmpCarton": null,
+        "qteCdt": 1
+      },
+      "resolution_apres": {
+        "source": "Base locale",
+        "puPiece": 9.183398,
+        "pmpCarton": 45916.99,
+        "qteCdt": 5000
+      }
+    }
+  ]
+}
