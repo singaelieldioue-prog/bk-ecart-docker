@@ -82,13 +82,28 @@ const rowToReportLean = (row) => row && ({
 const withActions = (rep, role) => ({ ...rep, _actions: allowedActions(rep.status, role) });
 const getRow = (id) => db.prepare('SELECT * FROM reports WHERE id = ?').get(id);
 
+// Pagination : un paramètre absent prend la valeur par défaut ; présent, il doit être un
+// entier strictement positif. parseInt accepterait « 1.5 » (→ 1) et « abc » (→ NaN, qui
+// finit en erreur SQLite 500) : les deux sont refusés explicitement en 400.
+const parsePositiveInt = (raw, fallback) => {
+  if (raw === undefined || raw === null || raw === '') return { ok: true, value: fallback };
+  const s = String(raw).trim();
+  if (!/^\d+$/.test(s)) return { ok: false, value: null };
+  const n = Number(s);
+  if (!Number.isSafeInteger(n) || n <= 0) return { ok: false, value: null };
+  return { ok: true, value: n };
+};
+
 // ─── Rapports : lecture partagée par tous les utilisateurs authentifiés ───────
 // Supporte la pagination : ?page=1&limit=20&lean=1
 // lean=1 (défaut pour les listes) → exclut le stockData volumineux
 // lean=0 → retourne tout (pour la compatibilité ascendante)
 app.get('/api/reports', requireAuth, (req, res) => {
-  const page  = Math.max(1, parseInt(req.query.page  || '1', 10));
-  const limit = Math.min(100, Math.max(1, parseInt(req.query.limit || '50', 10)));
+  const p = parsePositiveInt(req.query.page , 1);
+  const l = parsePositiveInt(req.query.limit, 50);
+  if (!p.ok || !l.ok) return res.status(400).json({ error: 'Paramètres page/limit invalides (entiers positifs attendus)' });
+  const page  = p.value;
+  const limit = Math.min(100, l.value);
   const lean  = req.query.lean !== '0'; // lean=1 par défaut
   const offset = (page - 1) * limit;
 
@@ -149,13 +164,24 @@ app.post('/api/reports/import', requireAuth, requireRole('cdg'), (req, res) => {
     for (const r of list) {
       try {
         if (!r.id || !r.titre || !r.data) { errors.push({ id: r.id, reason: 'Champs obligatoires manquants' }); continue; }
+        // Gouvernance : une sauvegarde ne peut pas réinjecter un rapport déjà validé. Le
+        // statut repart toujours de « draft » ; le statut d'origine reste tracé dans
+        // l'historique pour que le circuit de validation (checkTransition) le réapplique.
+        const statutOrigine = r.status || 'draft';
+        const historique = Array.isArray(r.history) ? r.history.slice() : [];
+        historique.push({
+          status: 'draft',
+          actor: req.user.role,
+          at: new Date().toISOString(),
+          commentaire: `Import : statut forcé à brouillon (statut d'origine : ${statutOrigine})`,
+        });
         const info = stmt.run(
           String(r.id),
           r.titre,
-          r.status || 'draft',
+          'draft',
           r.site || null,
           typeof r.data === 'string' ? r.data : JSON.stringify(r.data),
-          Array.isArray(r.history) ? JSON.stringify(r.history) : JSON.stringify([]),
+          JSON.stringify(historique),
           r.createdBy || req.user.sub,
           r.createdAt || new Date().toISOString(),
           r.updatedAt || new Date().toISOString()
@@ -241,8 +267,11 @@ app.put('/api/restaurants/:id', requireAuth, requireRole('cdg'), (req, res) => {
 // ─── Référentiel ARTICLES (base unique, partagée) ────────────────────────────
 app.get('/api/articles', requireAuth, (req, res) => {
   try {
-    const page = req.query.page !== undefined ? Number(req.query.page) : null;
-    const limit = req.query.limit !== undefined ? Number(req.query.limit) : null;
+    const p = parsePositiveInt(req.query.page , null);
+    const l = parsePositiveInt(req.query.limit, null);
+    if (!p.ok || !l.ok) return res.status(400).json({ error: 'Paramètres page/limit invalides (entiers positifs attendus)' });
+    const page = p.value;
+    const limit = l.value;
     const result = listArticles(db, {
       actif: req.query.actif ?? 'all',
       search: req.query.search ?? '',
@@ -296,7 +325,9 @@ app.get('/api/kv/:key', requireAuth, (req, res) => {
   const row = db.prepare('SELECT v FROM kv WHERE k = ?').get(req.params.key);
   res.json(row ? { key: req.params.key, value: row.v } : null);
 });
-app.put('/api/kv/:key', requireAuth, (req, res) => {
+// Écriture réservée au CDG (ou admin) : les référentiels partagés (Ratios, fiches LTO)
+// alimentent les calculs de tous les rapports, un rôle lecture seule ne les modifie pas.
+app.put('/api/kv/:key', requireAuth, requireRole('cdg'), (req, res) => {
   const b = req.body;
   const value = typeof b === 'string' ? b
     : (b && typeof b.value === 'string') ? b.value      // {value:"<json>"} → stocker tel quel
@@ -306,5 +337,14 @@ app.put('/api/kv/:key', requireAuth, (req, res) => {
   res.json({ key: req.params.key, value });
 });
 
+// Toute route non déclarée répond en JSON : le frontend n'a jamais à parser du HTML d'erreur.
+app.use((req, res) => res.status(404).json({ error: 'Route inconnue', path: req.originalUrl }));
+
 const PORT = process.env.PORT || 4000;
-app.listen(PORT, () => console.log(`[bk-ecart-backend] écoute sur http://127.0.0.1:${PORT}`));
+export function startServer(port = PORT) {
+  return app.listen(port, () => console.log(`[bk-ecart-backend] écoute sur http://127.0.0.1:${port}`));
+}
+// Importable par les suites de tests (elles choisissent elles-mêmes le port et la base jetable).
+if (!process.env.BK_NO_LISTEN) startServer();
+
+export { app };
