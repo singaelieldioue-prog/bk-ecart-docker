@@ -12,6 +12,18 @@ export const PMIX_COMP_KEY = "bk_sia_pmix_complement_v1";
 // pour elles — ce ne sont donc pas des anomalies « PLU sans fiche ».
 export const PMIX_HORS_MATIERE = { "50000": "GLOVO", "8017": "ENFT JOUET", "5505": "NO Sauce" };
 
+// Paramètre de configuration validé par le CDG : catégories non-matière exclues du calcul
+// d'écart. La comparaison ignore casse et espaces — les fichiers sources éclatent la même
+// catégorie en « PACKAGING » et « Packaging ». Modifier cette liste suffit à changer le
+// périmètre, aucun code de calcul ne doit citer ces libellés en dur.
+export const CATEGORIES_HORS_ECART = ["PMC", "IFB", "PACKAGING"];
+export const estCategorieHorsEcart = (categorie) => {
+  const value = String(categorie || "").trim().toUpperCase();
+  return !!value && CATEGORIES_HORS_ECART.some(
+    (c) => String(c || "").trim().toUpperCase() === value
+  );
+};
+
 export const ROLES = {
   cdg: { label: "Contrôleur de gestion", short: "CDG", color: "#2563EB", bg: "#EFF6FF" },
   daf: { label: "Directeur Administratif & Financier", short: "DAF", color: "#7C3AED", bg: "#F5F3FF" },

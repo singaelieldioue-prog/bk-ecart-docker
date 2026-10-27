@@ -217,6 +217,10 @@ export async function exportExcel(rapport){
     const an=[
       ...(calc.pluNonMatchés||[]).map(p=>["PLU sans fiche technique",p.plu,p.nom,p.qty,"Consommation théo non calculée"]),
       ...(calc.pluHorsMatiere||[]).map(p=>["Ligne hors matière",p.plu,p.nom,p.qty,"Aucune matière consommée — écartée du calcul, pas de fiche à créer"]),
+      // A-02 / C-11 : catégories non-matière sorties de l'écart par le paramètre
+      // CATEGORIES_HORS_ECART. Tracées ici pour le CDG, hors du décompte « Article PU = 0 ».
+      ...(calc.articlesHorsEcart||[]).map(a=>["Hors écart (catégorie)","—",a.nom,a.qte,
+        `${a.categorie||"—"} · exclu du calcul d'écart (paramètre CATEGORIES_HORS_ECART) — stock initial ${Math.round(a.iniValeur||0)} F · final ${Math.round(a.finValeur||0)} F`]),
       ...(calc.articlesEcart||[]).filter(a=>!a.puPiece||a.puPiece===0).map(a=>["Article PU = 0","—",a.nom,"—","Prix non résolu — vérifier référentiels"]),
       // C-09 / C-13 : PLU vendus dont le coût résolu est nul ou absent.
       ...(calc.pluCoutNul||[]).map(p=>["Coût nul",p.plu,p.nom,p.qty,

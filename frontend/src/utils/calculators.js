@@ -1,5 +1,5 @@
 import { norm } from './formatters.js';
-import { PMIX_HORS_MATIERE } from '../constants.js';
+import { PMIX_HORS_MATIERE, estCategorieHorsEcart } from '../constants.js';
 
 // Renvoie map[NORM(désignation ratio)] = { code, statut, qteCdt, pmpCarton, puPiece }.
 // localArticles : optionnel — base d'articles locaux complémentaires au Ratio
@@ -183,8 +183,23 @@ export function calculer(stockData, pmixList, ratios, baseArticle={}, pmixComple
   // Écart = StockThéo − Inventaire Final réel
   const articlesEcart={};
 
+  // A-02 / C-11 : les catégories non-matière du paramètre CATEGORIES_HORS_ECART (PMC, IFB,
+  // PACKAGING) sortent du calcul d'écart. Elles restent tracées à part pour que le CDG voie
+  // ce qui a été écarté — et elles ne comptent plus dans les « articles sans prix ».
+  const horsEcartMap=new Map();
+  const tracerHorsEcart=(origine,a)=>{
+    const k=norm(a.nom);
+    const s=horsEcartMap.get(k)||{nom:a.nom,categorie:a.categorie||"",
+      iniPieces:0,entreesPieces:0,pertesPieces:0,finPieces:0,
+      iniValeur:0,entreesValeur:0,pertesValeur:0,finValeur:0};
+    s[`${origine}Pieces`]+=Number(a.qtePieces)||0;
+    s[`${origine}Valeur`]+=Number(a.valeur)||0;
+    horsEcartMap.set(k,s);
+  };
+
   // Initialiser depuis inventaire initial
   Object.entries(invIni).forEach(([k,a])=>{
+    if(estCategorieHorsEcart(a.categorie)){tracerHorsEcart("ini",a);return;}
     articlesEcart[k]={
       nom:a.nom, categorie:a.categorie, qteCdt:a.qteCdt, puPiece:a.puPiece,
       iniPieces:a.qtePieces,
@@ -198,6 +213,7 @@ export function calculer(stockData, pmixList, ratios, baseArticle={}, pmixComple
 
   // Ajouter entrées (transferts AGL → restaurant), converties en pièces
   sorties.forEach(s=>{
+    if(estCategorieHorsEcart(s.categorie)){tracerHorsEcart("entrees",s);return;}
     const k=norm(s.designation);
     if(articlesEcart[k]) articlesEcart[k].entreesPieces+=s.qtePieces;
     else articlesEcart[k]={
@@ -209,6 +225,7 @@ export function calculer(stockData, pmixList, ratios, baseArticle={}, pmixComple
 
   // Ajouter pertes déclarées (à la pièce)
   pertes.forEach(p=>{
+    if(estCategorieHorsEcart(p.categorie)){tracerHorsEcart("pertes",p);return;}
     const k=norm(p.nom);
     if(articlesEcart[k]) articlesEcart[k].pertesPieces+=p.qtePieces;
   });
@@ -235,6 +252,7 @@ export function calculer(stockData, pmixList, ratios, baseArticle={}, pmixComple
 
   // Inventaire final
   Object.entries(invFin).forEach(([k,a])=>{
+    if(estCategorieHorsEcart(a.categorie)){tracerHorsEcart("fin",a);return;}
     if(articlesEcart[k]) articlesEcart[k].finPieces=a.qtePieces;
     else if(a.qtePieces>0){
       // Article en fin mais pas en début : créer l'entrée
@@ -286,6 +304,10 @@ export function calculer(stockData, pmixList, ratios, baseArticle={}, pmixComple
     articlesEcart: Object.values(articlesEcart).filter(
       a=>a.iniPieces||a.entreesPieces||a.finPieces||a.ventesPieces||a.pertesPieces
     ),
+    // Articles sortis du calcul d'écart par catégorie (paramètre CATEGORIES_HORS_ECART).
+    articlesHorsEcart: [...horsEcartMap.values()]
+      .map(a=>({...a, qte:a.iniPieces+a.entreesPieces+a.pertesPieces+a.finPieces}))
+      .filter(a=>a.qte>0),
   };
 }
 
@@ -301,6 +323,7 @@ export function calculerMultiRestaurants(stocksData, pmixLists, ratios, baseArti
   const allPluCoutNul=[];
   const allEcartsPrix=[], allValorisationsBloquees=[];
   const allDoublonsInventaire=[], allAnomaliesIntegrite=[];
+  const allArticlesHorsEcart=[];
 
   stocksData.forEach((stockData, idx)=>{
     // pmixLists[idx] est un tableau d'items => on en fait un pmixList standard
@@ -333,6 +356,7 @@ export function calculerMultiRestaurants(stocksData, pmixLists, ratios, baseArti
     allValorisationsBloquees.push(...(calc.valorisationsBloquees||[]));
     allDoublonsInventaire.push(...(calc.doublonsInventaire||[]));
     allAnomaliesIntegrite.push(...(calc.anomaliesIntegrite||[]));
+    allArticlesHorsEcart.push(...(calc.articlesHorsEcart||[]));
     parRestaurant.push({
       site:stockData.site||`BK ${idx+1}`,
       consoReelle    :calc.consoReelle,
@@ -432,6 +456,7 @@ export function calculerMultiRestaurants(stocksData, pmixLists, ratios, baseArti
     articlesEcart:Array.from(articlesEcartMap.values()).filter(
       (a) => a.iniPieces || a.entreesPieces || a.finPieces || a.ventesPieces || a.pertesPieces
     ),
+    articlesHorsEcart:allArticlesHorsEcart,
     parRestaurant,
     isMulti:true,
   };
