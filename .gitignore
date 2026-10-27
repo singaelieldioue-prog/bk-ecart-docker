@@ -8,6 +8,8 @@ backend/data.db.bak-*
 backend/data.pre-restore*.db
 backend/reports_backup_*.db
 sample_data/
+AUTRE/
+tmp_verif/
 .DS_Store
 Thumbs.db
 *.db-shm
