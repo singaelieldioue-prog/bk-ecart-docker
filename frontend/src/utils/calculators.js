@@ -71,6 +71,23 @@ export function calculer(stockData, pmixList, ratios, baseArticle={}, pmixComple
   const consoReelle    = variationStock + totalEntrees;      // RG-03 v3.0 : SANS pertes
   const totalOfferts = Object.values(stockData.offerts||{}).reduce((s,o)=>s+o.total,0);
 
+  // C-10 / C-12 : écarts entre le prix saisi dans le classeur et le prix du référentiel, et
+  // lignes qu'aucun prix ne valorise. Signalés, jamais corrigés en silence : le choix du prix
+  // relève du CDG, pas de l'application.
+  const ecartsPrix=[], valorisationsBloquees=[];
+  const tracerPrixInventaire=(origine, map)=>{
+    Object.values(map||{}).forEach(a=>{
+      if(a.ecartPrix) ecartsPrix.push({origine, nom:a.nom, qte:a.qtePieces||0, puSaisi:a.puSaisi, puRef:a.puRef, ...a.ecartPrix});
+      if(a.valorisationBloquee) valorisationsBloquees.push({origine, nom:a.nom, qte:a.qtePieces||0});
+    });
+  };
+  tracerPrixInventaire("Inventaire initial", invIni);
+  tracerPrixInventaire("Inventaire final", invFin);
+  (pertes||[]).forEach(p=>{
+    if(p.ecartPrix) ecartsPrix.push({origine:"Pertes", nom:p.nom, qte:p.qtePieces||0, puSaisi:p.puSaisi, puRef:p.puRef, ...p.ecartPrix});
+    if(p.valorisationBloquee) valorisationsBloquees.push({origine:"Pertes", nom:p.nom, qte:p.qtePieces||0});
+  });
+
   // ── Consommation théorique (PMIX × fiches techniques) ─────────────────────
   let consoTheoTotal=0, couverts=0, ficheMatchees=0;
   let complementMatchees=0, consoTheoComplement=0;
@@ -256,6 +273,8 @@ export function calculer(stockData, pmixList, ratios, baseArticle={}, pmixComple
     coutMoyenSans,
     ratioCoutNulCount,
     ratioCoutNulVendus,
+    ecartsPrix,
+    valorisationsBloquees,
     consoParIng: Object.values(consoParIng).sort((a,b)=>b.valeurTotal-a.valeurTotal),
     pmixTheo: pmixTheo.sort((a,b)=>b.qty-a.qty),
     // Tous les articles sans exception (R-03)
@@ -275,6 +294,7 @@ export function calculerMultiRestaurants(stocksData, pmixLists, ratios, baseArti
   const allPluNonMatchés=[];
   const allPluHorsMatiere=[];
   const allPluCoutNul=[];
+  const allEcartsPrix=[], allValorisationsBloquees=[];
 
   stocksData.forEach((stockData, idx)=>{
     // pmixLists[idx] est un tableau d'items => on en fait un pmixList standard
@@ -303,6 +323,8 @@ export function calculerMultiRestaurants(stocksData, pmixLists, ratios, baseArti
     allPluNonMatchés.push(...(calc.pluNonMatchés||[]));
     allPluHorsMatiere.push(...(calc.pluHorsMatiere||[]));
     allPluCoutNul.push(...(calc.pluCoutNul||[]));
+    allEcartsPrix.push(...(calc.ecartsPrix||[]));
+    allValorisationsBloquees.push(...(calc.valorisationsBloquees||[]));
     parRestaurant.push({
       site:stockData.site||`BK ${idx+1}`,
       consoReelle    :calc.consoReelle,
@@ -395,6 +417,8 @@ export function calculerMultiRestaurants(stocksData, pmixLists, ratios, baseArti
     coutMoyenSans,
     ratioCoutNulCount,
     ratioCoutNulVendus,
+    ecartsPrix:allEcartsPrix,
+    valorisationsBloquees:allValorisationsBloquees,
     articlesEcart:Array.from(articlesEcartMap.values()).filter(
       (a) => a.iniPieces || a.entreesPieces || a.finPieces || a.ventesPieces || a.pertesPieces
     ),

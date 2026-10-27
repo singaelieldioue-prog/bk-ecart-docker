@@ -522,6 +522,16 @@ const offsetInventaire=(rows)=>hnorm(rows[5]?.[3]).startsWith("nb articles")?1:0
 const offsetPertes=(rows)=>hnorm(rows[3]?.[1])==="nom article"?1:0;
 const offsetDouane=(rows)=>hnorm(rows[1]?.[0])==="article"?1:0;
 const offsetOffert=(rows)=>hnorm(rows[1]?.[0])==="bk"?1:0;
+// C-10 / C-12 : un prix saisi dans le classeur qui diverge du référentiel n'est ni écrasé ni
+// masqué — il est porté par la ligne (sens, montant, %) pour être signalé dans les Anomalies.
+// Sous le centime, l'écart est un arrondi d'affichage, pas une divergence de source.
+const ecartPrixSaisi=(saisi, ref)=>{
+  const s=Number(saisi)||0, r=Number(ref)||0;
+  if(!(s>0)||!(r>0)) return null;
+  const montant=s-r;
+  if(Math.abs(montant)<=0.01) return null;
+  return {sens:montant<0?"saisi < référentiel":"saisi > référentiel", montant, pct:montant/r};
+};
 // P.Douane « vide » (modèle courant) : tableau non pré-rempli, en-têtes
 //   Date | Article | Catégorie | Code / Désignation | Cond. | Qté | Px carton | Px pièce | Valeur.
 // Renvoie l'indice de la ligne d'en-têtes, ou -1 pour l'ancien format pré-rempli (Article en A).
@@ -592,6 +602,7 @@ function indexerParCode(baseArticle, ratios, localArticles){
       // valoriser ici « pièces × prix pièce » mélangeait deux référentiels différents (un prix
       // pièce de carton multiplié par le colisage lu dans la feuille : MOZZARELLA STICKS BIS ×204,
       // CRISPY CHICKEN PATTY ×136) et les totaux de l'appli ne correspondaient plus au fichier.
+      const puRef=prix.pmpCarton>0?prix.pmpCarton:(prix.puPiece>0?prix.puPiece*qteCdt:0);
       const puCarton=prix.pmpCarton>0?prix.pmpCarton:(puFichier>0?puFichier:(prix.puPiece>0?prix.puPiece*qteCdt:0));
       const puPiece=puCarton>0?puCarton/qteCdt:0;
       // Les fichiers générés peuvent ne pas conserver la valeur calculée de J.
@@ -604,6 +615,9 @@ function indexerParCode(baseArticle, ratios, localArticles){
         nom:nom.trim(), categorie:g(r,1)||"", colisage:g(r,4)||"",
         nbCartons:nombre>0?nombre:cartons, inner, unites, qtePieces,
         puCarton, qteCdt, puPiece, valeur, valFichier,
+        puSaisi:puFichier>0?puFichier:null, puRef,
+        ecartPrix:ecartPrixSaisi(puFichier,puRef),
+        valorisationBloquee:nombre>0&&!(puCarton>0),
         prixSource:prix.source
       };
     }
@@ -696,10 +710,14 @@ function indexerParCode(baseArticle, ratios, localArticles){
       const puFichier=typeof g(r,5)==="number"&&g(r,5)>0?g(r,5):0;
       const puPiece=puFichier>0?puFichier:prix.puPiece;
       const valeur=qtePieces*puPiece;
+      const puRefP=prix.puPiece>0?prix.puPiece:0;
       pertes.push({
         categorie:g(r,1)||"", nom:nom.trim(),
         qteCdt:prix.qteCdt||1, puPiece,
         qtePieces, valeur,
+        puSaisi:puFichier>0?puFichier:null, puRef:puRefP,
+        ecartPrix:ecartPrixSaisi(puFichier,puRefP),
+        valorisationBloquee:!(puPiece>0),
         prixSource:puFichier>0?"fichier (prix pièce)":prix.source
       });
     }

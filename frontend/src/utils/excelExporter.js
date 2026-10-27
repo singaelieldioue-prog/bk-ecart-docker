@@ -224,6 +224,12 @@ export async function exportExcel(rapport){
       ...(calc.pmixDoublons||[]).map(d=>["PLU en doublon",d.plu,d.nom||"—",d.qty,`${d.lignes} lignes vendues pour ce PLU`]),
       ...(calc.ratioCoutNulCount>0?[["Référentiel : PLU à coût nul","—","Référentiel PMIX",calc.ratioCoutNulCount,
         `${calc.ratioCoutNulVendus||0} vendu(s) — distinct des PLU à 0 du PMIX`]]:[]),
+      // C-10 / C-12 : le prix saisi dans le classeur et celui du référentiel ne sont jamais
+      // arbitrés en silence — l'écart est signalé, le choix reste au CDG.
+      ...(calc.ecartsPrix||[]).map(e=>["Prix saisi ≠ référentiel","—",e.nom,e.qte,
+        `${e.origine} · ${e.sens} : ${Math.abs(e.montant).toLocaleString("fr-FR",{maximumFractionDigits:2})} F (${Math.abs(e.pct*100).toFixed(1).replace(".",",")} %) · saisi ${Number(e.puSaisi).toLocaleString("fr-FR",{maximumFractionDigits:2})} F vs référentiel ${Number(e.puRef).toLocaleString("fr-FR",{maximumFractionDigits:2})} F`]),
+      ...(calc.valorisationsBloquees||[]).map(v=>["Valorisation bloquée","—",v.nom,v.qte,
+        `${v.origine} · aucun prix (référentiel ni saisi) — la ligne ne peut pas valoir 0 F sans arbitrage`]),
     ];
     if(an.length===0) an.push(["—","—","Aucune anomalie détectée","—","Tous les PLU matchés · tous les prix résolus"]);
     an.forEach((r,i)=>{const ev=i%2===1;
