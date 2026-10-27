@@ -46,11 +46,10 @@ export const PERTES_REFERENTIEL_CDG = [
   { cat: "Boissons", nom: "MILO", cond: 1, pu: 105.93, unite: "pièce" },  // L40
   { cat: "Boissons", nom: "BOUTEILLE SPRITE 30cL", cond: 12, pu: 1207.6271186440679, unite: "pièce" },  // L41
   { cat: "Boissons", nom: "BOUTEILLE ORANGINA 50cL", cond: 6, pu: 2033.898305084746, unite: "pièce" },  // L42
+  // L44→L47 (THE, LAIT en Brique, LAIT en brique - PROSUMA, LAIT en brique - PROSUMA_06)
+  // retirées le 26/10 sur demande : le thé et le lait ne sont plus suivis en pertes (déjà
+  // écartés de la liste de saisie le 14/10).
   { cat: "Boissons", nom: "ORANGINA 33CL", cond: 24, pu: 6406.77966101695, unite: "pièce" },  // L43
-  { cat: "Boissons", nom: "THE", cond: 1, pu: 29.322, unite: "pièce" },  // L44
-  { cat: "Boissons", nom: "LAIT en Brique", cond: 12, pu: 10944, unite: "litre" },  // L45
-  { cat: "Boissons", nom: "LAIT en brique - PROSUMA", cond: 12, pu: 10238.53211, unite: "litre" },  // L46
-  { cat: "Boissons", nom: "LAIT en brique - PROSUMA_06", cond: 6, pu: 5548.6238532, unite: "litre" },  // L47
   { cat: "Nourriture - Frais", nom: "CONCOMBRE", cond: 1000, pu: 500, unite: "g" },  // L48
   { cat: "Nourriture - Frais", nom: "DOSETTE FRITE SAUCE AMERIGO - 10GR,", cond: 250, pu: 7200.000000000001, unite: "pièce" },  // L49
   { cat: "Nourriture - Frais", nom: "SAUCE MAYONNAISE AMERIGO", cond: 15.2, pu: 37288, unite: "kg" },  // L50

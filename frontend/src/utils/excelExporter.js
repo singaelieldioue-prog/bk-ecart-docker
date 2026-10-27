@@ -828,7 +828,7 @@ export function buildModelesWb(articles, produits, site="", period="", dateInv="
     const catFillP=(cat)=>({fill:categoryFill(cat),border:xborder()});
 
     // La feuille est pilotée par la table du CDG (src/utils/pertesReferentielCdg.js, extraite de
-    // « Perte_Q1 2026 » du classeur de référence) : les 191 articles suivis en pertes, leur catégorie,
+    // « Perte_Q1 2026 » du classeur de référence) : les articles suivis en pertes, leur catégorie,
     // leur ordre, leur Cond. et leur Unité de perte sont ceux du classeur du CDG, et ne dépendent plus
     // du modèle d'inventaire ni de la liste transmise (demande du 26/10 : « je produis tout pareil …
     // conditionnement pareil et tout »). Les prix du CDG sont donc publiés tels quels ; ne restent à
