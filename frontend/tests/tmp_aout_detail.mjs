@@ -1,0 +1,23 @@
+import fs from 'fs';
+import path from 'path';
+import Database from '../../backend/node_modules/better-sqlite3/lib/index.js';
+import * as XLSX from 'xlsx';
+import { parseRatios } from '../src/utils/parsers.js';
+import { calculer } from '../src/utils/calculators.js';
+
+const db = new Database(path.resolve('../backend/data.db'), { readonly: true, fileMustExist: true });
+const row = db.prepare('SELECT * FROM reports WHERE id=?').get('b6fd6504-33e8-4866-944c-25df2d67344a');
+db.close();
+const d = JSON.parse(row.data);
+console.log('history:', JSON.stringify(JSON.parse(row.history)));
+const items = d.pmixList[0].items;
+console.log('items PMIX:', items.length, '| qty totale', items.reduce((s,i)=>s+i.qty,0));
+console.log('CA recalculé (price×qty):', Math.round(items.reduce((s,i)=>s+(i.amount || i.price*i.qty),0)));
+console.log('hors matière dans le calcul actuel :');
+const wb = XLSX.read(fs.readFileSync(path.resolve('../sample_data/RATIOS  Q2 2026.xlsx')), { type: 'buffer' });
+const apres = calculer(d.stockData, d.pmixList, parseRatios(wb), {}, {});
+console.log('  pmixTheo', apres.pmixTheo.length, '| match', apres.ficheMatchees, '| non matchés', apres.pluNonMatchés.length, '| hors matière', apres.pluHorsMatiere.length);
+console.log('  conso theo', Math.round(apres.consoTheoTotal), '| CA', Math.round(apres.ca), '| couverts', apres.couverts);
+console.log('  coût moyen/couvert', Math.round(apres.coutMoyenAvec), '| ticket moyen', Math.round(apres.ca/apres.couverts));
+const chers = [...apres.pmixTheo].sort((a,b)=>b.coutTheo-a.coutTheo).slice(0,5);
+chers.forEach(p=>console.log('   ', p.plu, p.nom, '| qty', p.qty, '| coût unit', Math.round(p.coutUnit), '| CA unit', Math.round(p.price), '| coût total', Math.round(p.coutTheo)));

@@ -1,0 +1,19 @@
+{
+  "applied_at": "2026-10-25T15:54:59.105Z",
+  "refs": [
+    "TEST001"
+  ],
+  "lignes": [
+    {
+      "ref": "TEST001",
+      "nom": "Article Test",
+      "code": "TEST001",
+      "categorie": "Test",
+      "unite": "Pi�ce",
+      "conditionnement": 1,
+      "pu_carton": null,
+      "pu_piece": null,
+      "source": "manuel"
+    }
+  ]
+}

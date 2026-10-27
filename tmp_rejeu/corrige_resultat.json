@@ -1,0 +1,95 @@
+{
+  "fichier": "C:\\Users\\arnaud.nzue\\Downloads\\files (12)\\bk-ecart-docker28082026\\tmp_verif\\Suivi_BK1_Octobre_2026_corrige.xlsx",
+  "avis": "Fichier du workspace (Suivi_BK1_Octobre_2026.xlsx), PAS la rev27 du client",
+  "site": "BK1",
+  "referentiel": {
+    "ratioLabel": {
+      "label": "RATIOS BURGER KING ABJ Q3 2026.xlsx",
+      "date": "23/10/2026",
+      "nbProduits": 104,
+      "nbIngredients": 122
+    },
+    "nbProduits": 87,
+    "nbIngredients": 122
+  },
+  "global": {
+    "ca": 0,
+    "consoTheoTotal": 0,
+    "consoReelle": 0,
+    "ecartMatiere": 0,
+    "ecartMatiereP": null,
+    "coutMatierePct": null,
+    "coutMoyenAvec": 0,
+    "coutMoyenSans": 0,
+    "couverts": 0,
+    "ficheMatchees": 0,
+    "totalValIni": 0,
+    "totalValFin": 0,
+    "totalEntrees": 0,
+    "totalPertes": 0,
+    "totalOfferts": 0
+  },
+  "compteurs": {
+    "invIni": 317,
+    "invFin": 317,
+    "sorties": 0,
+    "pertes": 0,
+    "pmixPlu": 0,
+    "articlesEcart": 0,
+    "articlesSansPrix": 0,
+    "articlesHorsEcart": 0,
+    "pertesSansPrix": 0,
+    "pluCoutNul": 0,
+    "qtyCoutNul": 0,
+    "partVentesCoutNul": null,
+    "ratioCoutNulCount": 0,
+    "ratioCoutNulVendus": 0,
+    "valorisationsBloquees": 0,
+    "doublonsInventaire": 0,
+    "pmixDoublons": 0,
+    "pluNonMatches": 0,
+    "pluHorsMatiere": 0
+  },
+  "anomalies": {
+    "Unité incohérente": {
+      "n": 1,
+      "exemples": [
+        "GANTS SACHET PACK DE 500"
+      ]
+    }
+  },
+  "doublonsInventaire": [],
+  "anomaliesIntegrite": [
+    {
+      "type": "Unité incohérente",
+      "nom": "GANTS SACHET PACK DE 500",
+      "detail": "Libellé « PACK DE 500 » vs Cond. 20"
+    }
+  ],
+  "ecartsPrix": {
+    "Inventaire initial": {
+      "n": 11,
+      "montantAbs": 7944.82765911465,
+      "exemples": [
+        "CHICKEN STRIPS : 59775 → 59356.4",
+        "FISH PATTY : 22512 → 22511.89",
+        "MOZZARELLA STICKS BIS : 30072.59 → 30809"
+      ]
+    },
+    "Inventaire final": {
+      "n": 11,
+      "montantAbs": 7944.82765911465,
+      "exemples": [
+        "CHICKEN STRIPS : 59775 → 59356.4",
+        "FISH PATTY : 22512 → 22511.89",
+        "MOZZARELLA STICKS BIS : 30072.59 → 30809"
+      ]
+    }
+  },
+  "horsEcartDetail": [],
+  "sansPrixExemples": [],
+  "pertesSansPrixExemples": [],
+  "pluCoutNulExemples": [],
+  "estimationImpactCoutNul": 0,
+  "whopper": null
+}

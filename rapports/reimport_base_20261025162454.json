@@ -1,0 +1,1848 @@
+{
+  "applied_at": "2026-10-25T16:24:54.394Z",
+  "ratio": "RATIOS BURGER KING ABJ Q3 2026.xlsx",
+  "base": "BASE ARTICLE SIA.xlsx",
+  "counts": {
+    "added": 114,
+    "updated": 142,
+    "reactivated": 0,
+    "deactivated": 26,
+    "unchanged": 453,
+    "base_before": 621,
+    "incoming": 523
+  },
+  "changements": [
+    {
+      "ref": "ORANGINA 33CL",
+      "nom": "ORANGINA 33CL",
+      "code": "BKCI-ORANGINA",
+      "colonnes": [
+        "carton 7950 -> 7970.34",
+        "piece 331.25 -> 332.1"
+      ],
+      "avant": {
+        "ref": "ORANGINA 33CL",
+        "conditionnement": 24,
+        "unite": "Pack",
+        "pu_carton": 7950,
+        "pu_piece": 331.25,
+        "actif": 1
+      }
+    },
+    {
+      "ref": "CANETTE PEPSI ZERO 25 CL",
+      "nom": "CANETTE PEPSI ZERO 25 CL",
+      "code": "CAN-PEPZER 25 CL",
+      "colonnes": [
+        "carton 1530 -> 2576.27",
+        "piece 63.75 -> 107.34"
+      ],
+      "avant": {
+        "ref": "CANETTE PEPSI ZERO 25 CL",
+        "conditionnement": 24,
+        "unite": "Pack",
+        "pu_carton": 1530,
+        "pu_piece": 63.75,
+        "actif": 1
+      }
+    },
+    {
+      "ref": "TOMATE PFI",
+      "nom": "TOMATE PFI",
+      "code": "TOMATEPFI02",
+      "colonnes": [
+        "carton 65.63 -> 72.92",
+        "piece 65.63 -> 72.92"
+      ],
+      "avant": {
+        "ref": "TOMATE PFI",
+        "conditionnement": 1,
+        "unite": "Kg",
+        "pu_carton": 65.625,
+        "pu_piece": 65.625,
+        "actif": 1
+      }
+    },
+    {
+      "ref": "FROMAGE TRANCHE",
+      "nom": "FROMAGE TRANCHE",
+      "code": 69740,
+      "colonnes": [
+        "carton 65659 -> 57451.42",
+        "piece 62.18 -> 54.4"
+      ],
+      "avant": {
+        "ref": "FROMAGE TRANCHE",
+        "conditionnement": 1056,
+        "unite": "Carton",
+        "pu_carton": 65659,
+        "pu_piece": 62.177083333333336,
+        "actif": 1
+      }
+    },
+    {
+      "ref": "FROMAGE MEDHDI NEW",
+      "nom": "FROMAGE MEDHDI NEW",
+      "code": "CHEMEDH2 ",
+      "colonnes": [
+        "cond 288 -> 1056",
+        "carton 70278.84 -> 57451.42",
+        "piece 66.55 -> 54.4"
+      ],
+      "avant": {
+        "ref": "FROMAGE MEDHDI NEW",
+        "conditionnement": 288,
+        "unite": "Carton",
+        "pu_carton": 70278.83733571798,
+        "pu_piece": 66.55192929518748,
+        "actif": 1
+      }
+    },
+    {
+      "ref": "FROMAGE TRANCHE CONWAY",
+      "nom": "FROMAGE TRANCHE CONWAY",
+      "code": "FTC54295",
+      "colonnes": [
+        "cond 1104 -> 1056",
+        "carton 65426 -> 57451.42",
+        "piece 59.26 -> 54.4"
+      ],
+      "avant": {
+        "ref": "FROMAGE TRANCHE CONWAY",
+        "conditionnement": 1104,
+        "unite": "Carton",
+        "pu_carton": 65426,
+        "pu_piece": 59.26268115942029,
+        "actif": 1
+      }
+    },
+    {
+      "ref": "KIT KAT MIX",
+      "nom": "KIT KAT MIX",
+      "code": 788042,
+      "colonnes": [
+        "cond 1 -> 6.4",
+        "carton 54226 -> 52123.55",
+        "piece 54226 -> 8144.31"
+      ],
+      "avant": {
+        "ref": "KIT KAT MIX",
+        "conditionnement": 1,
+        "unite": "Carton",
+        "pu_carton": 54226,
+        "pu_piece": 54226,
+        "actif": 1
+      }
+    },
+    {
+      "ref": "SALADE CHOUX CHINOIS BOULE",
+      "nom": "SALADE CHOUX CHINOIS - Boule",
+      "code": "SALADCHX",
+      "colonnes": [
+        "cond 1 -> 8",
+        "carton 23920 -> 51169.94",
+        "piece 23920 -> 6396.24"
+      ],
+      "avant": {
+        "ref": "SALADE CHOUX CHINOIS BOULE",
+        "conditionnement": 1,
+        "unite": "Carton",
+        "pu_carton": 23920,
+        "pu_piece": 23920,
+        "actif": 1
+      }
+    },
+    {
+      "ref": "SALADE ICEBERG 06 BOULES",
+      "nom": "SALADE ICEBERG - (06) Boules",
+      "code": "SALADICE06",
+      "colonnes": [
+        "cond 64 -> 6",
+        "carton 6877.34 -> 24079.97",
+        "piece 6877.34 -> 4013.33"
+      ],
+      "avant": {
+        "ref": "SALADE ICEBERG 06 BOULES",
+        "conditionnement": 64,
+        "unite": "Carton",
+        "pu_carton": 6877.335269677682,
+        "pu_piece": 6877.335269677682,
+        "actif": 1
+      }
+    },
+    {
+      "ref": "SALADE ICEBERG BOULE",
+      "nom": "SALADE ICEBERG - Boule",
+      "code": "SALADICE",
+      "colonnes": [
+        "cond 106.5 -> 10",
+        "carton 6877.34 -> 39129.96",
+        "piece 6877.34 -> 3913"
+      ],
+      "avant": {
+        "ref": "SALADE ICEBERG BOULE",
+        "conditionnement": 106.5,
+        "unite": "Carton",
+        "pu_carton": 6877.335269677682,
+        "pu_piece": 6877.335269677682,
+        "actif": 1
+      }
+    },
+    {
+      "ref": "SALADE ICEBERG BOULE BFM",
+      "nom": "SALADE ICEBERG - Boule (BFM)",
+      "code": "SALADEBFM",
+      "colonnes": [
+        "cond 106.5 -> 10",
+        "carton 6877.34 -> 39129.96",
+        "piece 6877.34 -> 3913"
+      ],
+      "avant": {
+        "ref": "SALADE ICEBERG BOULE BFM",
+        "conditionnement": 106.5,
+        "unite": "Carton",
+        "pu_carton": 6877.335269677682,
+        "pu_piece": 6877.335269677682,
+        "actif": 1
+      }
+    },
+    {
+      "ref": "SALADE TREVISE BOULE",
+      "nom": "SALADE TREVISE - Boule",
+      "code": "SALADTRE",
+      "colonnes": [
+        "carton 4874840.03 -> 6019.99",
+        "piece 4874.84 -> 6.02"
+      ],
+      "avant": {
+        "ref": "SALADE TREVISE BOULE",
+        "conditionnement": 1000,
+        "unite": "Gramme",
+        "pu_carton": 4874840.030714103,
+        "pu_piece": 4874.840030714103,
+        "actif": 1
+      }
+    },
+    {
+      "ref": "SALADE ICEBERG BOULE BS",
+      "nom": "SALADE ICEBERG - Boule (BS)",
+      "code": "SALADEBS",
+      "colonnes": [
+        "cond 128 -> 12",
+        "carton 6877.34 -> 48159.95",
+        "piece 6877.34 -> 4013.33"
+      ],
+      "avant": {
+        "ref": "SALADE ICEBERG BOULE BS",
+        "conditionnement": 128,
+        "unite": "Carton",
+        "pu_carton": 6877.335269677682,
+        "pu_piece": 6877.335269677682,
+        "actif": 1
+      }
+    },
+    {
+      "ref": "SALADE ICEBERG BOULE YG",
+      "nom": "SALADE ICEBERG - Boule (YG)",
+      "code": "SALADEYG",
+      "colonnes": [
+        "cond 1 -> 10",
+        "carton 30000 -> 42139.95",
+        "piece 30000 -> 4214"
+      ],
+      "avant": {
+        "ref": "SALADE ICEBERG BOULE YG",
+        "conditionnement": 1,
+        "unite": "Carton",
+        "pu_carton": 30000,
+        "pu_piece": 30000,
+        "actif": 1
+      }
+    },
+    {
+      "ref": "SALADE ICEBERG BOULE SDB",
+      "nom": "SALADE ICEBERG - Boule (SDB)",
+      "code": "SALADESDB",
+      "colonnes": [
+        "cond 1 -> 10",
+        "carton 43500 -> 40935.96",
+        "piece 43500 -> 4093.6"
+      ],
+      "avant": {
+        "ref": "SALADE ICEBERG BOULE SDB",
+        "conditionnement": 1,
+        "unite": "Carton",
+        "pu_carton": 43500,
+        "pu_piece": 43500,
+        "actif": 1
+      }
+    },
+    {
+      "ref": "SALADE ICEBERG BOULE SDB 06",
+      "nom": "SALADE ICEBERG - Boule (SDB-06)",
+      "code": "SALADESDB06",
+      "colonnes": [
+        "cond 1 -> 6",
+        "carton 26100 -> 28895.97",
+        "piece 26100 -> 4815.99"
+      ],
+      "avant": {
+        "ref": "SALADE ICEBERG BOULE SDB 06",
+        "conditionnement": 1,
+        "unite": "Carton",
+        "pu_carton": 26100,
+        "pu_piece": 26100,
+        "actif": 1
+      }
+    },
+    {
+      "ref": "SALADE ICEBERG BOULE DJOLI",
+      "nom": "SALADE ICEBERG - Boule (DJOLI)",
+      "code": "SALADESDJO",
+      "colonnes": [
+        "cond 1 -> 10",
+        "carton 35000 -> 28594.97",
+        "piece 35000 -> 2859.5"
+      ],
+      "avant": {
+        "ref": "SALADE ICEBERG BOULE DJOLI",
+        "conditionnement": 1,
+        "unite": "Carton",
+        "pu_carton": 35000,
+        "pu_piece": 35000,
+        "actif": 1
+      }
+    },
+    {
+      "ref": "SALADE ICEBERG BOULE HOREB",
+      "nom": "SALADE ICEBERG - Boule ( HOREB)",
+      "code": "SALH10",
+      "colonnes": [
+        "cond 1 -> 10",
+        "carton 55000 -> -",
+        "piece 55000 -> -"
+      ],
+      "avant": {
+        "ref": "SALADE ICEBERG BOULE HOREB",
+        "conditionnement": 1,
+        "unite": "Carton",
+        "pu_carton": 55000,
+        "pu_piece": 55000,
+        "actif": 1
+      }
+    },
+    {
+      "ref": "CONE GLACE CONWAY",
+      "nom": "CONE GLACE - Conway",
+      "code": 651901,
+      "colonnes": [
+        "carton 26754 -> 26188.22",
+        "piece 48.64 -> 47.61"
+      ],
+      "avant": {
+        "ref": "CONE GLACE CONWAY",
+        "conditionnement": 550,
+        "unite": "Carton",
+        "pu_carton": 26754,
+        "pu_piece": 48.64363636363636,
+        "actif": 1
+      }
+    },
+    {
+      "ref": "CONE GLACE FROSTY BOY",
+      "nom": "CONE GLACE - Frosty Boy",
+      "code": "ASC224",
+      "colonnes": [
+        "cond 224 -> 550",
+        "carton 6496 -> 26188.22",
+        "piece 29 -> 47.61"
+      ],
+      "avant": {
+        "ref": "CONE GLACE FROSTY BOY",
+        "conditionnement": 224,
+        "unite": "Carton",
+        "pu_carton": 6496,
+        "pu_piece": 29,
+        "actif": 1
+      }
+    },
+    {
+      "ref": "CONE GLACE VIDA LONGA",
+      "nom": "CONE GLACE - Vida Longa",
+      "code": "BK-CG-VL",
+      "colonnes": [
+        "cond 800 -> 550",
+        "carton 26753.87 -> 26188.22",
+        "piece 48.64 -> 47.61"
+      ],
+      "avant": {
+        "ref": "CONE GLACE VIDA LONGA",
+        "conditionnement": 800,
+        "unite": "Carton",
+        "pu_carton": 26753.874660420614,
+        "pu_piece": 48.64340847349202,
+        "actif": 1
+      }
+    },
+    {
+      "ref": "CONE GLACE 100",
+      "nom": "CONE GLACE 100",
+      "code": "CG-MEHDI002",
+      "colonnes": [
+        "cond 250 -> 550",
+        "carton 26753.87 -> 26188.22",
+        "piece 48.64 -> 47.61"
+      ],
+      "avant": {
+        "ref": "CONE GLACE 100",
+        "conditionnement": 250,
+        "unite": "Carton",
+        "pu_carton": 26753.874660420614,
+        "pu_piece": 48.64340847349202,
+        "actif": 1
+      }
+    },
+    {
+      "ref": "CORNICHONS",
+      "nom": "CORNICHONS",
+      "code": 845628,
+      "colonnes": [
+        "cond 1 -> 2004",
+        "piece 17744 -> 8.85"
+      ],
+      "avant": {
+        "ref": "CORNICHONS",
+        "conditionnement": 1,
+        "unite": "Carton",
+        "pu_carton": 17744,
+        "pu_piece": 17744,
+        "actif": 1
+      }
+    },
+    {
+      "ref": "CORNICHONS MEHDI",
+      "nom": "CORNICHONS MEHDI",
+      "code": "845628MEHDI",
+      "colonnes": [
+        "cond 1 -> 2004",
+        "carton 22000 -> 17743.76",
+        "piece 22000 -> 8.85"
+      ],
+      "avant": {
+        "ref": "CORNICHONS MEHDI",
+        "conditionnement": 1,
+        "unite": "Seau",
+        "pu_carton": 22000,
+        "pu_piece": 22000,
+        "actif": 1
+      }
+    },
+    {
+      "ref": "CRISPY ONIONS",
+      "nom": "CRISPY ONIONS",
+      "code": 827915,
+      "colonnes": [
+        "cond 1 -> 6",
+        "carton 26318 -> 25499.71",
+        "piece 26318 -> 4249.95"
+      ],
+      "avant": {
+        "ref": "CRISPY ONIONS",
+        "conditionnement": 1,
+        "unite": "Carton",
+        "pu_carton": 26318,
+        "pu_piece": 26318,
+        "actif": 1
+      }
+    },
+    {
+      "ref": "DOSETTE KETCHUP PUIDOR 9GR",
+      "nom": "DOSETTE KETCHUP PUIDOR - 9GR",
+      "code": "PUIDOR518852",
+      "colonnes": [
+        "carton 34411.7 -> -",
+        "piece 22.94 -> -"
+      ],
+      "avant": {
+        "ref": "DOSETTE KETCHUP PUIDOR 9GR",
+        "conditionnement": 1000,
+        "unite": "Carton",
+        "pu_carton": 34411.69529515912,
+        "pu_piece": 22.94113019677275,
+        "actif": 1
+      }
+    },
+    {
+      "ref": "DOSETTE KETCHUP MEHDI 12ML",
+      "nom": "DOSETTE KETCHUP MEHDI - 12ml",
+      "code": "MEHDI518852",
+      "colonnes": [
+        "carton 34411.7 -> -",
+        "piece 22.94 -> -"
+      ],
+      "avant": {
+        "ref": "DOSETTE KETCHUP MEHDI 12ML",
+        "conditionnement": 288,
+        "unite": "Carton",
+        "pu_carton": 34411.69529515912,
+        "pu_piece": 22.94113019677275,
+        "actif": 1
+      }
+    },
+    {
+      "ref": "DOSETTE KETCHUP SIPRO 11ML",
+      "nom": "DOSETTE KETCHUP SIPRO - 11ml",
+      "code": "SIPRO518852",
+      "colonnes": [
+        "carton 34411.7 -> -",
+        "piece 22.94 -> -"
+      ],
+      "avant": {
+        "ref": "DOSETTE KETCHUP SIPRO 11ML",
+        "conditionnement": 288,
+        "unite": "Carton",
+        "pu_carton": 34411.69529515912,
+        "pu_piece": 22.94113019677275,
+        "actif": 1
+      }
+    },
+    {
+      "ref": "HUILE ALTIVOLEICO",
+      "nom": "HUILE ALTIVOLEICO",
+      "code": 62476,
+      "colonnes": [
+        "cond 35 -> 3",
+        "carton 34411.7 -> -",
+        "piece 22.94 -> -"
+      ],
+      "avant": {
+        "ref": "HUILE ALTIVOLEICO",
+        "conditionnement": 35,
+        "unite": "Carton",
+        "pu_carton": 34411.69529515912,
+        "pu_piece": 22.94113019677275,
+        "actif": 1
+      }
+    },
+    {
+      "ref": "HUILE AYA 25 L",
+      "nom": "HUILE AYA 25 L",
+      "code": "A25L",
+      "colonnes": [
+        "cond 1 -> 25",
+        "piece 21186 -> 847.46"
+      ],
+      "avant": {
+        "ref": "HUILE AYA 25 L",
+        "conditionnement": 1,
+        "unite": "Bidon",
+        "pu_carton": 21186,
+        "pu_piece": 21186,
+        "actif": 1
+      }
+    },
+    {
+      "ref": "HUILE AYA 5 L",
+      "nom": "HUILE AYA 5 L",
+      "code": "A5L",
+      "colonnes": [
+        "cond 45 -> 25"
+      ],
+      "avant": {
+        "ref": "HUILE AYA 5 L",
+        "conditionnement": 45,
+        "unite": "Carton",
+        "pu_carton": 21186.440677966104,
+        "pu_piece": 847.4576271186442,
+        "actif": 1
+      }
+    },
+    {
+      "ref": "HUILE DE FRITEUSE",
+      "nom": "HUILE DE FRITEUSE",
+      "code": 1002976,
+      "colonnes": [
+        "cond 27.5 -> 25"
+      ],
+      "avant": {
+        "ref": "HUILE DE FRITEUSE",
+        "conditionnement": 27.5,
+        "unite": "Carton",
+        "pu_carton": 21186.440677966104,
+        "pu_piece": 847.4576271186442,
+        "actif": 1
+      }
+    },
+    {
+      "ref": "HUILE DINOR 20 L",
+      "nom": "HUILE DINOR 20 L",
+      "code": 3000978,
+      "colonnes": [
+        "cond 20 -> 25"
+      ],
+      "avant": {
+        "ref": "HUILE DINOR 20 L",
+        "conditionnement": 20,
+        "unite": "Bidon",
+        "pu_carton": 21186.440677966104,
+        "pu_piece": 847.4576271186442,
+        "actif": 1
+      }
+    },
+    {
+      "ref": "HUILE SANIA 20 L",
+      "nom": "HUILE SANIA 20 L",
+      "code": 3000991,
+      "colonnes": [
+        "cond 20 -> 25"
+      ],
+      "avant": {
+        "ref": "HUILE SANIA 20 L",
+        "conditionnement": 20,
+        "unite": "Bidon",
+        "pu_carton": 21186.440677966104,
+        "pu_piece": 847.4576271186442,
+        "actif": 1
+      }
+    },
+    {
+      "ref": "JALAPENOS",
+      "nom": "JALAPENOS",
+      "code": 99262,
+      "colonnes": [
+        "cond 310014.4 -> 25"
+      ],
+      "avant": {
+        "ref": "JALAPENOS",
+        "conditionnement": 310014.4,
+        "unite": "Carton",
+        "pu_carton": 21186.440677966104,
+        "pu_piece": 847.4576271186442,
+        "actif": 1
+      }
+    },
+    {
+      "ref": "JALAPENOS CONWAY",
+      "nom": "JALAPENOS - Conway",
+      "code": 950766,
+      "colonnes": [
+        "cond 15864 -> 25"
+      ],
+      "avant": {
+        "ref": "JALAPENOS CONWAY",
+        "conditionnement": 15864,
+        "unite": "Carton",
+        "pu_carton": 21186.440677966104,
+        "pu_piece": 847.4576271186442,
+        "actif": 1
+      }
+    },
+    {
+      "ref": "JALAPENOS ZEYTURSAN",
+      "nom": "JALAPENOS - ZEYTURSAN",
+      "code": 9926211,
+      "colonnes": [
+        "cond 1 -> 3550",
+        "piece 24129 -> 6.8"
+      ],
+      "avant": {
+        "ref": "JALAPENOS ZEYTURSAN",
+        "conditionnement": 1,
+        "unite": "Carton",
+        "pu_carton": 24129,
+        "pu_piece": 24129,
+        "actif": 1
+      }
+    },
+    {
+      "ref": "MAIS DOUX",
+      "nom": "MAIS DOUX",
+      "code": 3256222114088,
+      "colonnes": [
+        "carton 11184 -> -",
+        "piece 932 -> -"
+      ],
+      "avant": {
+        "ref": "MAIS DOUX",
+        "conditionnement": 12,
+        "unite": "Pack",
+        "pu_carton": 11184,
+        "pu_piece": 932,
+        "actif": 1
+      }
+    },
+    {
+      "ref": "MAIS DOUX 600 G",
+      "nom": "MAIS DOUX 600 g",
+      "code": "CIVAMAIS600",
+      "colonnes": [
+        "carton 39242.11 -> -",
+        "piece 3270.18 -> -"
+      ],
+      "avant": {
+        "ref": "MAIS DOUX 600 G",
+        "conditionnement": 12,
+        "unite": "Pack",
+        "pu_carton": 39242.10526315789,
+        "pu_piece": 3270.1754385964914,
+        "actif": 1
+      }
+    },
+    {
+      "ref": "MIX POUDRE",
+      "nom": "MIX POUDRE",
+      "code": "D098.00.BKI",
+      "colonnes": [
+        "cond 1 -> 12",
+        "piece 32350 -> 2695.87"
+      ],
+      "avant": {
+        "ref": "MIX POUDRE",
+        "conditionnement": 1,
+        "unite": "Carton",
+        "pu_carton": 32350,
+        "pu_piece": 32350,
+        "actif": 1
+      }
+    },
+    {
+      "ref": "OREO MIX",
+      "nom": "OREO MIX",
+      "code": 994061,
+      "colonnes": [
+        "cond 12400 -> 4.8",
+        "carton 38988.55 -> 38922.9",
+        "piece 8122.61 -> 8108.94"
+      ],
+      "avant": {
+        "ref": "OREO MIX",
+        "conditionnement": 12400,
+        "unite": "Carton",
+        "pu_carton": 38988.54693029785,
+        "pu_piece": 8122.613943812053,
+        "actif": 1
+      }
+    },
+    {
+      "ref": "OREO MIX CREME",
+      "nom": "OREO MIX CREME",
+      "code": 4267031,
+      "colonnes": [
+        "cond 1 -> 4.8",
+        "carton 38989 -> 38922.9",
+        "piece 38989 -> 8108.94"
+      ],
+      "avant": {
+        "ref": "OREO MIX CREME",
+        "conditionnement": 1,
+        "unite": "Carton",
+        "pu_carton": 38989,
+        "pu_piece": 38989,
+        "actif": 1
+      }
+    },
+    {
+      "ref": "TOBLERONE",
+      "nom": "TOBLERONE",
+      "code": "TBL090508",
+      "colonnes": [
+        "cond 12400 -> 4.8"
+      ],
+      "avant": {
+        "ref": "TOBLERONE",
+        "conditionnement": 12400,
+        "unite": "Carton",
+        "pu_carton": 18192.573820799997,
+        "pu_piece": 3790.1195459999994,
+        "actif": 1
+      }
+    },
+    {
+      "ref": "DOSETTE FRITE SAUCE PORTION 10GR",
+      "nom": "DOSETTE FRITE SAUCE PORTION - 10GR",
+      "code": 923482,
+      "colonnes": [
+        "cond 200 -> 250",
+        "carton 6250 -> 7500",
+        "piece 25 -> 30"
+      ],
+      "avant": {
+        "ref": "DOSETTE FRITE SAUCE PORTION 10GR",
+        "conditionnement": 200,
+        "unite": "Carton",
+        "pu_carton": 6250.000000000001,
+        "pu_piece": 25.000000000000004,
+        "actif": 1
+      }
+    },
+    {
+      "ref": "SAUCE BBQ WESTERN",
+      "nom": "SAUCE BBQ WESTERN",
+      "code": 460162,
+      "colonnes": [
+        "cond 1 -> 8",
+        "carton 19955 -> 18257.56",
+        "piece 19955 -> 2282.19"
+      ],
+      "avant": {
+        "ref": "SAUCE BBQ WESTERN",
+        "conditionnement": 1,
+        "unite": "Carton",
+        "pu_carton": 19955,
+        "pu_piece": 19955,
+        "actif": 1
+      }
+    },
+    {
+      "ref": "SAUCE BIG KING",
+      "nom": "SAUCE BIG KING",
+      "code": 284919,
+      "colonnes": [
+        "cond 1 -> 14",
+        "carton 40082 -> 38026.34",
+        "piece 40082 -> 2716.17"
+      ],
+      "avant": {
+        "ref": "SAUCE BIG KING",
+        "conditionnement": 1,
+        "unite": "Carton",
+        "pu_carton": 40082,
+        "pu_piece": 40082,
+        "actif": 1
+      }
+    },
+    {
+      "ref": "SAUCE CARAMEL",
+      "nom": "SAUCE CARAMEL",
+      "code": 902171,
+      "colonnes": [
+        "cond 61.2 -> 6",
+        "carton 19557.49 -> -",
+        "piece 2716.32 -> -"
+      ],
+      "avant": {
+        "ref": "SAUCE CARAMEL",
+        "conditionnement": 61.2,
+        "unite": "Carton",
+        "pu_carton": 19557.4891464,
+        "pu_piece": 2716.317937,
+        "actif": 1
+      }
+    },
+    {
+      "ref": "SAUCE CHOCOLAT NOIR MONIN",
+      "nom": "SAUCE CHOCOLAT NOIR MONIN",
+      "code": "999284-CNM",
+      "colonnes": [
+        "cond 1 -> 7.56",
+        "piece 41017 -> 5425.52"
+      ],
+      "avant": {
+        "ref": "SAUCE CHOCOLAT NOIR MONIN",
+        "conditionnement": 1,
+        "unite": "Carton",
+        "pu_carton": 41017,
+        "pu_piece": 41017,
+        "actif": 1
+      }
+    },
+    {
+      "ref": "SAUCE CHOCOLAT",
+      "nom": "SAUCE CHOCOLAT",
+      "code": 999284,
+      "colonnes": [
+        "cond 61.1 -> 7.56"
+      ],
+      "avant": {
+        "ref": "SAUCE CHOCOLAT",
+        "conditionnement": 61.1,
+        "unite": "Carton",
+        "pu_carton": 41016.949,
+        "pu_piece": 5425.522354497355,
+        "actif": 1
+      }
+    },
+    {
+      "ref": "SAUCE FRAISE",
+      "nom": "SAUCE FRAISE",
+      "code": 68028,
+      "colonnes": [
+        "cond 61.1 -> 6.6"
+      ],
+      "avant": {
+        "ref": "SAUCE FRAISE",
+        "conditionnement": 61.1,
+        "unite": "Carton",
+        "pu_carton": 27478.1699214,
+        "pu_piece": 4163.359079,
+        "actif": 1
+      }
+    },
+    {
+      "ref": "SAUCE KETCHUP",
+      "nom": "SAUCE KETCHUP",
+      "code": 258822,
+      "colonnes": [
+        "cond 1 -> 15",
+        "carton 22192 -> 22211.65",
+        "piece 22192 -> 1480.78"
+      ],
+      "avant": {
+        "ref": "SAUCE KETCHUP",
+        "conditionnement": 1,
+        "unite": "Carton",
+        "pu_carton": 22192,
+        "pu_piece": 22192,
+        "actif": 1
+      }
+    },
+    {
+      "ref": "SAUCE MAYONNAISE AMERIGO",
+      "nom": "SAUCE MAYONNAISE AMERIGO",
+      "code": "AMGO58185",
+      "colonnes": [
+        "cond 1 -> 15.2",
+        "carton 37288 -> 39152.54",
+        "piece 37288 -> 2575.83"
+      ],
+      "avant": {
+        "ref": "SAUCE MAYONNAISE AMERIGO",
+        "conditionnement": 1,
+        "unite": "Carton",
+        "pu_carton": 37288,
+        "pu_piece": 37288,
+        "actif": 1
+      }
+    },
+    {
+      "ref": "SAUCE SALADE CESAR 100",
+      "nom": "SAUCE SALADE CESAR 100",
+      "code": "950329-100",
+      "colonnes": [
+        "cond 1 -> 100",
+        "carton 16573 -> 18087.53",
+        "piece 16573 -> 180.88"
+      ],
+      "avant": {
+        "ref": "SAUCE SALADE CESAR 100",
+        "conditionnement": 1,
+        "unite": "Carton",
+        "pu_carton": 16573,
+        "pu_piece": 16573,
+        "actif": 1
+      }
+    },
+    {
+      "ref": "SEL FIN 500G",
+      "nom": "SEL FIN 500g",
+      "code": "SFL500",
+      "colonnes": [
+        "cond 20500 -> 20",
+        "carton 833.33 -> 8333.33",
+        "piece 833.33 -> 416.67"
+      ],
+      "avant": {
+        "ref": "SEL FIN 500G",
+        "conditionnement": 20500,
+        "unite": "Carton",
+        "pu_carton": 833.3333333333334,
+        "pu_piece": 833.3333333333334,
+        "actif": 1
+      }
+    },
+    {
+      "ref": "SIROP MS CARAMEL SALE MONIN",
+      "nom": "SIROP MS CARAMEL SALE MONIN",
+      "code": "MONINSCSEL",
+      "colonnes": [
+        "cond 43 -> 7.56"
+      ],
+      "avant": {
+        "ref": "SIROP MS CARAMEL SALE MONIN",
+        "conditionnement": 43,
+        "unite": "Carton",
+        "pu_carton": 50847.458000000006,
+        "pu_piece": 6725.854232804234,
+        "actif": 1
+      }
+    },
+    {
+      "ref": "SIROP MS CHOCOLAT MONIN",
+      "nom": "SIROP MS CHOCOLAT MONIN",
+      "code": "MONINSCHOC",
+      "colonnes": [
+        "cond 43 -> 7.56"
+      ],
+      "avant": {
+        "ref": "SIROP MS CHOCOLAT MONIN",
+        "conditionnement": 43,
+        "unite": "Carton",
+        "pu_carton": 50847.458000000006,
+        "pu_piece": 6725.854232804234,
+        "actif": 1
+      }
+    },
+    {
+      "ref": "MOZZARELLA STICKS BIS",
+      "nom": "MOZZARELLA STICKS BIS",
+      "code": "BKFRMB",
+      "colonnes": [
+        "cond 1 -> 204",
+        "carton 30809 -> 30072.59",
+        "piece 30809 -> 147.41"
+      ],
+      "avant": {
+        "ref": "MOZZARELLA STICKS BIS",
+        "conditionnement": 1,
+        "unite": "Carton",
+        "pu_carton": 30809,
+        "pu_piece": 30809,
+        "actif": 1
+      }
+    },
+    {
+      "ref": "4 BUN MODERN BAKERIES",
+      "nom": "4' Bun - Modern Bakeries",
+      "code": "BKFR25",
+      "colonnes": [
+        "carton 16440 -> 16358.98",
+        "piece 137 -> 136.32"
+      ],
+      "avant": {
+        "ref": "4 BUN MODERN BAKERIES",
+        "conditionnement": 120,
+        "unite": "Carton",
+        "pu_carton": 16440,
+        "pu_piece": 137,
+        "actif": 1
+      }
+    },
+    {
+      "ref": "4 5 BUN CORN DUSTED MODERN BAKERIES",
+      "nom": "4,5' Bun Corn Dusted - Modern Bakeries",
+      "code": "BKFR28",
+      "colonnes": [
+        "carton 15048 -> 14968.07",
+        "piece 209 -> 207.89"
+      ],
+      "avant": {
+        "ref": "4 5 BUN CORN DUSTED MODERN BAKERIES",
+        "conditionnement": 72,
+        "unite": "Carton",
+        "pu_carton": 15048,
+        "pu_piece": 209,
+        "actif": 1
+      }
+    },
+    {
+      "ref": "5 BUN MODERN BAKERIES",
+      "nom": "5' Bun - Modern Bakeries",
+      "code": "BKFR26",
+      "colonnes": [
+        "carton 14472 -> 14479.62"
+      ],
+      "avant": {
+        "ref": "5 BUN MODERN BAKERIES",
+        "conditionnement": 72,
+        "unite": "Carton",
+        "pu_carton": 14472,
+        "pu_piece": 201,
+        "actif": 1
+      }
+    },
+    {
+      "ref": "7 BUN MODERN BAKERIES",
+      "nom": "7' Bun - Modern Bakeries",
+      "code": "BKFR27",
+      "colonnes": [
+        "carton 17472 -> 17511.98"
+      ],
+      "avant": {
+        "ref": "7 BUN MODERN BAKERIES",
+        "conditionnement": 96,
+        "unite": "Carton",
+        "pu_carton": 17472,
+        "pu_piece": 182,
+        "actif": 1
+      }
+    },
+    {
+      "ref": "4 BUN DELICO",
+      "nom": "4' Bun - Delico",
+      "code": "BKFR25-DF",
+      "colonnes": [
+        "carton 16396 -> 16358.98"
+      ],
+      "avant": {
+        "ref": "4 BUN DELICO",
+        "conditionnement": 120,
+        "unite": "Carton",
+        "pu_carton": 16396,
+        "pu_piece": 136.63333333333333,
+        "actif": 1
+      }
+    },
+    {
+      "ref": "5 BUN DELICO",
+      "nom": "5' Bun - Delico",
+      "code": "BKFR26-DF",
+      "colonnes": [
+        "carton 12347 -> 14479.62",
+        "piece 171.49 -> 201.11"
+      ],
+      "avant": {
+        "ref": "5 BUN DELICO",
+        "conditionnement": 72,
+        "unite": "Carton",
+        "pu_carton": 12347,
+        "pu_piece": 171.48611111111111,
+        "actif": 1
+      }
+    },
+    {
+      "ref": "7 BUN DELICO",
+      "nom": "7' Bun - Delico",
+      "code": "BKFR27-DF",
+      "colonnes": [
+        "cond 126 -> 96",
+        "carton 19806 -> 17511.98",
+        "piece 157.19 -> 182.42"
+      ],
+      "avant": {
+        "ref": "7 BUN DELICO",
+        "conditionnement": 126,
+        "unite": "Carton",
+        "pu_carton": 19806,
+        "pu_piece": 157.1904761904762,
+        "actif": 1
+      }
+    },
+    {
+      "ref": "4 5 BUN DELICO",
+      "nom": "4,5' Bun - Delico",
+      "code": "BKFR28-DF",
+      "colonnes": [
+        "carton 14028 -> 14968.07",
+        "piece 194.83 -> 207.89"
+      ],
+      "avant": {
+        "ref": "4 5 BUN DELICO",
+        "conditionnement": 72,
+        "unite": "Carton",
+        "pu_carton": 14028,
+        "pu_piece": 194.83333333333334,
+        "actif": 1
+      }
+    },
+    {
+      "ref": "CHICKEN WHOPPER GRILLED",
+      "nom": "CHICKEN WHOPPER GRILLED",
+      "code": "BKFR37",
+      "colonnes": [
+        "carton 54150 -> 55953.61",
+        "piece 808.21 -> 835.13"
+      ],
+      "avant": {
+        "ref": "CHICKEN WHOPPER GRILLED",
+        "conditionnement": 67,
+        "unite": "Carton",
+        "pu_carton": 54150,
+        "pu_piece": 808.2089552238806,
+        "actif": 1
+      }
+    },
+    {
+      "ref": "CHICKEN WINGS CAIRO",
+      "nom": "CHICKEN WINGS - CAIRO",
+      "code": "BKFR101",
+      "colonnes": [
+        "carton 33024 -> 34730.53",
+        "piece 97.13 -> 102.15"
+      ],
+      "avant": {
+        "ref": "CHICKEN WINGS CAIRO",
+        "conditionnement": 340,
+        "unite": "Carton",
+        "pu_carton": 33024,
+        "pu_piece": 97.12941176470588,
+        "actif": 1
+      }
+    },
+    {
+      "ref": "CHILI CHEESE BITES NEW",
+      "nom": "CHILI CHEESE BITES NEW",
+      "code": "BKFR22N",
+      "colonnes": [
+        "carton 35002 -> 33544.66",
+        "piece 77.78 -> 74.54"
+      ],
+      "avant": {
+        "ref": "CHILI CHEESE BITES NEW",
+        "conditionnement": 450,
+        "unite": "Carton",
+        "pu_carton": 35002,
+        "pu_piece": 77.78222222222222,
+        "actif": 1
+      }
+    },
+    {
+      "ref": "CHILI CHEESE BITES CONWAY",
+      "nom": "CHILI CHEESE BITES CONWAY",
+      "code": "BKFR22CNW",
+      "colonnes": [
+        "cond 452 -> 208"
+      ],
+      "avant": {
+        "ref": "CHILI CHEESE BITES CONWAY",
+        "conditionnement": 452,
+        "unite": "Carton",
+        "pu_carton": 20329.419343999998,
+        "pu_piece": 97.73759299999999,
+        "actif": 1
+      }
+    },
+    {
+      "ref": "VALUE PATTY CHICKEN CRISPY",
+      "nom": "VALUE PATTY CHICKEN  CRISPY",
+      "code": "BKFR39",
+      "colonnes": [
+        "carton 54326 -> 53647.19",
+        "piece 217.3 -> 214.59"
+      ],
+      "avant": {
+        "ref": "VALUE PATTY CHICKEN CRISPY",
+        "conditionnement": 250,
+        "unite": "Carton",
+        "pu_carton": 54326,
+        "pu_piece": 217.304,
+        "actif": 1
+      }
+    },
+    {
+      "ref": "CHICKEN STRIPS",
+      "nom": "CHICKEN STRIPS",
+      "code": "BKFR40",
+      "colonnes": [
+        "carton 59775 -> 59356.4",
+        "piece 239.1 -> 237.43"
+      ],
+      "avant": {
+        "ref": "CHICKEN STRIPS",
+        "conditionnement": 250,
+        "unite": "Carton",
+        "pu_carton": 59775,
+        "pu_piece": 239.1,
+        "actif": 1
+      }
+    },
+    {
+      "ref": "NUGGETS CAIRO",
+      "nom": "NUGGETS - CAIRO",
+      "code": "BKFR41",
+      "colonnes": [
+        "carton 49519 -> 50219.44",
+        "piece 75.03 -> 76.09"
+      ],
+      "avant": {
+        "ref": "NUGGETS CAIRO",
+        "conditionnement": 660,
+        "unite": "Carton",
+        "pu_carton": 49519,
+        "pu_piece": 75.02878787878788,
+        "actif": 1
+      }
+    },
+    {
+      "ref": "FRITES",
+      "nom": "FRITES",
+      "code": "BKFR07",
+      "colonnes": [
+        "cond 1 -> 12.5",
+        "carton 17643 -> 16280.77",
+        "piece 17643 -> 1302.46"
+      ],
+      "avant": {
+        "ref": "FRITES",
+        "conditionnement": 1,
+        "unite": "Carton",
+        "pu_carton": 17643,
+        "pu_piece": 17643,
+        "actif": 1
+      }
+    },
+    {
+      "ref": "HAMBURGER PATTY AMERICANA",
+      "nom": "HAMBURGER PATTY - Americana",
+      "code": "BKFR15",
+      "colonnes": [
+        "carton 58905 -> 59339.8",
+        "piece 245.44 -> 247.25"
+      ],
+      "avant": {
+        "ref": "HAMBURGER PATTY AMERICANA",
+        "conditionnement": 240,
+        "unite": "Carton",
+        "pu_carton": 58905,
+        "pu_piece": 245.4375,
+        "actif": 1
+      }
+    },
+    {
+      "ref": "HAMBURGER PATTY CARPISA",
+      "nom": "HAMBURGER PATTY - Carpisa",
+      "code": "BKFR05",
+      "colonnes": [
+        "cond 320 -> 240",
+        "carton 58905.36 -> 59339.8",
+        "piece 245.44 -> 247.25"
+      ],
+      "avant": {
+        "ref": "HAMBURGER PATTY CARPISA",
+        "conditionnement": 320,
+        "unite": "Carton",
+        "pu_carton": 58905.363356309645,
+        "pu_piece": 245.43901398462353,
+        "actif": 1
+      }
+    },
+    {
+      "ref": "LONG CHICKEN PATTY CAIRO",
+      "nom": "LONG CHICKEN PATTY - CAIRO",
+      "code": "BKFR09CAIRO",
+      "colonnes": [
+        "carton 56071 -> 57273.47",
+        "piece 467.26 -> 477.28"
+      ],
+      "avant": {
+        "ref": "LONG CHICKEN PATTY CAIRO",
+        "conditionnement": 120,
+        "unite": "Carton",
+        "pu_carton": 56071,
+        "pu_piece": 467.2583333333333,
+        "actif": 1
+      }
+    },
+    {
+      "ref": "UFS FRITS",
+      "nom": "ŒUFS FRITS",
+      "code": "BKFR33",
+      "colonnes": [
+        "cond 100 -> 120"
+      ],
+      "avant": {
+        "ref": "UFS FRITS",
+        "conditionnement": 100,
+        "unite": "Carton",
+        "pu_carton": 45024.88848,
+        "pu_piece": 375.207404,
+        "actif": 1
+      }
+    },
+    {
+      "ref": "ONION RINGS",
+      "nom": "ONION RINGS",
+      "code": "BKFR08",
+      "colonnes": [
+        "cond 792 -> 630",
+        "carton 17779.08 -> 17138.65",
+        "piece 28.22 -> 27.2"
+      ],
+      "avant": {
+        "ref": "ONION RINGS",
+        "conditionnement": 792,
+        "unite": "Carton",
+        "pu_carton": 17779.079834669083,
+        "pu_piece": 28.220761642331876,
+        "actif": 1
+      }
+    },
+    {
+      "ref": "ONION RINGS MC CAIN",
+      "nom": "ONION RINGS - Mc Cain",
+      "code": 110605,
+      "colonnes": [
+        "carton 17779 -> 17138.65",
+        "piece 28.22 -> 27.2"
+      ],
+      "avant": {
+        "ref": "ONION RINGS MC CAIN",
+        "conditionnement": 630,
+        "unite": "Carton",
+        "pu_carton": 17779,
+        "pu_piece": 28.22063492063492,
+        "actif": 1
+      }
+    },
+    {
+      "ref": "WHOPPER PATTY AMERICANA",
+      "nom": "WHOPPER PATTY  - Americana",
+      "code": "BKFR16",
+      "colonnes": [
+        "carton 63637 -> 64105.49",
+        "piece 568.19 -> 572.37"
+      ],
+      "avant": {
+        "ref": "WHOPPER PATTY AMERICANA",
+        "conditionnement": 112,
+        "unite": "Carton",
+        "pu_carton": 63637,
+        "pu_piece": 568.1875,
+        "actif": 1
+      }
+    },
+    {
+      "ref": "WHOPPER PATTY CARPISA",
+      "nom": "WHOPPER PATTY  - Carpisa",
+      "code": "BKFR06",
+      "colonnes": [
+        "cond 150 -> 112",
+        "carton 63636.61 -> 64105.49",
+        "piece 568.18 -> 572.37"
+      ],
+      "avant": {
+        "ref": "WHOPPER PATTY CARPISA",
+        "conditionnement": 150,
+        "unite": "Carton",
+        "pu_carton": 63636.60664292222,
+        "pu_piece": 568.1839878832341,
+        "actif": 1
+      }
+    },
+    {
+      "ref": "CHICKEN CRUNCHY FILLET",
+      "nom": "Chicken crunchy fillet",
+      "code": "BKFR14N",
+      "colonnes": [
+        "cond 10 -> 120",
+        "carton 65262 -> 62769.71",
+        "piece 6526.2 -> 523.08"
+      ],
+      "avant": {
+        "ref": "CHICKEN CRUNCHY FILLET",
+        "conditionnement": 10,
+        "unite": "Carton",
+        "pu_carton": 65262,
+        "pu_piece": 6526.2,
+        "actif": 1
+      }
+    },
+    {
+      "ref": "CRISPY CHICKEN CAIRO",
+      "nom": "CRISPY CHICKEN CAIRO",
+      "code": "BKFRCRO",
+      "colonnes": [
+        "carton 35193 -> 36789.57",
+        "piece 314.22 -> 328.48"
+      ],
+      "avant": {
+        "ref": "CRISPY CHICKEN CAIRO",
+        "conditionnement": 112,
+        "unite": "Carton",
+        "pu_carton": 35193,
+        "pu_piece": 314.2232142857143,
+        "actif": 1
+      }
+    },
+    {
+      "ref": "BOL A SALADE NEW 200",
+      "nom": "BOL A SALADE NEW 200",
+      "code": "BSN200",
+      "colonnes": [
+        "carton 26971 -> 27100.82",
+        "piece 134.85 -> 135.5"
+      ],
+      "avant": {
+        "ref": "BOL A SALADE NEW 200",
+        "conditionnement": 200,
+        "unite": "Carton",
+        "pu_carton": 26971,
+        "pu_piece": 134.855,
+        "actif": 1
+      }
+    },
+    {
+      "ref": "COURONNE 400",
+      "nom": "COURONNE 400",
+      "code": "779587-400",
+      "colonnes": [
+        "carton 16218 -> 16868.53",
+        "piece 40.55 -> 42.17"
+      ],
+      "avant": {
+        "ref": "COURONNE 400",
+        "conditionnement": 400,
+        "unite": "Carton",
+        "pu_carton": 16218,
+        "pu_piece": 40.545,
+        "actif": 1
+      }
+    },
+    {
+      "ref": "COUVERCLE GOBELET 25 CL",
+      "nom": "COUVERCLE GOBELET 25 CL",
+      "code": 916551,
+      "colonnes": [
+        "carton 22985 -> 24673.83",
+        "piece 11.49 -> 12.34"
+      ],
+      "avant": {
+        "ref": "COUVERCLE GOBELET 25 CL",
+        "conditionnement": 2000,
+        "unite": "Carton",
+        "pu_carton": 22985,
+        "pu_piece": 11.4925,
+        "actif": 1
+      }
+    },
+    {
+      "ref": "FUSION CUILLERE BOIS",
+      "nom": "FUSION CUILLERE BOIS",
+      "code": "WS00001",
+      "colonnes": [
+        "carton 61249 -> 56358.08",
+        "piece 30.62 -> 28.18"
+      ],
+      "avant": {
+        "ref": "FUSION CUILLERE BOIS",
+        "conditionnement": 2000,
+        "unite": "Carton",
+        "pu_carton": 61249,
+        "pu_piece": 30.6245,
+        "actif": 1
+      }
+    },
+    {
+      "ref": "FUSION CUP CONWAY",
+      "nom": "FUSION CUP CONWAY",
+      "code": "27404A",
+      "colonnes": [
+        "cond 1 -> 1000",
+        "carton 45347 -> 45546.58",
+        "piece 45347 -> 45.55"
+      ],
+      "avant": {
+        "ref": "FUSION CUP CONWAY",
+        "conditionnement": 1,
+        "unite": "Carton",
+        "pu_carton": 45347,
+        "pu_piece": 45347,
+        "actif": 1
+      }
+    },
+    {
+      "ref": "GOBELET 25 CL CONWAY",
+      "nom": "GOBELET 25 CL - Conway",
+      "code": 818779,
+      "colonnes": [
+        "carton 52240 -> 50273.98",
+        "piece 26.12 -> 25.14"
+      ],
+      "avant": {
+        "ref": "GOBELET 25 CL CONWAY",
+        "conditionnement": 2000,
+        "unite": "Carton",
+        "pu_carton": 52240,
+        "pu_piece": 26.12,
+        "actif": 1
+      }
+    },
+    {
+      "ref": "GOBELET 40 CL",
+      "nom": "GOBELET 40 CL",
+      "code": 952119,
+      "colonnes": [
+        "carton 38042 -> 36378.95",
+        "piece 38.04 -> 36.38"
+      ],
+      "avant": {
+        "ref": "GOBELET 40 CL",
+        "conditionnement": 1000,
+        "unite": "Carton",
+        "pu_carton": 38042,
+        "pu_piece": 38.042,
+        "actif": 1
+      }
+    },
+    {
+      "ref": "JOUETS ENFANT",
+      "nom": "JOUETS ENFANT",
+      "code": "JOUETMAO",
+      "colonnes": [
+        "carton 140695 -> 110838.63",
+        "piece 703.48 -> 554.19"
+      ],
+      "avant": {
+        "ref": "JOUETS ENFANT",
+        "conditionnement": 200,
+        "unite": "Carton",
+        "pu_carton": 140695,
+        "pu_piece": 703.475,
+        "actif": 1
+      }
+    },
+    {
+      "ref": "PAILLE MILKSHAKE PAPIER",
+      "nom": "PAILLE MILKSHAKE (PAPIER)",
+      "code": "28725PAP",
+      "colonnes": [
+        "carton 3200 -> 3218.19"
+      ],
+      "avant": {
+        "ref": "PAILLE MILKSHAKE PAPIER",
+        "conditionnement": 200,
+        "unite": "Inner",
+        "pu_carton": 3200,
+        "pu_piece": 16,
+        "actif": 1
+      }
+    },
+    {
+      "ref": "PAILLE SODAS PAPIER",
+      "nom": "PAILLE SODAS (PAPIER)",
+      "code": "760611PAP",
+      "colonnes": [
+        "carton 35000 -> 34575.78"
+      ],
+      "avant": {
+        "ref": "PAILLE SODAS PAPIER",
+        "conditionnement": 3500,
+        "unite": "Carton",
+        "pu_carton": 35000,
+        "pu_piece": 10,
+        "actif": 1
+      }
+    },
+    {
+      "ref": "PORTE GOBELET",
+      "nom": "PORTE GOBELET",
+      "code": 818773,
+      "colonnes": [
+        "carton 28576 -> 28807.7"
+      ],
+      "avant": {
+        "ref": "PORTE GOBELET",
+        "conditionnement": 480,
+        "unite": "Carton",
+        "pu_carton": 28576,
+        "pu_piece": 59.53333333333333,
+        "actif": 1
+      }
+    },
+    {
+      "ref": "SAC A EMPORTER GRAND CARRY BAG",
+      "nom": "SAC A EMPORTER GRAND - Carry bag",
+      "code": 25072,
+      "colonnes": [
+        "carton 25431 -> 25721.35",
+        "piece 101.72 -> 102.89"
+      ],
+      "avant": {
+        "ref": "SAC A EMPORTER GRAND CARRY BAG",
+        "conditionnement": 250,
+        "unite": "Carton",
+        "pu_carton": 25431,
+        "pu_piece": 101.724,
+        "actif": 1
+      }
+    },
+    {
+      "ref": "SAC A EMPORTER MOYEN 12LB",
+      "nom": "SAC A EMPORTER MOYEN - 12lb",
+      "code": 998724,
+      "colonnes": [
+        "carton 31211 -> 31506.21"
+      ],
+      "avant": {
+        "ref": "SAC A EMPORTER MOYEN 12LB",
+        "conditionnement": 1000,
+        "unite": "Carton",
+        "pu_carton": 31211,
+        "pu_piece": 31.211,
+        "actif": 1
+      }
+    },
+    {
+      "ref": "SAC A EMPORTER PETIT 8 LB",
+      "nom": "SAC A EMPORTER PETIT - 8 lb",
+      "code": 998757,
+      "colonnes": [
+        "carton 27809 -> 25086.58",
+        "piece 27.81 -> 25.09"
+      ],
+      "avant": {
+        "ref": "SAC A EMPORTER PETIT 8 LB",
+        "conditionnement": 1000,
+        "unite": "Carton",
+        "pu_carton": 27809,
+        "pu_piece": 27.809,
+        "actif": 1
+      }
+    },
+    {
+      "ref": "SAC ENFANT 1000",
+      "nom": "SAC ENFANT 1000",
+      "code": "SCEFT1000",
+      "colonnes": [
+        "carton 65000 -> 70000",
+        "piece 65 -> 70"
+      ],
+      "avant": {
+        "ref": "SAC ENFANT 1000",
+        "conditionnement": 1000,
+        "unite": "Carton",
+        "pu_carton": 65000,
+        "pu_piece": 65,
+        "actif": 1
+      }
+    },
+    {
+      "ref": "SACHET FRITES MOYEN",
+      "nom": "SACHET FRITES MOYEN",
+      "code": 73101,
+      "colonnes": [
+        "carton 25714 -> 24078"
+      ],
+      "avant": {
+        "ref": "SACHET FRITES MOYEN",
+        "conditionnement": 4000,
+        "unite": "Carton",
+        "pu_carton": 25714,
+        "pu_piece": 6.4285,
+        "actif": 1
+      }
+    },
+    {
+      "ref": "SACHET FRITES PETIT 4000",
+      "nom": "SACHET FRITES PETIT 4000",
+      "code": "SFP4000",
+      "colonnes": [
+        "carton 20282 -> 20389.31"
+      ],
+      "avant": {
+        "ref": "SACHET FRITES PETIT 4000",
+        "conditionnement": 4000,
+        "unite": "Carton",
+        "pu_carton": 20282,
+        "pu_piece": 5.0705,
+        "actif": 1
+      }
+    },
+    {
+      "ref": "SACHET SNACK GRAND 3000",
+      "nom": "SACHET SNACK GRAND 3000",
+      "code": "SSG3000",
+      "colonnes": [
+        "carton 32611 -> 32792.53"
+      ],
+      "avant": {
+        "ref": "SACHET SNACK GRAND 3000",
+        "conditionnement": 3000,
+        "unite": "Carton",
+        "pu_carton": 32611,
+        "pu_piece": 10.870333333333333,
+        "actif": 1
+      }
+    },
+    {
+      "ref": "SACHET SNACK MOYEN 4000",
+      "nom": "SACHET SNACK MOYEN 4000",
+      "code": "SSM4000",
+      "colonnes": [
+        "carton 42266 -> 40099.1",
+        "piece 10.57 -> 10.02"
+      ],
+      "avant": {
+        "ref": "SACHET SNACK MOYEN 4000",
+        "conditionnement": 4000,
+        "unite": "Carton",
+        "pu_carton": 42266,
+        "pu_piece": 10.5665,
+        "actif": 1
+      }
+    },
+    {
+      "ref": "SANDY PAPER CUP",
+      "nom": "SANDY PAPER CUP",
+      "code": "SPC3F180286",
+      "colonnes": [
+        "carton 76553 -> 74877.23",
+        "piece 43.74 -> 42.79"
+      ],
+      "avant": {
+        "ref": "SANDY PAPER CUP",
+        "conditionnement": 1750,
+        "unite": "Carton",
+        "pu_carton": 76553,
+        "pu_piece": 43.744571428571426,
+        "actif": 1
+      }
+    },
+    {
+      "ref": "TASSE CAFE 20 CL",
+      "nom": "TASSE CAFE 20 CL",
+      "code": "BK-TC 20CL",
+      "colonnes": [
+        "cond 1250 -> 1050"
+      ],
+      "avant": {
+        "ref": "TASSE CAFE 20 CL",
+        "conditionnement": 1250,
+        "unite": "Carton",
+        "pu_carton": 43391.555550000005,
+        "pu_piece": 41.32529100000001,
+        "actif": 1
+      }
+    },
+    {
+      "ref": "WRAP MULTI PETIT 5000",
+      "nom": "WRAP MULTI PETIT 5000",
+      "code": "WRAPMP5000",
+      "colonnes": [
+        "carton 54196 -> 48509.88",
+        "piece 10.84 -> 9.7"
+      ],
+      "avant": {
+        "ref": "WRAP MULTI PETIT 5000",
+        "conditionnement": 5000,
+        "unite": "Carton",
+        "pu_carton": 54196,
+        "pu_piece": 10.8392,
+        "actif": 1
+      }
+    },
+    {
+      "ref": "WRAP MULTI GRAND 3000",
+      "nom": "WRAP MULTI GRAND 3000",
+      "code": "WRAPMG3000",
+      "colonnes": [
+        "carton 53163 -> 46556.19",
+        "piece 17.72 -> 15.52"
+      ],
+      "avant": {
+        "ref": "WRAP MULTI GRAND 3000",
+        "conditionnement": 3000,
+        "unite": "Carton",
+        "pu_carton": 53163,
+        "pu_piece": 17.721,
+        "actif": 1
+      }
+    },
+    {
+      "ref": "KIT COUVERT BISKISHOP",
+      "nom": "KIT COUVERT BISKISHOP",
+      "code": "7778A",
+      "colonnes": [
+        "cond 1 -> 500",
+        "piece 52542 -> 105.08"
+      ],
+      "avant": {
+        "ref": "KIT COUVERT BISKISHOP",
+        "conditionnement": 1,
+        "unite": "Carton",
+        "pu_carton": 52542,
+        "pu_piece": 52542,
+        "actif": 1
+      }
+    }
+  ]
+}

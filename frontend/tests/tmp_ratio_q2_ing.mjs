@@ -1,0 +1,12 @@
+import fs from 'fs';
+import path from 'path';
+import * as XLSX from 'xlsx';
+import { parseRatios } from '../src/utils/parsers.js';
+const wb = XLSX.read(fs.readFileSync(path.resolve('../sample_data/RATIOS  Q2 2026.xlsx')), { type: 'buffer' });
+console.log('feuilles:', wb.SheetNames.join(' | '));
+const r = parseRatios(wb);
+const f = r.byPlu[110];
+console.log('WHOPPER coutTheo', f.coutTheo, '| recipe', JSON.stringify(f.recipe).slice(0,200));
+console.log('ingrédients:'); f.coutParIng.forEach(i => console.log('  ', i.ing, '| qty', i.qty, '| pmp', i.pmp, '| valeur', i.valeur));
+console.log('pmpByIng (5):', Object.entries(r.pmpByIng).slice(0,5).map(([k,v])=>k+'='+v).join(' | '));
+console.log('waLandedCost (5):', Object.entries(r.waLandedCost||{}).slice(0,5).map(([k,v])=>k+'='+v).join(' | '));

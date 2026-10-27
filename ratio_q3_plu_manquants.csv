@@ -1,0 +1,3 @@
+﻿site;plu;nom;quantite_pmix;date_rapport;cout_unitaire;cout_theorique;source_cout;note
+BK1;705;PETITE FRITES;19;2026-10-23 09:35;242;4598;Complément PMIX (bk_sia_pmix_complement_v1);PLU absent du Ratio Q3 officiel : supprimé, équivalent officiel PLU 706 SMALL FRIES (présent). Valorisation assurée par le complément PMIX, pas de rechargement nécessaire.
+BK COCODY;705;PETITE FRITES;19;2026-10-22 00:33;242;4598;Complément PMIX (bk_sia_pmix_complement_v1);Idem. Prix de vente PMIX 1 500 F (montant 28 500 F) distinct du coût ; le coût 242 F x 19 = 4 598 F est celui retenu.

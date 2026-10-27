@@ -1,0 +1,6711 @@
+{
+ "fichier": "C:/Users/arnaud.nzue/Downloads/files (12)/bk-ecart-docker28082026/tmp_verif/Suivi_BK1_Octobre_2026.xlsx",
+ "taille": 26856518,
+ "feuilles": {
+  "Inventaire_Initial": {
+   "nom": "Inventaire Initial",
+   "ref": "A1:O333",
+   "dimensions": {
+    "lignes": 333,
+    "colonnes": 15
+   },
+   "volets": null,
+   "largeursColonnesPx": [],
+   "sautsDePage": null,
+   "entetes12Lignes": [
+    [
+     null,
+     {
+      "a": "B1",
+      "t": "s",
+      "v": "Inventaire Initial — BK1 · Octobre 2026",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null
+    ],
+    [
+     {
+      "a": "A2",
+      "t": "s",
+      "v": "◀ RÉFÉRENTIEL",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     null,
+     null,
+     null,
+     null,
+     {
+      "a": "F2",
+      "t": "s",
+      "v": "✏️ SAISIE INVENTAIRE",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     null,
+     null,
+     {
+      "a": "I2",
+      "t": "s",
+      "v": "= CALCUL AUTOMATIQUE",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     null,
+     null,
+     null,
+     null,
+     null,
+     null
+    ],
+    [
+     null,
+     {
+      "a": "B3",
+      "t": "s",
+      "v": "Site",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "C3",
+      "t": "s",
+      "v": "BK1",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     null,
+     {
+      "a": "E3",
+      "t": "s",
+      "v": "Date inventaire",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "F3",
+      "t": "s",
+      "v": "",
+      "f": null,
+      "z": "dd/mm/yyyy",
+      "s": null
+     },
+     null,
+     null,
+     {
+      "a": "I3",
+      "t": "s",
+      "v": "Période",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "J3",
+      "t": "s",
+      "v": "Octobre 2026",
+      "f": null,
+      "z": "dd/mm/yyyy",
+      "s": null
+     },
+     null,
+     null,
+     null,
+     null,
+     null
+    ],
+    [
+     {
+      "a": "A4",
+      "t": "s",
+      "v": "📌 Saisir uniquement les colonnes vertes : Carton, Inner et Unités.",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null
+    ],
+    [
+     {
+      "a": "A5",
+      "t": "s",
+      "v": "CATEGORIE",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "B5",
+      "t": "s",
+      "v": "Frns",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "C5",
+      "t": "s",
+      "v": "ARTICLE",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "D5",
+      "t": "s",
+      "v": "COLISAGE",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "E5",
+      "t": "s",
+      "v": "",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "F5",
+      "t": "s",
+      "v": "INVENTAIRE",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "G5",
+      "t": "s",
+      "v": "",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "H5",
+      "t": "s",
+      "v": "",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "I5",
+      "t": "s",
+      "v": "STOCK FINAL",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "J5",
+      "t": "s",
+      "v": "",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "K5",
+      "t": "s",
+      "v": "",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "L5",
+      "t": "s",
+      "v": "",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     null,
+     {
+      "a": "N5",
+      "t": "s",
+      "v": "REPORT OMEGA",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "O5",
+      "t": "s",
+      "v": "",
+      "f": null,
+      "z": "General",
+      "s": null
+     }
+    ],
+    [
+     {
+      "a": "A6",
+      "t": "s",
+      "v": "",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "B6",
+      "t": "s",
+      "v": "",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "C6",
+      "t": "s",
+      "v": "",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "D6",
+      "t": "s",
+      "v": "Nb articles / carton",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "E6",
+      "t": "s",
+      "v": "Nb articles / inner",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "F6",
+      "t": "s",
+      "v": "Carton",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "G6",
+      "t": "s",
+      "v": "Inner",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "H6",
+      "t": "s",
+      "v": "Unités",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "I6",
+      "t": "s",
+      "v": "Nombre",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "J6",
+      "t": "s",
+      "v": "Unité",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "K6",
+      "t": "s",
+      "v": "Prix carton",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "L6",
+      "t": "s",
+      "v": "Valeur stock",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     null,
+     {
+      "a": "N6",
+      "t": "s",
+      "v": "Code Article",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "O6",
+      "t": "s",
+      "v": "Quantité (unité)",
+      "f": null,
+      "z": "General",
+      "s": null
+     }
+    ],
+    [
+     {
+      "a": "A7",
+      "t": "s",
+      "v": "Boissons",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "B7",
+      "t": "s",
+      "v": "SIA",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "C7",
+      "t": "s",
+      "v": "CAFE EN GRAINS 250 g",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "D7",
+      "t": "n",
+      "v": 1,
+      "f": null,
+      "z": "#,##0.##",
+      "s": null
+     },
+     {
+      "a": "E7",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0.##",
+      "s": null
+     },
+     {
+      "a": "F7",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     {
+      "a": "G7",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     {
+      "a": "H7",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     null,
+     {
+      "a": "J7",
+      "t": "s",
+      "v": "Inner de 250 g",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "K7",
+      "t": "n",
+      "v": 3432,
+      "f": null,
+      "z": "#,##0.##",
+      "s": null
+     },
+     null,
+     null,
+     {
+      "a": "N7",
+      "t": "s",
+      "v": "CAFG01",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     null
+    ],
+    [
+     {
+      "a": "A8",
+      "t": "s",
+      "v": "Boissons",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "B8",
+      "t": "s",
+      "v": "SIA",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "C8",
+      "t": "s",
+      "v": "PRESSEA - Ananas 200ML",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "D8",
+      "t": "n",
+      "v": 24,
+      "f": null,
+      "z": "#,##0.##",
+      "s": null
+     },
+     {
+      "a": "E8",
+      "t": "n",
+      "v": 24,
+      "f": null,
+      "z": "#,##0.##",
+      "s": null
+     },
+     {
+      "a": "F8",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     {
+      "a": "G8",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     {
+      "a": "H8",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     null,
+     {
+      "a": "J8",
+      "t": "s",
+      "v": "Carton de 24",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "K8",
+      "t": "n",
+      "v": 3051,
+      "f": null,
+      "z": "#,##0.##",
+      "s": null
+     },
+     null,
+     null,
+     {
+      "a": "N8",
+      "t": "s",
+      "v": "BKPA200",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     null
+    ],
+    [
+     {
+      "a": "A9",
+      "t": "s",
+      "v": "Boissons",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "B9",
+      "t": "s",
+      "v": "SIA",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "C9",
+      "t": "s",
+      "v": "PRESSEA - Orange 200ML",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "D9",
+      "t": "n",
+      "v": 24,
+      "f": null,
+      "z": "#,##0.##",
+      "s": null
+     },
+     {
+      "a": "E9",
+      "t": "n",
+      "v": 24,
+      "f": null,
+      "z": "#,##0.##",
+      "s": null
+     },
+     {
+      "a": "F9",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     {
+      "a": "G9",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     {
+      "a": "H9",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     null,
+     {
+      "a": "J9",
+      "t": "s",
+      "v": "Carton de 24",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "K9",
+      "t": "n",
+      "v": 3051,
+      "f": null,
+      "z": "#,##0.##",
+      "s": null
+     },
+     null,
+     null,
+     {
+      "a": "N9",
+      "t": "s",
+      "v": "BKPO200",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     null
+    ],
+    [
+     {
+      "a": "A10",
+      "t": "s",
+      "v": "Boissons",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "B10",
+      "t": "s",
+      "v": "SIA",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "C10",
+      "t": "s",
+      "v": "PRESSEA - Pomme 200ML",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "D10",
+      "t": "n",
+      "v": 24,
+      "f": null,
+      "z": "#,##0.##",
+      "s": null
+     },
+     {
+      "a": "E10",
+      "t": "n",
+      "v": 24,
+      "f": null,
+      "z": "#,##0.##",
+      "s": null
+     },
+     {
+      "a": "F10",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     {
+      "a": "G10",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     {
+      "a": "H10",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     null,
+     {
+      "a": "J10",
+      "t": "s",
+      "v": "Carton de 24",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "K10",
+      "t": "n",
+      "v": 3051,
+      "f": null,
+      "z": "#,##0.##",
+      "s": null
+     },
+     null,
+     null,
+     {
+      "a": "N10",
+      "t": "s",
+      "v": "BKPP200",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     null
+    ],
+    [
+     {
+      "a": "A11",
+      "t": "s",
+      "v": "Boissons",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "B11",
+      "t": "s",
+      "v": "SIA",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "C11",
+      "t": "s",
+      "v": "PRESSEA - Cocktail 200ML",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "D11",
+      "t": "n",
+      "v": 24,
+      "f": null,
+      "z": "#,##0.##",
+      "s": null
+     },
+     {
+      "a": "E11",
+      "t": "n",
+      "v": 24,
+      "f": null,
+      "z": "#,##0.##",
+      "s": null
+     },
+     {
+      "a": "F11",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     {
+      "a": "G11",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     {
+      "a": "H11",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     null,
+     {
+      "a": "J11",
+      "t": "s",
+      "v": "Carton de 24",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "K11",
+      "t": "n",
+      "v": 3051,
+      "f": null,
+      "z": "#,##0.##",
+      "s": null
+     },
+     null,
+     null,
+     {
+      "a": "N11",
+      "t": "s",
+      "v": "BKPC200",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     null
+    ],
+    [
+     {
+      "a": "A12",
+      "t": "s",
+      "v": "Boissons",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "B12",
+      "t": "s",
+      "v": "SIA",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "C12",
+      "t": "s",
+      "v": "PRESSEA - Goyave 200ML",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "D12",
+      "t": "n",
+      "v": 24,
+      "f": null,
+      "z": "#,##0.##",
+      "s": null
+     },
+     {
+      "a": "E12",
+      "t": "n",
+      "v": 24,
+      "f": null,
+      "z": "#,##0.##",
+      "s": null
+     },
+     {
+      "a": "F12",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     {
+      "a": "G12",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     {
+      "a": "H12",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     null,
+     {
+      "a": "J12",
+      "t": "s",
+      "v": "Carton de 24",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "K12",
+      "t": "n",
+      "v": 3051,
+      "f": null,
+      "z": "#,##0.##",
+      "s": null
+     },
+     null,
+     null,
+     {
+      "a": "N12",
+      "t": "s",
+      "v": "BKPG200",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     null
+    ],
+    [
+     {
+      "a": "A13",
+      "t": "s",
+      "v": "Boissons",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "B13",
+      "t": "s",
+      "v": "SIA",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "C13",
+      "t": "s",
+      "v": "BOUTEILLE COCA COLA 50cL",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "D13",
+      "t": "n",
+      "v": 6,
+      "f": null,
+      "z": "#,##0.##",
+      "s": null
+     },
+     {
+      "a": "E13",
+      "t": "n",
+      "v": 6,
+      "f": null,
+      "z": "#,##0.##",
+      "s": null
+     },
+     {
+      "a": "F13",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     {
+      "a": "G13",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     {
+      "a": "H13",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     null,
+     {
+      "a": "J13",
+      "t": "s",
+      "v": "Pack de 6",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "K13",
+      "t": "n",
+      "v": 127.47175141242938,
+      "f": null,
+      "z": "#,##0.##",
+      "s": null
+     },
+     null,
+     null,
+     {
+      "a": "N13",
+      "t": "s",
+      "v": "BTL-COCA 50CL",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     null
+    ]
+   ],
+   "formulesParColonne": {},
+   "lignesRelevees": {
+    "n": 323,
+    "premier": 1,
+    "dernier": 325
+   }
+  },
+  "Inventaire_Final": {
+   "nom": "Inventaire Final",
+   "ref": "A1:O333",
+   "dimensions": {
+    "lignes": 333,
+    "colonnes": 15
+   },
+   "volets": null,
+   "largeursColonnesPx": [],
+   "sautsDePage": null,
+   "entetes12Lignes": [
+    [
+     null,
+     {
+      "a": "B1",
+      "t": "s",
+      "v": "Inventaire Final — BK1 · Octobre 2026",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null
+    ],
+    [
+     {
+      "a": "A2",
+      "t": "s",
+      "v": "◀ RÉFÉRENTIEL",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     null,
+     null,
+     null,
+     null,
+     {
+      "a": "F2",
+      "t": "s",
+      "v": "✏️ SAISIE INVENTAIRE",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     null,
+     null,
+     {
+      "a": "I2",
+      "t": "s",
+      "v": "= CALCUL AUTOMATIQUE",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     null,
+     null,
+     null,
+     null,
+     null,
+     null
+    ],
+    [
+     null,
+     {
+      "a": "B3",
+      "t": "s",
+      "v": "Site",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "C3",
+      "t": "s",
+      "v": "BK1",
+      "f": null,
+      "z": "dd/mm/yyyy",
+      "s": null
+     },
+     null,
+     {
+      "a": "E3",
+      "t": "s",
+      "v": "Date inventaire",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "F3",
+      "t": "s",
+      "v": "",
+      "f": null,
+      "z": "dd/mm/yyyy",
+      "s": null
+     },
+     null,
+     null,
+     {
+      "a": "I3",
+      "t": "s",
+      "v": "Période",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "J3",
+      "t": "s",
+      "v": "Octobre 2026",
+      "f": null,
+      "z": "dd/mm/yyyy",
+      "s": null
+     },
+     null,
+     null,
+     null,
+     null,
+     null
+    ],
+    [
+     {
+      "a": "A4",
+      "t": "s",
+      "v": "📌 Saisir uniquement les colonnes vertes : Carton, Inner et Unités.",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null
+    ],
+    [
+     {
+      "a": "A5",
+      "t": "s",
+      "v": "CATEGORIE",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "B5",
+      "t": "s",
+      "v": "Frns",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "C5",
+      "t": "s",
+      "v": "ARTICLE",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "D5",
+      "t": "s",
+      "v": "COLISAGE",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "E5",
+      "t": "s",
+      "v": "",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "F5",
+      "t": "s",
+      "v": "INVENTAIRE",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "G5",
+      "t": "s",
+      "v": "",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "H5",
+      "t": "s",
+      "v": "",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "I5",
+      "t": "s",
+      "v": "STOCK FINAL",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "J5",
+      "t": "s",
+      "v": "",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "K5",
+      "t": "s",
+      "v": "",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "L5",
+      "t": "s",
+      "v": "",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     null,
+     {
+      "a": "N5",
+      "t": "s",
+      "v": "REPORT OMEGA",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "O5",
+      "t": "s",
+      "v": "",
+      "f": null,
+      "z": "General",
+      "s": null
+     }
+    ],
+    [
+     {
+      "a": "A6",
+      "t": "s",
+      "v": "",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "B6",
+      "t": "s",
+      "v": "",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "C6",
+      "t": "s",
+      "v": "",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "D6",
+      "t": "s",
+      "v": "Nb articles / carton",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "E6",
+      "t": "s",
+      "v": "Nb articles / inner",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "F6",
+      "t": "s",
+      "v": "Carton",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "G6",
+      "t": "s",
+      "v": "Inner",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "H6",
+      "t": "s",
+      "v": "Unités",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "I6",
+      "t": "s",
+      "v": "Nombre",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "J6",
+      "t": "s",
+      "v": "Unité",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "K6",
+      "t": "s",
+      "v": "Prix carton",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "L6",
+      "t": "s",
+      "v": "Valeur stock",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     null,
+     {
+      "a": "N6",
+      "t": "s",
+      "v": "Code Article",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "O6",
+      "t": "s",
+      "v": "Quantité (unité)",
+      "f": null,
+      "z": "General",
+      "s": null
+     }
+    ],
+    [
+     {
+      "a": "A7",
+      "t": "s",
+      "v": "Boissons",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "B7",
+      "t": "s",
+      "v": "SIA",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "C7",
+      "t": "s",
+      "v": "CAFE EN GRAINS 250 g",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "D7",
+      "t": "n",
+      "v": 1,
+      "f": null,
+      "z": "#,##0.##",
+      "s": null
+     },
+     {
+      "a": "E7",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0.##",
+      "s": null
+     },
+     {
+      "a": "F7",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     {
+      "a": "G7",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     {
+      "a": "H7",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     null,
+     {
+      "a": "J7",
+      "t": "s",
+      "v": "Inner de 250 g",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "K7",
+      "t": "n",
+      "v": 3432,
+      "f": null,
+      "z": "#,##0.##",
+      "s": null
+     },
+     null,
+     null,
+     {
+      "a": "N7",
+      "t": "s",
+      "v": "CAFG01",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     null
+    ],
+    [
+     {
+      "a": "A8",
+      "t": "s",
+      "v": "Boissons",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "B8",
+      "t": "s",
+      "v": "SIA",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "C8",
+      "t": "s",
+      "v": "PRESSEA - Ananas 200ML",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "D8",
+      "t": "n",
+      "v": 24,
+      "f": null,
+      "z": "#,##0.##",
+      "s": null
+     },
+     {
+      "a": "E8",
+      "t": "n",
+      "v": 24,
+      "f": null,
+      "z": "#,##0.##",
+      "s": null
+     },
+     {
+      "a": "F8",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     {
+      "a": "G8",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     {
+      "a": "H8",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     null,
+     {
+      "a": "J8",
+      "t": "s",
+      "v": "Carton de 24",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "K8",
+      "t": "n",
+      "v": 3051,
+      "f": null,
+      "z": "#,##0.##",
+      "s": null
+     },
+     null,
+     null,
+     {
+      "a": "N8",
+      "t": "s",
+      "v": "BKPA200",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     null
+    ],
+    [
+     {
+      "a": "A9",
+      "t": "s",
+      "v": "Boissons",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "B9",
+      "t": "s",
+      "v": "SIA",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "C9",
+      "t": "s",
+      "v": "PRESSEA - Orange 200ML",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "D9",
+      "t": "n",
+      "v": 24,
+      "f": null,
+      "z": "#,##0.##",
+      "s": null
+     },
+     {
+      "a": "E9",
+      "t": "n",
+      "v": 24,
+      "f": null,
+      "z": "#,##0.##",
+      "s": null
+     },
+     {
+      "a": "F9",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     {
+      "a": "G9",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     {
+      "a": "H9",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     null,
+     {
+      "a": "J9",
+      "t": "s",
+      "v": "Carton de 24",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "K9",
+      "t": "n",
+      "v": 3051,
+      "f": null,
+      "z": "#,##0.##",
+      "s": null
+     },
+     null,
+     null,
+     {
+      "a": "N9",
+      "t": "s",
+      "v": "BKPO200",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     null
+    ],
+    [
+     {
+      "a": "A10",
+      "t": "s",
+      "v": "Boissons",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "B10",
+      "t": "s",
+      "v": "SIA",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "C10",
+      "t": "s",
+      "v": "PRESSEA - Pomme 200ML",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "D10",
+      "t": "n",
+      "v": 24,
+      "f": null,
+      "z": "#,##0.##",
+      "s": null
+     },
+     {
+      "a": "E10",
+      "t": "n",
+      "v": 24,
+      "f": null,
+      "z": "#,##0.##",
+      "s": null
+     },
+     {
+      "a": "F10",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     {
+      "a": "G10",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     {
+      "a": "H10",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     null,
+     {
+      "a": "J10",
+      "t": "s",
+      "v": "Carton de 24",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "K10",
+      "t": "n",
+      "v": 3051,
+      "f": null,
+      "z": "#,##0.##",
+      "s": null
+     },
+     null,
+     null,
+     {
+      "a": "N10",
+      "t": "s",
+      "v": "BKPP200",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     null
+    ],
+    [
+     {
+      "a": "A11",
+      "t": "s",
+      "v": "Boissons",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "B11",
+      "t": "s",
+      "v": "SIA",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "C11",
+      "t": "s",
+      "v": "PRESSEA - Cocktail 200ML",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "D11",
+      "t": "n",
+      "v": 24,
+      "f": null,
+      "z": "#,##0.##",
+      "s": null
+     },
+     {
+      "a": "E11",
+      "t": "n",
+      "v": 24,
+      "f": null,
+      "z": "#,##0.##",
+      "s": null
+     },
+     {
+      "a": "F11",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     {
+      "a": "G11",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     {
+      "a": "H11",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     null,
+     {
+      "a": "J11",
+      "t": "s",
+      "v": "Carton de 24",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "K11",
+      "t": "n",
+      "v": 3051,
+      "f": null,
+      "z": "#,##0.##",
+      "s": null
+     },
+     null,
+     null,
+     {
+      "a": "N11",
+      "t": "s",
+      "v": "BKPC200",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     null
+    ],
+    [
+     {
+      "a": "A12",
+      "t": "s",
+      "v": "Boissons",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "B12",
+      "t": "s",
+      "v": "SIA",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "C12",
+      "t": "s",
+      "v": "PRESSEA - Goyave 200ML",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "D12",
+      "t": "n",
+      "v": 24,
+      "f": null,
+      "z": "#,##0.##",
+      "s": null
+     },
+     {
+      "a": "E12",
+      "t": "n",
+      "v": 24,
+      "f": null,
+      "z": "#,##0.##",
+      "s": null
+     },
+     {
+      "a": "F12",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     {
+      "a": "G12",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     {
+      "a": "H12",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     null,
+     {
+      "a": "J12",
+      "t": "s",
+      "v": "Carton de 24",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "K12",
+      "t": "n",
+      "v": 3051,
+      "f": null,
+      "z": "#,##0.##",
+      "s": null
+     },
+     null,
+     null,
+     {
+      "a": "N12",
+      "t": "s",
+      "v": "BKPG200",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     null
+    ],
+    [
+     {
+      "a": "A13",
+      "t": "s",
+      "v": "Boissons",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "B13",
+      "t": "s",
+      "v": "SIA",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "C13",
+      "t": "s",
+      "v": "BOUTEILLE COCA COLA 50cL",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "D13",
+      "t": "n",
+      "v": 6,
+      "f": null,
+      "z": "#,##0.##",
+      "s": null
+     },
+     {
+      "a": "E13",
+      "t": "n",
+      "v": 6,
+      "f": null,
+      "z": "#,##0.##",
+      "s": null
+     },
+     {
+      "a": "F13",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     {
+      "a": "G13",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     {
+      "a": "H13",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     null,
+     {
+      "a": "J13",
+      "t": "s",
+      "v": "Pack de 6",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "K13",
+      "t": "n",
+      "v": 127.47175141242938,
+      "f": null,
+      "z": "#,##0.##",
+      "s": null
+     },
+     null,
+     null,
+     {
+      "a": "N13",
+      "t": "s",
+      "v": "BTL-COCA 50CL",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     null
+    ]
+   ],
+   "formulesParColonne": {},
+   "lignesRelevees": {
+    "n": 323,
+    "premier": 1,
+    "dernier": 325
+   }
+  },
+  "Transferts": {
+   "nom": "Transferts",
+   "ref": "A1:O20021",
+   "dimensions": {
+    "lignes": 20021,
+    "colonnes": 15
+   },
+   "volets": null,
+   "largeursColonnesPx": [],
+   "sautsDePage": null,
+   "entetes12Lignes": [
+    [
+     null,
+     {
+      "a": "B1",
+      "t": "s",
+      "v": "Transferts (AGL → BK) — BK1 · Octobre 2026",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     {
+      "a": "N1",
+      "t": "s",
+      "v": "RÉCAP TRANSFERTS — BK1",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "O1",
+      "t": "s",
+      "v": "VALEUR (FCFA)",
+      "f": null,
+      "z": "General",
+      "s": null
+     }
+    ],
+    [
+     {
+      "a": "A2",
+      "t": "s",
+      "v": "✏️  SAISIE",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     null,
+     {
+      "a": "C2",
+      "t": "s",
+      "v": "= AUTO (via code)",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     null,
+     {
+      "a": "E2",
+      "t": "s",
+      "v": "✏️  CODE / DÉSIGNATION",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "F2",
+      "t": "s",
+      "v": "= AUTO",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     null,
+     {
+      "a": "H2",
+      "t": "s",
+      "v": "✏️  QTÉ",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "I2",
+      "t": "s",
+      "v": "= AUTO",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "J2",
+      "t": "s",
+      "v": "= CALCUL AUTO",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     null,
+     null,
+     null,
+     {
+      "a": "N2",
+      "t": "s",
+      "v": "Lignes saisies (code en E)",
+      "f": null,
+      "z": "dd/mm/yyyy",
+      "s": null
+     },
+     null
+    ],
+    [
+     {
+      "a": "A3",
+      "t": "s",
+      "v": "📌 Saisir : Date (A), BK destinataire (B), Code article (E — ou la désignation exacte si l'article n'a pas de code), Quantité (H). Les infos produit s'affichent automatiquement via la clé. Un même article peut apparaître sur plusieurs lignes (transferts vers des restaurants différents).",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     {
+      "a": "N3",
+      "t": "s",
+      "v": "dont code sans prix trouvé",
+      "f": null,
+      "z": "dd/mm/yyyy",
+      "s": null
+     },
+     null
+    ],
+    [
+     {
+      "a": "A4",
+      "t": "s",
+      "v": "Date",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "B4",
+      "t": "s",
+      "v": "BK",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "C4",
+      "t": "s",
+      "v": "Désignation",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "D4",
+      "t": "s",
+      "v": "Catégorie",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "E4",
+      "t": "s",
+      "v": "Code / Désignation",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "F4",
+      "t": "s",
+      "v": "Unité",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "G4",
+      "t": "s",
+      "v": "Cond.",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "H4",
+      "t": "s",
+      "v": "Quantité",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "I4",
+      "t": "s",
+      "v": "Prix carton",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "J4",
+      "t": "s",
+      "v": "Valeur sortie",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "K4",
+      "t": "s",
+      "v": "CTRL",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     null,
+     null,
+     {
+      "a": "N4",
+      "t": "s",
+      "v": "TOTAL TRANSFERTS",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     null
+    ],
+    [
+     {
+      "a": "A5",
+      "t": "s",
+      "v": "",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "B5",
+      "t": "s",
+      "v": "",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     null,
+     null,
+     {
+      "a": "E5",
+      "t": "s",
+      "v": "",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     null,
+     null,
+     {
+      "a": "H5",
+      "t": "s",
+      "v": "",
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     null,
+     null,
+     {
+      "a": "K5",
+      "t": "s",
+      "v": "",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     null,
+     null,
+     null,
+     null
+    ],
+    [
+     {
+      "a": "A6",
+      "t": "s",
+      "v": "",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "B6",
+      "t": "s",
+      "v": "",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     null,
+     null,
+     {
+      "a": "E6",
+      "t": "s",
+      "v": "",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     null,
+     null,
+     {
+      "a": "H6",
+      "t": "s",
+      "v": "",
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     null,
+     null,
+     {
+      "a": "K6",
+      "t": "s",
+      "v": "",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     null,
+     null,
+     {
+      "a": "N6",
+      "t": "s",
+      "v": "CATÉGORIE",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "O6",
+      "t": "s",
+      "v": "VALEUR (FCFA)",
+      "f": null,
+      "z": "General",
+      "s": null
+     }
+    ],
+    [
+     {
+      "a": "A7",
+      "t": "s",
+      "v": "",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "B7",
+      "t": "s",
+      "v": "",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     null,
+     null,
+     {
+      "a": "E7",
+      "t": "s",
+      "v": "",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     null,
+     null,
+     {
+      "a": "H7",
+      "t": "s",
+      "v": "",
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     null,
+     null,
+     {
+      "a": "K7",
+      "t": "s",
+      "v": "",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     null,
+     null,
+     {
+      "a": "N7",
+      "t": "s",
+      "v": "Boissons",
+      "f": null,
+      "z": "dd/mm/yyyy",
+      "s": null
+     },
+     null
+    ],
+    [
+     {
+      "a": "A8",
+      "t": "s",
+      "v": "",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "B8",
+      "t": "s",
+      "v": "",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     null,
+     null,
+     {
+      "a": "E8",
+      "t": "s",
+      "v": "",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     null,
+     null,
+     {
+      "a": "H8",
+      "t": "s",
+      "v": "",
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     null,
+     null,
+     {
+      "a": "K8",
+      "t": "s",
+      "v": "",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     null,
+     null,
+     {
+      "a": "N8",
+      "t": "s",
+      "v": "Nourriture - Surgelé",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     null
+    ],
+    [
+     {
+      "a": "A9",
+      "t": "s",
+      "v": "",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "B9",
+      "t": "s",
+      "v": "",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     null,
+     null,
+     {
+      "a": "E9",
+      "t": "s",
+      "v": "",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     null,
+     null,
+     {
+      "a": "H9",
+      "t": "s",
+      "v": "",
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     null,
+     null,
+     {
+      "a": "K9",
+      "t": "s",
+      "v": "",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     null,
+     null,
+     {
+      "a": "N9",
+      "t": "s",
+      "v": "Nourriture - Frais",
+      "f": null,
+      "z": "dd/mm/yyyy",
+      "s": null
+     },
+     null
+    ],
+    [
+     {
+      "a": "A10",
+      "t": "s",
+      "v": "",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "B10",
+      "t": "s",
+      "v": "",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     null,
+     null,
+     {
+      "a": "E10",
+      "t": "s",
+      "v": "",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     null,
+     null,
+     {
+      "a": "H10",
+      "t": "s",
+      "v": "",
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     null,
+     null,
+     {
+      "a": "K10",
+      "t": "s",
+      "v": "",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     null,
+     null,
+     {
+      "a": "N10",
+      "t": "s",
+      "v": "Nourriture - Sec",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     null
+    ],
+    [
+     {
+      "a": "A11",
+      "t": "s",
+      "v": "",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "B11",
+      "t": "s",
+      "v": "",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     null,
+     null,
+     {
+      "a": "E11",
+      "t": "s",
+      "v": "",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     null,
+     null,
+     {
+      "a": "H11",
+      "t": "s",
+      "v": "",
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     null,
+     null,
+     {
+      "a": "K11",
+      "t": "s",
+      "v": "",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     null,
+     null,
+     {
+      "a": "N11",
+      "t": "s",
+      "v": "Packaging",
+      "f": null,
+      "z": "dd/mm/yyyy",
+      "s": null
+     },
+     null
+    ],
+    [
+     {
+      "a": "A12",
+      "t": "s",
+      "v": "",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "B12",
+      "t": "s",
+      "v": "",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     null,
+     null,
+     {
+      "a": "E12",
+      "t": "s",
+      "v": "",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     null,
+     null,
+     {
+      "a": "H12",
+      "t": "s",
+      "v": "",
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     null,
+     null,
+     {
+      "a": "K12",
+      "t": "s",
+      "v": "",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     null,
+     null,
+     {
+      "a": "N12",
+      "t": "s",
+      "v": "Produits de Nettoyage",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     null
+    ],
+    [
+     {
+      "a": "A13",
+      "t": "s",
+      "v": "",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "B13",
+      "t": "s",
+      "v": "",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     null,
+     null,
+     {
+      "a": "E13",
+      "t": "s",
+      "v": "",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     null,
+     null,
+     {
+      "a": "H13",
+      "t": "s",
+      "v": "",
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     null,
+     null,
+     {
+      "a": "K13",
+      "t": "s",
+      "v": "",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     null,
+     null,
+     null,
+     null
+    ]
+   ],
+   "formulesParColonne": {},
+   "lignesRelevees": {
+    "n": 11,
+    "premier": 1,
+    "dernier": 20021
+   }
+  },
+  "R_f_rentiel_Articles": {
+   "nom": "Référentiel Articles",
+   "ref": "A1:F634",
+   "dimensions": {
+    "lignes": 634,
+    "colonnes": 6
+   },
+   "volets": null,
+   "largeursColonnesPx": [],
+   "sautsDePage": null,
+   "entetes12Lignes": [
+    [
+     {
+      "a": "A1",
+      "t": "s",
+      "v": "Code / Désignation (clé)",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "B1",
+      "t": "s",
+      "v": "Désignation",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "C1",
+      "t": "s",
+      "v": "Catégorie",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "D1",
+      "t": "s",
+      "v": "Unité",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "E1",
+      "t": "s",
+      "v": "Cond.",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "F1",
+      "t": "s",
+      "v": "Prix carton (FCFA)",
+      "f": null,
+      "z": "General",
+      "s": null
+     }
+    ],
+    [
+     {
+      "a": "A2",
+      "t": "s",
+      "v": "CAFG01",
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     {
+      "a": "B2",
+      "t": "s",
+      "v": "CAFE EN GRAINS 250 g",
+      "f": null,
+      "z": "dd/mm/yyyy",
+      "s": null
+     },
+     {
+      "a": "C2",
+      "t": "s",
+      "v": "Boissons",
+      "f": null,
+      "z": "dd/mm/yyyy",
+      "s": null
+     },
+     {
+      "a": "D2",
+      "t": "s",
+      "v": "Inner de 250 g",
+      "f": null,
+      "z": "dd/mm/yyyy",
+      "s": null
+     },
+     {
+      "a": "E2",
+      "t": "n",
+      "v": 1,
+      "f": null,
+      "z": "#,##0.##",
+      "s": null
+     },
+     {
+      "a": "F2",
+      "t": "n",
+      "v": 3432,
+      "f": null,
+      "z": "#,##0.##",
+      "s": null
+     }
+    ],
+    [
+     {
+      "a": "A3",
+      "t": "s",
+      "v": "BKPA200",
+      "f": null,
+      "z": "#,##0.##",
+      "s": null
+     },
+     {
+      "a": "B3",
+      "t": "s",
+      "v": "PRESSEA - Ananas 200ML",
+      "f": null,
+      "z": "dd/mm/yyyy",
+      "s": null
+     },
+     {
+      "a": "C3",
+      "t": "s",
+      "v": "Boissons",
+      "f": null,
+      "z": "dd/mm/yyyy",
+      "s": null
+     },
+     {
+      "a": "D3",
+      "t": "s",
+      "v": "Carton de 24",
+      "f": null,
+      "z": "dd/mm/yyyy",
+      "s": null
+     },
+     {
+      "a": "E3",
+      "t": "n",
+      "v": 24,
+      "f": null,
+      "z": "#,##0.##",
+      "s": null
+     },
+     {
+      "a": "F3",
+      "t": "n",
+      "v": 3051,
+      "f": null,
+      "z": "#,##0.##",
+      "s": null
+     }
+    ],
+    [
+     {
+      "a": "A4",
+      "t": "s",
+      "v": "BKPO200",
+      "f": null,
+      "z": "#,##0.##",
+      "s": null
+     },
+     {
+      "a": "B4",
+      "t": "s",
+      "v": "PRESSEA - Orange 200ML",
+      "f": null,
+      "z": "dd/mm/yyyy",
+      "s": null
+     },
+     {
+      "a": "C4",
+      "t": "s",
+      "v": "Boissons",
+      "f": null,
+      "z": "dd/mm/yyyy",
+      "s": null
+     },
+     {
+      "a": "D4",
+      "t": "s",
+      "v": "Carton de 24",
+      "f": null,
+      "z": "dd/mm/yyyy",
+      "s": null
+     },
+     {
+      "a": "E4",
+      "t": "n",
+      "v": 24,
+      "f": null,
+      "z": "#,##0.##",
+      "s": null
+     },
+     {
+      "a": "F4",
+      "t": "n",
+      "v": 3051,
+      "f": null,
+      "z": "#,##0.##",
+      "s": null
+     }
+    ],
+    [
+     {
+      "a": "A5",
+      "t": "s",
+      "v": "BKPP200",
+      "f": null,
+      "z": "#,##0.##",
+      "s": null
+     },
+     {
+      "a": "B5",
+      "t": "s",
+      "v": "PRESSEA - Pomme 200ML",
+      "f": null,
+      "z": "dd/mm/yyyy",
+      "s": null
+     },
+     {
+      "a": "C5",
+      "t": "s",
+      "v": "Boissons",
+      "f": null,
+      "z": "dd/mm/yyyy",
+      "s": null
+     },
+     {
+      "a": "D5",
+      "t": "s",
+      "v": "Carton de 24",
+      "f": null,
+      "z": "dd/mm/yyyy",
+      "s": null
+     },
+     {
+      "a": "E5",
+      "t": "n",
+      "v": 24,
+      "f": null,
+      "z": "#,##0.##",
+      "s": null
+     },
+     {
+      "a": "F5",
+      "t": "n",
+      "v": 3051,
+      "f": null,
+      "z": "#,##0.##",
+      "s": null
+     }
+    ],
+    [
+     {
+      "a": "A6",
+      "t": "s",
+      "v": "BKPC200",
+      "f": null,
+      "z": "#,##0.##",
+      "s": null
+     },
+     {
+      "a": "B6",
+      "t": "s",
+      "v": "PRESSEA - Cocktail 200ML",
+      "f": null,
+      "z": "dd/mm/yyyy",
+      "s": null
+     },
+     {
+      "a": "C6",
+      "t": "s",
+      "v": "Boissons",
+      "f": null,
+      "z": "dd/mm/yyyy",
+      "s": null
+     },
+     {
+      "a": "D6",
+      "t": "s",
+      "v": "Carton de 24",
+      "f": null,
+      "z": "dd/mm/yyyy",
+      "s": null
+     },
+     {
+      "a": "E6",
+      "t": "n",
+      "v": 24,
+      "f": null,
+      "z": "#,##0.##",
+      "s": null
+     },
+     {
+      "a": "F6",
+      "t": "n",
+      "v": 3051,
+      "f": null,
+      "z": "#,##0.##",
+      "s": null
+     }
+    ],
+    [
+     {
+      "a": "A7",
+      "t": "s",
+      "v": "BKPG200",
+      "f": null,
+      "z": "#,##0.##",
+      "s": null
+     },
+     {
+      "a": "B7",
+      "t": "s",
+      "v": "PRESSEA - Goyave 200ML",
+      "f": null,
+      "z": "dd/mm/yyyy",
+      "s": null
+     },
+     {
+      "a": "C7",
+      "t": "s",
+      "v": "Boissons",
+      "f": null,
+      "z": "dd/mm/yyyy",
+      "s": null
+     },
+     {
+      "a": "D7",
+      "t": "s",
+      "v": "Carton de 24",
+      "f": null,
+      "z": "dd/mm/yyyy",
+      "s": null
+     },
+     {
+      "a": "E7",
+      "t": "n",
+      "v": 24,
+      "f": null,
+      "z": "#,##0.##",
+      "s": null
+     },
+     {
+      "a": "F7",
+      "t": "n",
+      "v": 3051,
+      "f": null,
+      "z": "#,##0.##",
+      "s": null
+     }
+    ],
+    [
+     {
+      "a": "A8",
+      "t": "s",
+      "v": "BTL-COCA 50CL",
+      "f": null,
+      "z": "#,##0.##",
+      "s": null
+     },
+     {
+      "a": "B8",
+      "t": "s",
+      "v": "BOUTEILLE COCA COLA 50cL",
+      "f": null,
+      "z": "dd/mm/yyyy",
+      "s": null
+     },
+     {
+      "a": "C8",
+      "t": "s",
+      "v": "Boissons",
+      "f": null,
+      "z": "dd/mm/yyyy",
+      "s": null
+     },
+     {
+      "a": "D8",
+      "t": "s",
+      "v": "Pack de 6",
+      "f": null,
+      "z": "dd/mm/yyyy",
+      "s": null
+     },
+     {
+      "a": "E8",
+      "t": "n",
+      "v": 6,
+      "f": null,
+      "z": "#,##0.##",
+      "s": null
+     },
+     {
+      "a": "F8",
+      "t": "n",
+      "v": 127.47175141242938,
+      "f": null,
+      "z": "#,##0.##",
+      "s": null
+     }
+    ],
+    [
+     {
+      "a": "A9",
+      "t": "s",
+      "v": "BTL-COCA 1.5L",
+      "f": null,
+      "z": "#,##0.##",
+      "s": null
+     },
+     {
+      "a": "B9",
+      "t": "s",
+      "v": "BOUTEILLE COCA COLA 1.5L",
+      "f": null,
+      "z": "dd/mm/yyyy",
+      "s": null
+     },
+     {
+      "a": "C9",
+      "t": "s",
+      "v": "Boissons",
+      "f": null,
+      "z": "dd/mm/yyyy",
+      "s": null
+     },
+     {
+      "a": "D9",
+      "t": "s",
+      "v": "Pack de 6",
+      "f": null,
+      "z": "dd/mm/yyyy",
+      "s": null
+     },
+     {
+      "a": "E9",
+      "t": "n",
+      "v": 6,
+      "f": null,
+      "z": "#,##0.##",
+      "s": null
+     },
+     {
+      "a": "F9",
+      "t": "n",
+      "v": 127.47175141242938,
+      "f": null,
+      "z": "#,##0.##",
+      "s": null
+     }
+    ],
+    [
+     {
+      "a": "A10",
+      "t": "s",
+      "v": "BTL-COCA Z 50CL",
+      "f": null,
+      "z": "#,##0.##",
+      "s": null
+     },
+     {
+      "a": "B10",
+      "t": "s",
+      "v": "BOUTEILLE COCA COLA ZERO 50cL",
+      "f": null,
+      "z": "dd/mm/yyyy",
+      "s": null
+     },
+     {
+      "a": "C10",
+      "t": "s",
+      "v": "Boissons",
+      "f": null,
+      "z": "dd/mm/yyyy",
+      "s": null
+     },
+     {
+      "a": "D10",
+      "t": "s",
+      "v": "Pack de 6",
+      "f": null,
+      "z": "dd/mm/yyyy",
+      "s": null
+     },
+     {
+      "a": "E10",
+      "t": "n",
+      "v": 6,
+      "f": null,
+      "z": "#,##0.##",
+      "s": null
+     },
+     {
+      "a": "F10",
+      "t": "n",
+      "v": 107.34463276836159,
+      "f": null,
+      "z": "#,##0.##",
+      "s": null
+     }
+    ],
+    [
+     {
+      "a": "A11",
+      "t": "s",
+      "v": "BTL-COCA 30CL",
+      "f": null,
+      "z": "#,##0.##",
+      "s": null
+     },
+     {
+      "a": "B11",
+      "t": "s",
+      "v": "BOUTEILLE COCA COLA 30cL",
+      "f": null,
+      "z": "dd/mm/yyyy",
+      "s": null
+     },
+     {
+      "a": "C11",
+      "t": "s",
+      "v": "Boissons",
+      "f": null,
+      "z": "dd/mm/yyyy",
+      "s": null
+     },
+     {
+      "a": "D11",
+      "t": "s",
+      "v": "Pack de 12",
+      "f": null,
+      "z": "dd/mm/yyyy",
+      "s": null
+     },
+     {
+      "a": "E11",
+      "t": "n",
+      "v": 12,
+      "f": null,
+      "z": "#,##0.##",
+      "s": null
+     },
+     {
+      "a": "F11",
+      "t": "n",
+      "v": 127.47175141242938,
+      "f": null,
+      "z": "#,##0.##",
+      "s": null
+     }
+    ],
+    [
+     {
+      "a": "A12",
+      "t": "s",
+      "v": "BTL-COCA Z 30CL",
+      "f": null,
+      "z": "#,##0.##",
+      "s": null
+     },
+     {
+      "a": "B12",
+      "t": "s",
+      "v": "BOUTEILLE COCA COLA ZERO 30cL",
+      "f": null,
+      "z": "dd/mm/yyyy",
+      "s": null
+     },
+     {
+      "a": "C12",
+      "t": "s",
+      "v": "Boissons",
+      "f": null,
+      "z": "dd/mm/yyyy",
+      "s": null
+     },
+     {
+      "a": "D12",
+      "t": "s",
+      "v": "Pack de 12",
+      "f": null,
+      "z": "dd/mm/yyyy",
+      "s": null
+     },
+     {
+      "a": "E12",
+      "t": "n",
+      "v": 12,
+      "f": null,
+      "z": "#,##0.##",
+      "s": null
+     },
+     {
+      "a": "F12",
+      "t": "n",
+      "v": 107.34463276836159,
+      "f": null,
+      "z": "#,##0.##",
+      "s": null
+     }
+    ],
+    [
+     {
+      "a": "A13",
+      "t": "s",
+      "v": "BKCI-EAU",
+      "f": null,
+      "z": "#,##0.##",
+      "s": null
+     },
+     {
+      "a": "B13",
+      "t": "s",
+      "v": "EAU",
+      "f": null,
+      "z": "dd/mm/yyyy",
+      "s": null
+     },
+     {
+      "a": "C13",
+      "t": "s",
+      "v": "Boissons",
+      "f": null,
+      "z": "dd/mm/yyyy",
+      "s": null
+     },
+     {
+      "a": "D13",
+      "t": "s",
+      "v": "Pack de 9",
+      "f": null,
+      "z": "dd/mm/yyyy",
+      "s": null
+     },
+     {
+      "a": "E13",
+      "t": "n",
+      "v": 16,
+      "f": null,
+      "z": "#,##0.##",
+      "s": null
+     },
+     {
+      "a": "F13",
+      "t": "n",
+      "v": 1288,
+      "f": null,
+      "z": "#,##0.##",
+      "s": null
+     }
+    ]
+   ],
+   "formulesParColonne": {},
+   "lignesRelevees": {
+    "n": 634,
+    "premier": 1,
+    "dernier": 634
+   }
+  },
+  "Pertes": {
+   "nom": "Pertes",
+   "ref": "A1:AO193",
+   "dimensions": {
+    "lignes": 193,
+    "colonnes": 41
+   },
+   "volets": null,
+   "largeursColonnesPx": [],
+   "sautsDePage": null,
+   "entetes12Lignes": [
+    [
+     null,
+     {
+      "a": "B1",
+      "t": "s",
+      "v": "Pertes — BK1 · Octobre 2026",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     {
+      "a": "I1",
+      "t": "s",
+      "v": "CA HT du jour (saisie)",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null
+    ],
+    [
+     {
+      "a": "A2",
+      "t": "s",
+      "v": "◀ RÉFÉRENTIEL (pré-rempli)",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     null,
+     null,
+     null,
+     null,
+     null,
+     {
+      "a": "G2",
+      "t": "s",
+      "v": "= CALCUL",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     null,
+     {
+      "a": "I2",
+      "t": "s",
+      "v": "Valeur des pertes du jour",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null
+    ],
+    [
+     {
+      "a": "A3",
+      "t": "s",
+      "v": "📌 Saisir les quantités perdues jour par jour (colonnes vertes J→AN) et le CA HT du jour en ligne 1 (colonne I). Quantité perte = somme des jours ; Valeur = Prix pièce × Quantité ; Prix pièce = Prix carton ÷ Cond. Les lignes sans Cond./Prix sont des articles transmis absents de la base : les renseigner.",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     {
+      "a": "I3",
+      "t": "s",
+      "v": "Ratio perte / CA HT",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null
+    ],
+    [
+     {
+      "a": "A4",
+      "t": "s",
+      "v": "Catégorie",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "B4",
+      "t": "s",
+      "v": "Nom Article",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "C4",
+      "t": "s",
+      "v": "Cond.",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "D4",
+      "t": "s",
+      "v": "Prix carton",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "E4",
+      "t": "s",
+      "v": "Prix pièce",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "F4",
+      "t": "s",
+      "v": "Unité de perte",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "G4",
+      "t": "s",
+      "v": "Quantité perte (Σ jours)",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "H4",
+      "t": "s",
+      "v": "Valeur perte",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "I4",
+      "t": "s",
+      "v": "Indicateurs jour",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "J4",
+      "t": "s",
+      "v": "1",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "K4",
+      "t": "s",
+      "v": "2",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "L4",
+      "t": "s",
+      "v": "3",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "M4",
+      "t": "s",
+      "v": "4",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "N4",
+      "t": "s",
+      "v": "5",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "O4",
+      "t": "s",
+      "v": "6",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "P4",
+      "t": "s",
+      "v": "7",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "Q4",
+      "t": "s",
+      "v": "8",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "R4",
+      "t": "s",
+      "v": "9",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "S4",
+      "t": "s",
+      "v": "10",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "T4",
+      "t": "s",
+      "v": "11",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "U4",
+      "t": "s",
+      "v": "12",
+      "f": null,
+      "z": "General",
+      "s": null
+     }
+    ],
+    [
+     {
+      "a": "A5",
+      "t": "s",
+      "v": "Boissons",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "B5",
+      "t": "s",
+      "v": "CAFE EN GRAINS 250 g",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "C5",
+      "t": "n",
+      "v": 1,
+      "f": null,
+      "z": "#,##0.##",
+      "s": null
+     },
+     {
+      "a": "D5",
+      "t": "n",
+      "v": 3432,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     null,
+     {
+      "a": "F5",
+      "t": "s",
+      "v": "Inner de 250 g",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     null,
+     null,
+     null,
+     {
+      "a": "J5",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     {
+      "a": "K5",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     {
+      "a": "L5",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     {
+      "a": "M5",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     {
+      "a": "N5",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     {
+      "a": "O5",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     {
+      "a": "P5",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     {
+      "a": "Q5",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     {
+      "a": "R5",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     {
+      "a": "S5",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     {
+      "a": "T5",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     {
+      "a": "U5",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     }
+    ],
+    [
+     {
+      "a": "A6",
+      "t": "s",
+      "v": "Boissons",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "B6",
+      "t": "s",
+      "v": "PRESSEA - Ananas 200ML",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "C6",
+      "t": "n",
+      "v": 24,
+      "f": null,
+      "z": "#,##0.##",
+      "s": null
+     },
+     {
+      "a": "D6",
+      "t": "n",
+      "v": 3051,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     null,
+     {
+      "a": "F6",
+      "t": "s",
+      "v": "Carton de 24",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     null,
+     null,
+     null,
+     {
+      "a": "J6",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     {
+      "a": "K6",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     {
+      "a": "L6",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     {
+      "a": "M6",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     {
+      "a": "N6",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     {
+      "a": "O6",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     {
+      "a": "P6",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     {
+      "a": "Q6",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     {
+      "a": "R6",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     {
+      "a": "S6",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     {
+      "a": "T6",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     {
+      "a": "U6",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     }
+    ],
+    [
+     {
+      "a": "A7",
+      "t": "s",
+      "v": "Boissons",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "B7",
+      "t": "s",
+      "v": "PRESSEA - Orange 200ML",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "C7",
+      "t": "n",
+      "v": 24,
+      "f": null,
+      "z": "#,##0.##",
+      "s": null
+     },
+     {
+      "a": "D7",
+      "t": "n",
+      "v": 3051,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     null,
+     {
+      "a": "F7",
+      "t": "s",
+      "v": "Carton de 24",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     null,
+     null,
+     null,
+     {
+      "a": "J7",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     {
+      "a": "K7",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     {
+      "a": "L7",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     {
+      "a": "M7",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     {
+      "a": "N7",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     {
+      "a": "O7",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     {
+      "a": "P7",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     {
+      "a": "Q7",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     {
+      "a": "R7",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     {
+      "a": "S7",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     {
+      "a": "T7",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     {
+      "a": "U7",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     }
+    ],
+    [
+     {
+      "a": "A8",
+      "t": "s",
+      "v": "Boissons",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "B8",
+      "t": "s",
+      "v": "PRESSEA - Pomme 200ML",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "C8",
+      "t": "n",
+      "v": 24,
+      "f": null,
+      "z": "#,##0.##",
+      "s": null
+     },
+     {
+      "a": "D8",
+      "t": "n",
+      "v": 3051,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     null,
+     {
+      "a": "F8",
+      "t": "s",
+      "v": "Carton de 24",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     null,
+     null,
+     null,
+     {
+      "a": "J8",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     {
+      "a": "K8",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     {
+      "a": "L8",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     {
+      "a": "M8",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     {
+      "a": "N8",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     {
+      "a": "O8",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     {
+      "a": "P8",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     {
+      "a": "Q8",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     {
+      "a": "R8",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     {
+      "a": "S8",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     {
+      "a": "T8",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     {
+      "a": "U8",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     }
+    ],
+    [
+     {
+      "a": "A9",
+      "t": "s",
+      "v": "Boissons",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "B9",
+      "t": "s",
+      "v": "PRESSEA - Cocktail 200ML",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "C9",
+      "t": "n",
+      "v": 24,
+      "f": null,
+      "z": "#,##0.##",
+      "s": null
+     },
+     {
+      "a": "D9",
+      "t": "n",
+      "v": 3051,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     null,
+     {
+      "a": "F9",
+      "t": "s",
+      "v": "Carton de 24",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     null,
+     null,
+     null,
+     {
+      "a": "J9",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     {
+      "a": "K9",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     {
+      "a": "L9",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     {
+      "a": "M9",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     {
+      "a": "N9",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     {
+      "a": "O9",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     {
+      "a": "P9",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     {
+      "a": "Q9",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     {
+      "a": "R9",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     {
+      "a": "S9",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     {
+      "a": "T9",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     {
+      "a": "U9",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     }
+    ],
+    [
+     {
+      "a": "A10",
+      "t": "s",
+      "v": "Boissons",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "B10",
+      "t": "s",
+      "v": "PRESSEA - Goyave 200ML",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "C10",
+      "t": "n",
+      "v": 24,
+      "f": null,
+      "z": "#,##0.##",
+      "s": null
+     },
+     {
+      "a": "D10",
+      "t": "n",
+      "v": 3051,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     null,
+     {
+      "a": "F10",
+      "t": "s",
+      "v": "Carton de 24",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     null,
+     null,
+     null,
+     {
+      "a": "J10",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     {
+      "a": "K10",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     {
+      "a": "L10",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     {
+      "a": "M10",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     {
+      "a": "N10",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     {
+      "a": "O10",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     {
+      "a": "P10",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     {
+      "a": "Q10",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     {
+      "a": "R10",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     {
+      "a": "S10",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     {
+      "a": "T10",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     {
+      "a": "U10",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     }
+    ],
+    [
+     {
+      "a": "A11",
+      "t": "s",
+      "v": "Boissons",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "B11",
+      "t": "s",
+      "v": "BOUTEILLE COCA COLA 50cL",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "C11",
+      "t": "n",
+      "v": 6,
+      "f": null,
+      "z": "#,##0.##",
+      "s": null
+     },
+     {
+      "a": "D11",
+      "t": "n",
+      "v": 127.47175141242938,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     null,
+     {
+      "a": "F11",
+      "t": "s",
+      "v": "Pack de 6",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     null,
+     null,
+     null,
+     {
+      "a": "J11",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     {
+      "a": "K11",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     {
+      "a": "L11",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     {
+      "a": "M11",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     {
+      "a": "N11",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     {
+      "a": "O11",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     {
+      "a": "P11",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     {
+      "a": "Q11",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     {
+      "a": "R11",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     {
+      "a": "S11",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     {
+      "a": "T11",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     {
+      "a": "U11",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     }
+    ],
+    [
+     {
+      "a": "A12",
+      "t": "s",
+      "v": "Boissons",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "B12",
+      "t": "s",
+      "v": "BOUTEILLE COCA COLA 1.5L",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "C12",
+      "t": "n",
+      "v": 6,
+      "f": null,
+      "z": "#,##0.##",
+      "s": null
+     },
+     {
+      "a": "D12",
+      "t": "n",
+      "v": 127.47175141242938,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     null,
+     {
+      "a": "F12",
+      "t": "s",
+      "v": "Pack de 6",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     null,
+     null,
+     null,
+     {
+      "a": "J12",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     {
+      "a": "K12",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     {
+      "a": "L12",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     {
+      "a": "M12",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     {
+      "a": "N12",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     {
+      "a": "O12",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     {
+      "a": "P12",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     {
+      "a": "Q12",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     {
+      "a": "R12",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     {
+      "a": "S12",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     {
+      "a": "T12",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     {
+      "a": "U12",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     }
+    ],
+    [
+     {
+      "a": "A13",
+      "t": "s",
+      "v": "Boissons",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "B13",
+      "t": "s",
+      "v": "BOUTEILLE COCA COLA ZERO 50cL",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "C13",
+      "t": "n",
+      "v": 6,
+      "f": null,
+      "z": "#,##0.##",
+      "s": null
+     },
+     {
+      "a": "D13",
+      "t": "n",
+      "v": 107.34463276836159,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     null,
+     {
+      "a": "F13",
+      "t": "s",
+      "v": "Pack de 6",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     null,
+     null,
+     null,
+     {
+      "a": "J13",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     {
+      "a": "K13",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     {
+      "a": "L13",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     {
+      "a": "M13",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     {
+      "a": "N13",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     {
+      "a": "O13",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     {
+      "a": "P13",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     {
+      "a": "Q13",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     {
+      "a": "R13",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     {
+      "a": "S13",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     {
+      "a": "T13",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     {
+      "a": "U13",
+      "t": "n",
+      "v": 0,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     }
+    ]
+   ],
+   "formulesParColonne": {},
+   "lignesRelevees": {
+    "n": 188,
+    "premier": 1,
+    "dernier": 192
+   }
+  },
+  "P.Douane": {
+   "nom": "P.Douane",
+   "ref": "A1:I205",
+   "dimensions": {
+    "lignes": 205,
+    "colonnes": 9
+   },
+   "volets": null,
+   "largeursColonnesPx": [],
+   "sautsDePage": null,
+   "entetes12Lignes": [
+    [
+     null,
+     {
+      "a": "B1",
+      "t": "s",
+      "v": "Prélèvements Douane — BK1 · Octobre 2026",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null
+    ],
+    [
+     {
+      "a": "A2",
+      "t": "s",
+      "v": "✏️ SAISIE",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "B2",
+      "t": "s",
+      "v": "= AUTO",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     null,
+     {
+      "a": "D2",
+      "t": "s",
+      "v": "✏️ CODE / DÉSIGNATION",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "E2",
+      "t": "s",
+      "v": "= AUTO",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "F2",
+      "t": "s",
+      "v": "✏️ QTÉ",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "G2",
+      "t": "s",
+      "v": "= AUTO",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "H2",
+      "t": "s",
+      "v": "= CALCUL",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     null
+    ],
+    [
+     {
+      "a": "A3",
+      "t": "s",
+      "v": "📌 Saisir uniquement : Date (A), Code article (D — ou la Désignation exacte si l'article n'a pas de code) et Quantité (F). L'Article, la Catégorie, le Conditionnement, les prix et la Valeur se remplissent automatiquement. Une ligne par prélèvement.",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null
+    ],
+    [
+     {
+      "a": "A4",
+      "t": "s",
+      "v": "Date",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "B4",
+      "t": "s",
+      "v": "Article",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "C4",
+      "t": "s",
+      "v": "Catégorie",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "D4",
+      "t": "s",
+      "v": "Code / Désignation",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "E4",
+      "t": "s",
+      "v": "Cond.",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "F4",
+      "t": "s",
+      "v": "Quantité",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "G4",
+      "t": "s",
+      "v": "Prix carton",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "H4",
+      "t": "s",
+      "v": "Prix pièce",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "I4",
+      "t": "s",
+      "v": "Valeur (FCFA)",
+      "f": null,
+      "z": "General",
+      "s": null
+     }
+    ],
+    [
+     {
+      "a": "A5",
+      "t": "s",
+      "v": "",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     null,
+     null,
+     {
+      "a": "D5",
+      "t": "s",
+      "v": "",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     null,
+     {
+      "a": "F5",
+      "t": "s",
+      "v": "",
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     null,
+     null,
+     null
+    ],
+    [
+     {
+      "a": "A6",
+      "t": "s",
+      "v": "",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     null,
+     null,
+     {
+      "a": "D6",
+      "t": "s",
+      "v": "",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     null,
+     {
+      "a": "F6",
+      "t": "s",
+      "v": "",
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     null,
+     null,
+     null
+    ],
+    [
+     {
+      "a": "A7",
+      "t": "s",
+      "v": "",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     null,
+     null,
+     {
+      "a": "D7",
+      "t": "s",
+      "v": "",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     null,
+     {
+      "a": "F7",
+      "t": "s",
+      "v": "",
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     null,
+     null,
+     null
+    ],
+    [
+     {
+      "a": "A8",
+      "t": "s",
+      "v": "",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     null,
+     null,
+     {
+      "a": "D8",
+      "t": "s",
+      "v": "",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     null,
+     {
+      "a": "F8",
+      "t": "s",
+      "v": "",
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     null,
+     null,
+     null
+    ],
+    [
+     {
+      "a": "A9",
+      "t": "s",
+      "v": "",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     null,
+     null,
+     {
+      "a": "D9",
+      "t": "s",
+      "v": "",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     null,
+     {
+      "a": "F9",
+      "t": "s",
+      "v": "",
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     null,
+     null,
+     null
+    ],
+    [
+     {
+      "a": "A10",
+      "t": "s",
+      "v": "",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     null,
+     null,
+     {
+      "a": "D10",
+      "t": "s",
+      "v": "",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     null,
+     {
+      "a": "F10",
+      "t": "s",
+      "v": "",
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     null,
+     null,
+     null
+    ],
+    [
+     {
+      "a": "A11",
+      "t": "s",
+      "v": "",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     null,
+     null,
+     {
+      "a": "D11",
+      "t": "s",
+      "v": "",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     null,
+     {
+      "a": "F11",
+      "t": "s",
+      "v": "",
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     null,
+     null,
+     null
+    ],
+    [
+     {
+      "a": "A12",
+      "t": "s",
+      "v": "",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     null,
+     null,
+     {
+      "a": "D12",
+      "t": "s",
+      "v": "",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     null,
+     {
+      "a": "F12",
+      "t": "s",
+      "v": "",
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     null,
+     null,
+     null
+    ],
+    [
+     {
+      "a": "A13",
+      "t": "s",
+      "v": "",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     null,
+     null,
+     {
+      "a": "D13",
+      "t": "s",
+      "v": "",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     null,
+     {
+      "a": "F13",
+      "t": "s",
+      "v": "",
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     null,
+     null,
+     null
+    ]
+   ],
+   "formulesParColonne": {},
+   "lignesRelevees": {
+    "n": 3,
+    "premier": 1,
+    "dernier": 4
+   }
+  },
+  "Offert": {
+   "nom": "Offert",
+   "ref": "A1:H3",
+   "dimensions": {
+    "lignes": 3,
+    "colonnes": 8
+   },
+   "volets": null,
+   "largeursColonnesPx": [],
+   "sautsDePage": null,
+   "entetes12Lignes": [
+    [
+     null,
+     {
+      "a": "B1",
+      "t": "s",
+      "v": "Offerts / Repas",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     null,
+     null,
+     null,
+     null,
+     null,
+     null
+    ],
+    [
+     {
+      "a": "A2",
+      "t": "s",
+      "v": "BK",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "B2",
+      "t": "s",
+      "v": "Staff Meal",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "C2",
+      "t": "s",
+      "v": "Manager Meal",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "D2",
+      "t": "s",
+      "v": "GT",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "E2",
+      "t": "s",
+      "v": "Offer",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "F2",
+      "t": "s",
+      "v": "HO",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "G2",
+      "t": "s",
+      "v": "Discount CJ",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "H2",
+      "t": "s",
+      "v": "Total",
+      "f": null,
+      "z": "General",
+      "s": null
+     }
+    ],
+    [
+     {
+      "a": "A3",
+      "t": "s",
+      "v": "BK1",
+      "f": null,
+      "z": "dd/mm/yyyy",
+      "s": null
+     },
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null
+    ],
+    [
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null
+    ],
+    [
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null
+    ],
+    [
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null
+    ],
+    [
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null
+    ],
+    [
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null
+    ],
+    [
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null
+    ],
+    [
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null
+    ],
+    [
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null
+    ],
+    [
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null
+    ],
+    [
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null
+    ]
+   ],
+   "formulesParColonne": {},
+   "lignesRelevees": {
+    "n": 2,
+    "premier": 1,
+    "dernier": 2
+   }
+  },
+  "R_f_rentiel_PMIX": {
+   "nom": "Référentiel PMIX",
+   "ref": "A1:C377",
+   "dimensions": {
+    "lignes": 377,
+    "colonnes": 3
+   },
+   "volets": null,
+   "largeursColonnesPx": [],
+   "sautsDePage": null,
+   "entetes12Lignes": [
+    [
+     {
+      "a": "A1",
+      "t": "s",
+      "v": "PLU",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "B1",
+      "t": "s",
+      "v": "Produit",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "C1",
+      "t": "s",
+      "v": "Coût unitaire (FCFA)",
+      "f": null,
+      "z": "General",
+      "s": null
+     }
+    ],
+    [
+     {
+      "a": "A2",
+      "t": "s",
+      "v": "110",
+      "f": null,
+      "z": "#,##0.##",
+      "s": null
+     },
+     {
+      "a": "B2",
+      "t": "s",
+      "v": "WHOPPER",
+      "f": null,
+      "z": "dd/mm/yyyy",
+      "s": null
+     },
+     {
+      "a": "C2",
+      "t": "n",
+      "v": 1186.6720790730283,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     }
+    ],
+    [
+     {
+      "a": "A3",
+      "t": "s",
+      "v": "115",
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     {
+      "a": "B3",
+      "t": "s",
+      "v": "WHOPPER CHEESE",
+      "f": null,
+      "z": "dd/mm/yyyy",
+      "s": null
+     },
+     {
+      "a": "C3",
+      "t": "n",
+      "v": 1295.4815893928067,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     }
+    ],
+    [
+     {
+      "a": "A4",
+      "t": "s",
+      "v": "120",
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     {
+      "a": "B4",
+      "t": "s",
+      "v": "DOUBLE WHOPPER",
+      "f": null,
+      "z": "dd/mm/yyyy",
+      "s": null
+     },
+     {
+      "a": "C4",
+      "t": "n",
+      "v": 1759.0420386722744,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     }
+    ],
+    [
+     {
+      "a": "A5",
+      "t": "s",
+      "v": "130",
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     {
+      "a": "B5",
+      "t": "s",
+      "v": "WHOPPER Junior",
+      "f": null,
+      "z": "dd/mm/yyyy",
+      "s": null
+     },
+     {
+      "a": "C5",
+      "t": "n",
+      "v": 612.2214252490262,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     }
+    ],
+    [
+     {
+      "a": "A6",
+      "t": "s",
+      "v": "200112",
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     {
+      "a": "B6",
+      "t": "s",
+      "v": "BIG KING",
+      "f": null,
+      "z": "dd/mm/yyyy",
+      "s": null
+     },
+     {
+      "a": "C6",
+      "t": "n",
+      "v": 899.0533424202085,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     }
+    ],
+    [
+     {
+      "a": "A7",
+      "t": "s",
+      "v": "1102",
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     {
+      "a": "B7",
+      "t": "s",
+      "v": "BIG KING XXL",
+      "f": null,
+      "z": "dd/mm/yyyy",
+      "s": null
+     },
+     {
+      "a": "C7",
+      "t": "n",
+      "v": 1830.7744400528654,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     }
+    ],
+    [
+     {
+      "a": "A8",
+      "t": "s",
+      "v": "150111",
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     {
+      "a": "B8",
+      "t": "s",
+      "v": "DELUXE",
+      "f": null,
+      "z": "dd/mm/yyyy",
+      "s": null
+     },
+     {
+      "a": "C8",
+      "t": "n",
+      "v": 1329.873222863249,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     }
+    ],
+    [
+     {
+      "a": "A9",
+      "t": "s",
+      "v": "310",
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     {
+      "a": "B9",
+      "t": "s",
+      "v": "LONG CHICKEN",
+      "f": null,
+      "z": "dd/mm/yyyy",
+      "s": null
+     },
+     {
+      "a": "C9",
+      "t": "n",
+      "v": 821.7445666481844,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     }
+    ],
+    [
+     {
+      "a": "A10",
+      "t": "s",
+      "v": "263",
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     {
+      "a": "B10",
+      "t": "s",
+      "v": "LONG CHILI CHEESE CHICKEN",
+      "f": null,
+      "z": "dd/mm/yyyy",
+      "s": null
+     },
+     {
+      "a": "C10",
+      "t": "n",
+      "v": 1008.3313225704032,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     }
+    ],
+    [
+     {
+      "a": "A11",
+      "t": "s",
+      "v": "261",
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     {
+      "a": "B11",
+      "t": "s",
+      "v": "EXTRA LONG CHILI CHEESE",
+      "f": null,
+      "z": "dd/mm/yyyy",
+      "s": null
+     },
+     {
+      "a": "C11",
+      "t": "n",
+      "v": 1164.7802106644356,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     }
+    ],
+    [
+     {
+      "a": "A12",
+      "t": "s",
+      "v": "262",
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     {
+      "a": "B12",
+      "t": "s",
+      "v": "CHILI CHEESE BURGER",
+      "f": null,
+      "z": "dd/mm/yyyy",
+      "s": null
+     },
+     {
+      "a": "C12",
+      "t": "n",
+      "v": 714.2146984240919,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     }
+    ],
+    [
+     {
+      "a": "A13",
+      "t": "s",
+      "v": "210",
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     {
+      "a": "B13",
+      "t": "s",
+      "v": "HAMBURGER",
+      "f": null,
+      "z": "dd/mm/yyyy",
+      "s": null
+     },
+     {
+      "a": "C13",
+      "t": "n",
+      "v": 446.9692069044847,
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     }
+    ]
+   ],
+   "formulesParColonne": {},
+   "lignesRelevees": {
+    "n": 377,
+    "premier": 1,
+    "dernier": 377
+   }
+  },
+  "PMIX": {
+   "nom": "PMIX",
+   "ref": "A1:I1003",
+   "dimensions": {
+    "lignes": 1003,
+    "colonnes": 9
+   },
+   "volets": null,
+   "largeursColonnesPx": [],
+   "sautsDePage": null,
+   "entetes12Lignes": [
+    [
+     null,
+     {
+      "a": "B1",
+      "t": "s",
+      "v": "PMIX (Ventes) — BK1 · Octobre 2026",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     null,
+     null,
+     null,
+     null,
+     null,
+     {
+      "a": "H1",
+      "t": "s",
+      "v": "RÉCAP PMIX — BK1",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     null
+    ],
+    [
+     {
+      "a": "A2",
+      "t": "s",
+      "v": "Item PLU",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "B2",
+      "t": "s",
+      "v": "Item Name",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "C2",
+      "t": "s",
+      "v": "Qty Sold",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "D2",
+      "t": "s",
+      "v": "Price",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "E2",
+      "t": "s",
+      "v": "Amount",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "F2",
+      "t": "s",
+      "v": "Status",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     null,
+     {
+      "a": "H2",
+      "t": "s",
+      "v": "INDICATEUR",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     {
+      "a": "I2",
+      "t": "s",
+      "v": "VALEUR",
+      "f": null,
+      "z": "General",
+      "s": null
+     }
+    ],
+    [
+     {
+      "a": "A3",
+      "t": "s",
+      "v": "",
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     null,
+     {
+      "a": "C3",
+      "t": "s",
+      "v": "",
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     null,
+     null,
+     null,
+     null,
+     {
+      "a": "H3",
+      "t": "s",
+      "v": "Lignes saisies (PLU en A)",
+      "f": null,
+      "z": "dd/mm/yyyy",
+      "s": null
+     },
+     null
+    ],
+    [
+     {
+      "a": "A4",
+      "t": "s",
+      "v": "",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     null,
+     {
+      "a": "C4",
+      "t": "s",
+      "v": "",
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     null,
+     null,
+     null,
+     null,
+     {
+      "a": "H4",
+      "t": "s",
+      "v": "dont PLU absent du ratio",
+      "f": null,
+      "z": "dd/mm/yyyy",
+      "s": null
+     },
+     null
+    ],
+    [
+     {
+      "a": "A5",
+      "t": "s",
+      "v": "",
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     null,
+     {
+      "a": "C5",
+      "t": "s",
+      "v": "",
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     null,
+     null,
+     null,
+     null,
+     {
+      "a": "H5",
+      "t": "s",
+      "v": "TOTAL COUVERTS",
+      "f": null,
+      "z": "dd/mm/yyyy",
+      "s": null
+     },
+     null
+    ],
+    [
+     {
+      "a": "A6",
+      "t": "s",
+      "v": "",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     null,
+     {
+      "a": "C6",
+      "t": "s",
+      "v": "",
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     null,
+     null,
+     null,
+     null,
+     {
+      "a": "H6",
+      "t": "s",
+      "v": "TOTAL COÛT MATIÈRE (FCFA)",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     null
+    ],
+    [
+     {
+      "a": "A7",
+      "t": "s",
+      "v": "",
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     null,
+     {
+      "a": "C7",
+      "t": "s",
+      "v": "",
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     null,
+     null,
+     null,
+     null,
+     {
+      "a": "H7",
+      "t": "s",
+      "v": "Coût moyen / article vendu",
+      "f": null,
+      "z": "dd/mm/yyyy",
+      "s": null
+     },
+     null
+    ],
+    [
+     {
+      "a": "A8",
+      "t": "s",
+      "v": "",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     null,
+     {
+      "a": "C8",
+      "t": "s",
+      "v": "",
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     null,
+     null,
+     null,
+     null,
+     null,
+     null
+    ],
+    [
+     {
+      "a": "A9",
+      "t": "s",
+      "v": "",
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     null,
+     {
+      "a": "C9",
+      "t": "s",
+      "v": "",
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     null,
+     null,
+     null,
+     null,
+     null,
+     null
+    ],
+    [
+     {
+      "a": "A10",
+      "t": "s",
+      "v": "",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     null,
+     {
+      "a": "C10",
+      "t": "s",
+      "v": "",
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     null,
+     null,
+     null,
+     null,
+     null,
+     null
+    ],
+    [
+     {
+      "a": "A11",
+      "t": "s",
+      "v": "",
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     null,
+     {
+      "a": "C11",
+      "t": "s",
+      "v": "",
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     null,
+     null,
+     null,
+     null,
+     null,
+     null
+    ],
+    [
+     {
+      "a": "A12",
+      "t": "s",
+      "v": "",
+      "f": null,
+      "z": "General",
+      "s": null
+     },
+     null,
+     {
+      "a": "C12",
+      "t": "s",
+      "v": "",
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     null,
+     null,
+     null,
+     null,
+     null,
+     null
+    ],
+    [
+     {
+      "a": "A13",
+      "t": "s",
+      "v": "",
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     null,
+     {
+      "a": "C13",
+      "t": "s",
+      "v": "",
+      "f": null,
+      "z": "#,##0",
+      "s": null
+     },
+     null,
+     null,
+     null,
+     null,
+     null,
+     null
+    ]
+   ],
+   "formulesParColonne": {},
+   "lignesRelevees": {
+    "n": 3,
+    "premier": 1,
+    "dernier": 1003
+   }
+  }
+ },
+ "zip": {
+  "media": [
+   {
+    "chemin": "xl/media/",
+    "octets": null
+   },
+   {
+    "chemin": "xl/media/logo_bk_servair.png",
+    "octets": 12844
+   }
+  ],
+  "drawingsParFeuille": {
+   "xl/worksheets/sheet1.xml": {
+    "drawing": true,
+    "dimension": "A1:O333",
+    "pane": "<pane xSplit=\"3\" ySplit=\"6\" topLeftCell=\"D7\" activePane=\"bottomRight\" state=\"frozen\"/>",
+    "mergeCells": 12,
+    "frozenCol": true,
+    "imageAnchres": 0
+   },
+   "xl/worksheets/sheet2.xml": {
+    "drawing": true,
+    "dimension": "A1:O333",
+    "pane": "<pane xSplit=\"3\" ySplit=\"6\" topLeftCell=\"D7\" activePane=\"bottomRight\" state=\"frozen\"/>",
+    "mergeCells": 12,
+    "frozenCol": true,
+    "imageAnchres": 0
+   },
+   "xl/worksheets/sheet3.xml": {
+    "drawing": true,
+    "dimension": "A1:O20021",
+    "pane": "<pane xSplit=\"3\" ySplit=\"4\" topLeftCell=\"D5\" activePane=\"bottomRight\" state=\"frozen\"/>",
+    "mergeCells": 6,
+    "frozenCol": true,
+    "imageAnchres": 0
+   },
+   "xl/worksheets/sheet4.xml": {
+    "drawing": false,
+    "dimension": "A1:F634",
+    "pane": null,
+    "mergeCells": 0,
+    "frozenCol": false,
+    "imageAnchres": 0
+   },
+   "xl/worksheets/sheet5.xml": {
+    "drawing": true,
+    "dimension": "A1:AO193",
+    "pane": "<pane xSplit=\"9\" ySplit=\"4\" topLeftCell=\"J5\" activePane=\"bottomRight\" state=\"frozen\"/>",
+    "mergeCells": 5,
+    "frozenCol": true,
+    "imageAnchres": 0
+   },
+   "xl/worksheets/sheet6.xml": {
+    "drawing": true,
+    "dimension": "A1:I205",
+    "pane": null,
+    "mergeCells": 4,
+    "frozenCol": false,
+    "imageAnchres": 0
+   },
+   "xl/worksheets/sheet7.xml": {
+    "drawing": true,
+    "dimension": "A1:H3",
+    "pane": null,
+    "mergeCells": 1,
+    "frozenCol": false,
+    "imageAnchres": 0
+   },
+   "xl/worksheets/sheet8.xml": {
+    "drawing": false,
+    "dimension": "A1:C377",
+    "pane": null,
+    "mergeCells": 0,
+    "frozenCol": false,
+    "imageAnchres": 0
+   },
+   "xl/worksheets/sheet9.xml": {
+    "drawing": true,
+    "dimension": "A1:I1003",
+    "pane": null,
+    "mergeCells": 2,
+    "frozenCol": false,
+    "imageAnchres": 0
+   }
+  },
+  "feuillesTrouvees": 9
+ }
+}

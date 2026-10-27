@@ -1,0 +1,36 @@
+D=1500 > 1000 pour 518852 — dérivation E bloquée, à corriger dans le fichier CDG
+D=4000 > 1000 pour SFP4000 — dérivation E bloquée, à corriger dans le fichier CDG
+D=2000 > 1000 pour SSM30700 — dérivation E bloquée, à corriger dans le fichier CDG
+D=4000 > 1000 pour SSM30700 — dérivation E bloquée, à corriger dans le fichier CDG
+
+═══ Inventaire Initial ═══ plage A1:O333 | tableau L7:L324 (318 lignes retenues sur 318 candidate(s)) | TOTAL STOCK ligne 325
+ligne 327 | C="Boissons" | D=SUMIF($A$7:$A$324,C327,$L$7:$L$324) | E=- | z=_(* #,##0_);_(* (#,##0);_(* "-"??_);_(@_) | gras=non/?pt | wrap=non
+ligne 328 | C="Nourriture - Surgelé" | D=SUMIF($A$7:$A$324,C328,$L$7:$L$324) | E=SUM(D328:D330) | z=_(* #,##0_);_(* (#,##0);_(* "-"??_);_(@_) | gras=non/?pt | wrap=non
+ligne 329 | C="Nourriture - Frais" | D=SUMIF($A$7:$A$324,C329,$L$7:$L$324) | E=0 | z=_(* #,##0_);_(* (#,##0);_(* "-"??_);_(@_) | gras=non/?pt | wrap=non
+ligne 330 | C="Nourriture - Sec" | D=SUMIF($A$7:$A$324,C330,$L$7:$L$324) | E=0 | z=_(* #,##0_);_(* (#,##0);_(* "-"??_);_(@_) | gras=non/?pt | wrap=non
+ligne 331 | C="Packaging" | D=SUMIF($A$7:$A$324,C331,$L$7:$L$324) | E=- | z=_(* #,##0_);_(* (#,##0);_(* "-"??_);_(@_) | gras=non/?pt | wrap=non
+ligne 332 | C="Produits de Nettoyage" | D=SUMIF($A$7:$A$324,C332,$L$7:$L$324) | E=- | z=_(* #,##0_);_(* (#,##0);_(* "-"??_);_(@_) | gras=non/?pt | wrap=non
+ligne 333 | C="TOTAL" | D=SUM(D327:D332) | E=L325-D333 | z=_(* #,##0_);_(* (#,##0);_(* "-"??_);_(@_) | gras=non/?pt | wrap=non
+fusion E : [{"s":{"c":4,"r":327},"e":{"c":4,"r":329}}]
+
+═══ Inventaire Final ═══ plage A1:O333 | tableau L7:L324 (318 lignes retenues sur 318 candidate(s)) | TOTAL STOCK ligne 325
+ligne 327 | C="Boissons" | D=SUMIF($A$7:$A$324,C327,$L$7:$L$324) | E=- | z=_(* #,##0_);_(* (#,##0);_(* "-"??_);_(@_) | gras=non/?pt | wrap=non
+ligne 328 | C="Nourriture - Surgelé" | D=SUMIF($A$7:$A$324,C328,$L$7:$L$324) | E=SUM(D328:D330) | z=_(* #,##0_);_(* (#,##0);_(* "-"??_);_(@_) | gras=non/?pt | wrap=non
+ligne 329 | C="Nourriture - Frais" | D=SUMIF($A$7:$A$324,C329,$L$7:$L$324) | E=0 | z=_(* #,##0_);_(* (#,##0);_(* "-"??_);_(@_) | gras=non/?pt | wrap=non
+ligne 330 | C="Nourriture - Sec" | D=SUMIF($A$7:$A$324,C330,$L$7:$L$324) | E=0 | z=_(* #,##0_);_(* (#,##0);_(* "-"??_);_(@_) | gras=non/?pt | wrap=non
+ligne 331 | C="Packaging" | D=SUMIF($A$7:$A$324,C331,$L$7:$L$324) | E=- | z=_(* #,##0_);_(* (#,##0);_(* "-"??_);_(@_) | gras=non/?pt | wrap=non
+ligne 332 | C="Produits de Nettoyage" | D=SUMIF($A$7:$A$324,C332,$L$7:$L$324) | E=- | z=_(* #,##0_);_(* (#,##0);_(* "-"??_);_(@_) | gras=non/?pt | wrap=non
+ligne 333 | C="TOTAL" | D=SUM(D327:D332) | E=L325-D333 | z=_(* #,##0_);_(* (#,##0);_(* "-"??_);_(@_) | gras=non/?pt | wrap=non
+fusion E : [{"s":{"c":4,"r":327},"e":{"c":4,"r":329}}]
+
+total lignes du tableau relu : 318
+
+═══ 0 lignes hors des 6 libellés ═══
+
+═══ catégories écrites en colonne A ═══
+"Packaging" : 78
+"Produits de Nettoyage" : 70
+"Nourriture - Sec" : 64
+"Nourriture - Surgelé" : 47
+"Boissons" : 39
+"Nourriture - Frais" : 20

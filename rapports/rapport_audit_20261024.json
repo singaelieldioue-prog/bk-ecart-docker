@@ -1,0 +1,3433 @@
+{
+  "audit": "referentiel-bk-ecart-matieres",
+  "date": "2026-10-24T01:05:09",
+  "db": "C:\\Users\\arnaud.nzue\\Downloads\\files (12)\\bk-ecart-docker28082026\\backend\\data.db",
+  "exemplaire": "C:\\Users\\arnaud.nzue\\Downloads\\files (12)\\bk-ecart-docker28082026\\frontend\\public\\exemple inventaire.xlsx",
+  "metriques": {
+    "articles_bruts": 903,
+    "inactifs": 0,
+    "dedup_actifs": 621,
+    "whitelist_lignes": 318,
+    "whitelist_apparies": 312,
+    "actifs_exclus": 308,
+    "apparies_sans_prix": 31,
+    "lignes_non_appariees": 6,
+    "incoherences_prix": 41,
+    "incoherences_arrondies": 26,
+    "prix_suspects": 1,
+    "cdt_non_parsables": 1,
+    "lignes_parasites": 2
+  },
+  "attendu": {
+    "articles_bruts": 903,
+    "inactifs": 0,
+    "dedup_actifs": 621,
+    "whitelist_lignes": 318,
+    "actifs_exclus": 308,
+    "apparies_sans_prix": 31,
+    "lignes_non_appariees": 6,
+    "incoherences_prix": 41,
+    "incoherences_arrondies": 26,
+    "prix_suspects": 1,
+    "cdt_non_parsables": 10,
+    "lignes_parasites": 2
+  },
+  "ecarts_vs_attendu": [
+    {
+      "Cle": "cdt_non_parsables",
+      "Attendu": 10,
+      "Obtenu": 1
+    }
+  ],
+  "alerte": true,
+  "listes": {
+    "actifs_exclus": [
+      {
+        "nom": "BKCI-BIERE",
+        "code": "BKCI BIERE",
+        "categorie": "Boissons",
+        "conditionnement": 12.0,
+        "pu_carton": 17474.694480000002,
+        "pu_piece": 1456.2245400000002
+      },
+      {
+        "nom": "BKCI-BIERE 50CL",
+        "code": "BKCI BIERE 50CL",
+        "categorie": "Boissons",
+        "conditionnement": 24.0,
+        "pu_carton": 15396.622704000001,
+        "pu_piece": 641.5259460000001
+      },
+      {
+        "nom": "BKCI-COCA COLA",
+        "code": "BKCI COCA COLA",
+        "categorie": "Boissons",
+        "conditionnement": 1.0,
+        "pu_carton": 127.47175141242938,
+        "pu_piece": 127.47175141242938
+      },
+      {
+        "nom": "BKCI-COCA COLA Z",
+        "code": "BKCI COCA COLA Z",
+        "categorie": "Boissons",
+        "conditionnement": 1.0,
+        "pu_carton": 107.34463276836159,
+        "pu_piece": 107.34463276836159
+      },
+      {
+        "nom": "BKCI-EAU12",
+        "code": "BKCI EAU12",
+        "categorie": "Boissons",
+        "conditionnement": 12.0,
+        "pu_carton": 966.0,
+        "pu_piece": 81.0
+      },
+      {
+        "nom": "BKCI-FANTA",
+        "code": "BKCI FANTA",
+        "categorie": "Boissons",
+        "conditionnement": 24.0,
+        "pu_carton": 7950.0,
+        "pu_piece": 331.0
+      },
+      {
+        "nom": "BKCI-SPRITE",
+        "code": "BKCI SPRITE",
+        "categorie": "Boissons",
+        "conditionnement": 24.0,
+        "pu_carton": 7950.0,
+        "pu_piece": 331.0
+      },
+      {
+        "nom": "BKDA200",
+        "code": "BKDA200",
+        "categorie": "Boissons",
+        "conditionnement": 24.0,
+        "pu_carton": 3051.0,
+        "pu_piece": 127.0
+      },
+      {
+        "nom": "BKDM200",
+        "code": "BKDM200",
+        "categorie": "Boissons",
+        "conditionnement": 24.0,
+        "pu_carton": 3051.0,
+        "pu_piece": 127.0
+      },
+      {
+        "nom": "BKDO200",
+        "code": "BKDO200",
+        "categorie": "Boissons",
+        "conditionnement": 24.0,
+        "pu_carton": 3051.0,
+        "pu_piece": 127.0
+      },
+      {
+        "nom": "BKDP200",
+        "code": "BKDP200",
+        "categorie": "Boissons",
+        "conditionnement": 24.0,
+        "pu_carton": 3051.0,
+        "pu_piece": 127.0
+      },
+      {
+        "nom": "CAFE EN GRAINS",
+        "code": "681627",
+        "categorie": "Boissons",
+        "conditionnement": 1.0,
+        "pu_carton": 13729.0,
+        "pu_piece": 13729.0
+      },
+      {
+        "nom": "CAFG02",
+        "code": "CAFG02",
+        "categorie": "Boissons",
+        "conditionnement": 1.0,
+        "pu_carton": 3432.0,
+        "pu_piece": 3432.0
+      },
+      {
+        "nom": "CANETTE PRESSEA ANANAS 250 ML",
+        "code": "BKCIPA",
+        "categorie": "Boissons",
+        "conditionnement": 24.0,
+        "pu_carton": 8100.0,
+        "pu_piece": 337.5
+      },
+      {
+        "nom": "CANETTE PRESSEA COCO-ANANAS 250 ML",
+        "code": "BKCIPCA",
+        "categorie": "Boissons",
+        "conditionnement": 24.0,
+        "pu_carton": 8100.0,
+        "pu_piece": 337.5
+      },
+      {
+        "nom": "CANETTE PRESSEA ORANGE 250 ML",
+        "code": "BKCIPO",
+        "categorie": "Boissons",
+        "conditionnement": 24.0,
+        "pu_carton": 8100.0,
+        "pu_piece": 337.5
+      },
+      {
+        "nom": "EAU KIREN 50cl 12",
+        "code": "BKCI-EAUK12",
+        "categorie": "Boissons",
+        "conditionnement": 12.0,
+        "pu_carton": 966.0,
+        "pu_piece": 80.5
+      },
+      {
+        "nom": "LEB-PROSUMA",
+        "code": "LEB PROSUMA",
+        "categorie": "Boissons",
+        "conditionnement": 1.0,
+        "pu_carton": null,
+        "pu_piece": null
+      },
+      {
+        "nom": "LEB-PROSUMA_05",
+        "code": "LEB PROSUMA 05",
+        "categorie": "Boissons",
+        "conditionnement": 1.0,
+        "pu_carton": null,
+        "pu_piece": null
+      },
+      {
+        "nom": "LEB-PROSUMA_06",
+        "code": "LEB PROSUMA 06",
+        "categorie": "Boissons",
+        "conditionnement": 1.0,
+        "pu_carton": null,
+        "pu_piece": null
+      },
+      {
+        "nom": "PFF000339",
+        "code": "PFF000339",
+        "categorie": "Boissons",
+        "conditionnement": 1.0,
+        "pu_carton": null,
+        "pu_piece": null
+      },
+      {
+        "nom": "PFF000340",
+        "code": "PFF000340",
+        "categorie": "Boissons",
+        "conditionnement": 1.0,
+        "pu_carton": null,
+        "pu_piece": null
+      },
+      {
+        "nom": "Code article Bolloré",
+        "code": "CODE ARTICLE BOLLORE",
+        "categorie": "Catégorie",
+        "conditionnement": 1.0,
+        "pu_carton": null,
+        "pu_piece": null
+      },
+      {
+        "nom": "AUTOCOLLANTS LIVRAISON",
+        "code": "IFB011",
+        "categorie": "IFB",
+        "conditionnement": 1.0,
+        "pu_carton": 5000.0,
+        "pu_piece": 5000.0
+      },
+      {
+        "nom": "AUTOCOLLANTS LIVRAISON 1000",
+        "code": "IFB014",
+        "categorie": "IFB",
+        "conditionnement": 1000.0,
+        "pu_carton": 5000.0,
+        "pu_piece": 5.0
+      },
+      {
+        "nom": "CAHIER PASSATION FOND DE CAISSE",
+        "code": "IFB001",
+        "categorie": "IFB",
+        "conditionnement": 1.0,
+        "pu_carton": 3500.0,
+        "pu_piece": 3500.0
+      },
+      {
+        "nom": "CAHIERS DE DEPOT AU COFFRE",
+        "code": "IFB002",
+        "categorie": "IFB",
+        "conditionnement": 1.0,
+        "pu_carton": 3500.0,
+        "pu_piece": 3500.0
+      },
+      {
+        "nom": "CARNET BORDEREAU DE RECETTE",
+        "code": "IFB003",
+        "categorie": "IFB",
+        "conditionnement": 1.0,
+        "pu_carton": 5000.0,
+        "pu_piece": 5000.0
+      },
+      {
+        "nom": "CARNET DE RAPPORT D'ABSENCE",
+        "code": "IFB/N",
+        "categorie": "IFB",
+        "conditionnement": 1.0,
+        "pu_carton": 3000.0,
+        "pu_piece": 3000.0
+      },
+      {
+        "nom": "CARNET DE RAPPORT D'ABSENCE",
+        "code": "CARNET DE RAPPORT DABSENCE",
+        "categorie": "IFB",
+        "conditionnement": 1.0,
+        "pu_carton": 3000.0,
+        "pu_piece": 3000.0
+      },
+      {
+        "nom": "CARNET FACTURE CASH",
+        "code": "IFB005",
+        "categorie": "IFB",
+        "conditionnement": 1.0,
+        "pu_carton": 3000.0,
+        "pu_piece": 3000.0
+      },
+      {
+        "nom": "CHINA MARKER",
+        "code": "IFB007",
+        "categorie": "IFB",
+        "conditionnement": 12.0,
+        "pu_carton": 6120.0,
+        "pu_piece": 510.0
+      },
+      {
+        "nom": "ENVELOPPES DE CAISSE",
+        "code": "IFB008",
+        "categorie": "IFB",
+        "conditionnement": 500.0,
+        "pu_carton": 30000.0,
+        "pu_piece": 60.0
+      },
+      {
+        "nom": "ROULEAU  NCR",
+        "code": "IFB018",
+        "categorie": "IFB",
+        "conditionnement": 1.0,
+        "pu_carton": 6048.0,
+        "pu_piece": 6048.0
+      },
+      {
+        "nom": "ROULEAU CAISSE THERMIQUE",
+        "code": "IFB010",
+        "categorie": "IFB",
+        "conditionnement": 1.0,
+        "pu_carton": 750.0,
+        "pu_piece": 750.0
+      },
+      {
+        "nom": "ROULEAU CAISSE THERMIQUE HOSAMED",
+        "code": "IFB016A",
+        "categorie": "IFB",
+        "conditionnement": 1.0,
+        "pu_carton": 1000.0,
+        "pu_piece": 1000.0
+      },
+      {
+        "nom": "ROULEAU CAISSE THERMIQUE PSHOP",
+        "code": "IFB016",
+        "categorie": "IFB",
+        "conditionnement": 1.0,
+        "pu_carton": 1000.0,
+        "pu_piece": 1000.0
+      },
+      {
+        "nom": "ROULEAU CAISSE THERMIQUE SCB",
+        "code": "IFB015",
+        "categorie": "IFB",
+        "conditionnement": 1.0,
+        "pu_carton": 750.0,
+        "pu_piece": 750.0
+      },
+      {
+        "nom": "ROULEAU ETIQUETTES NCR",
+        "code": "IFB012",
+        "categorie": "IFB",
+        "conditionnement": 1.0,
+        "pu_carton": 6048.0,
+        "pu_piece": 6048.0
+      },
+      {
+        "nom": "ROULEAU S.M.J.",
+        "code": "IFB009",
+        "categorie": "IFB",
+        "conditionnement": 1.0,
+        "pu_carton": 3129.0,
+        "pu_piece": 3129.0
+      },
+      {
+        "nom": "ROULEAU S.M.J. 1000",
+        "code": "IFB013",
+        "categorie": "IFB",
+        "conditionnement": 1.0,
+        "pu_carton": 1300.0,
+        "pu_piece": 1300.0
+      },
+      {
+        "nom": "CHILI CHEESE PATTY",
+        "code": "BKFR22CCP",
+        "categorie": "Nourriture",
+        "conditionnement": 47.0,
+        "pu_carton": 24479.003326000002,
+        "pu_piece": 520.8298580000001
+      },
+      {
+        "nom": "CONE GLACE - Vida Longa",
+        "code": "BK-CG-VL",
+        "categorie": "Nourriture",
+        "conditionnement": 800.0,
+        "pu_carton": 26753.874660420614,
+        "pu_piece": 48.64340847349202
+      },
+      {
+        "nom": "GAUFRE BELGE",
+        "code": "BKFR23",
+        "categorie": "Nourriture",
+        "conditionnement": 60.0,
+        "pu_carton": 21607.22358,
+        "pu_piece": 360.12039300000004
+      },
+      {
+        "nom": "HAMBURGER PATTY - Carpisa",
+        "code": "BKFR05",
+        "categorie": "Nourriture",
+        "conditionnement": 320.0,
+        "pu_carton": 58905.363356309645,
+        "pu_piece": 245.43901398462353
+      },
+      {
+        "nom": "HUILE ALTIVOLEICO",
+        "code": "62476",
+        "categorie": "Nourriture",
+        "conditionnement": 35.0,
+        "pu_carton": 34411.69529515912,
+        "pu_piece": 22.94113019677275
+      },
+      {
+        "nom": "HUILE AYA 5 L",
+        "code": "A5L",
+        "categorie": "Nourriture",
+        "conditionnement": 45.0,
+        "pu_carton": 21186.440677966104,
+        "pu_piece": 847.4576271186442
+      },
+      {
+        "nom": "HUILE DE FRITEUSE",
+        "code": "1002976",
+        "categorie": "Nourriture",
+        "conditionnement": 27.5,
+        "pu_carton": 21186.440677966104,
+        "pu_piece": 847.4576271186442
+      },
+      {
+        "nom": "HUILE DINOR 20 L",
+        "code": "3000978",
+        "categorie": "Nourriture",
+        "conditionnement": 20.0,
+        "pu_carton": 21186.440677966104,
+        "pu_piece": 847.4576271186442
+      },
+      {
+        "nom": "HUILE SANIA 20 L",
+        "code": "3000991",
+        "categorie": "Nourriture",
+        "conditionnement": 20.0,
+        "pu_carton": 21186.440677966104,
+        "pu_piece": 847.4576271186442
+      },
+      {
+        "nom": "HUILE SANIA 25 L",
+        "code": "3000991B",
+        "categorie": "Nourriture",
+        "conditionnement": 25.0,
+        "pu_carton": 21186.440677966104,
+        "pu_piece": 847.4576271186442
+      },
+      {
+        "nom": "JALAPENOS - Conway",
+        "code": "950766",
+        "categorie": "Nourriture",
+        "conditionnement": 15864.0,
+        "pu_carton": 21186.440677966104,
+        "pu_piece": 847.4576271186442
+      },
+      {
+        "nom": "OIGNONS EPLUCHES",
+        "code": "ONIONEP",
+        "categorie": "Nourriture",
+        "conditionnement": 1.0,
+        "pu_carton": 800.0,
+        "pu_piece": 800.0
+      },
+      {
+        "nom": "OREO CAKE",
+        "code": "ORCA02090",
+        "categorie": "Nourriture",
+        "conditionnement": 24.0,
+        "pu_carton": 16955.176536,
+        "pu_piece": 706.465689
+      },
+      {
+        "nom": "REBEL WHOPPER PATTY",
+        "code": "RWP30002",
+        "categorie": "Nourriture",
+        "conditionnement": 100.0,
+        "pu_carton": null,
+        "pu_piece": null
+      },
+      {
+        "nom": "SALADE ICEBERG - (06) Boules",
+        "code": "SALADICE06",
+        "categorie": "Nourriture",
+        "conditionnement": 64.0,
+        "pu_carton": 6877.335269677682,
+        "pu_piece": 6877.335269677682
+      },
+      {
+        "nom": "SALADE ICEBERG - Boule",
+        "code": "SALADICE",
+        "categorie": "Nourriture",
+        "conditionnement": 106.5,
+        "pu_carton": 6877.335269677682,
+        "pu_piece": 6877.335269677682
+      },
+      {
+        "nom": "SALADE ICEBERG - Boule (BFM)",
+        "code": "SALADEBFM",
+        "categorie": "Nourriture",
+        "conditionnement": 106.5,
+        "pu_carton": 6877.335269677682,
+        "pu_piece": 6877.335269677682
+      },
+      {
+        "nom": "SALADE TREVISE - Boule",
+        "code": "SALADTRE",
+        "categorie": "Nourriture",
+        "conditionnement": 1000.0,
+        "pu_carton": 4874840.030714103,
+        "pu_piece": 4874.840030714103
+      },
+      {
+        "nom": "SIROP MILKSHAKE CHOCOLAT",
+        "code": "118869",
+        "categorie": "Nourriture",
+        "conditionnement": 63.0,
+        "pu_carton": null,
+        "pu_piece": null
+      },
+      {
+        "nom": "SIROP MILKSHAKE FRAISE",
+        "code": "118851",
+        "categorie": "Nourriture",
+        "conditionnement": 63.0,
+        "pu_carton": null,
+        "pu_piece": null
+      },
+      {
+        "nom": "SIROP MS CARAMEL SALE MONIN",
+        "code": "MONINSCSEL",
+        "categorie": "Nourriture",
+        "conditionnement": 43.0,
+        "pu_carton": 50847.458000000006,
+        "pu_piece": 6725.854232804234
+      },
+      {
+        "nom": "SIROP MS CHOCOLAT MONIN",
+        "code": "MONINSCHOC",
+        "categorie": "Nourriture",
+        "conditionnement": 43.0,
+        "pu_carton": 50847.458000000006,
+        "pu_piece": 6725.854232804234
+      },
+      {
+        "nom": "SUCRE PETILLANT FRAISE",
+        "code": "BKSUPEF240",
+        "categorie": "Nourriture",
+        "conditionnement": 240.0,
+        "pu_carton": 28652.20176,
+        "pu_piece": 119.384174
+      },
+      {
+        "nom": "TOMATE PFI",
+        "code": "TOMATEPFI02",
+        "categorie": "Nourriture",
+        "conditionnement": 1.0,
+        "pu_carton": 65.625,
+        "pu_piece": 65.625
+      },
+      {
+        "nom": "WHOPPER PATTY  - Carpisa",
+        "code": "BKFR06",
+        "categorie": "Nourriture",
+        "conditionnement": 150.0,
+        "pu_carton": 63636.60664292222,
+        "pu_piece": 568.1839878832341
+      },
+      {
+        "nom": "ŒUFS FRITS",
+        "code": "BKFR33",
+        "categorie": "Nourriture",
+        "conditionnement": 100.0,
+        "pu_carton": 45024.88848,
+        "pu_piece": 375.207404
+      },
+      {
+        "nom": "CHEDBRI12",
+        "code": "CHEDBRI12",
+        "categorie": "Nourriture - Frais",
+        "conditionnement": 1.0,
+        "pu_carton": null,
+        "pu_piece": null
+      },
+      {
+        "nom": "CHEDBRI360",
+        "code": "CHEDBRI360",
+        "categorie": "Nourriture - Frais",
+        "conditionnement": 1.0,
+        "pu_carton": null,
+        "pu_piece": null
+      },
+      {
+        "nom": "CHEDEMB240",
+        "code": "CHEDEMB240",
+        "categorie": "Nourriture - Frais",
+        "conditionnement": 1.0,
+        "pu_carton": null,
+        "pu_piece": null
+      },
+      {
+        "nom": "CHEDHAM360",
+        "code": "CHEDHAM360",
+        "categorie": "Nourriture - Frais",
+        "conditionnement": 1.0,
+        "pu_carton": null,
+        "pu_piece": null
+      },
+      {
+        "nom": "CHEDHAM360M",
+        "code": "CHEDHAM360M",
+        "categorie": "Nourriture - Frais",
+        "conditionnement": 1.0,
+        "pu_carton": null,
+        "pu_piece": null
+      },
+      {
+        "nom": "CHEDHAP12",
+        "code": "CHEDHAP12",
+        "categorie": "Nourriture - Frais",
+        "conditionnement": 1.0,
+        "pu_carton": null,
+        "pu_piece": null
+      },
+      {
+        "nom": "CHEDMEHDI12",
+        "code": "CHEDMEHDI12",
+        "categorie": "Nourriture - Frais",
+        "conditionnement": 1.0,
+        "pu_carton": null,
+        "pu_piece": null
+      },
+      {
+        "nom": "CHEDPLS10",
+        "code": "CHEDPLS10",
+        "categorie": "Nourriture - Frais",
+        "conditionnement": 1.0,
+        "pu_carton": null,
+        "pu_piece": null
+      },
+      {
+        "nom": "CHEDSMED12",
+        "code": "CHEDSMED12",
+        "categorie": "Nourriture - Frais",
+        "conditionnement": 1.0,
+        "pu_carton": null,
+        "pu_piece": null
+      },
+      {
+        "nom": "CHEDWEL10",
+        "code": "CHEDWEL10",
+        "categorie": "Nourriture - Frais",
+        "conditionnement": 1.0,
+        "pu_carton": null,
+        "pu_piece": null
+      },
+      {
+        "nom": "CHEDWEL220",
+        "code": "CHEDWEL220",
+        "categorie": "Nourriture - Frais",
+        "conditionnement": 1.0,
+        "pu_carton": null,
+        "pu_piece": null
+      },
+      {
+        "nom": "SALADE CHOUX CHINOIS - Boule",
+        "code": "SALADCHX",
+        "categorie": "Nourriture - Frais",
+        "conditionnement": 1.0,
+        "pu_carton": 23920.0,
+        "pu_piece": 23920.0
+      },
+      {
+        "nom": "SALADE ICEBERG - Boule (DJOLI)",
+        "code": "SALADESDJO",
+        "categorie": "Nourriture - Frais",
+        "conditionnement": 1.0,
+        "pu_carton": 35000.0,
+        "pu_piece": 35000.0
+      },
+      {
+        "nom": "SALADE ICEBERG â DELICE",
+        "code": "SALDEL",
+        "categorie": "Nourriture - Frais",
+        "conditionnement": 1.0,
+        "pu_carton": 32000.0,
+        "pu_piece": 32000.0
+      },
+      {
+        "nom": "SALADE ICEBERG â PROSUMA",
+        "code": "SALPRO",
+        "categorie": "Nourriture - Frais",
+        "conditionnement": 1.0,
+        "pu_carton": 40000.0,
+        "pu_piece": 40000.0
+      },
+      {
+        "nom": "TOMAPFI00",
+        "code": "TOMAPFI00",
+        "categorie": "Nourriture - Frais",
+        "conditionnement": 1.0,
+        "pu_carton": null,
+        "pu_piece": null
+      },
+      {
+        "nom": "CONCOMBRES MARINES",
+        "code": "CCBMAR",
+        "categorie": "Nourriture - Sec",
+        "conditionnement": 1.0,
+        "pu_carton": 8475.0,
+        "pu_piece": 8475.0
+      },
+      {
+        "nom": "JALAPENOS MEDHY 2",
+        "code": "MEHDI",
+        "categorie": "Nourriture - Sec",
+        "conditionnement": 6.0,
+        "pu_carton": 6000.0,
+        "pu_piece": 1000.0
+      },
+      {
+        "nom": "OIGNONS FRITS KHUNE (CIVADIS)",
+        "code": "KHUFRIONCIV",
+        "categorie": "Nourriture - Sec",
+        "conditionnement": 1.0,
+        "pu_carton": 1400.0,
+        "pu_piece": 1400.0
+      },
+      {
+        "nom": "SAUCE SALADE YAOURT",
+        "code": "950311",
+        "categorie": "Nourriture - Sec",
+        "conditionnement": 30.0,
+        "pu_carton": 6573.0,
+        "pu_piece": 219.1
+      },
+      {
+        "nom": "SIROP MS CAFE MONIN",
+        "code": "MONINSCAFE",
+        "categorie": "Nourriture - Sec",
+        "conditionnement": 1.0,
+        "pu_carton": 102591.67480000001,
+        "pu_piece": null
+      },
+      {
+        "nom": "SRV258822",
+        "code": "SRV258822",
+        "categorie": "Nourriture - Sec",
+        "conditionnement": 1.0,
+        "pu_carton": 22192.0,
+        "pu_piece": 22192.0
+      },
+      {
+        "nom": "SRV58185",
+        "code": "SRV58185",
+        "categorie": "Nourriture - Sec",
+        "conditionnement": 1.0,
+        "pu_carton": 37288.0,
+        "pu_piece": 37288.0
+      },
+      {
+        "nom": "SUCRE BUCHETTE 100",
+        "code": "BKSUC100",
+        "categorie": "Nourriture - Sec",
+        "conditionnement": 1.0,
+        "pu_carton": null,
+        "pu_piece": 9.8
+      },
+      {
+        "nom": "SUCRE BUCHETTE 200",
+        "code": "BKSUC200",
+        "categorie": "Nourriture - Sec",
+        "conditionnement": 1.0,
+        "pu_carton": null,
+        "pu_piece": 9.8
+      },
+      {
+        "nom": "VINAIGRETTE CRUDITE (500 ml)",
+        "code": "VCRU500",
+        "categorie": "Nourriture - Sec",
+        "conditionnement": 1.0,
+        "pu_carton": null,
+        "pu_piece": null
+      },
+      {
+        "nom": "VINAIGRETTE ECHALOTE U (500 ml)",
+        "code": "VEU500",
+        "categorie": "Nourriture - Sec",
+        "conditionnement": 12.0,
+        "pu_carton": 46474.620801539706,
+        "pu_piece": 3872.8850667949755
+      },
+      {
+        "nom": "VINAIGRETTE MOUTARDE (500 ml)",
+        "code": "VM500",
+        "categorie": "Nourriture - Sec",
+        "conditionnement": 1.0,
+        "pu_carton": null,
+        "pu_piece": null
+      },
+      {
+        "nom": "VINAIGRETTE MOUTARDE U (500 ml)",
+        "code": "VMU500",
+        "categorie": "Nourriture - Sec",
+        "conditionnement": 1.0,
+        "pu_carton": null,
+        "pu_piece": null
+      },
+      {
+        "nom": "ANGRY ONIONS",
+        "code": "ANON07451",
+        "categorie": "Nourriture - Surgelé",
+        "conditionnement": 1.0,
+        "pu_carton": null,
+        "pu_piece": null
+      },
+      {
+        "nom": "BEEF BACON",
+        "code": "BKFR35",
+        "categorie": "Nourriture - Surgelé",
+        "conditionnement": 1.0,
+        "pu_carton": null,
+        "pu_piece": null
+      },
+      {
+        "nom": "BKFR12SN",
+        "code": "BKFR12SN",
+        "categorie": "Nourriture - Surgelé",
+        "conditionnement": 1.0,
+        "pu_carton": null,
+        "pu_piece": null
+      },
+      {
+        "nom": "BKFR29B",
+        "code": "BKFR29B",
+        "categorie": "Nourriture - Surgelé",
+        "conditionnement": 1.0,
+        "pu_carton": null,
+        "pu_piece": null
+      },
+      {
+        "nom": "BROWNIE",
+        "code": "BR20965035",
+        "categorie": "Nourriture - Surgelé",
+        "conditionnement": 60.0,
+        "pu_carton": 16453.660542788784,
+        "pu_piece": 274.2276757131464
+      },
+      {
+        "nom": "BUN 5'' Nougatine",
+        "code": "LOFRRNO5",
+        "categorie": "Nourriture - Surgelé",
+        "conditionnement": 54.0,
+        "pu_carton": 7560.0,
+        "pu_piece": 140.0
+      },
+      {
+        "nom": "BUN 7'' NOUGATINE",
+        "code": "LOCFRNO",
+        "categorie": "Nourriture - Surgelé",
+        "conditionnement": 75.0,
+        "pu_carton": 9375.0,
+        "pu_piece": 125.0
+      },
+      {
+        "nom": "DONUT - CHOCOLAT",
+        "code": "BKFR32",
+        "categorie": "Nourriture - Surgelé",
+        "conditionnement": 1.0,
+        "pu_carton": null,
+        "pu_piece": null
+      },
+      {
+        "nom": "MUFFIN - BLUEBERRY CRUMBLE",
+        "code": "BKFR31",
+        "categorie": "Nourriture - Surgelé",
+        "conditionnement": 1.0,
+        "pu_carton": null,
+        "pu_piece": null
+      },
+      {
+        "nom": "MUFFIN - FRUITS ROUGE (24 pièces)",
+        "code": "BKFR30B",
+        "categorie": "Nourriture - Surgelé",
+        "conditionnement": 24.0,
+        "pu_carton": 40243.8371596523,
+        "pu_piece": 1676.8265483188459
+      },
+      {
+        "nom": "MUFFIN - FRUITS ROUGES",
+        "code": "BKFR30",
+        "categorie": "Nourriture - Surgelé",
+        "conditionnement": 1.0,
+        "pu_carton": null,
+        "pu_piece": null
+      },
+      {
+        "nom": "NUGGETS (FARMOR)",
+        "code": "BKFR12",
+        "categorie": "Nourriture - Surgelé",
+        "conditionnement": 800.0,
+        "pu_carton": 27853.445532646052,
+        "pu_piece": 34.81680691580757
+      },
+      {
+        "nom": "NUGGETS (MEHDI)",
+        "code": "MEHDIFR12",
+        "categorie": "Nourriture - Surgelé",
+        "conditionnement": 660.0,
+        "pu_carton": 49519.0,
+        "pu_piece": 75.0
+      },
+      {
+        "nom": "ONION RINGS (LOCAL)",
+        "code": "ONRILOC01",
+        "categorie": "Nourriture - Surgelé",
+        "conditionnement": 635.0,
+        "pu_carton": 17779.0,
+        "pu_piece": 28.0
+      },
+      {
+        "nom": "SPICY CHICKEN ROYAL",
+        "code": "BKFR38",
+        "categorie": "Nourriture - Surgelé",
+        "conditionnement": 1.0,
+        "pu_carton": null,
+        "pu_piece": null
+      },
+      {
+        "nom": "SVRFR12",
+        "code": "SVRFR12",
+        "categorie": "Nourriture - Surgelé",
+        "conditionnement": 1.0,
+        "pu_carton": null,
+        "pu_piece": null
+      },
+      {
+        "nom": "TENDERGRILL PATTY",
+        "code": "BKFR14",
+        "categorie": "Nourriture - Surgelé",
+        "conditionnement": 160.0,
+        "pu_carton": 65262.0,
+        "pu_piece": 407.8875
+      },
+      {
+        "nom": "TORTILLA WRAP",
+        "code": "BKFR34",
+        "categorie": "Nourriture - Surgelé",
+        "conditionnement": 1.0,
+        "pu_carton": null,
+        "pu_piece": null
+      },
+      {
+        "nom": "KIT COUVERT BISKISHOP BIS",
+        "code": "7778AB",
+        "categorie": "PACKAGING",
+        "conditionnement": 500.0,
+        "pu_carton": 52542.0,
+        "pu_piece": 105.084
+      },
+      {
+        "nom": "BAC A PAINS JAUNE",
+        "code": "BKCI-PMC093",
+        "categorie": "PMC",
+        "conditionnement": 1.0,
+        "pu_carton": 7716.0,
+        "pu_piece": 7716.0
+      },
+      {
+        "nom": "BAC DE RANGEMENT - Bleu",
+        "code": "BKCI-PMC094",
+        "categorie": "PMC",
+        "conditionnement": 1.0,
+        "pu_carton": 3763.0,
+        "pu_piece": 3763.0
+      },
+      {
+        "nom": "BAC DE RANGEMENT - Rouge",
+        "code": "BKCI-PMC095",
+        "categorie": "PMC",
+        "conditionnement": 1.0,
+        "pu_carton": 3132.0,
+        "pu_piece": 3132.0
+      },
+      {
+        "nom": "BAC PANADE",
+        "code": "BKCI-PMC091",
+        "categorie": "PMC",
+        "conditionnement": 1.0,
+        "pu_carton": 184457.0,
+        "pu_piece": 184457.0
+      },
+      {
+        "nom": "BAGUE SPECIALITE",
+        "code": "BKCI-PMC092",
+        "categorie": "PMC",
+        "conditionnement": 1.0,
+        "pu_carton": 4208.0,
+        "pu_piece": 4208.0
+      },
+      {
+        "nom": "BKCI-PMC007",
+        "code": "BKCI PMC007",
+        "categorie": "PMC",
+        "conditionnement": 1.0,
+        "pu_carton": null,
+        "pu_piece": null
+      },
+      {
+        "nom": "BKCI-PMC045",
+        "code": "BKCI PMC045",
+        "categorie": "PMC",
+        "conditionnement": 1.0,
+        "pu_carton": 1066.0,
+        "pu_piece": 1066.0
+      },
+      {
+        "nom": "BKCI-PMC102",
+        "code": "BKCI PMC102",
+        "categorie": "PMC",
+        "conditionnement": 1.0,
+        "pu_carton": 7304.0,
+        "pu_piece": 7304.0
+      },
+      {
+        "nom": "BKCI-PMC109",
+        "code": "BKCI PMC109",
+        "categorie": "PMC",
+        "conditionnement": 1.0,
+        "pu_carton": null,
+        "pu_piece": null
+      },
+      {
+        "nom": "BKCI-PMC110",
+        "code": "BKCI PMC110",
+        "categorie": "PMC",
+        "conditionnement": 1.0,
+        "pu_carton": null,
+        "pu_piece": null
+      },
+      {
+        "nom": "BKCI-PMC111",
+        "code": "BKCI PMC111",
+        "categorie": "PMC",
+        "conditionnement": 1.0,
+        "pu_carton": null,
+        "pu_piece": null
+      },
+      {
+        "nom": "BKCI-PMC113",
+        "code": "BKCI PMC113",
+        "categorie": "PMC",
+        "conditionnement": 1.0,
+        "pu_carton": null,
+        "pu_piece": null
+      },
+      {
+        "nom": "BKCI-PMC114",
+        "code": "BKCI PMC114",
+        "categorie": "PMC",
+        "conditionnement": 1.0,
+        "pu_carton": null,
+        "pu_piece": null
+      },
+      {
+        "nom": "BKCI-PMC117",
+        "code": "BKCI PMC117",
+        "categorie": "PMC",
+        "conditionnement": 1.0,
+        "pu_carton": null,
+        "pu_piece": null
+      },
+      {
+        "nom": "BKCI-PMC118",
+        "code": "BKCI PMC118",
+        "categorie": "PMC",
+        "conditionnement": 1.0,
+        "pu_carton": null,
+        "pu_piece": null
+      },
+      {
+        "nom": "BKCI-PMC119",
+        "code": "BKCI PMC119",
+        "categorie": "PMC",
+        "conditionnement": 1.0,
+        "pu_carton": null,
+        "pu_piece": null
+      },
+      {
+        "nom": "BKCI-PMC120",
+        "code": "BKCI PMC120",
+        "categorie": "PMC",
+        "conditionnement": 1.0,
+        "pu_carton": null,
+        "pu_piece": null
+      },
+      {
+        "nom": "BKCI-PMC121",
+        "code": "BKCI PMC121",
+        "categorie": "PMC",
+        "conditionnement": 1.0,
+        "pu_carton": null,
+        "pu_piece": null
+      },
+      {
+        "nom": "BKCI-PMC122",
+        "code": "BKCI PMC122",
+        "categorie": "PMC",
+        "conditionnement": 1.0,
+        "pu_carton": null,
+        "pu_piece": null
+      },
+      {
+        "nom": "BKCI-PMC123",
+        "code": "BKCI PMC123",
+        "categorie": "PMC",
+        "conditionnement": 1.0,
+        "pu_carton": null,
+        "pu_piece": null
+      },
+      {
+        "nom": "BKCI-PMC124",
+        "code": "BKCI PMC124",
+        "categorie": "PMC",
+        "conditionnement": 1.0,
+        "pu_carton": null,
+        "pu_piece": null
+      },
+      {
+        "nom": "BKCI-PMC144",
+        "code": "BKCI PMC144",
+        "categorie": "PMC",
+        "conditionnement": 1.0,
+        "pu_carton": null,
+        "pu_piece": null
+      },
+      {
+        "nom": "BKCI-PMC145",
+        "code": "BKCI PMC145",
+        "categorie": "PMC",
+        "conditionnement": 1.0,
+        "pu_carton": null,
+        "pu_piece": null
+      },
+      {
+        "nom": "BKCI-PMC149",
+        "code": "BKCI PMC149",
+        "categorie": "PMC",
+        "conditionnement": 1.0,
+        "pu_carton": null,
+        "pu_piece": null
+      },
+      {
+        "nom": "BOUCHON BLEU - SAUCE CHILI NEW",
+        "code": "BKCI-PMC142",
+        "categorie": "PMC",
+        "conditionnement": 1.0,
+        "pu_carton": 1688.0,
+        "pu_piece": 1688.0
+      },
+      {
+        "nom": "BOUCHON MARRON BULK",
+        "code": "BKCI-PMC006",
+        "categorie": "PMC",
+        "conditionnement": 1.0,
+        "pu_carton": 11433.0,
+        "pu_piece": 11433.0
+      },
+      {
+        "nom": "BROSSE BROILER",
+        "code": "BKCI-PMC011",
+        "categorie": "PMC",
+        "conditionnement": 1.0,
+        "pu_carton": 16040.0,
+        "pu_piece": 16040.0
+      },
+      {
+        "nom": "BROSSE MACHINE A SHAKE",
+        "code": "BKCI-PMC012",
+        "categorie": "PMC",
+        "conditionnement": 1.0,
+        "pu_carton": 68979.0,
+        "pu_piece": 68979.0
+      },
+      {
+        "nom": "CHRONOMETRE",
+        "code": "BKCI-PMC096",
+        "categorie": "PMC",
+        "conditionnement": 1.0,
+        "pu_carton": 5000.0,
+        "pu_piece": 5000.0
+      },
+      {
+        "nom": "COUPE LEGUME - Brosse lames",
+        "code": "BKCI-PMC014",
+        "categorie": "PMC",
+        "conditionnement": 1.0,
+        "pu_carton": 11765.0,
+        "pu_piece": 11765.0
+      },
+      {
+        "nom": "COUPE LEGUME - Lame Oignon",
+        "code": "BKCI-PMC015",
+        "categorie": "PMC",
+        "conditionnement": 1.0,
+        "pu_carton": 265799.0,
+        "pu_piece": 265799.0
+      },
+      {
+        "nom": "COUPE LEGUME - Lame Salade",
+        "code": "BKCI-PMC017",
+        "categorie": "PMC",
+        "conditionnement": 1.0,
+        "pu_carton": 253150.0,
+        "pu_piece": 253150.0
+      },
+      {
+        "nom": "COUPE LEGUME - Lame Tomate",
+        "code": "BKCI-PMC018",
+        "categorie": "PMC",
+        "conditionnement": 1.0,
+        "pu_carton": 316433.0,
+        "pu_piece": 316433.0
+      },
+      {
+        "nom": "COUPE LEGUME - Machine",
+        "code": "BKCI-PMC020",
+        "categorie": "PMC",
+        "conditionnement": 1.0,
+        "pu_carton": 549702.0,
+        "pu_piece": 549702.0
+      },
+      {
+        "nom": "COUTEAU PATTY",
+        "code": "BKCI-PMC106",
+        "categorie": "PMC",
+        "conditionnement": 1.0,
+        "pu_carton": 4879.0,
+        "pu_piece": 4879.0
+      },
+      {
+        "nom": "COUTEAU PREP",
+        "code": "BKCI-PMC022",
+        "categorie": "PMC",
+        "conditionnement": 1.0,
+        "pu_carton": 15719.0,
+        "pu_piece": 15719.0
+      },
+      {
+        "nom": "COUVERCLE PAN 1/2 ALLERGENE MAUVE",
+        "code": "BKCI-PMC139",
+        "categorie": "PMC",
+        "conditionnement": 1.0,
+        "pu_carton": 2460.0,
+        "pu_piece": 2460.0
+      },
+      {
+        "nom": "COUVERCLE PAN 1/3 ALLERGENE MAUVE",
+        "code": "BKCI-PMC135",
+        "categorie": "PMC",
+        "conditionnement": 1.0,
+        "pu_carton": 2191.0,
+        "pu_piece": 2191.0
+      },
+      {
+        "nom": "COUVERCLE PAN 1/6 ALLERGENE MAUVE",
+        "code": "BKCI-PMC137",
+        "categorie": "PMC",
+        "conditionnement": 1.0,
+        "pu_carton": 1660.0,
+        "pu_piece": 1660.0
+      },
+      {
+        "nom": "CUILLERE 1/2 ALLERGENE MAUVE",
+        "code": "BKCI-PMC133",
+        "categorie": "PMC",
+        "conditionnement": 1.0,
+        "pu_carton": 2335.0,
+        "pu_piece": 2335.0
+      },
+      {
+        "nom": "DOUCHE A VAISSELLE KWC",
+        "code": "BKCI-PMC089",
+        "categorie": "PMC",
+        "conditionnement": 1.0,
+        "pu_carton": 485448.0,
+        "pu_piece": 485448.0
+      },
+      {
+        "nom": "FACE SHIELD",
+        "code": "BKCI-PMC025",
+        "categorie": "PMC",
+        "conditionnement": 1.0,
+        "pu_carton": 19005.0,
+        "pu_piece": 19005.0
+      },
+      {
+        "nom": "FLEXIBLE DE ROBINET",
+        "code": "BKCI-PMC088",
+        "categorie": "PMC",
+        "conditionnement": 1.0,
+        "pu_carton": 4491.0,
+        "pu_piece": 4491.0
+      },
+      {
+        "nom": "FROSTY BOY - BLANC- SEAU",
+        "code": "BKCI-PMC101",
+        "categorie": "PMC",
+        "conditionnement": 1.0,
+        "pu_carton": 7304.0,
+        "pu_piece": 7304.0
+      },
+      {
+        "nom": "GANTS BROILER",
+        "code": "BKCI-PMC028",
+        "categorie": "PMC",
+        "conditionnement": 1.0,
+        "pu_carton": 51024.0,
+        "pu_piece": 51024.0
+      },
+      {
+        "nom": "GANTS CHAMBRE FROIDE",
+        "code": "BKCI-PMC029",
+        "categorie": "PMC",
+        "conditionnement": 1.0,
+        "pu_carton": 3477.0,
+        "pu_piece": 3477.0
+      },
+      {
+        "nom": "GANTS FRITEUSE",
+        "code": "BKCI-PMC030",
+        "categorie": "PMC",
+        "conditionnement": 1.0,
+        "pu_carton": 18034.0,
+        "pu_piece": 18034.0
+      },
+      {
+        "nom": "GANTS NOIR",
+        "code": "BKCI-PMC115",
+        "categorie": "PMC",
+        "conditionnement": 1.0,
+        "pu_carton": 17466.0,
+        "pu_piece": 17466.0
+      },
+      {
+        "nom": "GANTS ROUGE DECOUPE",
+        "code": "BKCI-PMC031",
+        "categorie": "PMC",
+        "conditionnement": 1.0,
+        "pu_carton": 17349.0,
+        "pu_piece": 17349.0
+      },
+      {
+        "nom": "KIT BROILER",
+        "code": "BKCI-PMC090",
+        "categorie": "PMC",
+        "conditionnement": 1.0,
+        "pu_carton": 112235.0,
+        "pu_piece": 112235.0
+      },
+      {
+        "nom": "KIT SHIELD",
+        "code": "BKCI-PMC116",
+        "categorie": "PMC",
+        "conditionnement": 1.0,
+        "pu_carton": 16294.0,
+        "pu_piece": 16294.0
+      },
+      {
+        "nom": "LUBRIFIANT CARPIGGIANI",
+        "code": "743000103",
+        "categorie": "PMC",
+        "conditionnement": 1.0,
+        "pu_carton": 4746.0,
+        "pu_piece": 4746.0
+      },
+      {
+        "nom": "PAN 1/1",
+        "code": "BKCI-PMC033",
+        "categorie": "PMC",
+        "conditionnement": 1.0,
+        "pu_carton": 9815.0,
+        "pu_piece": 9815.0
+      },
+      {
+        "nom": "PAN 1/1 - Couvercle",
+        "code": "BKCI-PMC034",
+        "categorie": "PMC",
+        "conditionnement": 1.0,
+        "pu_carton": 3572.0,
+        "pu_piece": 3572.0
+      },
+      {
+        "nom": "PAN 1/1 - grille",
+        "code": "BKCI-PMC085",
+        "categorie": "PMC",
+        "conditionnement": 1.0,
+        "pu_carton": 5081.0,
+        "pu_piece": 5081.0
+      },
+      {
+        "nom": "PAN 1/2",
+        "code": "BKCI-PMC035",
+        "categorie": "PMC",
+        "conditionnement": 1.0,
+        "pu_carton": 2358.0,
+        "pu_piece": 2358.0
+      },
+      {
+        "nom": "PAN 1/2 - Couvercle",
+        "code": "BKCI-PMC036",
+        "categorie": "PMC",
+        "conditionnement": 1.0,
+        "pu_carton": 2055.0,
+        "pu_piece": 2055.0
+      },
+      {
+        "nom": "PAN 1/2 - Grille",
+        "code": "BKCI-PMC037",
+        "categorie": "PMC",
+        "conditionnement": 1.0,
+        "pu_carton": 1335.0,
+        "pu_piece": 1335.0
+      },
+      {
+        "nom": "PAN 1/2 ALLERGENE MAUVE",
+        "code": "BKCI-PMC138",
+        "categorie": "PMC",
+        "conditionnement": 1.0,
+        "pu_carton": 3135.0,
+        "pu_piece": 3135.0
+      },
+      {
+        "nom": "PAN 1/3",
+        "code": "BKCI-PMC038",
+        "categorie": "PMC",
+        "conditionnement": 1.0,
+        "pu_carton": 1916.0,
+        "pu_piece": 1916.0
+      },
+      {
+        "nom": "PAN 1/3 - Couvercle",
+        "code": "BKCI-PMC039",
+        "categorie": "PMC",
+        "conditionnement": 1.0,
+        "pu_carton": 3139.0,
+        "pu_piece": 3139.0
+      },
+      {
+        "nom": "PAN 1/3 - Grille",
+        "code": "BKCI-PMC040",
+        "categorie": "PMC",
+        "conditionnement": 1.0,
+        "pu_carton": 2462.0,
+        "pu_piece": 2462.0
+      },
+      {
+        "nom": "PAN 1/3 - Plastique rigide",
+        "code": "BKCI-PMC140",
+        "categorie": "PMC",
+        "conditionnement": 1.0,
+        "pu_carton": 4762.0,
+        "pu_piece": 4762.0
+      },
+      {
+        "nom": "PAN 1/3 ALLERGENE MAUVE",
+        "code": "BKCI-PMC134",
+        "categorie": "PMC",
+        "conditionnement": 1.0,
+        "pu_carton": 2630.0,
+        "pu_piece": 2630.0
+      },
+      {
+        "nom": "PAN 1/6",
+        "code": "BKCI-PMC041",
+        "categorie": "PMC",
+        "conditionnement": 1.0,
+        "pu_carton": 1275.0,
+        "pu_piece": 1275.0
+      },
+      {
+        "nom": "PAN 1/6 - Couvercle",
+        "code": "BKCI-PMC042",
+        "categorie": "PMC",
+        "conditionnement": 1.0,
+        "pu_carton": 1439.0,
+        "pu_piece": 1439.0
+      },
+      {
+        "nom": "PAN 1/6 - Grille",
+        "code": "BKCI-PMC043",
+        "categorie": "PMC",
+        "conditionnement": 1.0,
+        "pu_carton": 876.0,
+        "pu_piece": 876.0
+      },
+      {
+        "nom": "PAN 1/6 ALLERGENE MAUVE",
+        "code": "BKCI-PMC136",
+        "categorie": "PMC",
+        "conditionnement": 1.0,
+        "pu_carton": 1745.0,
+        "pu_piece": 1745.0
+      },
+      {
+        "nom": "PAN 1/9",
+        "code": "BKCI-PMC044",
+        "categorie": "PMC",
+        "conditionnement": 1.0,
+        "pu_carton": 1491.0,
+        "pu_piece": 1491.0
+      },
+      {
+        "nom": "PAN 1/9 - Couvercle",
+        "code": "BKCI-PMC097",
+        "categorie": "PMC",
+        "conditionnement": 1.0,
+        "pu_carton": 1066.0,
+        "pu_piece": 1066.0
+      },
+      {
+        "nom": "PAN 1/9 - Couvercle à trou",
+        "code": "BKCI-PMC098",
+        "categorie": "PMC",
+        "conditionnement": 1.0,
+        "pu_carton": 3650.0,
+        "pu_piece": 3650.0
+      },
+      {
+        "nom": "PAN 1/9 - grille",
+        "code": "BKCI-PMC084",
+        "categorie": "PMC",
+        "conditionnement": 1.0,
+        "pu_carton": 668.0,
+        "pu_piece": 668.0
+      },
+      {
+        "nom": "PANIER FRITEUSE",
+        "code": "BKCI-PMC047",
+        "categorie": "PMC",
+        "conditionnement": 1.0,
+        "pu_carton": 27562.0,
+        "pu_piece": 27562.0
+      },
+      {
+        "nom": "PANIER FRITEUSE couleur verte",
+        "code": "BKCI-PMC107",
+        "categorie": "PMC",
+        "conditionnement": 1.0,
+        "pu_carton": 5938.0,
+        "pu_piece": 5938.0
+      },
+      {
+        "nom": "PANIER FRITEUSE sans couleur",
+        "code": "BKCI-PMC108",
+        "categorie": "PMC",
+        "conditionnement": 1.0,
+        "pu_carton": 148795.0,
+        "pu_piece": 148795.0
+      },
+      {
+        "nom": "PAPIER FILTRE",
+        "code": "718394783",
+        "categorie": "PMC",
+        "conditionnement": 100.0,
+        "pu_carton": 78000.0,
+        "pu_piece": 780.0
+      },
+      {
+        "nom": "PAPIER TEFLON",
+        "code": "BKCI-PMC050",
+        "categorie": "PMC",
+        "conditionnement": 1.0,
+        "pu_carton": 40697.0,
+        "pu_piece": 40697.0
+      },
+      {
+        "nom": "PELLE A FRITES - Plastique",
+        "code": "BKCI-PMC052",
+        "categorie": "PMC",
+        "conditionnement": 1.0,
+        "pu_carton": 17219.0,
+        "pu_piece": 17219.0
+      },
+      {
+        "nom": "PELLE A GLACE",
+        "code": "BKCI-PMC053",
+        "categorie": "PMC",
+        "conditionnement": 1.0,
+        "pu_carton": 4274.0,
+        "pu_piece": 4274.0
+      },
+      {
+        "nom": "PHU - GRILLE",
+        "code": "BKCI-PMC105",
+        "categorie": "PMC",
+        "conditionnement": 1.0,
+        "pu_carton": 39108.0,
+        "pu_piece": 39108.0
+      },
+      {
+        "nom": "PHU - LID",
+        "code": "BKCI-PMC104",
+        "categorie": "PMC",
+        "conditionnement": 1.0,
+        "pu_carton": 2833.0,
+        "pu_piece": 2833.0
+      },
+      {
+        "nom": "PHU PAN - 1 poignée",
+        "code": "BKCI-PMC056",
+        "categorie": "PMC",
+        "conditionnement": 1.0,
+        "pu_carton": 13508.0,
+        "pu_piece": 13508.0
+      },
+      {
+        "nom": "PHU PAN - 2 poignées",
+        "code": "BKCI-PMC057",
+        "categorie": "PMC",
+        "conditionnement": 1.0,
+        "pu_carton": 15320.0,
+        "pu_piece": 15320.0
+      },
+      {
+        "nom": "PHU PAN - 2 poignées NOIR",
+        "code": "BKCI-PMC099",
+        "categorie": "PMC",
+        "conditionnement": 1.0,
+        "pu_carton": 15320.0,
+        "pu_piece": 15320.0
+      },
+      {
+        "nom": "PINCE 9'' ALLERGENE MAUVE",
+        "code": "BKCI-PMC132",
+        "categorie": "PMC",
+        "conditionnement": 1.0,
+        "pu_carton": 4297.0,
+        "pu_piece": 4297.0
+      },
+      {
+        "nom": "PINCE BLEUE - Grand",
+        "code": "BKCI-PMC058",
+        "categorie": "PMC",
+        "conditionnement": 1.0,
+        "pu_carton": 2662.0,
+        "pu_piece": 2662.0
+      },
+      {
+        "nom": "PINCE BLEUE - Moyen",
+        "code": "BKCI-PMC059",
+        "categorie": "PMC",
+        "conditionnement": 1.0,
+        "pu_carton": 1665.0,
+        "pu_piece": 1665.0
+      },
+      {
+        "nom": "PINCE METALLIQUE",
+        "code": "BKCI-PMC060",
+        "categorie": "PMC",
+        "conditionnement": 1.0,
+        "pu_carton": 5896.0,
+        "pu_piece": 5896.0
+      },
+      {
+        "nom": "PINCE METALLIQUE A MANCHE BLEUE",
+        "code": "BKCI-PMC126",
+        "categorie": "PMC",
+        "conditionnement": 1.0,
+        "pu_carton": 15734.0,
+        "pu_piece": 15734.0
+      },
+      {
+        "nom": "PINCE METALLIQUE A MANCHE NOIRE",
+        "code": "BKCI-PMC127",
+        "categorie": "PMC",
+        "conditionnement": 1.0,
+        "pu_carton": 3511.0,
+        "pu_piece": 3511.0
+      },
+      {
+        "nom": "PINCE METALLIQUE A MANCHE VERTE",
+        "code": "BKCI-PMC128",
+        "categorie": "PMC",
+        "conditionnement": 1.0,
+        "pu_carton": 7048.0,
+        "pu_piece": 7048.0
+      },
+      {
+        "nom": "PINCE NOIRE - GRAND",
+        "code": "BKCI-PMC131",
+        "categorie": "PMC",
+        "conditionnement": 1.0,
+        "pu_carton": 5474.0,
+        "pu_piece": 5474.0
+      },
+      {
+        "nom": "PINCE NOIRE - MOYEN",
+        "code": "BKCI-PMC125",
+        "categorie": "PMC",
+        "conditionnement": 1.0,
+        "pu_carton": 2432.0,
+        "pu_piece": 2432.0
+      },
+      {
+        "nom": "PINCE ROUGE - Grand",
+        "code": "BKCI-PMC061",
+        "categorie": "PMC",
+        "conditionnement": 1.0,
+        "pu_carton": 2549.0,
+        "pu_piece": 2549.0
+      },
+      {
+        "nom": "PINCE ROUGE - Moyen",
+        "code": "BKCI-PMC062",
+        "categorie": "PMC",
+        "conditionnement": 1.0,
+        "pu_carton": 1743.0,
+        "pu_piece": 1743.0
+      },
+      {
+        "nom": "PINCE ROUGE - Petit",
+        "code": "BKCI-PMC063",
+        "categorie": "PMC",
+        "conditionnement": 1.0,
+        "pu_carton": 1092.0,
+        "pu_piece": 1092.0
+      },
+      {
+        "nom": "PINCE VERTE - MOYEN",
+        "code": "BKCI-PMC129",
+        "categorie": "PMC",
+        "conditionnement": 1.0,
+        "pu_carton": 1690.0,
+        "pu_piece": 1690.0
+      },
+      {
+        "nom": "PLANCHE A DECOUPER",
+        "code": "BKCI-PMC064",
+        "categorie": "PMC",
+        "conditionnement": 1.0,
+        "pu_carton": 17982.0,
+        "pu_piece": 17982.0
+      },
+      {
+        "nom": "PLATEAU ROUGE",
+        "code": "BKCI-PMC065",
+        "categorie": "PMC",
+        "conditionnement": 1.0,
+        "pu_carton": 2419.0,
+        "pu_piece": 2419.0
+      },
+      {
+        "nom": "POUBELLE A PEDALE BLANCHE",
+        "code": "BKCI-PMC086",
+        "categorie": "PMC",
+        "conditionnement": 1.0,
+        "pu_carton": 76132.0,
+        "pu_piece": 76132.0
+      },
+      {
+        "nom": "ROBINET MURAL DEUX TROUS",
+        "code": "BKCI-PMC087",
+        "categorie": "PMC",
+        "conditionnement": 1.0,
+        "pu_carton": 242512.0,
+        "pu_piece": 242512.0
+      },
+      {
+        "nom": "SALIERE",
+        "code": "BKCI-PMC067",
+        "categorie": "PMC",
+        "conditionnement": 1.0,
+        "pu_carton": 42423.0,
+        "pu_piece": 42423.0
+      },
+      {
+        "nom": "SEAU BROILER",
+        "code": "BKCI-PMC103",
+        "categorie": "PMC",
+        "conditionnement": 1.0,
+        "pu_carton": 4385.0,
+        "pu_piece": 4385.0
+      },
+      {
+        "nom": "SEPARATEUR PAIN TOASTER",
+        "code": "BKCI-PMC130",
+        "categorie": "PMC",
+        "conditionnement": 1.0,
+        "pu_carton": 311804.0,
+        "pu_piece": 311804.0
+      },
+      {
+        "nom": "SEPARATEUR SPECIALITE",
+        "code": "BKCI-PMC069",
+        "categorie": "PMC",
+        "conditionnement": 1.0,
+        "pu_carton": 7855.0,
+        "pu_piece": 7855.0
+      },
+      {
+        "nom": "SKIMMER",
+        "code": "BKCI-PMC070",
+        "categorie": "PMC",
+        "conditionnement": 1.0,
+        "pu_carton": 3884.0,
+        "pu_piece": 3884.0
+      },
+      {
+        "nom": "SONDE A SURFACE",
+        "code": "BKCI-PMC112",
+        "categorie": "PMC",
+        "conditionnement": 1.0,
+        "pu_carton": 1787534.0,
+        "pu_piece": 1787534.0
+      },
+      {
+        "nom": "SPATULE BLANCHE",
+        "code": "BKCI-PMC071",
+        "categorie": "PMC",
+        "conditionnement": 1.0,
+        "pu_carton": 1275.0,
+        "pu_piece": 1275.0
+      },
+      {
+        "nom": "TESTEUR D'HUILE",
+        "code": "BKCI-PMC074",
+        "categorie": "PMC",
+        "conditionnement": 1.0,
+        "pu_carton": 4248.0,
+        "pu_piece": 4248.0
+      },
+      {
+        "nom": "THERMOMETRE BK",
+        "code": "BKCI-PMC141",
+        "categorie": "PMC",
+        "conditionnement": 1.0,
+        "pu_carton": 203753.0,
+        "pu_piece": 203753.0
+      },
+      {
+        "nom": "TOMATO CORER",
+        "code": "BKCI-PMC078",
+        "categorie": "PMC",
+        "conditionnement": 1.0,
+        "pu_carton": 1144.0,
+        "pu_piece": 1144.0
+      },
+      {
+        "nom": "VOL PACK SUPPORT - PLASTIQUE",
+        "code": "BKCI-PMC083",
+        "categorie": "PMC",
+        "conditionnement": 1.0,
+        "pu_carton": 15415.0,
+        "pu_piece": 15415.0
+      },
+      {
+        "nom": "VOL PACK SUPPORT -METAL",
+        "code": "BKCI-PMC100",
+        "categorie": "PMC",
+        "conditionnement": 1.0,
+        "pu_carton": 17466.0,
+        "pu_piece": 17466.0
+      },
+      {
+        "nom": "AGITATEURS *1000",
+        "code": "Y010000357",
+        "categorie": "Packaging",
+        "conditionnement": 1000.0,
+        "pu_carton": 2000.0,
+        "pu_piece": 2.0
+      },
+      {
+        "nom": "BKCOCA100",
+        "code": "BKCOCA100",
+        "categorie": "Packaging",
+        "conditionnement": 1.0,
+        "pu_carton": null,
+        "pu_piece": null
+      },
+      {
+        "nom": "CARDBOARD WRAP",
+        "code": "CARDBW800",
+        "categorie": "Packaging",
+        "conditionnement": 800.0,
+        "pu_carton": 12069.608799999998,
+        "pu_piece": 15.087010999999997
+      },
+      {
+        "nom": "COUVERCLE GOBELET CARTON 25CL",
+        "code": "6098",
+        "categorie": "Packaging",
+        "conditionnement": 80.0,
+        "pu_carton": 4800.0,
+        "pu_piece": 60.0
+      },
+      {
+        "nom": "COUVERCLE GOBELET PLASTIQUE 25CL",
+        "code": "6099",
+        "categorie": "Packaging",
+        "conditionnement": 50.0,
+        "pu_carton": 2598.0,
+        "pu_piece": 51.96
+      },
+      {
+        "nom": "CUILLERE EN VRAC (LOCAL)",
+        "code": "LOCUILVRAC",
+        "categorie": "Packaging",
+        "conditionnement": 1.0,
+        "pu_carton": 847.0,
+        "pu_piece": 847.0
+      },
+      {
+        "nom": "GOB-6098",
+        "code": "GOB 6098",
+        "categorie": "Packaging",
+        "conditionnement": 80.0,
+        "pu_carton": 4800.0,
+        "pu_piece": 60.0
+      },
+      {
+        "nom": "GOB-6099",
+        "code": "GOB 6099",
+        "categorie": "Packaging",
+        "conditionnement": 50.0,
+        "pu_carton": 2598.0,
+        "pu_piece": 52.0
+      },
+      {
+        "nom": "GOBELET STAFF",
+        "code": "SGOBHT0270",
+        "categorie": "Packaging",
+        "conditionnement": 1.0,
+        "pu_carton": 22095.0,
+        "pu_piece": 22095.0
+      },
+      {
+        "nom": "JOUETS ENFANT - CRAYONS DE COULEUR",
+        "code": "JOUETLOC1",
+        "categorie": "Packaging",
+        "conditionnement": 1.0,
+        "pu_carton": null,
+        "pu_piece": 703.475850020107
+      },
+      {
+        "nom": "JOUETS ENFANT 100",
+        "code": "JOUETMAO1",
+        "categorie": "Packaging",
+        "conditionnement": 200.0,
+        "pu_carton": 140695.0,
+        "pu_piece": 703.0
+      },
+      {
+        "nom": "KIT COUVERT",
+        "code": "7778",
+        "categorie": "Packaging",
+        "conditionnement": 500.0,
+        "pu_carton": 52542.0,
+        "pu_piece": 105.0
+      },
+      {
+        "nom": "KRAFT50",
+        "code": "KRAFT50",
+        "categorie": "Packaging",
+        "conditionnement": 1.0,
+        "pu_carton": null,
+        "pu_piece": null
+      },
+      {
+        "nom": "OP23-02495",
+        "code": "OP23 02495",
+        "categorie": "Packaging",
+        "conditionnement": 1.0,
+        "pu_carton": null,
+        "pu_piece": null
+      },
+      {
+        "nom": "PAILLE MILKSHAKE",
+        "code": "28725",
+        "categorie": "Packaging",
+        "conditionnement": 200.0,
+        "pu_carton": 3200.0,
+        "pu_piece": 16.0
+      },
+      {
+        "nom": "PAILLE SODAS",
+        "code": "760611",
+        "categorie": "Packaging",
+        "conditionnement": 3500.0,
+        "pu_carton": 35000.0,
+        "pu_piece": 10.0
+      },
+      {
+        "nom": "PAILLE SODAS MEHDI",
+        "code": "MEHDI760611",
+        "categorie": "Packaging",
+        "conditionnement": 1.0,
+        "pu_carton": null,
+        "pu_piece": 16.09092715629169
+      },
+      {
+        "nom": "PAQUET DE SACHETS (LOCAL)",
+        "code": "LOCPAQSACH",
+        "categorie": "Packaging",
+        "conditionnement": 1.0,
+        "pu_carton": null,
+        "pu_piece": null
+      },
+      {
+        "nom": "PETITE CUILLERE SACHET INDIVIDUEL - Conway",
+        "code": "492744",
+        "categorie": "Packaging",
+        "conditionnement": 2000.0,
+        "pu_carton": 28060.0,
+        "pu_piece": 14.03
+      },
+      {
+        "nom": "SAC A EMPORTER MOYEN - 12lb Local",
+        "code": "LOC998724",
+        "categorie": "Packaging",
+        "conditionnement": 50.0,
+        "pu_carton": 18205.979530780332,
+        "pu_piece": 364.1195906156066
+      },
+      {
+        "nom": "SAC A EMPORTER PETIT - 8 lb Local",
+        "code": "LOC998757",
+        "categorie": "Packaging",
+        "conditionnement": 993.0,
+        "pu_carton": 27809.0,
+        "pu_piece": 28.0
+      },
+      {
+        "nom": "WRAP MULTI PETIT",
+        "code": "WRAPMP4000",
+        "categorie": "Packaging",
+        "conditionnement": 5000.0,
+        "pu_carton": 54196.0,
+        "pu_piece": 11.0
+      },
+      {
+        "nom": "WRAP WHOPPER 3000",
+        "code": "28293",
+        "categorie": "Packaging",
+        "conditionnement": 3000.0,
+        "pu_carton": 27490.0,
+        "pu_piece": 9.163333333333334
+      },
+      {
+        "nom": "BAC RANGEMENT - Jaune",
+        "code": "992665",
+        "categorie": "Produits de Nettoyage",
+        "conditionnement": 1.0,
+        "pu_carton": 5366.0,
+        "pu_piece": 5366.0
+      },
+      {
+        "nom": "BALAIS Poil Court- Vert",
+        "code": "10031382",
+        "categorie": "Produits de Nettoyage",
+        "conditionnement": 1.0,
+        "pu_carton": 16106.0,
+        "pu_piece": 16106.0
+      },
+      {
+        "nom": "BALAIS Poil Long - Vert",
+        "code": "10025522",
+        "categorie": "Produits de Nettoyage",
+        "conditionnement": 1.0,
+        "pu_carton": 52734.0,
+        "pu_piece": 52734.0
+      },
+      {
+        "nom": "BROSSE 3 COMP",
+        "code": "10025525",
+        "categorie": "Produits de Nettoyage",
+        "conditionnement": 1.0,
+        "pu_carton": 11673.0,
+        "pu_piece": 11673.0
+      },
+      {
+        "nom": "BROSSE MANUELLE - Bleu",
+        "code": "10025508",
+        "categorie": "Produits de Nettoyage",
+        "conditionnement": 2.0,
+        "pu_carton": 11365.0,
+        "pu_piece": 5682.5
+      },
+      {
+        "nom": "BROSSE MANUELLE - Rouge",
+        "code": "10025507",
+        "categorie": "Produits de Nettoyage",
+        "conditionnement": 2.0,
+        "pu_carton": 11052.0,
+        "pu_piece": 5526.0
+      },
+      {
+        "nom": "CACHE NEZ",
+        "code": "Y01000053",
+        "categorie": "Produits de Nettoyage",
+        "conditionnement": 50.0,
+        "pu_carton": 2000.0,
+        "pu_piece": 40.0
+      },
+      {
+        "nom": "CHARLOTTES",
+        "code": "Y01000030",
+        "categorie": "Produits de Nettoyage",
+        "conditionnement": 100.0,
+        "pu_carton": 2000.0,
+        "pu_piece": 20.0
+      },
+      {
+        "nom": "DISTRIBUTEUR SAVON - 3 comp",
+        "code": "10024478",
+        "categorie": "Produits de Nettoyage",
+        "conditionnement": 1.0,
+        "pu_carton": 20763.0,
+        "pu_piece": 20763.0
+      },
+      {
+        "nom": "DISTRIBUTEUR SAVON - Handcare",
+        "code": "10021442",
+        "categorie": "Produits de Nettoyage",
+        "conditionnement": 1.0,
+        "pu_carton": 7373.0,
+        "pu_piece": 7373.0
+      },
+      {
+        "nom": "DISTRIBUTEUR SAVON â ECOLAB",
+        "code": "10021443",
+        "categorie": "Produits de Nettoyage",
+        "conditionnement": 1.0,
+        "pu_carton": 24353.0,
+        "pu_piece": 24353.0
+      },
+      {
+        "nom": "ESSOREUSE - Bleu/Jaune",
+        "code": "992724",
+        "categorie": "Produits de Nettoyage",
+        "conditionnement": 1.0,
+        "pu_carton": 22981.0,
+        "pu_piece": 22981.0
+      },
+      {
+        "nom": "ESSOREUSE - Rouge/Vert",
+        "code": "992944",
+        "categorie": "Produits de Nettoyage",
+        "conditionnement": 1.0,
+        "pu_carton": 22336.0,
+        "pu_piece": 22336.0
+      },
+      {
+        "nom": "ESSOREUSE - Vert",
+        "code": "920011",
+        "categorie": "Produits de Nettoyage",
+        "conditionnement": 1.0,
+        "pu_carton": 23712.0,
+        "pu_piece": 23712.0
+      },
+      {
+        "nom": "FILM PLASTIQUE",
+        "code": "SFIMHT0650",
+        "categorie": "Produits de Nettoyage",
+        "conditionnement": 1.0,
+        "pu_carton": 3060.0,
+        "pu_piece": 3060.0
+      },
+      {
+        "nom": "FILM PLASTIQUE 300m",
+        "code": "SFIMHT0070",
+        "categorie": "Produits de Nettoyage",
+        "conditionnement": 1.0,
+        "pu_carton": 6000.0,
+        "pu_piece": 6000.0
+      },
+      {
+        "nom": "GANTS VINYL NON POUDRES BLANC - boite 100",
+        "code": "1501040003",
+        "categorie": "Produits de Nettoyage",
+        "conditionnement": 100.0,
+        "pu_carton": 3814.0,
+        "pu_piece": 38.14
+      },
+      {
+        "nom": "HI TEMP FRYER - START KIT",
+        "code": "10017871",
+        "categorie": "Produits de Nettoyage",
+        "conditionnement": 1.0,
+        "pu_carton": 26647.0,
+        "pu_piece": 26647.0
+      },
+      {
+        "nom": "LAVE VITRE CAHOUTCHOUC",
+        "code": "930462",
+        "categorie": "Produits de Nettoyage",
+        "conditionnement": 1.0,
+        "pu_carton": 3237.0,
+        "pu_piece": 3237.0
+      },
+      {
+        "nom": "LAVE VITRE MANCHE",
+        "code": "930591",
+        "categorie": "Produits de Nettoyage",
+        "conditionnement": 1.0,
+        "pu_carton": 5623.0,
+        "pu_piece": 5623.0
+      },
+      {
+        "nom": "LAVE VITRE MICROFIBRE",
+        "code": "900415",
+        "categorie": "Produits de Nettoyage",
+        "conditionnement": 1.0,
+        "pu_carton": 4577.0,
+        "pu_piece": 4577.0
+      },
+      {
+        "nom": "LAVE VITRE SUPER T BAR",
+        "code": "940329",
+        "categorie": "Produits de Nettoyage",
+        "conditionnement": 1.0,
+        "pu_carton": 6259.0,
+        "pu_piece": 6259.0
+      },
+      {
+        "nom": "LINGETTES ALCOOLISEES",
+        "code": "993058",
+        "categorie": "Produits de Nettoyage",
+        "conditionnement": 1.0,
+        "pu_carton": 1331.0,
+        "pu_piece": 1331.0
+      },
+      {
+        "nom": "MANCHE A BALAIS - Bleu",
+        "code": "10025492",
+        "categorie": "Produits de Nettoyage",
+        "conditionnement": 2.0,
+        "pu_carton": 17453.0,
+        "pu_piece": 8726.5
+      },
+      {
+        "nom": "MANCHE A BALAIS - Jaune",
+        "code": "10025497",
+        "categorie": "Produits de Nettoyage",
+        "conditionnement": 2.0,
+        "pu_carton": 18866.0,
+        "pu_piece": 9433.0
+      },
+      {
+        "nom": "MANCHE A BALAIS - Rouge",
+        "code": "10025495",
+        "categorie": "Produits de Nettoyage",
+        "conditionnement": 2.0,
+        "pu_carton": 17833.0,
+        "pu_piece": 8916.5
+      },
+      {
+        "nom": "MANCHE A BALAIS - Vert",
+        "code": "10025493",
+        "categorie": "Produits de Nettoyage",
+        "conditionnement": 2.0,
+        "pu_carton": 17453.0,
+        "pu_piece": 8726.5
+      },
+      {
+        "nom": "MANCHE A SERPILLERE",
+        "code": "992668",
+        "categorie": "Produits de Nettoyage",
+        "conditionnement": 1.0,
+        "pu_carton": 1024.0,
+        "pu_piece": 1024.0
+      },
+      {
+        "nom": "PANNEAU ATTENTION SOL GLISSANT",
+        "code": "930332CIP/CWF",
+        "categorie": "Produits de Nettoyage",
+        "conditionnement": 1.0,
+        "pu_carton": 7903.0,
+        "pu_piece": 7903.0
+      },
+      {
+        "nom": "PAPIER HYGIENIQUE JUMBO 3PLIS (6 ROULEAUX)",
+        "code": "PAP00042",
+        "categorie": "Produits de Nettoyage",
+        "conditionnement": 6.0,
+        "pu_carton": 6102.0,
+        "pu_piece": 1017.0
+      },
+      {
+        "nom": "PINCE RAMASSE ORDURE - Little Picker",
+        "code": "993261",
+        "categorie": "Produits de Nettoyage",
+        "conditionnement": 1.0,
+        "pu_carton": 53133.0,
+        "pu_piece": 53133.0
+      },
+      {
+        "nom": "PORTE BALAIS",
+        "code": "992676",
+        "categorie": "Produits de Nettoyage",
+        "conditionnement": 5.0,
+        "pu_carton": 3300.0,
+        "pu_piece": 660.0
+      },
+      {
+        "nom": "RAMASSE MIETTES - Balais",
+        "code": "992132",
+        "categorie": "Produits de Nettoyage",
+        "conditionnement": 1.0,
+        "pu_carton": 3472.0,
+        "pu_piece": 3472.0
+      },
+      {
+        "nom": "RAMASSE MIETTES - Pan",
+        "code": "992130",
+        "categorie": "Produits de Nettoyage",
+        "conditionnement": 1.0,
+        "pu_carton": 5323.0,
+        "pu_piece": 5323.0
+      },
+      {
+        "nom": "ROULEAU AUTOCUT",
+        "code": "PAP00076",
+        "categorie": "Produits de Nettoyage",
+        "conditionnement": 6.0,
+        "pu_carton": 20339.0,
+        "pu_piece": 3389.8333333333335
+      },
+      {
+        "nom": "ROULEAU PAPIER CELLULOSE OUATE",
+        "code": "SPHGHT0225",
+        "categorie": "Produits de Nettoyage",
+        "conditionnement": 6.0,
+        "pu_carton": 13770.0,
+        "pu_piece": 2295.0
+      },
+      {
+        "nom": "SEAU A POIGNEE - Bleu",
+        "code": "950053",
+        "categorie": "Produits de Nettoyage",
+        "conditionnement": 1.0,
+        "pu_carton": 4706.0,
+        "pu_piece": 4706.0
+      },
+      {
+        "nom": "SEAU A POIGNEE - Jaune",
+        "code": "950050",
+        "categorie": "Produits de Nettoyage",
+        "conditionnement": 1.0,
+        "pu_carton": 5043.0,
+        "pu_piece": 5043.0
+      },
+      {
+        "nom": "SEAU A POIGNEE - Rouge",
+        "code": "950051",
+        "categorie": "Produits de Nettoyage",
+        "conditionnement": 1.0,
+        "pu_carton": 6654.0,
+        "pu_piece": 6654.0
+      },
+      {
+        "nom": "SEAU A POIGNEE - Vert",
+        "code": "950052",
+        "categorie": "Produits de Nettoyage",
+        "conditionnement": 1.0,
+        "pu_carton": 5059.0,
+        "pu_piece": 5059.0
+      },
+      {
+        "nom": "SEAU A ROULETTES - Bleu",
+        "code": "920006",
+        "categorie": "Produits de Nettoyage",
+        "conditionnement": 1.0,
+        "pu_carton": 24906.0,
+        "pu_piece": 24906.0
+      },
+      {
+        "nom": "SEAU A ROULETTES - Jaune",
+        "code": "920004",
+        "categorie": "Produits de Nettoyage",
+        "conditionnement": 1.0,
+        "pu_carton": 25857.0,
+        "pu_piece": 25857.0
+      },
+      {
+        "nom": "SEAU A ROULETTES - Rouge",
+        "code": "920005",
+        "categorie": "Produits de Nettoyage",
+        "conditionnement": 1.0,
+        "pu_carton": 24677.0,
+        "pu_piece": 24677.0
+      },
+      {
+        "nom": "SEAU A ROULETTES - Vert",
+        "code": "920007",
+        "categorie": "Produits de Nettoyage",
+        "conditionnement": 1.0,
+        "pu_carton": 26854.0,
+        "pu_piece": 26854.0
+      },
+      {
+        "nom": "SEAU SANITIZER - Bleu",
+        "code": "10020461",
+        "categorie": "Produits de Nettoyage",
+        "conditionnement": 1.0,
+        "pu_carton": 11715.0,
+        "pu_piece": 11715.0
+      },
+      {
+        "nom": "SEAU SANITIZER - Rouge",
+        "code": "10018465",
+        "categorie": "Produits de Nettoyage",
+        "conditionnement": 1.0,
+        "pu_carton": 9392.0,
+        "pu_piece": 9392.0
+      },
+      {
+        "nom": "SPRAY BOTTLE DEGREASER",
+        "code": "10080029",
+        "categorie": "Produits de Nettoyage",
+        "conditionnement": 3.0,
+        "pu_carton": 5385.0,
+        "pu_piece": 1795.0
+      },
+      {
+        "nom": "SPRAY BOTTLE MULTISURFACE & GLASS",
+        "code": "10080030",
+        "categorie": "Produits de Nettoyage",
+        "conditionnement": 3.0,
+        "pu_carton": 7398.0,
+        "pu_piece": 2466.0
+      },
+      {
+        "nom": "SPRAY BOTTLE SANITIZER - Bleu",
+        "code": "10095671",
+        "categorie": "Produits de Nettoyage",
+        "conditionnement": 3.0,
+        "pu_carton": 5385.0,
+        "pu_piece": 1795.0
+      },
+      {
+        "nom": "SPRAY BOTTLE SANITIZER - Rouge",
+        "code": "10095670",
+        "categorie": "Produits de Nettoyage",
+        "conditionnement": 3.0,
+        "pu_carton": 5385.0,
+        "pu_piece": 1795.0
+      },
+      {
+        "nom": "SUPERSOAK TANK",
+        "code": "10094937",
+        "categorie": "Produits de Nettoyage",
+        "conditionnement": 1.0,
+        "pu_carton": 312097.0,
+        "pu_piece": 312097.0
+      },
+      {
+        "nom": "TOILETTES BROSSE CLIENT",
+        "code": "993265",
+        "categorie": "Produits de Nettoyage",
+        "conditionnement": 1.0,
+        "pu_carton": 9799.0,
+        "pu_piece": 9799.0
+      },
+      {
+        "nom": "TOILETTES BROSSE JAUNE",
+        "code": "992225",
+        "categorie": "Produits de Nettoyage",
+        "conditionnement": 1.0,
+        "pu_carton": 35297.0,
+        "pu_piece": 35297.0
+      },
+      {
+        "nom": "TOILETTES BROSSE MANCHE",
+        "code": "992279",
+        "categorie": "Produits de Nettoyage",
+        "conditionnement": 1.0,
+        "pu_carton": 1995.0,
+        "pu_piece": 1995.0
+      },
+      {
+        "nom": "WASTE NOT DISPENSER - Bidon",
+        "code": "10021342",
+        "categorie": "Produits de Nettoyage",
+        "conditionnement": 1.0,
+        "pu_carton": 8997.0,
+        "pu_piece": 8997.0
+      },
+      {
+        "nom": "WASTE NOT DISPENSER - Rack",
+        "code": "10019367",
+        "categorie": "Produits de Nettoyage",
+        "conditionnement": 1.0,
+        "pu_carton": 39394.0,
+        "pu_piece": 39394.0
+      },
+      {
+        "nom": "Article Test",
+        "code": "TEST001",
+        "categorie": "Test",
+        "conditionnement": 1.0,
+        "pu_carton": null,
+        "pu_piece": null
+      }
+    ],
+    "lignes_non_appariees": [
+      {
+        "nom": "MILO",
+        "code": "6033000083586"
+      },
+      {
+        "nom": "SEL - Importé",
+        "code": "140000001"
+      },
+      {
+        "nom": "TOMATES PFI",
+        "code": "TOMAPFI01"
+      },
+      {
+        "nom": "BOITE ENFANT",
+        "code": "960294"
+      },
+      {
+        "nom": "BOL A SALADE",
+        "code": "952127"
+      },
+      {
+        "nom": "COUVERCLE BOL A SALADE",
+        "code": "729244"
+      }
+    ],
+    "apparies_sans_prix": [
+      {
+        "nom": "3534-1037",
+        "code": "3534 1037",
+        "categorie": "Nourriture - Sec",
+        "conditionnement": 1.0,
+        "pu_carton": null,
+        "pu_piece": null
+      },
+      {
+        "nom": "902171SD",
+        "code": "902171SD",
+        "categorie": "Nourriture - Sec",
+        "conditionnement": 1.0,
+        "pu_carton": null,
+        "pu_piece": null
+      },
+      {
+        "nom": "AMGO923482",
+        "code": "AMGO923482",
+        "categorie": "Nourriture - Sec",
+        "conditionnement": 1.0,
+        "pu_carton": null,
+        "pu_piece": null
+      },
+      {
+        "nom": "B50ML",
+        "code": "B50ML",
+        "categorie": "Packaging",
+        "conditionnement": 1.0,
+        "pu_carton": null,
+        "pu_piece": null
+      },
+      {
+        "nom": "BK-TC 20CL B",
+        "code": "BK TC 20CL B",
+        "categorie": "Packaging",
+        "conditionnement": 1.0,
+        "pu_carton": null,
+        "pu_piece": null
+      },
+      {
+        "nom": "BKFR29",
+        "code": "BKFR29",
+        "categorie": "Nourriture - Surgelé",
+        "conditionnement": 1.0,
+        "pu_carton": null,
+        "pu_piece": null
+      },
+      {
+        "nom": "BKFR29-NOUG",
+        "code": "BKFR29 NOUG",
+        "categorie": "Nourriture - Surgelé",
+        "conditionnement": 1.0,
+        "pu_carton": null,
+        "pu_piece": null
+      },
+      {
+        "nom": "BKFRMZB",
+        "code": "BKFRMZB",
+        "categorie": "Nourriture - Surgelé",
+        "conditionnement": 1.0,
+        "pu_carton": null,
+        "pu_piece": null
+      },
+      {
+        "nom": "BOITE A GATEAU",
+        "code": "MFBAR001",
+        "categorie": "Packaging",
+        "conditionnement": 1.0,
+        "pu_carton": null,
+        "pu_piece": null
+      },
+      {
+        "nom": "H1 4' Bun Local",
+        "code": "LOCFR01",
+        "categorie": "Nourriture - Surgelé",
+        "conditionnement": 1.0,
+        "pu_carton": null,
+        "pu_piece": null
+      },
+      {
+        "nom": "H1 4' Bun Local 01",
+        "code": "LOCFR04",
+        "categorie": "Nourriture - Surgelé",
+        "conditionnement": 1.0,
+        "pu_carton": null,
+        "pu_piece": null
+      },
+      {
+        "nom": "H2 5' Bun Local",
+        "code": "LOCFR02",
+        "categorie": "Nourriture - Surgelé",
+        "conditionnement": 1.0,
+        "pu_carton": null,
+        "pu_piece": null
+      },
+      {
+        "nom": "H3 7' Bun Local",
+        "code": "LOCFR03",
+        "categorie": "Nourriture - Surgelé",
+        "conditionnement": 1.0,
+        "pu_carton": null,
+        "pu_piece": null
+      },
+      {
+        "nom": "KIT COUVERT - BOIS",
+        "code": "WOODCS250",
+        "categorie": "Packaging",
+        "conditionnement": 1.0,
+        "pu_carton": null,
+        "pu_piece": 105.08474576271188
+      },
+      {
+        "nom": "LID-SNBU002",
+        "code": "LID SNBU002",
+        "categorie": "Packaging",
+        "conditionnement": 1.0,
+        "pu_carton": null,
+        "pu_piece": null
+      },
+      {
+        "nom": "LIVRET DE JEUX",
+        "code": "LDJ001",
+        "categorie": "Packaging",
+        "conditionnement": 1.0,
+        "pu_carton": null,
+        "pu_piece": null
+      },
+      {
+        "nom": "OP23-02496",
+        "code": "OP23 02496",
+        "categorie": "Packaging",
+        "conditionnement": 1.0,
+        "pu_carton": null,
+        "pu_piece": null
+      },
+      {
+        "nom": "SCEFT400",
+        "code": "SCEFT400",
+        "categorie": "Packaging",
+        "conditionnement": 1.0,
+        "pu_carton": null,
+        "pu_piece": null
+      },
+      {
+        "nom": "SERVNANO001",
+        "code": "SERVNANO001",
+        "categorie": "Packaging",
+        "conditionnement": 1.0,
+        "pu_carton": null,
+        "pu_piece": null
+      },
+      {
+        "nom": "SNACK BUCKET",
+        "code": "SNBU001",
+        "categorie": "Packaging",
+        "conditionnement": 400.0,
+        "pu_carton": null,
+        "pu_piece": null
+      },
+      {
+        "nom": "SNACK BUCKET NEW",
+        "code": "SNBU002",
+        "categorie": "Packaging",
+        "conditionnement": 240.0,
+        "pu_carton": null,
+        "pu_piece": null
+      },
+      {
+        "nom": "SUCRE BUCHETTE",
+        "code": "BKSUC250",
+        "categorie": "Nourriture - Sec",
+        "conditionnement": 1.0,
+        "pu_carton": null,
+        "pu_piece": 9.8
+      },
+      {
+        "nom": "SUNDAE CUP",
+        "code": "52659",
+        "categorie": "Packaging",
+        "conditionnement": 1380.0,
+        "pu_carton": null,
+        "pu_piece": 43.7445635734145
+      },
+      {
+        "nom": "TOMABENEVA",
+        "code": "TOMABENEVA",
+        "categorie": "Nourriture - Frais",
+        "conditionnement": 1.0,
+        "pu_carton": null,
+        "pu_piece": null
+      },
+      {
+        "nom": "VINAIGRETTE NATURE (500 ml)",
+        "code": "VNAT500",
+        "categorie": "Nourriture - Sec",
+        "conditionnement": 1.0,
+        "pu_carton": null,
+        "pu_piece": null
+      },
+      {
+        "nom": "WRAP DBL CHEESE/SMALL SPEC",
+        "code": "2761",
+        "categorie": "Packaging",
+        "conditionnement": 5000.0,
+        "pu_carton": null,
+        "pu_piece": null
+      },
+      {
+        "nom": "WRAP HAMB/CHEESEBURGER-5000",
+        "code": "WHCB5000",
+        "categorie": "Packaging",
+        "conditionnement": 1.0,
+        "pu_carton": null,
+        "pu_piece": 8.527441
+      },
+      {
+        "nom": "WRAP LONG CHICKEN",
+        "code": "960500",
+        "categorie": "Packaging",
+        "conditionnement": null,
+        "pu_carton": null,
+        "pu_piece": 17.72097307344102
+      },
+      {
+        "nom": "WRAP STEAKHOUSE",
+        "code": "2758",
+        "categorie": "Packaging",
+        "conditionnement": 2000.0,
+        "pu_carton": null,
+        "pu_piece": null
+      },
+      {
+        "nom": "WRAP TENDERCRISP",
+        "code": "960484",
+        "categorie": "Packaging",
+        "conditionnement": 2000.0,
+        "pu_carton": null,
+        "pu_piece": null
+      },
+      {
+        "nom": "WRAP WHOPPER JR",
+        "code": "2811",
+        "categorie": "Packaging",
+        "conditionnement": 5000.0,
+        "pu_carton": null,
+        "pu_piece": null
+      }
+    ],
+    "incoherences_prix": [
+      {
+        "nom": "DIP HOT SALSA",
+        "code": "58177",
+        "categorie": "Nourriture",
+        "conditionnement": 150.0,
+        "pu_carton": 14756.0,
+        "pu_piece": 98.0,
+        "carton_vs_piece_x_cdt": 56.0
+      },
+      {
+        "nom": "COURONNE",
+        "code": "779587",
+        "categorie": "Packaging",
+        "conditionnement": 400.0,
+        "pu_carton": 16218.0,
+        "pu_piece": 41.0,
+        "carton_vs_piece_x_cdt": -182.0
+      },
+      {
+        "nom": "COUVERCLE GOBELET 40/50CL",
+        "code": "916544",
+        "categorie": "Packaging",
+        "conditionnement": 3750.0,
+        "pu_carton": 48092.0,
+        "pu_piece": 13.0,
+        "carton_vs_piece_x_cdt": -658.0
+      },
+      {
+        "nom": "GOBELET 25 CL",
+        "code": "951509",
+        "categorie": "Packaging",
+        "conditionnement": 2000.0,
+        "pu_carton": 52240.0,
+        "pu_piece": 26.0,
+        "carton_vs_piece_x_cdt": 240.0
+      },
+      {
+        "nom": "JOUETS ENFANT 100",
+        "code": "JOUETMAO1",
+        "categorie": "Packaging",
+        "conditionnement": 200.0,
+        "pu_carton": 140695.0,
+        "pu_piece": 703.0,
+        "carton_vs_piece_x_cdt": 95.0
+      },
+      {
+        "nom": "KIT COUVERT",
+        "code": "7778",
+        "categorie": "Packaging",
+        "conditionnement": 500.0,
+        "pu_carton": 52542.0,
+        "pu_piece": 105.0,
+        "carton_vs_piece_x_cdt": 42.0
+      },
+      {
+        "nom": "SACHET SNACK GRAND",
+        "code": "962076",
+        "categorie": "Packaging",
+        "conditionnement": 3000.0,
+        "pu_carton": 32611.0,
+        "pu_piece": 11.0,
+        "carton_vs_piece_x_cdt": -389.0
+      },
+      {
+        "nom": "SACHET SNACK MOYEN",
+        "code": "962092",
+        "categorie": "Packaging",
+        "conditionnement": 4000.0,
+        "pu_carton": 42266.0,
+        "pu_piece": 11.0,
+        "carton_vs_piece_x_cdt": -1734.0
+      },
+      {
+        "nom": "WRAP MULTI PETIT",
+        "code": "WRAPMP4000",
+        "categorie": "Packaging",
+        "conditionnement": 5000.0,
+        "pu_carton": 54196.0,
+        "pu_piece": 11.0,
+        "carton_vs_piece_x_cdt": -804.0
+      },
+      {
+        "nom": "FROMAGE MEDHDI NEW",
+        "code": "CHEMEDH2",
+        "categorie": "Nourriture",
+        "conditionnement": 288.0,
+        "pu_carton": 70278.83733571798,
+        "pu_piece": 66.55192929518748,
+        "carton_vs_piece_x_cdt": 51111.88
+      },
+      {
+        "nom": "SALADE ICEBERG - (06) Boules",
+        "code": "SALADICE06",
+        "categorie": "Nourriture",
+        "conditionnement": 64.0,
+        "pu_carton": 6877.335269677682,
+        "pu_piece": 6877.335269677682,
+        "carton_vs_piece_x_cdt": -433272.12
+      },
+      {
+        "nom": "SALADE ICEBERG - Boule",
+        "code": "SALADICE",
+        "categorie": "Nourriture",
+        "conditionnement": 106.5,
+        "pu_carton": 6877.335269677682,
+        "pu_piece": 6877.335269677682,
+        "carton_vs_piece_x_cdt": -725558.87
+      },
+      {
+        "nom": "SALADE ICEBERG - Boule (BFM)",
+        "code": "SALADEBFM",
+        "categorie": "Nourriture",
+        "conditionnement": 106.5,
+        "pu_carton": 6877.335269677682,
+        "pu_piece": 6877.335269677682,
+        "carton_vs_piece_x_cdt": -725558.87
+      },
+      {
+        "nom": "SALADE ICEBERG - Boule (BS)",
+        "code": "SALADEBS",
+        "categorie": "Nourriture",
+        "conditionnement": 128.0,
+        "pu_carton": 6877.335269677682,
+        "pu_piece": 6877.335269677682,
+        "carton_vs_piece_x_cdt": -873421.58
+      },
+      {
+        "nom": "CONE GLACE - Vida Longa",
+        "code": "BK-CG-VL",
+        "categorie": "Nourriture",
+        "conditionnement": 800.0,
+        "pu_carton": 26753.874660420614,
+        "pu_piece": 48.64340847349202,
+        "carton_vs_piece_x_cdt": -12160.85
+      },
+      {
+        "nom": "CONE GLACE 100",
+        "code": "CG-MEHDI002",
+        "categorie": "Nourriture",
+        "conditionnement": 250.0,
+        "pu_carton": 26753.874660420614,
+        "pu_piece": 48.64340847349202,
+        "carton_vs_piece_x_cdt": 14593.02
+      },
+      {
+        "nom": "DOSETTE KETCHUP PUIDOR - 9GR",
+        "code": "PUIDOR518852",
+        "categorie": "Nourriture",
+        "conditionnement": 1000.0,
+        "pu_carton": 34411.69529515912,
+        "pu_piece": 22.94113019677275,
+        "carton_vs_piece_x_cdt": 11470.57
+      },
+      {
+        "nom": "DOSETTE KETCHUP MEHDI - 12ml",
+        "code": "MEHDI518852",
+        "categorie": "Nourriture",
+        "conditionnement": 288.0,
+        "pu_carton": 34411.69529515912,
+        "pu_piece": 22.94113019677275,
+        "carton_vs_piece_x_cdt": 27804.65
+      },
+      {
+        "nom": "DOSETTE KETCHUP SIPRO - 11ml",
+        "code": "SIPRO518852",
+        "categorie": "Nourriture",
+        "conditionnement": 288.0,
+        "pu_carton": 34411.69529515912,
+        "pu_piece": 22.94113019677275,
+        "carton_vs_piece_x_cdt": 27804.65
+      },
+      {
+        "nom": "HUILE ALTIVOLEICO",
+        "code": "62476",
+        "categorie": "Nourriture",
+        "conditionnement": 35.0,
+        "pu_carton": 34411.69529515912,
+        "pu_piece": 22.94113019677275,
+        "carton_vs_piece_x_cdt": 33608.76
+      },
+      {
+        "nom": "HUILE AYA 5 L",
+        "code": "A5L",
+        "categorie": "Nourriture",
+        "conditionnement": 45.0,
+        "pu_carton": 21186.440677966104,
+        "pu_piece": 847.4576271186442,
+        "carton_vs_piece_x_cdt": -16949.15
+      },
+      {
+        "nom": "HUILE DE FRITEUSE",
+        "code": "1002976",
+        "categorie": "Nourriture",
+        "conditionnement": 27.5,
+        "pu_carton": 21186.440677966104,
+        "pu_piece": 847.4576271186442,
+        "carton_vs_piece_x_cdt": -2118.64
+      },
+      {
+        "nom": "HUILE DINOR 20 L",
+        "code": "3000978",
+        "categorie": "Nourriture",
+        "conditionnement": 20.0,
+        "pu_carton": 21186.440677966104,
+        "pu_piece": 847.4576271186442,
+        "carton_vs_piece_x_cdt": 4237.29
+      },
+      {
+        "nom": "HUILE SANIA 20 L",
+        "code": "3000991",
+        "categorie": "Nourriture",
+        "conditionnement": 20.0,
+        "pu_carton": 21186.440677966104,
+        "pu_piece": 847.4576271186442,
+        "carton_vs_piece_x_cdt": 4237.29
+      },
+      {
+        "nom": "JALAPENOS",
+        "code": "99262",
+        "categorie": "Nourriture",
+        "conditionnement": 310014.4,
+        "pu_carton": 21186.440677966104,
+        "pu_piece": 847.4576271186442,
+        "carton_vs_piece_x_cdt": -262702881.36
+      },
+      {
+        "nom": "JALAPENOS - Conway",
+        "code": "950766",
+        "categorie": "Nourriture",
+        "conditionnement": 15864.0,
+        "pu_carton": 21186.440677966104,
+        "pu_piece": 847.4576271186442,
+        "carton_vs_piece_x_cdt": -13422881.36
+      },
+      {
+        "nom": "OREO MIX",
+        "code": "994061",
+        "categorie": "Nourriture",
+        "conditionnement": 12400.0,
+        "pu_carton": 38988.54693029785,
+        "pu_piece": 8122.613943812053,
+        "carton_vs_piece_x_cdt": -100681424.36
+      },
+      {
+        "nom": "TOBLERONE",
+        "code": "TBL090508",
+        "categorie": "Nourriture",
+        "conditionnement": 12400.0,
+        "pu_carton": 18192.573820799997,
+        "pu_piece": 3790.1195459999994,
+        "carton_vs_piece_x_cdt": -46979289.8
+      },
+      {
+        "nom": "DOSETTE FRITE SAUCE PORTION - 10GR",
+        "code": "923482",
+        "categorie": "Nourriture",
+        "conditionnement": 200.0,
+        "pu_carton": 6250.000000000001,
+        "pu_piece": 25.000000000000004,
+        "carton_vs_piece_x_cdt": 1250.0
+      },
+      {
+        "nom": "SAUCE CARAMEL",
+        "code": "902171",
+        "categorie": "Nourriture",
+        "conditionnement": 61.2,
+        "pu_carton": 19557.4891464,
+        "pu_piece": 2716.317937,
+        "carton_vs_piece_x_cdt": -146681.17
+      },
+      {
+        "nom": "SAUCE CHOCOLAT",
+        "code": "999284",
+        "categorie": "Nourriture",
+        "conditionnement": 61.1,
+        "pu_carton": 41016.949,
+        "pu_piece": 5425.522354497355,
+        "carton_vs_piece_x_cdt": -290482.47
+      },
+      {
+        "nom": "SAUCE FRAISE",
+        "code": "68028",
+        "categorie": "Nourriture",
+        "conditionnement": 61.1,
+        "pu_carton": 27478.1699214,
+        "pu_piece": 4163.359079,
+        "carton_vs_piece_x_cdt": -226903.07
+      },
+      {
+        "nom": "SEL FIN 500g",
+        "code": "SFL500",
+        "categorie": "Nourriture",
+        "conditionnement": 20500.0,
+        "pu_carton": 833.3333333333334,
+        "pu_piece": 833.3333333333334,
+        "carton_vs_piece_x_cdt": -17082500.0
+      },
+      {
+        "nom": "SIROP MS CARAMEL SALE MONIN",
+        "code": "MONINSCSEL",
+        "categorie": "Nourriture",
+        "conditionnement": 43.0,
+        "pu_carton": 50847.458000000006,
+        "pu_piece": 6725.854232804234,
+        "carton_vs_piece_x_cdt": -238364.27
+      },
+      {
+        "nom": "SIROP MS CHOCOLAT MONIN",
+        "code": "MONINSCHOC",
+        "categorie": "Nourriture",
+        "conditionnement": 43.0,
+        "pu_carton": 50847.458000000006,
+        "pu_piece": 6725.854232804234,
+        "carton_vs_piece_x_cdt": -238364.27
+      },
+      {
+        "nom": "CHILI CHEESE BITES CONWAY",
+        "code": "BKFR22CNW",
+        "categorie": "Nourriture",
+        "conditionnement": 452.0,
+        "pu_carton": 20329.419343999998,
+        "pu_piece": 97.73759299999999,
+        "carton_vs_piece_x_cdt": -23847.97
+      },
+      {
+        "nom": "HAMBURGER PATTY - Carpisa",
+        "code": "BKFR05",
+        "categorie": "Nourriture",
+        "conditionnement": 320.0,
+        "pu_carton": 58905.363356309645,
+        "pu_piece": 245.43901398462353,
+        "carton_vs_piece_x_cdt": -19635.12
+      },
+      {
+        "nom": "ŒUFS FRITS",
+        "code": "BKFR33",
+        "categorie": "Nourriture",
+        "conditionnement": 100.0,
+        "pu_carton": 45024.88848,
+        "pu_piece": 375.207404,
+        "carton_vs_piece_x_cdt": 7504.15
+      },
+      {
+        "nom": "ONION RINGS",
+        "code": "BKFR08",
+        "categorie": "Nourriture",
+        "conditionnement": 792.0,
+        "pu_carton": 17779.079834669083,
+        "pu_piece": 28.220761642331876,
+        "carton_vs_piece_x_cdt": -4571.76
+      },
+      {
+        "nom": "WHOPPER PATTY  - Carpisa",
+        "code": "BKFR06",
+        "categorie": "Nourriture",
+        "conditionnement": 150.0,
+        "pu_carton": 63636.60664292222,
+        "pu_piece": 568.1839878832341,
+        "carton_vs_piece_x_cdt": -21590.99
+      },
+      {
+        "nom": "TASSE CAFE 20 CL",
+        "code": "BK-TC 20CL",
+        "categorie": "Packaging",
+        "conditionnement": 1250.0,
+        "pu_carton": 43391.555550000005,
+        "pu_piece": 41.32529100000001,
+        "carton_vs_piece_x_cdt": -8265.06
+      }
+    ],
+    "incoherences_arrondies": [
+      {
+        "nom": "SAUCE MAYONNAISE",
+        "code": "58185",
+        "categorie": "Nourriture",
+        "conditionnement": 72.0,
+        "pu_carton": 37288.0,
+        "pu_piece": 518.0,
+        "carton_vs_piece_x_cdt": -8.0
+      },
+      {
+        "nom": "CHILI CHEESE BITES",
+        "code": "BKFR22",
+        "categorie": "Nourriture - Surgelé",
+        "conditionnement": 449.0,
+        "pu_carton": 35002.0,
+        "pu_piece": 78.0,
+        "carton_vs_piece_x_cdt": -20.0
+      },
+      {
+        "nom": "NUGGETS (MEHDI)",
+        "code": "MEHDIFR12",
+        "categorie": "Nourriture - Surgelé",
+        "conditionnement": 660.0,
+        "pu_carton": 49519.0,
+        "pu_piece": 75.0,
+        "carton_vs_piece_x_cdt": 19.0
+      },
+      {
+        "nom": "ONION RINGS (LOCAL)",
+        "code": "ONRILOC01",
+        "categorie": "Nourriture - Surgelé",
+        "conditionnement": 635.0,
+        "pu_carton": 17779.0,
+        "pu_piece": 28.0,
+        "carton_vs_piece_x_cdt": -1.0
+      },
+      {
+        "nom": "BOL A SALADE NEW",
+        "code": "BZ08279",
+        "categorie": "Packaging",
+        "conditionnement": 200.0,
+        "pu_carton": 26971.0,
+        "pu_piece": 135.0,
+        "carton_vs_piece_x_cdt": -29.0
+      },
+      {
+        "nom": "SAC A EMPORTER PETIT - 8 lb Local",
+        "code": "LOC998757",
+        "categorie": "Packaging",
+        "conditionnement": 993.0,
+        "pu_carton": 27809.0,
+        "pu_piece": 28.0,
+        "carton_vs_piece_x_cdt": 5.0
+      },
+      {
+        "nom": "BKCI-BOCK 33CL",
+        "code": "BKCI BOCK 33CL",
+        "categorie": "Boissons",
+        "conditionnement": 24.0,
+        "pu_carton": 7950.0,
+        "pu_piece": 331.0,
+        "carton_vs_piece_x_cdt": 6.0
+      },
+      {
+        "nom": "BKCI-BOCK 50CL",
+        "code": "BKCI BOCK 50CL",
+        "categorie": "Boissons",
+        "conditionnement": 24.0,
+        "pu_carton": 7950.0,
+        "pu_piece": 331.0,
+        "carton_vs_piece_x_cdt": 6.0
+      },
+      {
+        "nom": "BTL-FANTA 30CL",
+        "code": "BTL FANTA 30CL",
+        "categorie": "Boissons",
+        "conditionnement": 12.0,
+        "pu_carton": 1288.0,
+        "pu_piece": 107.0,
+        "carton_vs_piece_x_cdt": 4.0
+      },
+      {
+        "nom": "BTL-FANTA CKTL 30CL",
+        "code": "BTL FANTA CKTL 30CL",
+        "categorie": "Boissons",
+        "conditionnement": 12.0,
+        "pu_carton": 1288.0,
+        "pu_piece": 107.0,
+        "carton_vs_piece_x_cdt": 4.0
+      },
+      {
+        "nom": "BTL-FANTA ANS 30CL",
+        "code": "BTL FANTA ANS 30CL",
+        "categorie": "Boissons",
+        "conditionnement": 12.0,
+        "pu_carton": 1288.0,
+        "pu_piece": 107.0,
+        "carton_vs_piece_x_cdt": 4.0
+      },
+      {
+        "nom": "BTL-FANTA FR 30CL",
+        "code": "BTL FANTA FR 30CL",
+        "categorie": "Boissons",
+        "conditionnement": 12.0,
+        "pu_carton": 1288.0,
+        "pu_piece": 107.0,
+        "carton_vs_piece_x_cdt": 4.0
+      },
+      {
+        "nom": "BTL-FANTA PM 30CL",
+        "code": "BTL FANTA PM 30CL",
+        "categorie": "Boissons",
+        "conditionnement": 12.0,
+        "pu_carton": 1288.0,
+        "pu_piece": 107.0,
+        "carton_vs_piece_x_cdt": 4.0
+      },
+      {
+        "nom": "BTL-SPRITE 30CL",
+        "code": "BTL SPRITE 30CL",
+        "categorie": "Boissons",
+        "conditionnement": 12.0,
+        "pu_carton": 1288.0,
+        "pu_piece": 107.0,
+        "carton_vs_piece_x_cdt": 4.0
+      },
+      {
+        "nom": "BKDM200",
+        "code": "BKDM200",
+        "categorie": "Boissons",
+        "conditionnement": 24.0,
+        "pu_carton": 3051.0,
+        "pu_piece": 127.0,
+        "carton_vs_piece_x_cdt": 3.0
+      },
+      {
+        "nom": "BKDO200",
+        "code": "BKDO200",
+        "categorie": "Boissons",
+        "conditionnement": 24.0,
+        "pu_carton": 3051.0,
+        "pu_piece": 127.0,
+        "carton_vs_piece_x_cdt": 3.0
+      },
+      {
+        "nom": "BKDP200",
+        "code": "BKDP200",
+        "categorie": "Boissons",
+        "conditionnement": 24.0,
+        "pu_carton": 3051.0,
+        "pu_piece": 127.0,
+        "carton_vs_piece_x_cdt": 3.0
+      },
+      {
+        "nom": "BKDA200",
+        "code": "BKDA200",
+        "categorie": "Boissons",
+        "conditionnement": 24.0,
+        "pu_carton": 3051.0,
+        "pu_piece": 127.0,
+        "carton_vs_piece_x_cdt": 3.0
+      },
+      {
+        "nom": "BKCI-EAU",
+        "code": "BKCI EAU",
+        "categorie": "Boissons",
+        "conditionnement": 16.0,
+        "pu_carton": 1288.0,
+        "pu_piece": 81.0,
+        "carton_vs_piece_x_cdt": -8.0
+      },
+      {
+        "nom": "BKCI-EAU12",
+        "code": "BKCI EAU12",
+        "categorie": "Boissons",
+        "conditionnement": 12.0,
+        "pu_carton": 966.0,
+        "pu_piece": 81.0,
+        "carton_vs_piece_x_cdt": -6.0
+      },
+      {
+        "nom": "BKCI-FANTA",
+        "code": "BKCI FANTA",
+        "categorie": "Boissons",
+        "conditionnement": 24.0,
+        "pu_carton": 7950.0,
+        "pu_piece": 331.0,
+        "carton_vs_piece_x_cdt": 6.0
+      },
+      {
+        "nom": "BKCI-SPRITE",
+        "code": "BKCI SPRITE",
+        "categorie": "Boissons",
+        "conditionnement": 24.0,
+        "pu_carton": 7950.0,
+        "pu_piece": 331.0,
+        "carton_vs_piece_x_cdt": 6.0
+      },
+      {
+        "nom": "GOB-6099",
+        "code": "GOB 6099",
+        "categorie": "Packaging",
+        "conditionnement": 50.0,
+        "pu_carton": 2598.0,
+        "pu_piece": 52.0,
+        "carton_vs_piece_x_cdt": -2.0
+      },
+      {
+        "nom": "BKCI-EAUK13",
+        "code": "BKCI EAUK13",
+        "categorie": "Boissons",
+        "conditionnement": 12.0,
+        "pu_carton": 966.0,
+        "pu_piece": 81.0,
+        "carton_vs_piece_x_cdt": -6.0
+      },
+      {
+        "nom": "BTL-SCHWAG 30CL",
+        "code": "BTL SCHWAG 30CL",
+        "categorie": "Boissons",
+        "conditionnement": 12.0,
+        "pu_carton": 1288.0,
+        "pu_piece": 107.0,
+        "carton_vs_piece_x_cdt": 4.0
+      },
+      {
+        "nom": "250K",
+        "code": "250K",
+        "categorie": "Nourriture - Frais",
+        "conditionnement": 250.0,
+        "pu_carton": 4026.0,
+        "pu_piece": 16.0,
+        "carton_vs_piece_x_cdt": 26.0
+      }
+    ],
+    "prix_suspects": [
+      {
+        "nom": "SALADE TREVISE - Boule",
+        "code": "SALADTRE",
+        "categorie": "Nourriture",
+        "conditionnement": 1000.0,
+        "pu_carton": 4874840.030714103,
+        "pu_piece": 4874.840030714103
+      }
+    ],
+    "cdt_non_parsables": [
+      {
+        "nom": "WRAP LONG CHICKEN",
+        "code": "960500",
+        "categorie": "Packaging",
+        "conditionnement": null,
+        "pu_carton": null,
+        "pu_piece": 17.72097307344102,
+        "conditionnement_brut": null
+      }
+    ],
+    "lignes_parasites": [
+      {
+        "nom": "Code article Bolloré",
+        "code": "CODE ARTICLE BOLLORE",
+        "categorie": "Catégorie",
+        "conditionnement": 1.0,
+        "pu_carton": null,
+        "pu_piece": null
+      },
+      {
+        "nom": "Article Test",
+        "code": "TEST001",
+        "categorie": "Test",
+        "conditionnement": 1.0,
+        "pu_carton": null,
+        "pu_piece": null
+      }
+    ]
+  }
+}

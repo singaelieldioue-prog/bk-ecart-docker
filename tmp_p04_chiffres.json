@@ -1,0 +1,1520 @@
+{
+ "E_zeros": 203,
+ "nb_ref": 318,
+ "pf_E": [
+  [
+   13,
+   "BOUTEILLE COCA COLA 50cL",
+   "BTL-COCA 50CL",
+   6,
+   null
+  ],
+  [
+   14,
+   "BOUTEILLE COCA COLA 1.5L",
+   "BTL-COCA 1.5L",
+   6,
+   null
+  ],
+  [
+   15,
+   "BOUTEILLE COCA COLA ZERO 50cL",
+   "BTL-COCA Z 50CL",
+   6,
+   null
+  ],
+  [
+   16,
+   "BOUTEILLE COCA COLA 30cL",
+   "BTL-COCA 30CL",
+   12,
+   null
+  ],
+  [
+   17,
+   "BOUTEILLE COCA COLA ZERO 30cL",
+   "BTL-COCA Z 30CL",
+   12,
+   null
+  ],
+  [
+   30,
+   "BOUTEILLE PEPSI ZERO 30CL",
+   "BTL-PEPSIZERO 30CL",
+   12,
+   null
+  ],
+  [
+   31,
+   "BOUTEILLE PEPSI 30CL",
+   "BTL-PEPSI 30CL",
+   12,
+   null
+  ],
+  [
+   34,
+   "BOUTEILLE PEPSI 1,5L",
+   "BTL-PEPSI 1,5L",
+   6,
+   null
+  ],
+  [
+   35,
+   "CAN PEPSI 250 ml",
+   "BKCI-PEPSI",
+   24,
+   null
+  ],
+  [
+   36,
+   "CANETTE PEPSI ZERO 25 CL",
+   "CAN-PEPZER 25 CL ",
+   24,
+   null
+  ],
+  [
+   63,
+   "FRITES",
+   "BKFR07",
+   5,
+   null
+  ],
+  [
+   87,
+   "MUFFIN CHOCOLAT",
+   "BKFR29",
+   60,
+   null
+  ],
+  [
+   88,
+   "MUFFIN CHOCOLAT - NOUGATINE",
+   "BKFR29-NOUG",
+   75,
+   25
+  ],
+  [
+   113,
+   "DIP FRITE SAUCE - 25GR",
+   "3534-1037",
+   100,
+   null
+  ],
+  [
+   114,
+   "DOSETTE FRITE SAUCE PORTION - 10GR",
+   923482,
+   200,
+   null
+  ],
+  [
+   139,
+   "SAUCE CHOCOLAT CARAMEL MONIN",
+   "999284-CCM",
+   4,
+   null
+  ],
+  [
+   140,
+   "SAUCE CHOCOLAT NOIR MONIN",
+   "999284-CNM",
+   4,
+   null
+  ],
+  [
+   141,
+   "SAUCE CHOCOLAT",
+   999284,
+   6,
+   null
+  ],
+  [
+   163,
+   "SIROP CHOCOLAT SGG",
+   "SGS",
+   12,
+   null
+  ],
+  [
+   177,
+   "DOSETTE FRITE SAUCE AMERIGO - 10GR",
+   "AMGO923482",
+   288,
+   null
+  ],
+  [
+   190,
+   "COFFRET A FRITE ",
+   "CAF",
+   1000,
+   null
+  ],
+  [
+   214,
+   "PAILLE SODAS (PAPIER)",
+   "760611PAP",
+   3500,
+   500
+  ],
+  [
+   222,
+   "SACHET FRITES GRAND",
+   998740,
+   6000,
+   100
+  ],
+  [
+   223,
+   "SACHET FRITES MOYEN",
+   73101,
+   4000,
+   100
+  ],
+  [
+   224,
+   "SACHET FRITES PETIT",
+   64472,
+   5000,
+   200
+  ],
+  [
+   225,
+   "SACHET FRITES PETIT 4000",
+   "SFP4000",
+   4000,
+   null
+  ],
+  [
+   229,
+   "SACHET FRITES - SIKO",
+   "73101SIKO",
+   null,
+   100
+  ],
+  [
+   299,
+   "ORION SOFT CARE PLUS PURE",
+   70023852,
+   2,
+   null
+  ]
+ ],
+ "rapports": {
+  "BK1 — 23/10/2026": {
+   "nb_pmix_lignes": 11,
+   "qty": 674,
+   "cout": 101161.58017567161,
+   "qty_hors_660010": 424,
+   "cout_hors_660010": 94911.58017567161,
+   "cout_complement_pf": 73933.45013385425,
+   "cout_ratio_pf": 27228.13004181737,
+   "consoParIng_pf": [
+    {
+     "ing": "FRIES (kg)",
+     "qte": 18.381,
+     "val": 25944.18225873149
+    },
+    {
+     "ing": "FRITE SAUCE SACHET",
+     "qte": 86,
+     "val": 2150
+    },
+    {
+     "ing": "LARGE FRIES BAG",
+     "qte": 27,
+     "val": 1350
+    },
+    {
+     "ing": "SMALL FRIES BAG",
+     "qte": 99,
+     "val": 501.9866176222248
+    },
+    {
+     "ing": "CAN SOFT MEDIUM",
+     "qte": 4,
+     "val": 445.48022598870057
+    },
+    {
+     "ing": "SAUCE CHOCOLATE (kg)",
+     "qte": 0.06,
+     "val": 325.53134126984133
+    },
+    {
+     "ing": "MEDIUM FRIES BAG",
+     "qte": 2,
+     "val": 12.038998250018755
+    }
+   ],
+   "consoParIng_pf_total": 30729.219441862275,
+   "lignes": [
+    {
+     "nom": "BOUTEILLE COCA COLA 50cL",
+     "ini": 60,
+     "entrees": 0,
+     "pertes": 0,
+     "fin": 0,
+     "ventes": 0,
+     "ecart": 60,
+     "puPiece": 21.245291902071564,
+     "ecartVal": 1274.7175141242938,
+     "puSrc": "stock"
+    },
+    {
+     "nom": "BOUTEILLE COCA COLA 1.5L",
+     "ini": 77,
+     "entrees": 0,
+     "pertes": 0,
+     "fin": 0,
+     "ventes": 0,
+     "ecart": 77,
+     "puPiece": 21.245291902071564,
+     "ecartVal": 1635.8874764595105,
+     "puSrc": "stock"
+    },
+    {
+     "nom": "BOUTEILLE COCA COLA ZERO 50cL",
+     "ini": 41,
+     "entrees": 0,
+     "pertes": 0,
+     "fin": 0,
+     "ventes": 0,
+     "ecart": 41,
+     "puPiece": 17.890772128060267,
+     "ecartVal": 733.521657250471,
+     "puSrc": "stock"
+    },
+    {
+     "nom": "BOUTEILLE COCA COLA 30cL",
+     "ini": 18,
+     "entrees": 0,
+     "pertes": 0,
+     "fin": 0,
+     "ventes": 0,
+     "ecart": 18,
+     "puPiece": 10.622645951035782,
+     "ecartVal": 191.20762711864407,
+     "puSrc": "stock"
+    },
+    {
+     "nom": "BOUTEILLE COCA COLA ZERO 30cL",
+     "ini": 51,
+     "entrees": 0,
+     "pertes": 0,
+     "fin": 0,
+     "ventes": 0,
+     "ecart": 51,
+     "puPiece": 8.945386064030133,
+     "ecartVal": 456.2146892655368,
+     "puSrc": "stock"
+    },
+    {
+     "nom": "BOUTEILLE PEPSI ZERO 30CL",
+     "ini": 26.000000000000004,
+     "entrees": 12,
+     "pertes": 1,
+     "fin": 74,
+     "ventes": 0,
+     "ecart": -37,
+     "puPiece": 107.33333333333333,
+     "ecartVal": -3971.333333333333,
+     "puSrc": "stock"
+    },
+    {
+     "nom": "BOUTEILLE PEPSI 30CL",
+     "ini": 72,
+     "entrees": 0,
+     "pertes": 1,
+     "fin": 114,
+     "ventes": 0,
+     "ecart": -43,
+     "puPiece": 126.66666666666667,
+     "ecartVal": -5446.666666666667,
+     "puSrc": "stock"
+    },
+    {
+     "nom": "BOUTEILLE PEPSI 1,5L",
+     "ini": 0,
+     "entrees": 0,
+     "pertes": 1,
+     "fin": 0,
+     "ventes": 0,
+     "ecart": -1,
+     "puPiece": 525,
+     "ecartVal": -525,
+     "puSrc": "stock"
+    },
+    {
+     "nom": "CAN PEPSI 250 ml",
+     "ini": 0,
+     "entrees": 3384,
+     "pertes": 1,
+     "fin": 0,
+     "ventes": 0,
+     "ecart": 3383,
+     "puPiece": 190.66666666666666,
+     "ecartVal": 645025.3333333333,
+     "puSrc": "stock"
+    },
+    {
+     "nom": "CANETTE PEPSI ZERO 25 CL",
+     "ini": 52.00000000000001,
+     "entrees": 0,
+     "pertes": 1,
+     "fin": 18,
+     "ventes": 0,
+     "ecart": 33.00000000000001,
+     "puPiece": 63.75,
+     "ecartVal": 2103.7500000000005,
+     "puSrc": "stock"
+    },
+    {
+     "nom": "FRITES",
+     "ini": 0,
+     "entrees": 87,
+     "pertes": 1,
+     "fin": 0,
+     "ventes": 0,
+     "ecart": 86,
+     "puPiece": 17643,
+     "ecartVal": 1517298,
+     "puSrc": "stock"
+    },
+    {
+     "nom": "MUFFIN CHOCOLAT",
+     "ini": 0,
+     "entrees": 0,
+     "pertes": 1,
+     "fin": 0,
+     "ventes": 0,
+     "ecart": -1,
+     "puPiece": 0,
+     "ecartVal": 0,
+     "puSrc": "aucun"
+    },
+    {
+     "nom": "MUFFIN CHOCOLAT - NOUGATINE",
+     "ini": 0,
+     "entrees": 0,
+     "pertes": 1,
+     "fin": 0,
+     "ventes": 0,
+     "ecart": -1,
+     "puPiece": 0,
+     "ecartVal": 0,
+     "puSrc": "aucun"
+    },
+    {
+     "nom": "DIP FRITE SAUCE - 25GR",
+     "ini": 0,
+     "entrees": 0,
+     "pertes": 1,
+     "fin": 0,
+     "ventes": 0,
+     "ecart": -1,
+     "puPiece": 0,
+     "ecartVal": 0,
+     "puSrc": "aucun"
+    },
+    {
+     "nom": "DOSETTE FRITE SAUCE PORTION - 10GR",
+     "ini": 0,
+     "entrees": 0,
+     "pertes": 1,
+     "fin": 0,
+     "ventes": 0,
+     "ecart": -1,
+     "puPiece": 31.250000000000004,
+     "ecartVal": -31.250000000000004,
+     "puSrc": "stock"
+    },
+    {
+     "nom": "SAUCE CHOCOLAT NOIR MONIN",
+     "ini": 0,
+     "entrees": 1,
+     "pertes": 1,
+     "fin": 0,
+     "ventes": 0,
+     "ecart": 0,
+     "puPiece": 41017,
+     "ecartVal": 0,
+     "puSrc": "stock"
+    },
+    {
+     "nom": "SAUCE CHOCOLAT",
+     "ini": 0,
+     "entrees": 0,
+     "pertes": 1,
+     "fin": 0,
+     "ventes": 0,
+     "ecart": -1,
+     "puPiece": 6836.158166666667,
+     "ecartVal": -6836.158166666667,
+     "puSrc": "stock"
+    },
+    {
+     "nom": "SIROP CHOCOLAT SGG",
+     "ini": 0,
+     "entrees": 0,
+     "pertes": 1,
+     "fin": 0,
+     "ventes": 0,
+     "ecart": -1,
+     "puPiece": 30000,
+     "ecartVal": -30000,
+     "puSrc": "stock"
+    },
+    {
+     "nom": "DOSETTE FRITE SAUCE AMERIGO - 10GR",
+     "ini": 0,
+     "entrees": 0,
+     "pertes": 1,
+     "fin": 0,
+     "ventes": 0,
+     "ecart": -1,
+     "puPiece": 0,
+     "ecartVal": 0,
+     "puSrc": "aucun"
+    },
+    {
+     "nom": "COFFRET A FRITE",
+     "ini": 0,
+     "entrees": 1000,
+     "pertes": 0,
+     "fin": 0,
+     "ventes": 0,
+     "ecart": 1000,
+     "puPiece": 50,
+     "ecartVal": 50000,
+     "puSrc": "stock"
+    },
+    {
+     "nom": "PAILLE SODAS (PAPIER)",
+     "ini": 0,
+     "entrees": 7000,
+     "pertes": 0,
+     "fin": 0,
+     "ventes": 0,
+     "ecart": 7000,
+     "puPiece": 10,
+     "ecartVal": 70000,
+     "puSrc": "stock"
+    },
+    {
+     "nom": "SACHET FRITES PETIT 4000",
+     "ini": 0,
+     "entrees": 8000,
+     "pertes": 0,
+     "fin": 0,
+     "ventes": 0,
+     "ecart": 8000,
+     "puPiece": 5.0705,
+     "ecartVal": 40564,
+     "puSrc": "stock"
+    }
+   ],
+   "somme_ecartVal": 2282472.224130885,
+   "nb_lignes_pf": 22,
+   "stock_pf": [
+    {
+     "nom": "BOUTEILLE COCA COLA 50cL",
+     "cle": "BOUTEILLE COCA COLA 50CL",
+     "cartons": 10,
+     "inner": 0,
+     "unites": 6,
+     "qteCdt": 6,
+     "qtePieces": 60,
+     "puCarton": 127.47175141242938,
+     "valeur": 1274.7175141242938,
+     "prixSource": "inconnu"
+    },
+    {
+     "nom": "BOUTEILLE COCA COLA 1.5L",
+     "cle": "BOUTEILLE COCA COLA 1 5L",
+     "cartons": 12.833333333333334,
+     "inner": 0,
+     "unites": 11,
+     "qteCdt": 6,
+     "qtePieces": 77,
+     "puCarton": 127.47175141242938,
+     "valeur": 1635.8874764595105,
+     "prixSource": "inconnu"
+    },
+    {
+     "nom": "BOUTEILLE COCA COLA ZERO 50cL",
+     "cle": "BOUTEILLE COCA COLA ZERO 50CL",
+     "cartons": 6.833333333333333,
+     "inner": 0,
+     "unites": 5,
+     "qteCdt": 6,
+     "qtePieces": 41,
+     "puCarton": 107.34463276836159,
+     "valeur": 733.5216572504709,
+     "prixSource": "inconnu"
+    },
+    {
+     "nom": "BOUTEILLE COCA COLA 30cL",
+     "cle": "BOUTEILLE COCA COLA 30CL",
+     "cartons": 1.5,
+     "inner": 0,
+     "unites": 18,
+     "qteCdt": 12,
+     "qtePieces": 18,
+     "puCarton": 127.47175141242938,
+     "valeur": 191.20762711864407,
+     "prixSource": "inconnu"
+    },
+    {
+     "nom": "BOUTEILLE COCA COLA ZERO 30cL",
+     "cle": "BOUTEILLE COCA COLA ZERO 30CL",
+     "cartons": 4.25,
+     "inner": 0,
+     "unites": 15,
+     "qteCdt": 12,
+     "qtePieces": 51,
+     "puCarton": 107.34463276836159,
+     "valeur": 456.2146892655368,
+     "prixSource": "inconnu"
+    },
+    {
+     "nom": "BOUTEILLE PEPSI ZERO 30CL",
+     "cle": "BOUTEILLE PEPSI ZERO 30CL",
+     "cartons": 2.166666666666667,
+     "inner": 0,
+     "unites": 14,
+     "qteCdt": 12,
+     "qtePieces": 26.000000000000004,
+     "puCarton": 1288,
+     "valeur": 2790.666666666667,
+     "prixSource": "Base locale"
+    },
+    {
+     "nom": "BOUTEILLE PEPSI 30CL",
+     "cle": "BOUTEILLE PEPSI 30CL",
+     "cartons": 6,
+     "inner": 8.082,
+     "unites": 0,
+     "qteCdt": 12,
+     "qtePieces": 72,
+     "puCarton": 1520,
+     "valeur": 9120,
+     "prixSource": "Base locale"
+    },
+    {
+     "nom": "BOUTEILLE PEPSI 1,5L",
+     "cle": "BOUTEILLE PEPSI 1 5L",
+     "cartons": 0,
+     "inner": 2,
+     "unites": 0,
+     "qteCdt": 6,
+     "qtePieces": 0,
+     "puCarton": 3150,
+     "valeur": 0,
+     "prixSource": "Base locale"
+    },
+    {
+     "nom": "CAN PEPSI 250 ml",
+     "cle": "CAN PEPSI 250 ML",
+     "cartons": 0,
+     "inner": 0,
+     "unites": 0,
+     "qteCdt": 24,
+     "qtePieces": 0,
+     "puCarton": 4576,
+     "valeur": 0,
+     "prixSource": "Base locale"
+    },
+    {
+     "nom": "CANETTE PEPSI ZERO 25 CL",
+     "cle": "CANETTE PEPSI ZERO 25 CL",
+     "cartons": 2.166666666666667,
+     "inner": 6,
+     "unites": 28,
+     "qteCdt": 24,
+     "qtePieces": 52.00000000000001,
+     "puCarton": 1530,
+     "valeur": 3315.0000000000005,
+     "prixSource": "Base locale"
+    },
+    {
+     "nom": "FRITES",
+     "cle": "FRITES",
+     "cartons": 0,
+     "inner": 0,
+     "unites": 0,
+     "qteCdt": 1,
+     "qtePieces": 0,
+     "puCarton": 17643,
+     "valeur": 0,
+     "prixSource": "Base locale"
+    },
+    {
+     "nom": "MUFFIN CHOCOLAT",
+     "cle": "MUFFIN CHOCOLAT",
+     "cartons": 0,
+     "inner": 0,
+     "unites": 0,
+     "qteCdt": 60,
+     "qtePieces": 0,
+     "puCarton": 0,
+     "valeur": 0,
+     "prixSource": "inconnu"
+    },
+    {
+     "nom": "MUFFIN CHOCOLAT - NOUGATINE",
+     "cle": "MUFFIN CHOCOLAT NOUGATINE",
+     "cartons": 0,
+     "inner": 0,
+     "unites": 0,
+     "qteCdt": 75,
+     "qtePieces": 0,
+     "puCarton": 0,
+     "valeur": 0,
+     "prixSource": "inconnu"
+    },
+    {
+     "nom": "DIP FRITE SAUCE - 25GR",
+     "cle": "DIP FRITE SAUCE 25GR",
+     "cartons": 0,
+     "inner": 0,
+     "unites": 0,
+     "qteCdt": 100,
+     "qtePieces": 0,
+     "puCarton": 0,
+     "valeur": 0,
+     "prixSource": "inconnu"
+    },
+    {
+     "nom": "DOSETTE FRITE SAUCE PORTION - 10GR",
+     "cle": "DOSETTE FRITE SAUCE PORTION 10GR",
+     "cartons": 0,
+     "inner": 0,
+     "unites": 0,
+     "qteCdt": 200,
+     "qtePieces": 0,
+     "puCarton": 6250.000000000001,
+     "valeur": 0,
+     "prixSource": "inconnu"
+    },
+    {
+     "nom": "SAUCE CHOCOLAT CARAMEL MONIN",
+     "cle": "SAUCE CHOCOLAT CARAMEL MONIN",
+     "cartons": 0,
+     "inner": 0,
+     "unites": 0,
+     "qteCdt": 1,
+     "qtePieces": 0,
+     "puCarton": 48136,
+     "valeur": 0,
+     "prixSource": "Base locale"
+    },
+    {
+     "nom": "SAUCE CHOCOLAT NOIR MONIN",
+     "cle": "SAUCE CHOCOLAT NOIR MONIN",
+     "cartons": 0,
+     "inner": 0,
+     "unites": 0,
+     "qteCdt": 1,
+     "qtePieces": 0,
+     "puCarton": 41017,
+     "valeur": 0,
+     "prixSource": "Base locale"
+    },
+    {
+     "nom": "SAUCE CHOCOLAT",
+     "cle": "SAUCE CHOCOLAT",
+     "cartons": 0,
+     "inner": 0,
+     "unites": 0,
+     "qteCdt": 6,
+     "qtePieces": 0,
+     "puCarton": 41016.949,
+     "valeur": 0,
+     "prixSource": "inconnu"
+    },
+    {
+     "nom": "SIROP CHOCOLAT SGG",
+     "cle": "SIROP CHOCOLAT SGG",
+     "cartons": 0,
+     "inner": 0,
+     "unites": 0,
+     "qteCdt": 1,
+     "qtePieces": 0,
+     "puCarton": 30000,
+     "valeur": 0,
+     "prixSource": "Base locale"
+    },
+    {
+     "nom": "DOSETTE FRITE SAUCE AMERIGO - 10GR",
+     "cle": "DOSETTE FRITE SAUCE AMERIGO 10GR",
+     "cartons": 0,
+     "inner": 0,
+     "unites": 0,
+     "qteCdt": 288,
+     "qtePieces": 0,
+     "puCarton": 0,
+     "valeur": 0,
+     "prixSource": "inconnu"
+    },
+    {
+     "nom": "COFFRET A FRITE",
+     "cle": "COFFRET A FRITE",
+     "cartons": 0,
+     "inner": 0,
+     "unites": 0,
+     "qteCdt": 1000,
+     "qtePieces": 0,
+     "puCarton": 50000,
+     "valeur": 0,
+     "prixSource": "Base locale"
+    },
+    {
+     "nom": "PAILLE SODAS (PAPIER)",
+     "cle": "PAILLE SODAS PAPIER ",
+     "cartons": 0,
+     "inner": 0,
+     "unites": 0,
+     "qteCdt": 3500,
+     "qtePieces": 0,
+     "puCarton": 35000,
+     "valeur": 0,
+     "prixSource": "Base locale"
+    },
+    {
+     "nom": "SACHET FRITES GRAND",
+     "cle": "SACHET FRITES GRAND",
+     "cartons": 0,
+     "inner": 0,
+     "unites": 0,
+     "qteCdt": 6000,
+     "qtePieces": 0,
+     "puCarton": 50000.00000000001,
+     "valeur": 0,
+     "prixSource": "inconnu"
+    },
+    {
+     "nom": "SACHET FRITES MOYEN",
+     "cle": "SACHET FRITES MOYEN",
+     "cartons": 0,
+     "inner": 0,
+     "unites": 0,
+     "qteCdt": 4000,
+     "qtePieces": 0,
+     "puCarton": 25714,
+     "valeur": 0,
+     "prixSource": "Base locale"
+    },
+    {
+     "nom": "SACHET FRITES PETIT",
+     "cle": "SACHET FRITES PETIT",
+     "cartons": 0,
+     "inner": 0,
+     "unites": 0,
+     "qteCdt": 5000,
+     "qtePieces": 0,
+     "puCarton": 20670.56688932533,
+     "valeur": 0,
+     "prixSource": "inconnu"
+    },
+    {
+     "nom": "SACHET FRITES PETIT 4000",
+     "cle": "SACHET FRITES PETIT 4000",
+     "cartons": 0,
+     "inner": 0,
+     "unites": 0,
+     "qteCdt": 4000,
+     "qtePieces": 0,
+     "puCarton": 20282,
+     "valeur": 0,
+     "prixSource": "Base locale"
+    },
+    {
+     "nom": "SACHET FRITES - SIKO",
+     "cle": "SACHET FRITES SIKO",
+     "cartons": 0,
+     "inner": 0,
+     "unites": 0,
+     "qteCdt": 1,
+     "qtePieces": 0,
+     "puCarton": 24077.99650003751,
+     "valeur": 0,
+     "prixSource": "inconnu"
+    },
+    {
+     "nom": "ORION SOFT CARE PLUS PURE",
+     "cle": "ORION SOFT CARE PLUS PURE",
+     "cartons": 0,
+     "inner": 0,
+     "unites": 0,
+     "qteCdt": 1,
+     "qtePieces": 0,
+     "puCarton": 38339,
+     "valeur": 0,
+     "prixSource": "Base locale"
+    }
+   ],
+   "consoReelle": 9881242.447786652,
+   "consoTheoTotal": 559270.3564250234,
+   "ecartMatiere": 9321972.091361629,
+   "totalValIni": 1740270.1640465832,
+   "totalValFin": 9292355.25400993
+  },
+  "BK COCODY — 22/10/2026": {
+   "nb_pmix_lignes": 9,
+   "qty": 667,
+   "cout": 100046.30519829561,
+   "qty_hors_660010": 417,
+   "cout_hors_660010": 93796.30519829561,
+   "cout_complement_pf": 73933.45013385425,
+   "cout_ratio_pf": 26112.855064441366,
+   "consoParIng_pf": [
+    {
+     "ing": "FRIES (kg)",
+     "qte": 18.381,
+     "val": 25944.18225873149
+    },
+    {
+     "ing": "FRITE SAUCE SACHET",
+     "qte": 86,
+     "val": 2150
+    },
+    {
+     "ing": "LARGE FRIES BAG",
+     "qte": 27,
+     "val": 1350
+    },
+    {
+     "ing": "SMALL FRIES BAG",
+     "qte": 99,
+     "val": 501.9866176222248
+    },
+    {
+     "ing": "CAN SOFT MEDIUM",
+     "qte": 4,
+     "val": 445.48022598870057
+    },
+    {
+     "ing": "SAUCE CHOCOLATE (kg)",
+     "qte": 0.06,
+     "val": 325.53134126984133
+    },
+    {
+     "ing": "MEDIUM FRIES BAG",
+     "qte": 2,
+     "val": 12.038998250018755
+    }
+   ],
+   "consoParIng_pf_total": 30729.219441862275,
+   "lignes": [
+    {
+     "nom": "BOUTEILLE COCA COLA 50cL",
+     "ini": 60,
+     "entrees": 0,
+     "pertes": 0,
+     "fin": 0,
+     "ventes": 0,
+     "ecart": 60,
+     "puPiece": 21.245291902071564,
+     "ecartVal": 1274.7175141242938,
+     "puSrc": "stock"
+    },
+    {
+     "nom": "BOUTEILLE COCA COLA 1.5L",
+     "ini": 77,
+     "entrees": 0,
+     "pertes": 0,
+     "fin": 0,
+     "ventes": 0,
+     "ecart": 77,
+     "puPiece": 21.245291902071564,
+     "ecartVal": 1635.8874764595105,
+     "puSrc": "stock"
+    },
+    {
+     "nom": "BOUTEILLE COCA COLA ZERO 50cL",
+     "ini": 41,
+     "entrees": 0,
+     "pertes": 0,
+     "fin": 0,
+     "ventes": 0,
+     "ecart": 41,
+     "puPiece": 17.890772128060267,
+     "ecartVal": 733.521657250471,
+     "puSrc": "stock"
+    },
+    {
+     "nom": "BOUTEILLE COCA COLA 30cL",
+     "ini": 18,
+     "entrees": 0,
+     "pertes": 0,
+     "fin": 0,
+     "ventes": 0,
+     "ecart": 18,
+     "puPiece": 10.622645951035782,
+     "ecartVal": 191.20762711864407,
+     "puSrc": "stock"
+    },
+    {
+     "nom": "BOUTEILLE COCA COLA ZERO 30cL",
+     "ini": 51,
+     "entrees": 0,
+     "pertes": 0,
+     "fin": 0,
+     "ventes": 0,
+     "ecart": 51,
+     "puPiece": 8.945386064030133,
+     "ecartVal": 456.2146892655368,
+     "puSrc": "stock"
+    },
+    {
+     "nom": "BOUTEILLE PEPSI ZERO 30CL",
+     "ini": 26.000000000000004,
+     "entrees": 12,
+     "pertes": 1,
+     "fin": 74,
+     "ventes": 0,
+     "ecart": -37,
+     "puPiece": 107.33333333333333,
+     "ecartVal": -3971.333333333333,
+     "puSrc": "stock"
+    },
+    {
+     "nom": "BOUTEILLE PEPSI 30CL",
+     "ini": 72,
+     "entrees": 0,
+     "pertes": 1,
+     "fin": 114,
+     "ventes": 0,
+     "ecart": -43,
+     "puPiece": 126.66666666666667,
+     "ecartVal": -5446.666666666667,
+     "puSrc": "stock"
+    },
+    {
+     "nom": "BOUTEILLE PEPSI 1,5L",
+     "ini": 0,
+     "entrees": 0,
+     "pertes": 1,
+     "fin": 0,
+     "ventes": 0,
+     "ecart": -1,
+     "puPiece": 525,
+     "ecartVal": -525,
+     "puSrc": "stock"
+    },
+    {
+     "nom": "CAN PEPSI 250 ml",
+     "ini": 0,
+     "entrees": 53928,
+     "pertes": 1,
+     "fin": 0,
+     "ventes": 0,
+     "ecart": 53927,
+     "puPiece": 190.66666666666666,
+     "ecartVal": 10282081.333333332,
+     "puSrc": "stock"
+    },
+    {
+     "nom": "CANETTE PEPSI ZERO 25 CL",
+     "ini": 52.00000000000001,
+     "entrees": 3744,
+     "pertes": 1,
+     "fin": 18,
+     "ventes": 0,
+     "ecart": 3777,
+     "puPiece": 63.75,
+     "ecartVal": 240783.75,
+     "puSrc": "stock"
+    },
+    {
+     "nom": "FRITES",
+     "ini": 0,
+     "entrees": 1140,
+     "pertes": 1,
+     "fin": 2,
+     "ventes": 0,
+     "ecart": 1137,
+     "puPiece": 17643,
+     "ecartVal": 20060091,
+     "puSrc": "stock"
+    },
+    {
+     "nom": "MUFFIN CHOCOLAT",
+     "ini": 0,
+     "entrees": 0,
+     "pertes": 1,
+     "fin": 0,
+     "ventes": 0,
+     "ecart": -1,
+     "puPiece": 0,
+     "ecartVal": 0,
+     "puSrc": "aucun"
+    },
+    {
+     "nom": "MUFFIN CHOCOLAT - NOUGATINE",
+     "ini": 0,
+     "entrees": 0,
+     "pertes": 1,
+     "fin": 210.00000000000003,
+     "ventes": 0,
+     "ecart": -211.00000000000003,
+     "puPiece": 0,
+     "ecartVal": 0,
+     "puSrc": "aucun"
+    },
+    {
+     "nom": "DIP FRITE SAUCE - 25GR",
+     "ini": 0,
+     "entrees": 0,
+     "pertes": 1,
+     "fin": 0,
+     "ventes": 0,
+     "ecart": -1,
+     "puPiece": 0,
+     "ecartVal": 0,
+     "puSrc": "aucun"
+    },
+    {
+     "nom": "DOSETTE FRITE SAUCE PORTION - 10GR",
+     "ini": 0,
+     "entrees": 0,
+     "pertes": 1,
+     "fin": 0,
+     "ventes": 0,
+     "ecart": -1,
+     "puPiece": 31.250000000000004,
+     "ecartVal": -31.250000000000004,
+     "puSrc": "stock"
+    },
+    {
+     "nom": "SAUCE CHOCOLAT NOIR MONIN",
+     "ini": 0,
+     "entrees": 8,
+     "pertes": 1,
+     "fin": 0,
+     "ventes": 0,
+     "ecart": 7,
+     "puPiece": 41017,
+     "ecartVal": 287119,
+     "puSrc": "stock"
+    },
+    {
+     "nom": "SAUCE CHOCOLAT",
+     "ini": 0,
+     "entrees": 0,
+     "pertes": 1,
+     "fin": 0,
+     "ventes": 0,
+     "ecart": -1,
+     "puPiece": 6836.158166666667,
+     "ecartVal": -6836.158166666667,
+     "puSrc": "stock"
+    },
+    {
+     "nom": "SIROP CHOCOLAT SGG",
+     "ini": 0,
+     "entrees": 0,
+     "pertes": 1,
+     "fin": 0,
+     "ventes": 0,
+     "ecart": -1,
+     "puPiece": 30000,
+     "ecartVal": -30000,
+     "puSrc": "stock"
+    },
+    {
+     "nom": "DOSETTE FRITE SAUCE AMERIGO - 10GR",
+     "ini": 0,
+     "entrees": 0,
+     "pertes": 1,
+     "fin": 0,
+     "ventes": 0,
+     "ecart": -1,
+     "puPiece": 0,
+     "ecartVal": 0,
+     "puSrc": "aucun"
+    },
+    {
+     "nom": "COFFRET A FRITE",
+     "ini": 0,
+     "entrees": 14000,
+     "pertes": 0,
+     "fin": 0,
+     "ventes": 0,
+     "ecart": 14000,
+     "puPiece": 50,
+     "ecartVal": 700000,
+     "puSrc": "stock"
+    },
+    {
+     "nom": "PAILLE SODAS (PAPIER)",
+     "ini": 0,
+     "entrees": 66500,
+     "pertes": 0,
+     "fin": 0,
+     "ventes": 0,
+     "ecart": 66500,
+     "puPiece": 10,
+     "ecartVal": 665000,
+     "puSrc": "stock"
+    },
+    {
+     "nom": "SACHET FRITES PETIT 4000",
+     "ini": 0,
+     "entrees": 120000,
+     "pertes": 0,
+     "fin": 0,
+     "ventes": 0,
+     "ecart": 120000,
+     "puPiece": 5.0705,
+     "ecartVal": 608460,
+     "puSrc": "stock"
+    }
+   ],
+   "somme_ecartVal": 32801016.224130884,
+   "nb_lignes_pf": 22,
+   "stock_pf": [
+    {
+     "nom": "BOUTEILLE COCA COLA 50cL",
+     "cle": "BOUTEILLE COCA COLA 50CL",
+     "cartons": 10,
+     "inner": 0,
+     "unites": 6,
+     "qteCdt": 6,
+     "qtePieces": 60,
+     "puCarton": 127.47175141242938,
+     "valeur": 1274.7175141242938,
+     "prixSource": "inconnu"
+    },
+    {
+     "nom": "BOUTEILLE COCA COLA 1.5L",
+     "cle": "BOUTEILLE COCA COLA 1 5L",
+     "cartons": 12.833333333333334,
+     "inner": 0,
+     "unites": 11,
+     "qteCdt": 6,
+     "qtePieces": 77,
+     "puCarton": 127.47175141242938,
+     "valeur": 1635.8874764595105,
+     "prixSource": "inconnu"
+    },
+    {
+     "nom": "BOUTEILLE COCA COLA ZERO 50cL",
+     "cle": "BOUTEILLE COCA COLA ZERO 50CL",
+     "cartons": 6.833333333333333,
+     "inner": 0,
+     "unites": 5,
+     "qteCdt": 6,
+     "qtePieces": 41,
+     "puCarton": 107.34463276836159,
+     "valeur": 733.5216572504709,
+     "prixSource": "inconnu"
+    },
+    {
+     "nom": "BOUTEILLE COCA COLA 30cL",
+     "cle": "BOUTEILLE COCA COLA 30CL",
+     "cartons": 1.5,
+     "inner": 0,
+     "unites": 18,
+     "qteCdt": 12,
+     "qtePieces": 18,
+     "puCarton": 127.47175141242938,
+     "valeur": 191.20762711864407,
+     "prixSource": "inconnu"
+    },
+    {
+     "nom": "BOUTEILLE COCA COLA ZERO 30cL",
+     "cle": "BOUTEILLE COCA COLA ZERO 30CL",
+     "cartons": 4.25,
+     "inner": 0,
+     "unites": 15,
+     "qteCdt": 12,
+     "qtePieces": 51,
+     "puCarton": 107.34463276836159,
+     "valeur": 456.2146892655368,
+     "prixSource": "inconnu"
+    },
+    {
+     "nom": "BOUTEILLE PEPSI ZERO 30CL",
+     "cle": "BOUTEILLE PEPSI ZERO 30CL",
+     "cartons": 2.166666666666667,
+     "inner": 0,
+     "unites": 14,
+     "qteCdt": 12,
+     "qtePieces": 26.000000000000004,
+     "puCarton": 1288,
+     "valeur": 2790.666666666667,
+     "prixSource": "Base locale"
+    },
+    {
+     "nom": "BOUTEILLE PEPSI 30CL",
+     "cle": "BOUTEILLE PEPSI 30CL",
+     "cartons": 6,
+     "inner": 8.082,
+     "unites": 0,
+     "qteCdt": 12,
+     "qtePieces": 72,
+     "puCarton": 1520,
+     "valeur": 9120,
+     "prixSource": "Base locale"
+    },
+    {
+     "nom": "BOUTEILLE PEPSI 1,5L",
+     "cle": "BOUTEILLE PEPSI 1 5L",
+     "cartons": 0,
+     "inner": 2,
+     "unites": 0,
+     "qteCdt": 6,
+     "qtePieces": 0,
+     "puCarton": 3150,
+     "valeur": 0,
+     "prixSource": "Base locale"
+    },
+    {
+     "nom": "CAN PEPSI 250 ml",
+     "cle": "CAN PEPSI 250 ML",
+     "cartons": 0,
+     "inner": 0,
+     "unites": 0,
+     "qteCdt": 24,
+     "qtePieces": 0,
+     "puCarton": 4576,
+     "valeur": 0,
+     "prixSource": "Base locale"
+    },
+    {
+     "nom": "CANETTE PEPSI ZERO 25 CL",
+     "cle": "CANETTE PEPSI ZERO 25 CL",
+     "cartons": 2.166666666666667,
+     "inner": 6,
+     "unites": 28,
+     "qteCdt": 24,
+     "qtePieces": 52.00000000000001,
+     "puCarton": 1530,
+     "valeur": 3315.0000000000005,
+     "prixSource": "Base locale"
+    },
+    {
+     "nom": "FRITES",
+     "cle": "FRITES",
+     "cartons": 0,
+     "inner": 0,
+     "unites": 0,
+     "qteCdt": 1,
+     "qtePieces": 0,
+     "puCarton": 17643,
+     "valeur": 0,
+     "prixSource": "Base locale"
+    },
+    {
+     "nom": "MUFFIN CHOCOLAT",
+     "cle": "MUFFIN CHOCOLAT",
+     "cartons": 0,
+     "inner": 0,
+     "unites": 0,
+     "qteCdt": 60,
+     "qtePieces": 0,
+     "puCarton": 0,
+     "valeur": 0,
+     "prixSource": "inconnu"
+    },
+    {
+     "nom": "MUFFIN CHOCOLAT - NOUGATINE",
+     "cle": "MUFFIN CHOCOLAT NOUGATINE",
+     "cartons": 0,
+     "inner": 0,
+     "unites": 0,
+     "qteCdt": 75,
+     "qtePieces": 0,
+     "puCarton": 0,
+     "valeur": 0,
+     "prixSource": "inconnu"
+    },
+    {
+     "nom": "DIP FRITE SAUCE - 25GR",
+     "cle": "DIP FRITE SAUCE 25GR",
+     "cartons": 0,
+     "inner": 0,
+     "unites": 0,
+     "qteCdt": 100,
+     "qtePieces": 0,
+     "puCarton": 0,
+     "valeur": 0,
+     "prixSource": "inconnu"
+    },
+    {
+     "nom": "DOSETTE FRITE SAUCE PORTION - 10GR",
+     "cle": "DOSETTE FRITE SAUCE PORTION 10GR",
+     "cartons": 0,
+     "inner": 0,
+     "unites": 0,
+     "qteCdt": 200,
+     "qtePieces": 0,
+     "puCarton": 6250.000000000001,
+     "valeur": 0,
+     "prixSource": "inconnu"
+    },
+    {
+     "nom": "SAUCE CHOCOLAT CARAMEL MONIN",
+     "cle": "SAUCE CHOCOLAT CARAMEL MONIN",
+     "cartons": 0,
+     "inner": 0,
+     "unites": 0,
+     "qteCdt": 1,
+     "qtePieces": 0,
+     "puCarton": 48136,
+     "valeur": 0,
+     "prixSource": "Base locale"
+    },
+    {
+     "nom": "SAUCE CHOCOLAT NOIR MONIN",
+     "cle": "SAUCE CHOCOLAT NOIR MONIN",
+     "cartons": 0,
+     "inner": 0,
+     "unites": 0,
+     "qteCdt": 1,
+     "qtePieces": 0,
+     "puCarton": 41017,
+     "valeur": 0,
+     "prixSource": "Base locale"
+    },
+    {
+     "nom": "SAUCE CHOCOLAT",
+     "cle": "SAUCE CHOCOLAT",
+     "cartons": 0,
+     "inner": 0,
+     "unites": 0,
+     "qteCdt": 6,
+     "qtePieces": 0,
+     "puCarton": 41016.949,
+     "valeur": 0,
+     "prixSource": "inconnu"
+    },
+    {
+     "nom": "SIROP CHOCOLAT SGG",
+     "cle": "SIROP CHOCOLAT SGG",
+     "cartons": 0,
+     "inner": 0,
+     "unites": 0,
+     "qteCdt": 1,
+     "qtePieces": 0,
+     "puCarton": 30000,
+     "valeur": 0,
+     "prixSource": "Base locale"
+    },
+    {
+     "nom": "DOSETTE FRITE SAUCE AMERIGO - 10GR",
+     "cle": "DOSETTE FRITE SAUCE AMERIGO 10GR",
+     "cartons": 0,
+     "inner": 0,
+     "unites": 0,
+     "qteCdt": 288,
+     "qtePieces": 0,
+     "puCarton": 0,
+     "valeur": 0,
+     "prixSource": "inconnu"
+    },
+    {
+     "nom": "COFFRET A FRITE",
+     "cle": "COFFRET A FRITE",
+     "cartons": 0,
+     "inner": 0,
+     "unites": 0,
+     "qteCdt": 1000,
+     "qtePieces": 0,
+     "puCarton": 50000,
+     "valeur": 0,
+     "prixSource": "Base locale"
+    },
+    {
+     "nom": "PAILLE SODAS (PAPIER)",
+     "cle": "PAILLE SODAS PAPIER ",
+     "cartons": 0,
+     "inner": 0,
+     "unites": 0,
+     "qteCdt": 3500,
+     "qtePieces": 0,
+     "puCarton": 35000,
+     "valeur": 0,
+     "prixSource": "Base locale"
+    },
+    {
+     "nom": "SACHET FRITES GRAND",
+     "cle": "SACHET FRITES GRAND",
+     "cartons": 0,
+     "inner": 0,
+     "unites": 0,
+     "qteCdt": 6000,
+     "qtePieces": 0,
+     "puCarton": 50000.00000000001,
+     "valeur": 0,
+     "prixSource": "inconnu"
+    },
+    {
+     "nom": "SACHET FRITES MOYEN",
+     "cle": "SACHET FRITES MOYEN",
+     "cartons": 0,
+     "inner": 0,
+     "unites": 0,
+     "qteCdt": 4000,
+     "qtePieces": 0,
+     "puCarton": 25714,
+     "valeur": 0,
+     "prixSource": "Base locale"
+    },
+    {
+     "nom": "SACHET FRITES PETIT",
+     "cle": "SACHET FRITES PETIT",
+     "cartons": 0,
+     "inner": 0,
+     "unites": 0,
+     "qteCdt": 5000,
+     "qtePieces": 0,
+     "puCarton": 20670.56688932533,
+     "valeur": 0,
+     "prixSource": "inconnu"
+    },
+    {
+     "nom": "SACHET FRITES PETIT 4000",
+     "cle": "SACHET FRITES PETIT 4000",
+     "cartons": 0,
+     "inner": 0,
+     "unites": 0,
+     "qteCdt": 4000,
+     "qtePieces": 0,
+     "puCarton": 20282,
+     "valeur": 0,
+     "prixSource": "Base locale"
+    },
+    {
+     "nom": "SACHET FRITES - SIKO",
+     "cle": "SACHET FRITES SIKO",
+     "cartons": 0,
+     "inner": 0,
+     "unites": 0,
+     "qteCdt": 1,
+     "qtePieces": 0,
+     "puCarton": 24077.99650003751,
+     "valeur": 0,
+     "prixSource": "inconnu"
+    },
+    {
+     "nom": "ORION SOFT CARE PLUS PURE",
+     "cle": "ORION SOFT CARE PLUS PURE",
+     "cartons": 0,
+     "inner": 0,
+     "unites": 0,
+     "qteCdt": 1,
+     "qtePieces": 0,
+     "puCarton": 38339,
+     "valeur": 0,
+     "prixSource": "Base locale"
+    }
+   ],
+   "consoReelle": 223196163.7223218,
+   "consoTheoTotal": 559270.3564250234,
+   "ecartMatiere": 222636893.3658968,
+   "totalValIni": 1032617.0772840432,
+   "totalValFin": 3593638.7505360516
+  }
+ }
+}

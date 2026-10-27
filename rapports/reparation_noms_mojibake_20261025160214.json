@@ -1,0 +1,40 @@
+{
+  "applied_at": "2026-10-25T16:02:14.168Z",
+  "lignes": [
+    {
+      "ref": "CONE GLACE A MEHDI",
+      "de": "CONE GLACE â MEHDI",
+      "a": "CONE GLACE - MEHDI"
+    },
+    {
+      "ref": "DOSETTE AMERIGO A 10 GR",
+      "de": "DOSETTE AMERIGO â 10 GR",
+      "a": "DOSETTE AMERIGO - 10 GR"
+    },
+    {
+      "ref": "DISTRIBUTEUR SAVON A ECOLAB",
+      "de": "DISTRIBUTEUR SAVON â ECOLAB",
+      "a": "DISTRIBUTEUR SAVON - ECOLAB"
+    },
+    {
+      "ref": "BOUTEILLE PEPSI A 30CL",
+      "de": "BOUTEILLE PEPSI Â 30CL",
+      "a": "BOUTEILLE PEPSI 30CL"
+    },
+    {
+      "ref": "BUN 5A A NOUGATINE 48",
+      "de": "BUN 5ââ NOUGATINE 48",
+      "a": "BUN 5'' NOUGATINE 48"
+    },
+    {
+      "ref": "SALADE ICEBERG A PROSUMA",
+      "de": "SALADE ICEBERG â PROSUMA",
+      "a": "SALADE ICEBERG - PROSUMA"
+    },
+    {
+      "ref": "SALADE ICEBERG A DELICE",
+      "de": "SALADE ICEBERG â DELICE",
+      "a": "SALADE ICEBERG - DELICE"
+    }
+  ]
+}
