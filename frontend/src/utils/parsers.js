@@ -565,11 +565,16 @@ function indexerParCode(baseArticle, ratios, localArticles){
 
 // Inventaire helper : rows→ articles avec prix résolus
   function parseInventaire(ws){
-    if(!ws) return {items:{}, site:"", dateInv:null};
+    if(!ws) return {items:{}, site:"", dateInv:null, doublons:[], anomalies:[]};
     const rows=XLSX.utils.sheet_to_json(ws,{header:1,defval:null});
     const o=offsetInventaire(rows);
     const g=(r,j)=>r[j-o];
     const items={};
+    // Une désignation répétée ne doit pas écraser la ligne précédente : les deux saisies
+    // restent distinctes (clé suffixée) et le conflit est signalé au CDG.
+    const doublons=[];
+    const anomalies=[];
+    const parCode=new Map();
     let site="", dateInv=null;
     if(rows[2]){
       if(g(rows[2],3)) site=String(g(rows[2],3)).trim();
@@ -611,17 +616,53 @@ function indexerParCode(baseArticle, ratios, localArticles){
       const nombre=nombreFichier>0?nombreFichier:nombreCalcule;
       const qtePieces = nombre>0 ? nombre*qteCdt : 0;
       const valeur=nombre>0?nombre*puCarton:0;
-      items[norm(nom)]={
-        nom:nom.trim(), categorie:g(r,1)||"", colisage:g(r,4)||"",
+      const nomNettoye=nom.trim();
+      const cle=norm(nomNettoye);
+      // Code article (N du modèle courant) : sert au doublon de code, jamais à fusionner.
+      const codeArticle=typeof g(r,14)==="string"?g(r,14).trim():"";
+      if(codeArticle){
+        const kc=norm(codeArticle);
+        if(!parCode.has(kc)) parCode.set(kc,{code:codeArticle,noms:new Set()});
+        parCode.get(kc).noms.add(cle);
+      }
+      // Intégrité : ce qui change la valorisation sans se voir à l'œil nu.
+      if(nombre>0||puFichier>0||valFichier>0){
+        if(!cdtFichier) anomalies.push({type:"Colisage vide", nom:nomNettoye, code:codeArticle,
+          detail:"Aucun colisage dans la feuille — quantité convertie avec 1"});
+        const libelle=nomNettoye.match(/pack\s*(?:de\s*)?(\d{1,4})/i);
+        if(libelle&&cdtFichier&&Number(libelle[1])!==cdtFichier)
+          anomalies.push({type:"Unité incohérente", nom:nomNettoye, code:codeArticle,
+            detail:`Libellé « ${libelle[0]} » vs Cond. ${cdtFichier}`});
+        if(!(puCarton>0)){
+          const prixEcrit=typeof g(r,11)==="number";
+          anomalies.push({type:prixEcrit?"Prix nul":"Prix absent", nom:nomNettoye, code:codeArticle,
+            detail:"Aucun prix au référentiel ni dans la feuille — ligne non valorisable"});
+        }
+      }
+      let cleFinale=cle, suffixe=1;
+      while(items[cleFinale]){
+        suffixe++;
+        cleFinale=`${cle}#${suffixe}`;
+      }
+      if(suffixe>1){
+        const d=doublons.find(x=>x.type==="designation"&&x.cle===cle);
+        if(d) d.lignes++; else doublons.push({type:"designation", nom:nomNettoye, cle, lignes:2});
+      }
+      items[cleFinale]={
+        nom:nomNettoye, categorie:g(r,1)||"", colisage:g(r,4)||"", codeArticle,
         nbCartons:nombre>0?nombre:cartons, inner, unites, qtePieces,
         puCarton, qteCdt, puPiece, valeur, valFichier,
         puSaisi:puFichier>0?puFichier:null, puRef,
         ecartPrix:ecartPrixSaisi(puFichier,puRef),
         valorisationBloquee:nombre>0&&!(puCarton>0),
+        doublonDe:suffixe>1?cle:null,
         prixSource:prix.source
       };
     }
-    return {items, site, dateInv};
+    parCode.forEach((v,kc)=>{
+      if(v.noms.size>1) doublons.push({type:"code", code:v.code, noms:[...v.noms], lignes:v.noms.size});
+    });
+    return {items, site, dateInv, doublons, anomalies};
   }
 
   const ini = parseInventaire(wb.Sheets["Inventaire initial "]||wb.Sheets["Inventaire Initial"]);
@@ -788,6 +829,12 @@ function indexerParCode(baseArticle, ratios, localArticles){
   return {
     invIni:ini.items, invFin:fin.items,
     site:ini.site||"BK ?", dateInv:ini.dateInv,
+    // Les deux inventaires partagent la même liste : un doublon vu dans l'un et l'autre
+    // n'est signalé qu'une fois (même désignation, même code, même défaut).
+    doublonsInventaire:[...ini.doublons,...fin.doublons].filter((d,i,a)=>
+      a.findIndex(x=>x.type===d.type&&(x.cle||x.code)===(d.cle||d.code))===i),
+    anomaliesIntegrite:[...ini.anomalies,...fin.anomalies].filter((d,i,a)=>
+      a.findIndex(x=>x.type===d.type&&norm(x.nom)===norm(d.nom))===i),
     sorties, pertes, douane, douaneTotal, offerts, transfertsExclus
   };
 }

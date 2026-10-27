@@ -230,6 +230,12 @@ export async function exportExcel(rapport){
         `${e.origine} · ${e.sens} : ${Math.abs(e.montant).toLocaleString("fr-FR",{maximumFractionDigits:2})} F (${Math.abs(e.pct*100).toFixed(1).replace(".",",")} %) · saisi ${Number(e.puSaisi).toLocaleString("fr-FR",{maximumFractionDigits:2})} F vs référentiel ${Number(e.puRef).toLocaleString("fr-FR",{maximumFractionDigits:2})} F`]),
       ...(calc.valorisationsBloquees||[]).map(v=>["Valorisation bloquée","—",v.nom,v.qte,
         `${v.origine} · aucun prix (référentiel ni saisi) — la ligne ne peut pas valoir 0 F sans arbitrage`]),
+      // Doublons : deux lignes ne fusionnent jamais en silence, le conflit est écrit noir sur blanc.
+      ...(calc.doublonsInventaire||[]).map(d=>d.type==="designation"
+        ? ["Doublon de désignation",d.nom||"—",d.nom||"—",d.lignes,`${d.lignes} lignes saisies pour la même désignation — conservées séparément`]
+        : ["Code article partagé",d.code||"—",(d.noms||[]).join(" / "),d.lignes,`Code ${d.code} porté par ${d.lignes} désignations distinctes`]),
+      // Intégrité des saisies d'inventaire.
+      ...(calc.anomaliesIntegrite||[]).map(a=>[a.type,"—",a.nom,"—",a.detail||""]),
     ];
     if(an.length===0) an.push(["—","—","Aucune anomalie détectée","—","Tous les PLU matchés · tous les prix résolus"]);
     an.forEach((r,i)=>{const ev=i%2===1;

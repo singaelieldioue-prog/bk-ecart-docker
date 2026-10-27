@@ -87,6 +87,9 @@ export function calculer(stockData, pmixList, ratios, baseArticle={}, pmixComple
     if(p.ecartPrix) ecartsPrix.push({origine:"Pertes", nom:p.nom, qte:p.qtePieces||0, puSaisi:p.puSaisi, puRef:p.puRef, ...p.ecartPrix});
     if(p.valorisationBloquee) valorisationsBloquees.push({origine:"Pertes", nom:p.nom, qte:p.qtePieces||0});
   });
+  // Doublons et défauts d'intégrité lus dans le classeur : signalés, jamais fusionnés.
+  const doublonsInventaire=stockData.doublonsInventaire||[];
+  const anomaliesIntegrite=stockData.anomaliesIntegrite||[];
 
   // ── Consommation théorique (PMIX × fiches techniques) ─────────────────────
   let consoTheoTotal=0, couverts=0, ficheMatchees=0;
@@ -275,6 +278,8 @@ export function calculer(stockData, pmixList, ratios, baseArticle={}, pmixComple
     ratioCoutNulVendus,
     ecartsPrix,
     valorisationsBloquees,
+    doublonsInventaire,
+    anomaliesIntegrite,
     consoParIng: Object.values(consoParIng).sort((a,b)=>b.valeurTotal-a.valeurTotal),
     pmixTheo: pmixTheo.sort((a,b)=>b.qty-a.qty),
     // Tous les articles sans exception (R-03)
@@ -295,6 +300,7 @@ export function calculerMultiRestaurants(stocksData, pmixLists, ratios, baseArti
   const allPluHorsMatiere=[];
   const allPluCoutNul=[];
   const allEcartsPrix=[], allValorisationsBloquees=[];
+  const allDoublonsInventaire=[], allAnomaliesIntegrite=[];
 
   stocksData.forEach((stockData, idx)=>{
     // pmixLists[idx] est un tableau d'items => on en fait un pmixList standard
@@ -325,6 +331,8 @@ export function calculerMultiRestaurants(stocksData, pmixLists, ratios, baseArti
     allPluCoutNul.push(...(calc.pluCoutNul||[]));
     allEcartsPrix.push(...(calc.ecartsPrix||[]));
     allValorisationsBloquees.push(...(calc.valorisationsBloquees||[]));
+    allDoublonsInventaire.push(...(calc.doublonsInventaire||[]));
+    allAnomaliesIntegrite.push(...(calc.anomaliesIntegrite||[]));
     parRestaurant.push({
       site:stockData.site||`BK ${idx+1}`,
       consoReelle    :calc.consoReelle,
@@ -419,6 +427,8 @@ export function calculerMultiRestaurants(stocksData, pmixLists, ratios, baseArti
     ratioCoutNulVendus,
     ecartsPrix:allEcartsPrix,
     valorisationsBloquees:allValorisationsBloquees,
+    doublonsInventaire:allDoublonsInventaire,
+    anomaliesIntegrite:allAnomaliesIntegrite,
     articlesEcart:Array.from(articlesEcartMap.values()).filter(
       (a) => a.iniPieces || a.entreesPieces || a.finPieces || a.ventesPieces || a.pertesPieces
     ),
