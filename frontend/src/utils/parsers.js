@@ -564,7 +564,7 @@ function indexerParCode(baseArticle, ratios, localArticles){
 }
 
 // Inventaire helper : rows→ articles avec prix résolus
-  function parseInventaire(ws){
+  function parseInventaire(ws, origine="Inventaire"){
     if(!ws) return {items:{}, site:"", dateInv:null, doublons:[], anomalies:[]};
     const rows=XLSX.utils.sheet_to_json(ws,{header:1,defval:null});
     const o=offsetInventaire(rows);
@@ -602,13 +602,23 @@ function indexerParCode(baseArticle, ratios, localArticles){
       const prix=resoudrePrix(nom, baseArticle, ratios, localArticles);
       const cdtFichier=typeof g(r,4)==="number"&&g(r,4)>0?g(r,4):0;
       const qteCdt=cdtFichier||prix.qteCdt||1;
+      // A-07 : un prix au KILOGRAMME (ICEBERG SALAD (kg)) ne devient un prix carton qu'avec
+      // une MASSE de carton validée (cdtKg). Le nombre de boules n'est pas une masse :
+      // sans elle, multiplier par le colisage inventerait un prix.
+      const ba=baseArticle?.[norm(nom)];
+      const masseCarton=Number(ba?.cdtKg)>0?Number(ba.cdtKg):0;
+      const icebergParKg=prix.parKg===true&&/ICEBERG/.test(norm(nom));
+      const deriveKg=icebergParKg&&prix.puPiece>0&&masseCarton>0;
+      const puDerive=icebergParKg
+        ? (deriveKg?prix.puPiece*masseCarton:0)
+        : (prix.puPiece>0?prix.puPiece*qteCdt:0);
       // Prix de l'unité d'achat (le carton) : référentiel, à défaut le prix saisi en K, à défaut
       // le prix pièce du référentiel × colisage. Le classeur valorise L = Nombre × Prix carton ;
       // valoriser ici « pièces × prix pièce » mélangeait deux référentiels différents (un prix
       // pièce de carton multiplié par le colisage lu dans la feuille : MOZZARELLA STICKS BIS ×204,
       // CRISPY CHICKEN PATTY ×136) et les totaux de l'appli ne correspondaient plus au fichier.
-      const puRef=prix.pmpCarton>0?prix.pmpCarton:(prix.puPiece>0?prix.puPiece*qteCdt:0);
-      const puCarton=prix.pmpCarton>0?prix.pmpCarton:(puFichier>0?puFichier:(prix.puPiece>0?prix.puPiece*qteCdt:0));
+      const puRef=prix.pmpCarton>0?prix.pmpCarton:puDerive;
+      const puCarton=prix.pmpCarton>0?prix.pmpCarton:(puFichier>0?puFichier:puDerive);
       const puPiece=puCarton>0?puCarton/qteCdt:0;
       // Les fichiers générés peuvent ne pas conserver la valeur calculée de J.
       // On la reconstruit à partir des quantités pour éviter un stock nul après import.
@@ -627,6 +637,9 @@ function indexerParCode(baseArticle, ratios, localArticles){
       }
       // Intégrité : ce qui change la valorisation sans se voir à l'œil nu.
       if(nombre>0||puFichier>0||valFichier>0){
+        if(icebergParKg&&!(masseCarton>0))
+          anomalies.push({type:"Iceberg sans colisage cohérent", origine, nom:nomNettoye, code:codeArticle,
+            detail:"Prix du Ratio au kg (ICEBERG SALAD (kg)) sans masse de carton validée — le nombre de boules ne convertit pas un prix au kg ; aucun prix dérivé, arbitrage CDG requis"});
         if(!cdtFichier) anomalies.push({type:"Colisage vide", nom:nomNettoye, code:codeArticle,
           detail:"Aucun colisage dans la feuille — quantité convertie avec 1"});
         const libelle=nomNettoye.match(/pack\s*(?:de\s*)?(\d{1,4})/i);
@@ -665,8 +678,8 @@ function indexerParCode(baseArticle, ratios, localArticles){
     return {items, site, dateInv, doublons, anomalies};
   }
 
-  const ini = parseInventaire(wb.Sheets["Inventaire initial "]||wb.Sheets["Inventaire Initial"]);
-  const fin = parseInventaire(wb.Sheets["Inventaire Final "]||wb.Sheets["Inventaire Final"]);
+  const ini = parseInventaire(wb.Sheets["Inventaire initial "]||wb.Sheets["Inventaire Initial"], "Inventaire initial");
+  const fin = parseInventaire(wb.Sheets["Inventaire Final "]||wb.Sheets["Inventaire Final"], "Inventaire final");
 
   // ── Transferts AGL → BK (entrées de stock) ───────────────────────────────────────────
   const sorties=[];
@@ -724,6 +737,7 @@ function indexerParCode(baseArticle, ratios, localArticles){
 
   // ── Pertes (valorisées à la pièce) ───────────────────────────────────────
   const pertes=[];
+  const anomaliesPertes=[];
   const wsPertes=wb.Sheets["Perte_Q1 2026"]||wb.Sheets["Pertes"];
   if(wsPertes){
     const rows=XLSX.utils.sheet_to_json(wsPertes,{header:1,defval:null});
@@ -752,6 +766,12 @@ function indexerParCode(baseArticle, ratios, localArticles){
       const puPiece=puFichier>0?puFichier:prix.puPiece;
       const valeur=qtePieces*puPiece;
       const puRefP=prix.puPiece>0?prix.puPiece:0;
+      // A-07 : même détection que dans l'inventaire. Le prix des pertes reste celui du fichier
+      // (décision validée) ; la ligne est seulement signalée pour arbitrage du CDG.
+      const masseP=Number(baseArticle?.[norm(nom)]?.cdtKg)>0?Number(baseArticle[norm(nom)].cdtKg):0;
+      if(prix.parKg===true&&/ICEBERG/.test(norm(nom))&&!(masseP>0))
+        anomaliesPertes.push({type:"Iceberg sans colisage cohérent", origine:"Pertes", nom:nom.trim(),
+          detail:"Prix du Ratio au kg sans masse de carton validée — prix du fichier conservé, arbitrage CDG requis"});
       pertes.push({
         categorie:g(r,1)||"", nom:nom.trim(),
         qteCdt:prix.qteCdt||1, puPiece,
@@ -833,8 +853,8 @@ function indexerParCode(baseArticle, ratios, localArticles){
     // n'est signalé qu'une fois (même désignation, même code, même défaut).
     doublonsInventaire:[...ini.doublons,...fin.doublons].filter((d,i,a)=>
       a.findIndex(x=>x.type===d.type&&(x.cle||x.code)===(d.cle||d.code))===i),
-    anomaliesIntegrite:[...ini.anomalies,...fin.anomalies].filter((d,i,a)=>
-      a.findIndex(x=>x.type===d.type&&norm(x.nom)===norm(d.nom))===i),
+    anomaliesIntegrite:[...ini.anomalies,...fin.anomalies,...anomaliesPertes].filter((d,i,a)=>
+      a.findIndex(x=>x.type===d.type&&(x.origine||"")===(d.origine||"")&&norm(x.nom)===norm(d.nom))===i),
     sorties, pertes, douane, douaneTotal, offerts, transfertsExclus
   };
 }
